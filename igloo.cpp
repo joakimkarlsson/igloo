@@ -8,18 +8,28 @@ class TestFixtureFactory
 };  
                                           
 class TestFixtureBase
-{
+{     
+public:
+	virtual void run() = 0;
 };
 
 template <typename T>
 class TestFixture : public TestFixtureBase
-{ 
+{  
+	typedef void (*TestMethod)();	
+	map<string, TestMethod> _testMethods;
+	
+public:
+	void run()
+	{
+		
+	}	 
 };
 
 typedef map<string, TestFixtureBase* > TestFixtureMap;
 TestFixtureMap fixtureMap;
 
-int RegisterTest(string name, TestFixtureBase* testFixture)
+int RegisterTestFixture(string name, TestFixtureBase* testFixture)
 {        
 	fixtureMap[name] = testFixture; 
 	return 0;
@@ -27,7 +37,7 @@ int RegisterTest(string name, TestFixtureBase* testFixture)
 
 #define TestFixture(fixture) \
 class fixture; \
-int fixture##_dummy = RegisterTest( #fixture , new TestFixture<fixture>()); \
+int fixture##_dummy = RegisterTestFixture( #fixture , new TestFixture<fixture>()); \
 class fixture
 
 
@@ -38,15 +48,12 @@ TestFixture(MyTestCase)
 TestFixture(MySecondTestCase)
 {
 public:
-		
+   	void Test()
+    {
+		cout << "Running test" << endl;
+    }
 };
-        
-// class MyTestCase; 
-// int x = RegisterTest("MyTestCase", new TestFixture<MyTestCase>() ) ;
-// class MyTestCase
-// {                                              	
-// }; 
-                       
+                            
 
 int main()
 {            
@@ -54,7 +61,8 @@ int main()
 	
 	for(TestFixtureMap::iterator it = fixtureMap.begin(); it != fixtureMap.end(); it++)
 	{
-		cout << "Found test " << (*it).first << endl;
+		cout << "Running test: " << (*it).first << endl;
+		(*it).second->run();
 	}
 	
 	return 0;
