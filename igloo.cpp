@@ -20,7 +20,7 @@ public:
 	virtual void operator()() = 0;     
 };
 
-template <class T>
+template <typename T>
 class TestFixture : public TestFixtureBase
 {
 public:     
@@ -29,12 +29,13 @@ public:
    void Run() 
    {  
 	T t;                
-	vector<TestFunctor*> testMethods;
+	vector<void (T::*)() > testMethods;
+	typename vector<void (T::*)() >::iterator it;
 	t.GetTests(testMethods);
-	for(vector<TestFunctor*>::iterator it = testMethods.begin(); it != testMethods.end(); it++)
+	for(it = testMethods.begin(); it != testMethods.end(); it++)
 	{        
-		TestFunctor* func = *it;
-		(*func)();
+	   void (T::*method)() = *it;
+	   (t.*method)();
 	}
    }     
 };
@@ -55,11 +56,11 @@ int fixture##_dummy = RegisterTestFixture( #fixture , new TestFixture<fixture>()
 class fixture : public TestFixture<fixture>            
       
 #define RegisterTestMethods() \
-void GetTests(vector<TestFunctor*>& tests) \
+void GetTests(vector< void (MyTestCase::*)() >& tests) \
 {     
 
 #define RegisterMethod(method) \
-tests.push_back(new method());
+tests.push_back(&MyTestCase::method);
 	
 #define EndRegisterTestMethods() \
 }
@@ -72,21 +73,15 @@ public:
 	RegisterMethod(Test2);
 	EndRegisterTestMethods();
 
-   	class Test1 : public TestFunctor
-	{
-	  void operator()()
-	  {
+    void Test1()
+    {
 		cout << "Running Test1" << endl;   	
-	  }
-    };   
+    }
     
-	class Test2 : public TestFunctor
-	{
-	  void operator()()
+	void Test2()
 	  {
 		cout << "Running Test2" << endl;   	
 	  }
-    };
 };
 
 int main()
