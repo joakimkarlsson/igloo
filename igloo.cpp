@@ -17,7 +17,7 @@ public:
 class TestFunctor
 {
 public:
-	virtual void call() = 0;     
+	virtual void operator()() = 0;     
 };
 
 template <class T>
@@ -29,10 +29,12 @@ public:
    void Run() 
    {  
 	T t;                
-	vector<TestFunctor*> testMethods = t.GetTestMethods();
+	vector<TestFunctor*> testMethods;
+	t.GetTests(testMethods);
 	for(vector<TestFunctor*>::iterator it = testMethods.begin(); it != testMethods.end(); it++)
-	{
-		(*it)->call();
+	{        
+		TestFunctor* func = *it;
+		(*func)();
 	}
    }     
 };
@@ -50,31 +52,47 @@ int RegisterTestFixture(string name, TestFixtureBase* testFixture)
 #define TestFixture(fixture) \
 class fixture; \
 int fixture##_dummy = RegisterTestFixture( #fixture , new TestFixture<fixture>()); \
-class fixture : public TestFixture<fixture>
-                                       
+class fixture : public TestFixture<fixture>            
+      
+#define RegisterTestMethods() \
+void GetTests(vector<TestFunctor*>& tests) \
+{     
+
+#define RegisterMethod(method) \
+tests.push_back(new method());
+	
+#define EndRegisterTestMethods() \
+}
+         
 TestFixture(MyTestCase)
 {      			
 public:      
-	
-	class Test1 : public TestFunctor
+	RegisterTestMethods();                              
+	RegisterMethod(Test1);
+	RegisterMethod(Test2);
+	EndRegisterTestMethods();
+
+   	class Test1 : public TestFunctor
 	{
-	  void call()
+	  void operator()()
 	  {
 		cout << "Running Test1" << endl;   	
 	  }
+    };   
+    
+	class Test2 : public TestFunctor
+	{
+	  void operator()()
+	  {
+		cout << "Running Test2" << endl;   	
+	  }
     };
-	                                
-	vector<TestFunctor*> GetTestMethods()
-	{    
-		vector<TestFunctor*> testMethods;
-		testMethods.push_back(new Test1());
-		return testMethods;
-	}
 };
 
 int main()
 {            
 	cout << "Igloo" << endl; 
+
 	
 	for(TestFixtureMap::iterator it = fixtureMap.begin(); it != fixtureMap.end(); it++)
 	{
