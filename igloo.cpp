@@ -12,21 +12,26 @@ public:
 template <typename T>
 class TestFixture : public TestFixtureBase
 {
-public:     	
+public:        
+	typedef void (T::*TestMethodPtr)(); 
+	typedef vector<TestMethodPtr> TestMethods;
+	 
    void Run() 
    {  
 	T t;                
-	vector<void (T::*)() > testMethods;
-	typename vector<void (T::*)() >::iterator it;
-	t.GetTests(testMethods);
+	TestMethods testMethods;
+	t.GetTests(testMethods);   
+
+	typename TestMethods::iterator it;
+	
 	for(it = testMethods.begin(); it != testMethods.end(); it++)
 	{        
-	   void (T::*method)() = *it;
+	   TestMethodPtr method = *it;
 	   (t.*method)();
 	}
    }           
    
-	void GetTests(vector<void (T::*)() >& testMethods)
+	void GetTests(TestMethods& testMethods)
 	{
 		GetTest0(testMethods);
 		GetTest1(testMethods);
@@ -51,27 +56,28 @@ public:
 		GetTest20(testMethods);
 	}
 
-   virtual void GetTest0(vector<void (T::*)() >&) { cout << "Base::GetTest0 was not handled" << endl;} 
-   virtual void GetTest1(vector<void (T::*)() >&) {} 
-   virtual void GetTest2(vector<void (T::*)() >&) {} 
-   virtual void GetTest3(vector<void (T::*)() >&) {} 
-   virtual void GetTest4(vector<void (T::*)() >&) {} 
-   virtual void GetTest5(vector<void (T::*)() >&) {} 
-   virtual void GetTest6(vector<void (T::*)() >&) {} 
-   virtual void GetTest7(vector<void (T::*)() >&) {} 
-   virtual void GetTest8(vector<void (T::*)() >&) {} 
-   virtual void GetTest9(vector<void (T::*)() >&) {} 
-   virtual void GetTest10(vector<void (T::*)() >&) {} 
-   virtual void GetTest11(vector<void (T::*)() >&) {} 
-   virtual void GetTest12(vector<void (T::*)() >&) {} 
-   virtual void GetTest13(vector<void (T::*)() >&) {} 
-   virtual void GetTest14(vector<void (T::*)() >&) {} 
-   virtual void GetTest15(vector<void (T::*)() >&) {} 
-   virtual void GetTest16(vector<void (T::*)() >&) {} 
-   virtual void GetTest17(vector<void (T::*)() >&) {} 
-   virtual void GetTest18(vector<void (T::*)() >&) {} 
-   virtual void GetTest19(vector<void (T::*)() >&) {} 
-   virtual void GetTest20(vector<void (T::*)() >&) {} 
+   virtual void GetTest0(TestMethods&) { } 
+   virtual void GetTest1(TestMethods&) { } 
+   virtual void GetTest2(TestMethods&) { } 
+   virtual void GetTest3(TestMethods&) { } 
+   virtual void GetTest4(TestMethods&) { } 
+   virtual void GetTest5(TestMethods&) { } 
+   virtual void GetTest6(TestMethods&) { } 
+   virtual void GetTest7(TestMethods&) { }
+   virtual void GetTest8(TestMethods&) { }
+   virtual void GetTest9(TestMethods&) { }
+   virtual void GetTest10(TestMethods&) { }
+   virtual void GetTest11(TestMethods&) { }
+   virtual void GetTest12(TestMethods&) { }
+   virtual void GetTest13(TestMethods&) { }
+   virtual void GetTest14(TestMethods&) { }
+   virtual void GetTest15(TestMethods&) { }
+   virtual void GetTest16(TestMethods&) { }
+   virtual void GetTest17(TestMethods&) { }
+   virtual void GetTest18(TestMethods&) { }
+   virtual void GetTest19(TestMethods&) { }
+   virtual void GetTest20(TestMethods&) { }
+ 
 };
 
 typedef map<string, TestFixtureBase* > TestFixtureMap;
