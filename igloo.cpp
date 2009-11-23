@@ -80,12 +80,26 @@ public:
  
 };
 
-typedef map<string, TestFixtureBase* > TestFixtureMap;
-TestFixtureMap fixtureMap;
+class TestRunner
+{
+public:
+	typedef map<string, TestFixtureBase* > TestFixtureMap;
+	static TestFixtureMap FixtureMap;
+		
+  	static void RunAllTests()
+  	{
+ 		for(TestFixtureMap::iterator it = FixtureMap.begin(); it != FixtureMap.end(); it++)
+		{
+			cout << "Running test fixture: " << (*it).first << endl;
+			(*it).second->Run();
+		}   
+  	}
+};
+TestRunner::TestFixtureMap TestRunner::FixtureMap;
 
 int RegisterTestFixture(string name, TestFixtureBase* testFixture)
 {        
-	fixtureMap[name] = testFixture; 
+	TestRunner::FixtureMap[name] = testFixture; 
 	return 0;
 }  
 
@@ -123,11 +137,7 @@ public:
 
 int main()
 {      
-	for(TestFixtureMap::iterator it = fixtureMap.begin(); it != fixtureMap.end(); it++)
-	{
-		cout << "Running test fixture: " << (*it).first << endl;
-		(*it).second->Run();
-	}
+	TestRunner::RunAllTests();
 	
 	return 0;
 }
