@@ -1,3 +1,4 @@
+#include <iostream>
 #include <map>    
 #include <vector>
 using namespace std;
@@ -51,7 +52,7 @@ public:
 		GetTest20(testMethods);
 	}
 
-	virtual void GetTest0(vector<void (T::*)() >&) { cout << "Base::GetTest0" << endl;} 
+   virtual void GetTest0(vector<void (T::*)() >&) { cout << "Base::GetTest0 was not handled" << endl;} 
    virtual void GetTest1(vector<void (T::*)() >&) {} 
    virtual void GetTest2(vector<void (T::*)() >&) {} 
    virtual void GetTest3(vector<void (T::*)() >&) {} 
@@ -83,33 +84,41 @@ int RegisterTestFixture(string name, TestFixtureBase* testFixture)
 	testFixture->RegisterTestMethods();
 	return 0;
 }  
-         
+
+#define TestFixture(fixture) \
+class fixture; \
+int fixture##_dummy = RegisterTestFixture( #fixture , new TestFixture<fixture>()); \
+class fixture : public TestFixture<fixture>            
+                     
+#define APPENDCOUNTER_IMPL(x, l) x##l
+#define APPENDCOUNTER_DETAIL(x, l) APPENDCOUNTER_IMPL(x, l)
+#define APPENDCOUNTER(x) APPENDCOUNTER_DETAIL(x, __COUNTER__)
+
+
+#define TestMethod(fixture, method) \
+void APPENDCOUNTER(GetTest)(vector< void (fixture::*)() >& tests) \
+{ \
+	tests.push_back(&fixture::method); \
+} \
+void method() 
+
 TestFixture(MyTestCase)
 {      			
 public:      
-   
-	void GetTest0(vector< void (*)() >& tests)  
-	{       
-		cout << "MyTestCase::GetTest0" << endl;
-		tests.push_back(&MyTestCase::Test1);
-	}   	
-    void Test1()
+
+	TestMethod(MyTestCase, Test1)
     {
 		cout << "  Running Test1" << endl;   	
     }
-    
-	void GetTest1(vector< void (MyTestCase::*)() >& tests)  
-	{
-		tests.push_back(&MyTestCase::Test2);
-	}
- 	void Test2()
+
+ 	TestMethod(MyTestCase, Test2)
 	{
 		cout << "  Running Test2" << endl;   	
 	}
 };
 
 int main()
-{            
+{      
 	for(TestFixtureMap::iterator it = fixtureMap.begin(); it != fixtureMap.end(); it++)
 	{
 		cout << "Running test fixture: " << (*it).first << endl;
