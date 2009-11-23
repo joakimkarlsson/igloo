@@ -6,8 +6,7 @@ using namespace std;
 class TestFixtureBase
 {     
 public:
-	virtual void Run() = 0;
-	virtual void RegisterTestMethods() {}      
+	virtual void Run() = 0;    
 };
 
 template <typename T>
@@ -81,7 +80,6 @@ TestFixtureMap fixtureMap;
 int RegisterTestFixture(string name, TestFixtureBase* testFixture)
 {        
 	fixtureMap[name] = testFixture; 
-	testFixture->RegisterTestMethods();
 	return 0;
 }  
 
