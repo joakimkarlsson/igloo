@@ -1,8 +1,17 @@
-using namespace std;                                                
+#include <iostream>
+#include <sstream>
+#include <map>
+#include <vector>
+#include <boost/preprocessor.hpp>
+#include <memory>
+
+using namespace std;
+
 #include "assertionexception.hpp"
 #include "testfixture.hpp"
 #include "testrunner.hpp"                                           
 #include "constraints/assertions.h"
+
 
 int RegisterTestFixture(string name, TestFixtureBase* testFixture)
 {        

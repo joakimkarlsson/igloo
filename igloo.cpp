@@ -1,9 +1,3 @@
-#include <iostream>
-#include <sstream>
-#include <map>    
-#include <vector>    
-#include <boost/preprocessor.hpp>   
-#include <memory>
 #include "igloo.hpp"
 
 TestFixture(AssertionTests)
