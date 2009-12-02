@@ -19,7 +19,7 @@ class TestFixture : public TestFixtureBase
 {
 public:
   typedef void (T::*TestMethodPtr)();
-  typedef vector<TestMethodPtr> TestMethods;
+  typedef map<string, TestMethodPtr> TestMethods;
 
   void Run()
   {
@@ -36,7 +36,8 @@ public:
     typename TestMethods::iterator it;
     for (it = testMethods.begin(); it != testMethods.end(); it++)
     {
-      CallTest(t, *it);
+      cout << "Running test " << (*it).first << endl;
+      CallTest(t, (*it).second);
     }
   }
 

@@ -25,8 +25,8 @@ int fixture##_dummy = RegisterTestFixture( #fixture , new TestFixture<fixture>()
 class fixture : public TestFixture<fixture>            
                      
 #define TestMethod(fixture, method) \
-void BOOST_PP_CAT(GetTest, __COUNTER__)(vector< void (fixture::*)() >& tests) \
+void BOOST_PP_CAT(GetTest, __COUNTER__)(map<string, void (fixture::*)() >& tests) \
 { \
-	tests.push_back(&fixture::method); \
+	tests[#method] = &fixture::method; \
 } \
 void method()
