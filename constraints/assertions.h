@@ -25,7 +25,7 @@ public:
   template <typename T>
   static auto_ptr<IConstraint<T> > EqualTo(T expectation)
   {
-    return CreateConstraint<T >(expectation);
+    return CreateConstraint<EqualToConstraint<T>, T>(expectation);
   }
 
   class Not
@@ -39,10 +39,10 @@ public:
   };
 
 private:
-  template <typename T>
+  template <typename C, typename T>
   static auto_ptr<IConstraint<T> > CreateConstraint(T expectation)
   {
-    return auto_ptr<IConstraint<T> >(new EqualToConstraint<T>(expectation));
+    return auto_ptr<IConstraint<T> >(new C(expectation));
   }
 };
 
