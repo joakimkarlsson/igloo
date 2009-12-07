@@ -1,3 +1,4 @@
+
 #include "igloo.hpp"
 
 TestFixture(AssertionTests)
@@ -12,6 +13,11 @@ TestFixture(AssertionTests)
   TestMethod(AssertionTests, Test2)
   {
     Assert::That("Joakim", Is::EqualTo("Harry"));
+  }
+
+  TestMethod(AssertionTests, NotOperator)
+  {
+    Assert::That("Joakim", Is::Not::EqualTo("Joakim"));
   }
 };
 
