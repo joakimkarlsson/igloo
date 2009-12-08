@@ -3,11 +3,12 @@
 
 #include "assertionexception.hpp"
 #include "constraints/assertions.h"
+#include "testresult.h"
 
 class TestFixtureBase
 {
 public:
-  virtual void Run() = 0;
+  virtual void Run(list<TestResult>& results) = 0;
 };
 
 #ifndef MAX_NUMBER_OF_TEST_METHODS   
@@ -23,26 +24,26 @@ public:
 
   SyntaxHelper Is;
 
-  void Run()
+  void Run(list<TestResult>& results)
   {
     T testFixture;
 
     TestMethods testMethods;
     testFixture.GetTests(testMethods);
-    CallTests(testFixture, testMethods);
+    CallTests(testFixture, testMethods, results);
   }
 
-  void CallTests(T& t, TestMethods& testMethods)
+  void CallTests(T& t, TestMethods& testMethods, list<TestResult>& results)
   {
     typename TestMethods::iterator it;
     for (it = testMethods.begin(); it != testMethods.end(); it++)
     {
       cout << "Running test " << (*it).first << endl;
-      CallTest(t, (*it).second);
+      CallTest(t, (*it).second, results);
     }
   }
 
-  void CallTest(T t, void (T::*method)())
+  void CallTest(T t, void (T::*method)(), list<TestResult>& results)
   {
       try
       {
@@ -50,12 +51,12 @@ public:
       }
       catch (AssertionException& e)
       {
+        results.push_back(TestResult("FIXTURE", "METHOD", false));
         cout << "Assertion failed in method " << e.GetMessage() << endl;
+        return;
       }
-      catch (...)
-      {
-        cout << "Unexpected assertion " << endl;
-      }
+
+        results.push_back(TestResult("FIXTURE", "METHOD", true));
   }
 
   void GetTests(TestMethods& testMethods)

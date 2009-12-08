@@ -23,6 +23,5 @@ TestFixture(AssertionTests)
 
 int main()
 {
-  TestRunner::RunAllTests();
-  return 0;
+  return TestRunner::RunAllTests();
 }

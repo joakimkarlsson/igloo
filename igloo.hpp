@@ -1,6 +1,7 @@
 #include <iostream>
 #include <sstream>
 #include <map>
+#include <list>
 #include <vector>
 #include <boost/preprocessor.hpp>
 #include <memory>
