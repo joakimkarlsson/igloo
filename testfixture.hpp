@@ -1,8 +1,8 @@
-
-#include "assertionexception.hpp"
-
 #ifndef TESTFIXTURE_HPP_K1ONTAQ7
 #define TESTFIXTURE_HPP_K1ONTAQ7
+
+#include "assertionexception.hpp"
+#include "constraints/assertions.h"
 
 class TestFixtureBase
 {
@@ -21,9 +21,10 @@ public:
   typedef void (T::*TestMethodPtr)();
   typedef map<string, TestMethodPtr> TestMethods;
 
+  SyntaxHelper Is;
+
   void Run()
   {
-
     T testFixture;
 
     TestMethods testMethods;

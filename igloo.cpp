@@ -7,17 +7,17 @@ TestFixture(AssertionTests)
 
   TestMethod(AssertionTests, TestEquality)
   {
-    Assert::That(5, Is::EqualTo(4));
+    Assert::That(5, Is.EqualTo(4));
   }
 
   TestMethod(AssertionTests, Test2)
   {
-    Assert::That("Joakim", Is::EqualTo("Harry"));
+    Assert::That("Joakim", Is.EqualTo("Harry"));
   }
 
   TestMethod(AssertionTests, NotOperator)
   {
-    Assert::That("Joakim", Is::Not::EqualTo("Joakim"));
+    Assert::That("Joakim", Is.Not.EqualTo("Joakim"));
   }
 };
 

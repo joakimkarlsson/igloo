@@ -18,27 +18,44 @@ public:
   }
 };
 
-class Is
+class ISyntaxHelper
 {
 public:
+  template <typename T>
+  auto_ptr<IConstraint<T> > EqualTo(T expectation) = 0;
+
+};
+
+class InverseSyntaxHelper : public ISyntaxHelper
+{
+public:
+  InverseSyntaxHelper(SyntaxHelper* wrapped) : _wrapped(wrapped)
+  {
+  }
+  
+  template <typename T>
+  auto_ptr<IConstraint<T> > EqualTo(T expectation)
+  {
+    return auto_ptr<IConstraint<T> >(new NotConstraint<T>(_wrapped.EqualTo(expectation)));
+  }
+};
+
+class SyntaxHelper : public ISyntaxHelper
+{
+public:
+  SyntaxHelper() : Not(this)
+  {
+  }
 
   template <typename T>
-  static auto_ptr<IConstraint<T> > EqualTo(T expectation)
+  auto_ptr<IConstraint<T> > EqualTo(T expectation)
   {
     return CreateConstraint<EqualToConstraint<T>, T>(expectation);
   }
 
-  class Not
-  {
-  public:
-    template <typename T>
-    static auto_ptr<IConstraint<T> > EqualTo(T expectation)
-    {
-      return auto_ptr<IConstraint<T> >(new NotConstraint<T > (auto_ptr<IConstraint<T> >(new EqualToConstraint<T > (expectation))));
-    }
-  };
+  InverseSyntaxHelper Not;
 
-private:
+protected:
   template <typename C, typename T>
   static auto_ptr<IConstraint<T> > CreateConstraint(T expectation)
   {
