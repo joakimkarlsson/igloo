@@ -7,7 +7,17 @@ TestFixture(AssertionTests)
 
   TestMethod(AssertionTests, TestEquality)
   {
-    Assert::That(5, Is.EqualTo(4));
+    bool exceptionIsThrown = false;
+    try
+    {
+      Assert::That(5, Is.EqualTo(4));
+    }
+    catch (AssertionException)
+    {
+      exceptionIsThrown = true;
+    }
+
+    Assert::That(exceptionIsThrown);
   }
 
   TestMethod(AssertionTests, Test2)

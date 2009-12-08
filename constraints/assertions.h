@@ -16,6 +16,14 @@ public:
       throw AssertionException(errorText);
     }
   }
+
+  static void That(bool& actual)
+  {
+    if(!actual)
+      {
+      throw AssertionException("Expected condition to be true");
+    }
+  }
 };
 
 class SyntaxHelperBase
@@ -48,8 +56,6 @@ public:
   }
 
   InverseSyntaxHelper Not;
-
-
 };
 
 #endif	/* _ASSERTIONS_H */
