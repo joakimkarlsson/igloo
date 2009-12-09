@@ -22,8 +22,6 @@ public:
   typedef void (T::*TestMethodPtr)();
   typedef map<string, TestMethodPtr> TestMethods;
 
-  SyntaxHelper Is;
-
   void Run(list<TestResult>& results)
   {
     T testFixture;

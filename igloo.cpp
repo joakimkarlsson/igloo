@@ -1,33 +1,14 @@
 
 #include "igloo.hpp"
+#include "constraints/is.h"
 
 TestFixture(AssertionTests)
 {
   public:
 
-  TestMethod(AssertionTests, TestEquality)
+  TestMethod(AssertionTests, Experimental)
   {
-    bool exceptionIsThrown = false;
-    try
-    {
-      Assert::That(5, Is.EqualTo(4));
-    }
-    catch (AssertionException)
-    {
-      exceptionIsThrown = true;
-    }
-
-    Assert::That(exceptionIsThrown);
-  }
-
-  TestMethod(AssertionTests, Test2)
-  {
-    Assert::That("Joakim", Is.EqualTo("Harry"));
-  }
-
-  TestMethod(AssertionTests, NotOperator)
-  {
-    Assert::That("Joakim", Is.Not.EqualTo("Joakim"));
+    Assert::That(5, Is().Not().Not().EqualTo(5));
   }
 };
 
