@@ -8,7 +8,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
-    Assert::That(5, Is().EqualTo(5));
+    Assert::That(5, Is<int>().EqualTo(5));
   }
 
   TestMethod(Assertions, ShouldDetectIntegerInequality)
@@ -17,7 +17,7 @@ TestFixture(Assertions)
 
     try
     {
-      Assert::That(5, Is().EqualTo(4));
+      Assert::That(5, Is<int>().EqualTo(4));
     }
     catch (AssertionException)
     {
@@ -29,7 +29,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleNotOperators)
   {
-    Assert::That(5, Is().Not().EqualTo(4));
+    Assert::That(5, Is<int>().Not().EqualTo(4));
   }
 
   TestMethod(Assertions, ShouldDetectIfNotFails)
@@ -38,7 +38,7 @@ TestFixture(Assertions)
 
     try
     {
-      Assert::That(5, Is().Not().EqualTo(5));
+      Assert::That(5, Is<int>().Not().EqualTo(5));
     }
     catch (AssertionException)
     {
@@ -46,6 +46,11 @@ TestFixture(Assertions)
     }
 
     Assert::That(exceptionIsThrown);
+  }
+
+  TestMethod(Assertions, ShouldHandleStrings)
+  {
+    Assert::That<string>("joakim", Is<string>().EqualTo("joakim"));
   }
 };
 

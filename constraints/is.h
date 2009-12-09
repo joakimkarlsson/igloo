@@ -10,63 +10,67 @@
 
 #include <stack>
 
+template <typename T>
 class Operator
 {
 public:
-  virtual bool Evaluate(int actual) = 0;
+  virtual bool Evaluate(T actual) = 0;
 
-  void SetNextOperator(Operator* op)
+  void SetNextOperator(Operator<T>* op)
   {
     _nextOperator = op;
   }
   
 protected:
-  Operator* _nextOperator;
+  Operator<T>* _nextOperator;
 };
 
-class NotOperator : public Operator
+template <typename T>
+class NotOperator : public Operator<T>
 {
 public:
 
-  bool Evaluate(int actual)
+  virtual bool Evaluate(T actual)
   {
-    return !_nextOperator->Evaluate(actual);
+    return !Operator<T>::_nextOperator->Evaluate(actual);
   }
 };
 
-class EqualToOperator : public Operator
+template <typename T>
+class EqualToOperator : public Operator<T>
 {
 public:
 
-  EqualToOperator(int expected) : _expected(expected)
+  EqualToOperator(T expected) : _expected(expected)
   {
   }
 
-  bool Evaluate(int actual)
+  bool Evaluate(T actual)
   {
     return actual == _expected;
   }
 
 private:
-  int _expected;
+  T _expected;
 };
 
+template <typename T>
 class ExpressionBuilder
 {
 public:
 
-  void Append(Operator* op)
+  void Append(Operator<T>* op)
   {
     _operators.push(op);
   }
 
-  Operator* Build()
+  Operator<T>* Build()
   {
-    Operator* op = 0;
+    Operator<T>* op = 0;
 
     while (!_operators.empty())
     {
-      Operator* popped = _operators.top();
+      Operator<T>* popped = _operators.top();
       popped->SetNextOperator(op);
       op = popped;
       _operators.pop();
@@ -76,39 +80,40 @@ public:
   }
 
 private:
-  stack<Operator*> _operators;
+  stack<Operator<T>* > _operators;
 
 };
 
+template <typename T>
 class ConstraintExpression
 {
 public:
-
-  ConstraintExpression& Not()
+  ConstraintExpression<T>& Not()
   {
-    builder.Append(new NotOperator());
+    builder.Append(new NotOperator<T>());
     return *this;
   }
 
-  ConstraintExpression& EqualTo(int expectation)
+  ConstraintExpression<T>& EqualTo(T expectation)
   {
-    builder.Append(new EqualToOperator(expectation));
+    builder.Append(new EqualToOperator<T>(expectation));
     return *this;
   }
 
-  bool Assert(int actual)
+  bool Assert(T actual)
   {
-    Operator* op = builder.Build();
+    Operator<T>* op = builder.Build();
     return op->Evaluate(actual);
   }
 
 private:
-  ExpressionBuilder builder;
+  ExpressionBuilder<T> builder;
 };
 
-ConstraintExpression Is()
+template <typename T>
+ConstraintExpression<T> Is()
 {
-  return ConstraintExpression();
+  return ConstraintExpression<T>();
 }
 
 

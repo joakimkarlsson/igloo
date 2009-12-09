@@ -18,7 +18,8 @@ public:
     }
   }
 
-  static void That(int actual, ConstraintExpression& constraint)
+  template <typename T>
+  static void That(T actual, ConstraintExpression<T>& constraint)
   {
     if(!constraint.Assert(actual))
     {
