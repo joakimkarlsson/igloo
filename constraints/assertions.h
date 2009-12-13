@@ -53,6 +53,8 @@ private:
       Constraint<T>* constraint = dynamic_cast<Constraint<T>*> (op);
       resultStack.push(constraint->Evaluate(actual));
     }
+
+    delete op;
   }
 };
 
