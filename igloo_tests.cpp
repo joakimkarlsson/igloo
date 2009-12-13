@@ -15,7 +15,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
-    Assert::That(5, Is().EqualTo(4));
+    Assert::That(5, Is().EqualTo(5));
   }
 
   TestMethod(Assertions, ShouldDetectIntegerInequality)
