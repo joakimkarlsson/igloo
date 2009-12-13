@@ -12,18 +12,7 @@
 #include "ioperator.h"
 #include "logicaloperator.h"
 #include "constraint.h"
-
-class NotOperator : public LogicalOperator
-{
-public:
-
-  virtual bool Evaluate(stack<bool>& boolStack)
-  {
-    bool currentResult = boolStack.top();
-    boolStack.pop();
-    boolStack.push(!currentResult);
-  }
-};
+#include "notoperator.h"
 
 template <typename T>
 class EqualToOperator : public Constraint<T>
