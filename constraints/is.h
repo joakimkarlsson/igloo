@@ -10,18 +10,7 @@
 
 #include <stack>
 #include "ioperator.h"
-
-
-class LogicalOperator : public IOperator
-{
-public:
-
-  virtual bool IsLogicalOperator()
-  {
-    return true;
-  }
-  virtual bool Evaluate(stack<bool>& boolStack) = 0;
-};
+#include "logicaloperator.h"
 
 template <typename T>
 class Constraint : public IOperator
