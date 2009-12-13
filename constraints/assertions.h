@@ -6,7 +6,7 @@
 #include "constraint.h"
 #include "notoperator.h"
 #include "equaltoconstraint.h"
-#include "expressionbuilder.h"
+#include "operatorstack.h"
 #include "expression.h"
 #include "is.h"
 

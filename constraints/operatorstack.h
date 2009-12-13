@@ -1,14 +1,14 @@
 /* 
- * File:   expressionbuilder.h
+ * File:   OperatorStack.h
  * Author: joakim
  *
  * Created on December 13, 2009, 11:14 AM
  */
 
-#ifndef _EXPRESSIONBUILDER_H
-#define	_EXPRESSIONBUILDER_H
+#ifndef _OPERATORSTACK_H
+#define	_OPERATORSTACK_H
 
-class ExpressionBuilder
+class OperatorStack
 {
 public:
 
@@ -34,5 +34,5 @@ private:
 
 };
 
-#endif	/* _EXPRESSIONBUILDER_H */
+#endif
 

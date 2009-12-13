@@ -31,7 +31,7 @@ public:
   }
 
 private:
-  ExpressionBuilder builder;
+  OperatorStack builder;
 };
 
 #endif
