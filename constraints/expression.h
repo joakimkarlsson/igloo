@@ -14,14 +14,14 @@ public:
 
   Expression& Not()
   {
-    operators.Append(new NotOperator());
+    operators.Push(new NotOperator());
     return *this;
   }
 
   template <typename T>
   Expression& EqualTo(T expectation)
   {
-    operators.Append(new EqualToConstraint<T > (expectation));
+    operators.Push(new EqualToConstraint<T > (expectation));
     return *this;
   }
 

@@ -12,7 +12,7 @@ class OperatorStack
 {
 public:
 
-  void Append(IOperator* op)
+  void Push(IOperator* op)
   {
     _operators.push(op);
   }
