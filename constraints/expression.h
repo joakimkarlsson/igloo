@@ -1,25 +1,25 @@
 /* 
- * File:   constraintexpression.h
+ * File:   Expression.h
  * Author: joakim
  *
  * Created on December 13, 2009, 11:42 AM
  */
 
-#ifndef _CONSTRAINTEXPRESSION_H
-#define	_CONSTRAINTEXPRESSION_H
+#ifndef _EXPRESSION_H
+#define	_EXPRESSION_H
 
-class ConstraintExpression
+class Expression
 {
 public:
 
-  ConstraintExpression& Not()
+  Expression& Not()
   {
     builder.Append(new NotOperator());
     return *this;
   }
 
   template <typename T>
-  ConstraintExpression& EqualTo(T expectation)
+  Expression& EqualTo(T expectation)
   {
     builder.Append(new EqualToConstraint<T > (expectation));
     return *this;
@@ -34,5 +34,5 @@ private:
   ExpressionBuilder builder;
 };
 
-#endif	/* _CONSTRAINTEXPRESSION_H */
+#endif
 

@@ -7,7 +7,7 @@
 #include "notoperator.h"
 #include "equaltoconstraint.h"
 #include "expressionbuilder.h"
-#include "constraintexpression.h"
+#include "expression.h"
 #include "is.h"
 
 class Assert
@@ -15,7 +15,7 @@ class Assert
 public:
 
   template <typename T>
-  static void That(T actual, ConstraintExpression& constraint)
+  static void That(T actual, Expression& constraint)
   {
     stack<bool> resultStack;
 

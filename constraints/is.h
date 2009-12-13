@@ -8,9 +8,9 @@
 #ifndef _IS_H
 #define	_IS_H
 
-ConstraintExpression Is()
+Expression Is()
 {
-  return ConstraintExpression();
+  return Expression();
 }
 
 #endif	/* _IS_H */
