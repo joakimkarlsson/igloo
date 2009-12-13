@@ -1,5 +1,13 @@
 #ifndef _ASSERTIONS_H
 #define	_ASSERTIONS_H
+#include <stack>
+#include "ioperator.h"
+#include "logicaloperator.h"
+#include "constraint.h"
+#include "notoperator.h"
+#include "equaltooperator.h"
+#include "expressionbuilder.h"
+#include "constraintexpression.h"
 #include "is.h"
 
 class Assert

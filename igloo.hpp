@@ -1,3 +1,6 @@
+#ifndef _IGLOO_HPP
+#define _IGLOO_HPP
+
 #include <iostream>
 #include <sstream>
 #include <map>
@@ -31,3 +34,5 @@ void BOOST_PP_CAT(GetTest, __COUNTER__)(map<string, void (fixture::*)() >& tests
 	tests[#method] = &fixture::method; \
 } \
 void method()
+
+#endif

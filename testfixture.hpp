@@ -37,31 +37,32 @@ public:
     for (it = testMethods.begin(); it != testMethods.end(); it++)
     {
       cout << "Running test " << (*it).first << endl;
-      CallTest(t, (*it).second, results);
+      CallTest(t, (*it).first, (*it).second, results);
     }
   }
 
-  void CallTest(T t, void (T::*method)(), list<TestResult>& results)
+  void CallTest(T t, const string& testName, void (T::*method)(), list<TestResult>& results)
   {
-      try
-      {
-        (t.*method)();
-      }
-      catch (AssertionException& e)
-      {
-        results.push_back(TestResult("FIXTURE", "METHOD", false));
-        cout << "Assertion failed in method " << e.GetMessage() << endl;
-        return;
-      }
+    try
+    {
+      (t.*method)();
+    }
+    catch (AssertionException& e)
+    {
+      results.push_back(TestResult("FIXTURE", "METHOD", false));
+      cout << "Test " << testName << " failed: " << e.GetMessage() << endl;
+      return;
+    }
 
-        results.push_back(TestResult("FIXTURE", "METHOD", true));
+
+    results.push_back(TestResult("FIXTURE", "METHOD", true));
   }
 
   void GetTests(TestMethods& testMethods)
   {
     #define REPEAT_SIGNATURE(z,n,name) name ## n (testMethods);
     BOOST_PP_REPEAT(MAX_NUMBER_OF_TEST_METHODS, REPEAT_SIGNATURE, GetTest)
-      #undef REPEAT_SIGNATURE
+    #undef REPEAT_SIGNATURE
   }
 
   #define REPEAT_SIGNATURE(z,n,name) virtual void name ## n (TestMethods&) {}
