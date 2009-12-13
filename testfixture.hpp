@@ -8,7 +8,7 @@
 class TestFixtureBase
 {
 public:
-  virtual void Run(list<TestResult>& results) = 0;
+  virtual void Run(const string& fixtureName, list<TestResult>& results) = 0;
 };
 
 #ifndef MAX_NUMBER_OF_TEST_METHODS   
@@ -22,30 +22,30 @@ public:
   typedef void (T::*TestMethodPtr)();
   typedef map<string, TestMethodPtr> TestMethods;
 
-  void Run(list<TestResult>& results)
+  void Run(const string& fixtureName, list<TestResult>& results)
   {
     T testFixture;
 
     TestMethods testMethods;
     testFixture.GetTests(testMethods);
-    CallTests(testFixture, testMethods, results);
+    CallTests(testFixture, testMethods, fixtureName, results);
   }
 
   virtual void SetUp() {}
   virtual void TearDown() {}
 
 private:
-  void CallTests(T& t, TestMethods& testMethods, list<TestResult>& results)
+  void CallTests(T& t, TestMethods& testMethods, string fixtureName, list<TestResult>& results)
   {
     typename TestMethods::iterator it;
     for (it = testMethods.begin(); it != testMethods.end(); it++)
     {
       cout << "Running test " << (*it).first << endl;
-      CallTest(t, (*it).first, (*it).second, results);
+      CallTest(t, fixtureName, (*it).first, (*it).second, results);
     }
   }
 
-  void CallTest(T t, const string& testName, void (T::*method)(), list<TestResult>& results)
+  void CallTest(T t, const string& fixtureName, const string& testName, void (T::*method)(), list<TestResult>& results)
   {
     try
     {
@@ -55,13 +55,13 @@ private:
     }
     catch (AssertionException& e)
     {
-      results.push_back(TestResult("FIXTURE", "METHOD", false));
-      cout << "Test " << testName << " failed: " << e.GetMessage() << endl;
+      results.push_back(TestResult(fixtureName, testName, false));
+      cout << "Test " << fixtureName << "::" << testName << " failed: " << e.GetMessage() << endl;
       return;
     }
 
 
-    results.push_back(TestResult("FIXTURE", "METHOD", true));
+    results.push_back(TestResult(fixtureName, testName, true));
   }
 
   void GetTests(TestMethods& testMethods)

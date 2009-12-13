@@ -18,7 +18,7 @@ public:
     for (TestFixtureMap::iterator it = FixtureMap.begin(); it != FixtureMap.end(); it++)
     {
       cout << "Running test fixture: " << (*it).first << endl;
-      (*it).second->Run(results);
+      (*it).second->Run((*it).first, results);
     }
 
     return CheckResults(results);

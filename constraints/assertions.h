@@ -17,15 +17,15 @@ public:
   template <typename T>
   static void That(T actual, Expression& constraint)
   {
-    stack<bool> resultStack;
+    stack<bool> operatorResultsStack;
 
     IOperator* op;
     while ((op = constraint.PopOperator()) != NULL)
     {
-      PerformOperation(op, actual, resultStack);
+      PerformOperation(op, actual, operatorResultsStack);
     }
 
-    if (!resultStack.top())
+    if (!operatorResultsStack.top())
     {
       throw AssertionException("WTF!?");
     }

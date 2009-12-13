@@ -1,6 +1,5 @@
 
 #include "igloo.hpp"
-#include "constraints/is.h"
 
 TestFixture(Assertions)
 {
@@ -16,7 +15,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
-    Assert::That(5, Is().EqualTo(5));
+    Assert::That(5, Is().EqualTo(4));
   }
 
   TestMethod(Assertions, ShouldDetectIntegerInequality)
