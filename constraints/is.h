@@ -11,19 +11,7 @@
 #include <stack>
 #include "ioperator.h"
 #include "logicaloperator.h"
-
-template <typename T>
-class Constraint : public IOperator
-{
-public:
-
-  virtual bool IsLogicalOperator()
-  {
-    return false;
-  }
-
-  virtual bool Evaluate(T actual) = 0;
-};
+#include "constraint.h"
 
 class NotOperator : public LogicalOperator
 {
