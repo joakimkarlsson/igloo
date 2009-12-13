@@ -1,7 +1,5 @@
 #ifndef _ASSERTIONS_H
 #define	_ASSERTIONS_H
-#include "not_constraint.h"
-#include "equalto_constraint.h"
 #include "is.h"
 
 class Assert
