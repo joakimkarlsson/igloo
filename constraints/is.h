@@ -14,47 +14,7 @@
 #include "constraint.h"
 #include "notoperator.h"
 #include "equaltooperator.h"
-
-class ExpressionBuilder
-{
-public:
-
-  void Append(IOperator* op)
-  {
-    _operators.push(op);
-  }
-
-  IOperator* Build()
-  {
-    IOperator* op = 0;
-
-    while (!_operators.empty())
-    {
-      IOperator* popped = _operators.top();
-      popped->SetNextOperator(op);
-      op = popped;
-      _operators.pop();
-    }
-
-    return op;
-  }
-
-  IOperator* Pop()
-  {
-    if (_operators.empty())
-    {
-      return NULL;
-    }
-
-    IOperator* popped = _operators.top();
-    _operators.pop();
-    return popped;
-  }
-
-private:
-  stack<IOperator* > _operators;
-
-};
+#include "expressionbuilder.h"
 
 class ConstraintExpression
 {

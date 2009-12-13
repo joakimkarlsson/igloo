@@ -52,6 +52,11 @@ TestFixture(Assertions)
   {
     Assert::That<string>("joakim", Is().EqualTo<string>("joakim"));
   }
+
+  TestMethod(Assertions, ShouldHandleNotOperatorsForStrings)
+  {
+    Assert::That<string>("joakim", Is().Not().EqualTo<string>("harry"));
+  }
 };
 
 int main()
