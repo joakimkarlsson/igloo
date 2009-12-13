@@ -7,17 +7,6 @@
 class Assert
 {
 public:
-
-  template <typename T>
-  static void That(T actual, auto_ptr<IConstraint<T> > constraint)
-  {
-    string errorText;
-    if (!constraint->Assert(actual, errorText))
-    {
-      throw AssertionException(errorText);
-    }
-  }
-
   template <typename T>
   static void That(T actual, ConstraintExpression& constraint)
   {
