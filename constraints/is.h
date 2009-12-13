@@ -10,34 +10,59 @@
 
 #include <stack>
 
-template <typename T>
-class Operator
+class IOperator
 {
 public:
-  virtual bool Evaluate(T actual) = 0;
 
-  void SetNextOperator(Operator<T>* op)
+  void SetNextOperator(IOperator* op)
   {
     _nextOperator = op;
   }
-  
+
+  virtual bool IsLogicalOperator() = 0;
+
 protected:
-  Operator<T>* _nextOperator;
+  IOperator* _nextOperator;
 };
 
-template <typename T>
-class NotOperator : public Operator<T>
+class LogicalOperator : public IOperator
 {
 public:
 
-  virtual bool Evaluate(T actual)
+  virtual bool IsLogicalOperator()
   {
-    return !Operator<T>::_nextOperator->Evaluate(actual);
+    return true;
+  }
+  virtual bool Evaluate(stack<bool>& boolStack) = 0;
+};
+
+template <typename T>
+class Constraint : public IOperator
+{
+public:
+
+  virtual bool IsLogicalOperator()
+  {
+    return false;
+  }
+
+  virtual bool Evaluate(T actual) = 0;
+};
+
+class NotOperator : public LogicalOperator
+{
+public:
+
+  virtual bool Evaluate(stack<bool>& boolStack)
+  {
+    bool currentResult = boolStack.top();
+    boolStack.pop();
+    boolStack.push(!currentResult);
   }
 };
 
 template <typename T>
-class EqualToOperator : public Operator<T>
+class EqualToOperator : public Constraint<T>
 {
 public:
 
@@ -54,23 +79,22 @@ private:
   T _expected;
 };
 
-template <typename T>
 class ExpressionBuilder
 {
 public:
 
-  void Append(Operator<T>* op)
+  void Append(IOperator* op)
   {
     _operators.push(op);
   }
 
-  Operator<T>* Build()
+  IOperator* Build()
   {
-    Operator<T>* op = 0;
+    IOperator* op = 0;
 
     while (!_operators.empty())
     {
-      Operator<T>* popped = _operators.top();
+      IOperator* popped = _operators.top();
       popped->SetNextOperator(op);
       op = popped;
       _operators.pop();
@@ -79,41 +103,52 @@ public:
     return op;
   }
 
+  IOperator* Pop()
+  {
+    if (_operators.empty())
+    {
+      return NULL;
+    }
+
+    IOperator* popped = _operators.top();
+    _operators.pop();
+    return popped;
+  }
+
 private:
-  stack<Operator<T>* > _operators;
+  stack<IOperator* > _operators;
 
 };
 
-template <typename T>
 class ConstraintExpression
 {
 public:
-  ConstraintExpression<T>& Not()
+
+  ConstraintExpression& Not()
   {
-    builder.Append(new NotOperator<T>());
+    builder.Append(new NotOperator());
     return *this;
   }
 
-  ConstraintExpression<T>& EqualTo(T expectation)
+  template <typename T>
+  ConstraintExpression& EqualTo(T expectation)
   {
-    builder.Append(new EqualToOperator<T>(expectation));
+    builder.Append(new EqualToOperator<T > (expectation));
     return *this;
   }
 
-  bool Assert(T actual)
+  IOperator* PopOperator()
   {
-    Operator<T>* op = builder.Build();
-    return op->Evaluate(actual);
+    return builder.Pop();
   }
 
 private:
-  ExpressionBuilder<T> builder;
+  ExpressionBuilder builder;
 };
 
-template <typename T>
-ConstraintExpression<T> Is()
+ConstraintExpression Is()
 {
-  return ConstraintExpression<T>();
+  return ConstraintExpression();
 }
 
 

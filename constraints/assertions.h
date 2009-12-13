@@ -19,9 +19,26 @@ public:
   }
 
   template <typename T>
-  static void That(T actual, ConstraintExpression<T>& constraint)
+  static void That(T actual, ConstraintExpression& constraint)
   {
-    if(!constraint.Assert(actual))
+    stack<bool> resultStack;
+
+    IOperator* op;
+    while((op = constraint.PopOperator()) != NULL)
+    {
+      if(op->IsLogicalOperator())
+      {
+        LogicalOperator* logical = dynamic_cast<LogicalOperator*>(op);
+        logical->Evaluate(resultStack);
+      }
+      else
+      {
+        Constraint<T>* constraint = dynamic_cast<Constraint<T>* >(op);
+        resultStack.push(constraint->Evaluate(actual));
+      }
+    }
+
+    if(!resultStack.top())
     {
       throw AssertionException("WTF!?");
     }
