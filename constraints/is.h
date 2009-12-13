@@ -15,32 +15,7 @@
 #include "notoperator.h"
 #include "equaltooperator.h"
 #include "expressionbuilder.h"
-
-class ConstraintExpression
-{
-public:
-
-  ConstraintExpression& Not()
-  {
-    builder.Append(new NotOperator());
-    return *this;
-  }
-
-  template <typename T>
-  ConstraintExpression& EqualTo(T expectation)
-  {
-    builder.Append(new EqualToOperator<T > (expectation));
-    return *this;
-  }
-
-  IOperator* PopOperator()
-  {
-    return builder.Pop();
-  }
-
-private:
-  ExpressionBuilder builder;
-};
+#include "constraintexpression.h"
 
 ConstraintExpression Is()
 {
