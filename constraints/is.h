@@ -13,24 +13,7 @@
 #include "logicaloperator.h"
 #include "constraint.h"
 #include "notoperator.h"
-
-template <typename T>
-class EqualToOperator : public Constraint<T>
-{
-public:
-
-  EqualToOperator(T expected) : _expected(expected)
-  {
-  }
-
-  bool Evaluate(T actual)
-  {
-    return actual == _expected;
-  }
-
-private:
-  T _expected;
-};
+#include "equaltooperator.h"
 
 class ExpressionBuilder
 {
