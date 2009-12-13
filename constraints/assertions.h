@@ -5,7 +5,7 @@
 #include "logicaloperator.h"
 #include "constraint.h"
 #include "notoperator.h"
-#include "equaltooperator.h"
+#include "equaltoconstraint.h"
 #include "expressionbuilder.h"
 #include "constraintexpression.h"
 #include "is.h"

@@ -5,15 +5,15 @@
  * Created on December 13, 2009, 11:13 AM
  */
 
-#ifndef _EQUALTOOPERATOR_H
-#define	_EQUALTOOPERATOR_H
+#ifndef _EQUALTOCONSTRAINT_H
+#define	_EQUALTOCONSTRAINT_H
 
 template <typename T>
-class EqualToOperator : public Constraint<T>
+class EqualToConstraint : public Constraint<T>
 {
 public:
 
-  EqualToOperator(T expected) : _expected(expected)
+  EqualToConstraint(T expected) : _expected(expected)
   {
   }
 
@@ -26,5 +26,5 @@ private:
   T _expected;
 };
 
-#endif	/* _EQUALTOOPERATOR_H */
+#endif
 

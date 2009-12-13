@@ -21,7 +21,7 @@ public:
   template <typename T>
   ConstraintExpression& EqualTo(T expectation)
   {
-    builder.Append(new EqualToOperator<T > (expectation));
+    builder.Append(new EqualToConstraint<T > (expectation));
     return *this;
   }
 

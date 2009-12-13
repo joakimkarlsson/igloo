@@ -11,16 +11,7 @@
 class IOperator
 {
 public:
-
-  void SetNextOperator(IOperator* op)
-  {
-    _nextOperator = op;
-  }
-
   virtual bool IsLogicalOperator() = 0;
-
-protected:
-  IOperator* _nextOperator;
 };
 
 #endif	/* _IOPERATOR_H */
