@@ -9,21 +9,8 @@
 #define	_IS_H
 
 #include <stack>
+#include "ioperator.h"
 
-class IOperator
-{
-public:
-
-  void SetNextOperator(IOperator* op)
-  {
-    _nextOperator = op;
-  }
-
-  virtual bool IsLogicalOperator() = 0;
-
-protected:
-  IOperator* _nextOperator;
-};
 
 class LogicalOperator : public IOperator
 {
