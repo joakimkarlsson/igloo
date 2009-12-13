@@ -6,6 +6,14 @@ TestFixture(Assertions)
 {
   public:
 
+  virtual void SetUp()
+  {
+  }
+
+  virtual void TearDown()
+  {
+  }
+
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
     Assert::That(5, Is().EqualTo(5));

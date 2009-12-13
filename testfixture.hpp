@@ -31,6 +31,10 @@ public:
     CallTests(testFixture, testMethods, results);
   }
 
+  virtual void SetUp() {}
+  virtual void TearDown() {}
+
+private:
   void CallTests(T& t, TestMethods& testMethods, list<TestResult>& results)
   {
     typename TestMethods::iterator it;
@@ -45,7 +49,9 @@ public:
   {
     try
     {
+      t.SetUp();
       (t.*method)();
+      t.TearDown();
     }
     catch (AssertionException& e)
     {
@@ -65,6 +71,7 @@ public:
     #undef REPEAT_SIGNATURE
   }
 
+protected:
   #define REPEAT_SIGNATURE(z,n,name) virtual bool name ## n (TestMethods&) { return false;}
   BOOST_PP_REPEAT(MAX_NUMBER_OF_TEST_METHODS, REPEAT_SIGNATURE, GetTest)
   #undef REPEAT_SIGNATURE
