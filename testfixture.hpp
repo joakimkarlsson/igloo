@@ -60,12 +60,12 @@ public:
 
   void GetTests(TestMethods& testMethods)
   {
-    #define REPEAT_SIGNATURE(z,n,name) name ## n (testMethods);
+    #define REPEAT_SIGNATURE(z,n,name) if(name ## n (testMethods) == false) return;
     BOOST_PP_REPEAT(MAX_NUMBER_OF_TEST_METHODS, REPEAT_SIGNATURE, GetTest)
     #undef REPEAT_SIGNATURE
   }
 
-  #define REPEAT_SIGNATURE(z,n,name) virtual void name ## n (TestMethods&) {}
+  #define REPEAT_SIGNATURE(z,n,name) virtual bool name ## n (TestMethods&) { return false;}
   BOOST_PP_REPEAT(MAX_NUMBER_OF_TEST_METHODS, REPEAT_SIGNATURE, GetTest)
   #undef REPEAT_SIGNATURE
 };
