@@ -12,7 +12,7 @@ class NotOperator : public LogicalOperator
 {
 public:
 
-  virtual bool Evaluate(stack<bool>& boolStack)
+  virtual void Evaluate(stack<bool>& boolStack)
   {
     bool currentResult = boolStack.top();
     boolStack.pop();
