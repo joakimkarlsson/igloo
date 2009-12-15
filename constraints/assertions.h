@@ -28,23 +28,7 @@ public:
 
     if (!operatorResultsStack.top())
     {
-      ostringstream str;
-      str << "Expected: ";
-
-      while (!expectations.empty())
-      {
-        str << expectations.top();
-        expectations.pop();
-
-        if(!expectations.empty())
-          {
-          str << " ";
-        }
-      }
-      str << endl;
-
-      str << "Actual: " << actual << endl;
-      throw AssertionException(str.str());
+      throw AssertionException(CreateErrorText(expectations, actual));
     }
   }
 
@@ -75,6 +59,29 @@ private:
     }
 
     delete op;
+  }
+
+  template <typename T>
+  static string CreateErrorText(stack<string>& operatorExpectations, T actual)
+  {
+    ostringstream str;
+    str << "Expected: ";
+
+    while (!operatorExpectations.empty())
+    {
+      str << operatorExpectations.top();
+      operatorExpectations.pop();
+
+      if (!operatorExpectations.empty())
+      {
+        str << " ";
+      }
+    }
+    str << endl;
+
+    str << "Actual: " << actual << endl;
+
+    return str.str();
   }
 };
 
