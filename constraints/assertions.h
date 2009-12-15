@@ -18,16 +18,33 @@ public:
   static void That(T actual, Expression& constraint)
   {
     stack<bool> operatorResultsStack;
+    stack<string> expectations;
 
     IOperator* op;
     while ((op = constraint.PopOperator()) != NULL)
     {
-      PerformOperation(op, actual, operatorResultsStack);
+      PerformOperation(op, actual, operatorResultsStack, expectations);
     }
 
     if (!operatorResultsStack.top())
     {
-      throw AssertionException("WTF!?");
+      ostringstream str;
+      str << "Expected: ";
+
+      while (!expectations.empty())
+      {
+        str << expectations.top();
+        expectations.pop();
+
+        if(!expectations.empty())
+          {
+          str << " ";
+        }
+      }
+      str << endl;
+
+      str << "Actual: " << actual << endl;
+      throw AssertionException(str.str());
     }
   }
 
@@ -40,9 +57,12 @@ public:
   }
 
 private:
+
   template <typename T>
-  static void PerformOperation(IOperator * op, T actual, stack<bool>& resultStack)
+  static void PerformOperation(IOperator * op, T actual, stack<bool>& resultStack, stack<string>& expectation)
   {
+    expectation.push(op->ExpectationText());
+
     if (op->IsLogicalOperator())
     {
       LogicalOperator* logical = dynamic_cast<LogicalOperator*> (op);

@@ -22,6 +22,13 @@ public:
     return actual == _expected;
   }
 
+  string ExpectationText()
+    {
+    ostringstream str;
+    str << "equal to " << _expected;
+    return str.str();
+  }
+
 private:
   T _expected;
 };

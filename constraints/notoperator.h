@@ -18,6 +18,11 @@ public:
     boolStack.pop();
     boolStack.push(!currentResult);
   }
+
+  virtual string ExpectationText()
+  {
+    return "not";
+  }
 };
 
 #endif	/* _NOTOPERATOR_H */

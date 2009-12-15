@@ -57,12 +57,28 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleStrings)
   {
-    Assert::That<string>("joakim", Is().EqualTo<string>("joakim"));
+    Assert::That<string > ("joakim", Is().EqualTo<string > ("joakim"));
   }
 
   TestMethod(Assertions, ShouldHandleNotOperatorsForStrings)
   {
-    Assert::That<string>("joakim", Is().Not().EqualTo<string>("harry"));
+    Assert::That<string > ("joakim", Is().Not().EqualTo<string > ("harry"));
+  }
+
+  TestMethod(Assertions, ShouldReturnAReadableErrorTextUponFailure)
+  {
+    string errorText;
+
+    try
+    {
+      Assert::That(5, Is().Not().EqualTo(5));
+    }
+    catch(AssertionException exception)
+    {
+      errorText = exception.GetMessage();
+    }
+
+    Assert::That<string>(errorText, Is().EqualTo<string>("Expected: not equal to 5\nActual: 5\n"));
   }
 };
 
