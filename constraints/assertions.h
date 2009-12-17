@@ -13,7 +13,6 @@
 class Assert
 {
 public:
-
   template <typename T>
   static void That(T actual, Expression& constraint)
   {
@@ -30,6 +29,11 @@ public:
     {
       throw AssertionException(CreateErrorText(expectations, actual));
     }
+  }
+
+  static void That(const char* actual, Expression& constraint)
+  {
+	  return That<std::string>(std::string(actual), constraint);
   }
 
   static void That(bool& actual)

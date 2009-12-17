@@ -21,8 +21,13 @@ public:
   template <typename T>
   Expression& EqualTo(T expectation)
   {
-    operators.Push(new EqualToConstraint<T > (expectation));
+    operators.Push(new EqualToConstraint<T>(expectation));
     return *this;
+  }
+
+  Expression& EqualTo(const char* expectation)
+  {
+	  return EqualTo<std::string>(std::string(expectation));
   }
 
   IOperator* PopOperator()
