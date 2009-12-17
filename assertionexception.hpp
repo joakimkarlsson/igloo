@@ -5,9 +5,9 @@ class AssertionException : public std::exception
 {
 public:  
 	AssertionException(string message) : _message(message) {}
-  virtual ~AssertionException() throw() {}
+	virtual ~AssertionException() throw() {}
   
-	string GetMessage() { return _message; }
+	string GetMessage() const { return _message; }
 	
 private:
 	string _message;	

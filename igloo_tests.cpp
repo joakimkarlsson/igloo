@@ -26,7 +26,7 @@ TestFixture(Assertions)
     {
       Assert::That(5, Is().EqualTo(4));
     }
-    catch (AssertionException)
+    catch (const AssertionException&)
     {
       exceptionIsThrown = true;
     }
@@ -47,7 +47,7 @@ TestFixture(Assertions)
     {
       Assert::That(5, Is().Not().EqualTo(5));
     }
-    catch (AssertionException)
+    catch (const AssertionException&)
     {
       exceptionIsThrown = true;
     }
@@ -73,7 +73,7 @@ TestFixture(Assertions)
     {
       Assert::That(5, Is().Not().EqualTo(5));
     }
-    catch(AssertionException exception)
+    catch(const AssertionException& exception)
     {
       errorText = exception.GetMessage();
     }
