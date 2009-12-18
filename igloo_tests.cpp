@@ -7,13 +7,19 @@ using igloo::TestRunner;
 
 TestFixture(Assertions)
 {
-public:
-  virtual void SetUp(){}
-  virtual void TearDown(){}
+  public:
+
+  virtual void SetUp()
+  {
+  }
+
+  virtual void TearDown()
+  {
+  }
 
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
-     Assert::That(5, Is().EqualTo(5));
+    Assert::That(5, Is().EqualTo(5));
   }
 
   TestMethod(Assertions, ShouldDetectIntegerInequality)
@@ -70,13 +76,13 @@ public:
 
   TestMethod(Assertions, ShouldReturnAReadableErrorTextUponFailure)
   {
-     std::string errorText;
+    std::string errorText;
 
     try
     {
       Assert::That(5, Is().Not().EqualTo(5));
     }
-    catch(const AssertionException& exception)
+    catch (const AssertionException& exception)
     {
       errorText = exception.GetMessage();
     }
@@ -97,13 +103,33 @@ public:
     {
       Assert::That(5, Is().GreaterThan(5));
     }
-    catch(const AssertionException exception)
+    catch (const AssertionException exception)
     {
       errorText = exception.GetMessage();
     }
 
     Assert::That(errorText, Is().EqualTo("Expected: greater than 5\nActual: 5\n"));
+  }
 
+  TestMethod(Assertions, ShouldHandleLessThan)
+  {
+    Assert::That(5, Is().LessThan(6));
+  }
+
+    TestMethod(Assertions, ShouldDetectWhenLessThanFails)
+  {
+    std::string errorText;
+
+    try
+    {
+      Assert::That(6, Is().LessThan(5));
+    }
+    catch (const AssertionException exception)
+    {
+      errorText = exception.GetMessage();
+    }
+
+    Assert::That(errorText, Is().EqualTo("Expected: less than 5\nActual: 6\n"));
   }
 };
 

@@ -7,6 +7,7 @@
 #include "notoperator.h"
 #include "equaltoconstraint.h"
 #include "greaterthanconstraint.h"
+#include "lessthanconstraint.h"
 #include "operatorstack.h"
 #include "expression.h"
 #include "is.h"
