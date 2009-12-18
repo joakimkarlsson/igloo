@@ -1,21 +1,19 @@
-
 #include "igloo.hpp"
+
+using igloo::Assert;
+using igloo::AssertionException;
+using igloo::Is;
+using igloo::TestRunner;
 
 TestFixture(Assertions)
 {
-  public:
-
-  virtual void SetUp()
-  {
-  }
-
-  virtual void TearDown()
-  {
-  }
+public:
+  virtual void SetUp(){}
+  virtual void TearDown(){}
 
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
-    Assert::That(5, Is().EqualTo(5));
+     Assert::That(5, Is().EqualTo(5));
   }
 
   TestMethod(Assertions, ShouldDetectIntegerInequality)
