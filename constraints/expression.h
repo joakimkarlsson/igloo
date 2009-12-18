@@ -31,6 +31,13 @@ namespace igloo {
          return EqualTo<std::string>(std::string(expectation));
       }
 
+      template <typename T>
+      Expression& GreaterThan(T expectation)
+      {
+          operators.Push(new GreaterThanConstraint<T>(expectation));
+          return *this;
+      }
+
       IOperator* PopOperator()
       {
          return operators.Pop();

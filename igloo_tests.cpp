@@ -83,6 +83,28 @@ public:
 
     Assert::That(errorText, Is().EqualTo("Expected: not equal to 5\nActual: 5\n"));
   }
+
+  TestMethod(Assertions, ShouldHandleGreaterThan)
+  {
+    Assert::That(5, Is().GreaterThan(4));
+  }
+
+  TestMethod(Assertions, ShouldDetectWhenGreaterThanFails)
+  {
+    std::string errorText;
+
+    try
+    {
+      Assert::That(5, Is().GreaterThan(5));
+    }
+    catch(const AssertionException exception)
+    {
+      errorText = exception.GetMessage();
+    }
+
+    Assert::That(errorText, Is().EqualTo("Expected: greater than 5\nActual: 5\n"));
+
+  }
 };
 
 int main()
