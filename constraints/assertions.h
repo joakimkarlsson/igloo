@@ -16,8 +16,8 @@ public:
   template <typename T>
   static void That(T actual, Expression& constraint)
   {
-    stack<bool> operatorResultsStack;
-    stack<string> expectations;
+     std::stack<bool> operatorResultsStack;
+    std::stack<std::string> expectations;
 
     IOperator* op;
     while ((op = constraint.PopOperator()) != NULL)
@@ -47,7 +47,7 @@ public:
 private:
 
   template <typename T>
-  static void PerformOperation(IOperator * op, T actual, stack<bool>& resultStack, stack<string>& expectation)
+  static void PerformOperation(IOperator * op, T actual, std::stack<bool>& resultStack, std::stack<std::string>& expectation)
   {
     expectation.push(op->ExpectationText());
 
@@ -66,9 +66,9 @@ private:
   }
 
   template <typename T>
-  static string CreateErrorText(stack<string>& operatorExpectations, T actual)
+  static std::string CreateErrorText(std::stack<std::string>& operatorExpectations, T actual)
   {
-    ostringstream str;
+     std::ostringstream str;
     str << "Expected: ";
 
     while (!operatorExpectations.empty())
@@ -81,9 +81,9 @@ private:
         str << " ";
       }
     }
-    str << endl;
+    str << std::endl;
 
-    str << "Actual: " << actual << endl;
+    str << "Actual: " << actual << std::endl;
 
     return str.str();
   }

@@ -22,9 +22,9 @@ public:
     return actual == _expected;
   }
 
-  string ExpectationText()
+  std::string ExpectationText()
     {
-    ostringstream str;
+    std::ostringstream str;
     str << "equal to " << _expected;
     return str.str();
   }

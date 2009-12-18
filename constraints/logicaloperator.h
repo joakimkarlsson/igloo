@@ -16,7 +16,7 @@ public:
   {
     return true;
   }
-  virtual void Evaluate(stack<bool>& boolStack) = 0;
+  virtual void Evaluate(std::stack<bool>& boolStack) = 0;
 };
 
 #endif	/* _LOGICALOPERATOR_H */

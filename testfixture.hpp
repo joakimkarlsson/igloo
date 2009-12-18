@@ -8,7 +8,7 @@
 class TestFixtureBase
 {
 public:
-  virtual void Run(const string& fixtureName, list<TestResult>& results) = 0;
+   virtual void Run(const std::string& fixtureName, std::list<TestResult>& results) = 0;
 };
 
 #ifndef MAX_NUMBER_OF_TEST_METHODS   
@@ -20,9 +20,9 @@ class TestFixture : public TestFixtureBase
 {
 public:
   typedef void (T::*TestMethodPtr)();
-  typedef map<string, TestMethodPtr> TestMethods;
+  typedef std::map<std::string, TestMethodPtr> TestMethods;
 
-  void Run(const string& fixtureName, list<TestResult>& results)
+  void Run(const std::string& fixtureName, std::list<TestResult>& results)
   {
     T testFixture;
 
@@ -35,17 +35,17 @@ public:
   virtual void TearDown() {}
 
 private:
-  void CallTests(T& t, TestMethods& testMethods, string fixtureName, list<TestResult>& results)
+  void CallTests(T& t, TestMethods& testMethods, std::string fixtureName, std::list<TestResult>& results)
   {
     typename TestMethods::iterator it;
     for (it = testMethods.begin(); it != testMethods.end(); it++)
     {
-      cout << "Running test " << (*it).first << endl;
+       std::cout << "Running test " << (*it).first << std::endl;
       CallTest(t, fixtureName, (*it).first, (*it).second, results);
     }
   }
 
-  void CallTest(T t, const string& fixtureName, const string& testName, void (T::*method)(), list<TestResult>& results)
+  void CallTest(T t, const std::string& fixtureName, const std::string& testName, void (T::*method)(), std::list<TestResult>& results)
   {
     try
     {
@@ -56,7 +56,7 @@ private:
     catch (AssertionException& e)
     {
       results.push_back(TestResult(fixtureName, testName, false));
-      cout << "Test " << fixtureName << "::" << testName << " failed: " << e.GetMessage() << endl;
+      std::cout << "Test " << fixtureName << "::" << testName << " failed: " << e.GetMessage() << std::endl;
       return;
     }
 

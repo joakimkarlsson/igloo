@@ -8,16 +8,13 @@
 #include <vector>
 #include <boost/preprocessor.hpp>
 #include <memory>
-
-using namespace std;
-
 #include "assertionexception.hpp"
 #include "testfixture.hpp"
 #include "testrunner.hpp"                                           
 #include "constraints/assertions.h"
 
 
-int RegisterTestFixture(string name, TestFixtureBase* testFixture)
+int RegisterTestFixture(std::string name, TestFixtureBase* testFixture)
 {        
 	TestRunner::FixtureMap[name] = testFixture; 
 	return 0;
@@ -29,7 +26,7 @@ int fixture##_dummy = RegisterTestFixture( #fixture , new TestFixture<fixture>()
 class fixture : public TestFixture<fixture>            
                      
 #define TestMethod(fixture, method) \
-bool BOOST_PP_CAT(GetTest, __COUNTER__)(map<string, void (fixture::*)() >& tests) \
+bool BOOST_PP_CAT(GetTest, __COUNTER__)(std::map<std::string, void (fixture::*)() >& tests) \
 { \
 	tests[#method] = &fixture::method; \
   return true; \

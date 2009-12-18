@@ -12,14 +12,14 @@ class NotOperator : public LogicalOperator
 {
 public:
 
-  virtual void Evaluate(stack<bool>& boolStack)
+   virtual void Evaluate(std::stack<bool>& boolStack)
   {
     bool currentResult = boolStack.top();
     boolStack.pop();
     boolStack.push(!currentResult);
   }
 
-  virtual string ExpectationText()
+   virtual std::string ExpectationText()
   {
     return "not";
   }

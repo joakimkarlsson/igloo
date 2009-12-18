@@ -12,17 +12,17 @@ class TestResult
 {
 public:
 
-  TestResult(string fixtureName, string methodName, bool success) :
+   TestResult(std::string fixtureName, std::string methodName, bool success) :
   _fixtureName(fixtureName), _methodName(methodName), _success(success)
   {
   }
 
-  string GetFixtureName() const
+  std::string GetFixtureName() const
   {
     return _fixtureName;
   }
 
-  string GetMethodName() const
+  std::string GetMethodName() const
   {
     return _methodName;
   }
@@ -33,8 +33,8 @@ public:
   }
 
 private:
-  string _fixtureName;
-  string _methodName;
+   std::string _fixtureName;
+   std::string _methodName;
   bool _success;
 };
 

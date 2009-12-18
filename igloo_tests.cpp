@@ -72,7 +72,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldReturnAReadableErrorTextUponFailure)
   {
-    string errorText;
+     std::string errorText;
 
     try
     {

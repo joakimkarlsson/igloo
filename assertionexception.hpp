@@ -4,13 +4,13 @@
 class AssertionException : public std::exception
 {
 public:  
-	AssertionException(string message) : _message(message) {}
+   AssertionException(const std::string message) : _message(message) {}
 	virtual ~AssertionException() throw() {}
   
-	string GetMessage() const { return _message; }
+   std::string GetMessage() const { return _message; }
 	
 private:
-	string _message;	
+   std::string _message;	
 };
 
 #endif /* end of include guard: ASSERTIONEXCEPTION_HPP_WLWP5A27 */

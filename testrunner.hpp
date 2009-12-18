@@ -8,27 +8,27 @@
 class TestRunner
 {
 public:
-  typedef map<string, TestFixtureBase* > TestFixtureMap;
+   typedef std::map<std::string, TestFixtureBase* > TestFixtureMap;
   static TestFixtureMap FixtureMap;
 
   static int RunAllTests()
   {
-    list<TestResult> results;
+    std::list<TestResult> results;
 
     for (TestFixtureMap::iterator it = FixtureMap.begin(); it != FixtureMap.end(); it++)
     {
-      cout << "Running test fixture: " << (*it).first << endl;
+      std::cout << "Running test fixture: " << (*it).first << std::endl;
       (*it).second->Run((*it).first, results);
     }
 
     return CheckResults(results);
   }
 
-  static int CheckResults(const list<TestResult>& results)
+  static int CheckResults(const std::list<TestResult>& results)
   {
     int run = 0, succeeded = 0, failed = 0;
 
-    for (list<TestResult>::const_iterator it = results.begin(); it != results.end(); it++)
+    for (std::list<TestResult>::const_iterator it = results.begin(); it != results.end(); it++)
     {
       run++;
       if ((*it).GetSuccess())
@@ -41,7 +41,7 @@ public:
       }
     }
 
-    cout << "Test run complete. " << run << " tests run, " << succeeded << " succeeded, " << failed << " failed." << endl;
+    std::cout << "Test run complete. " << run << " tests run, " << succeeded << " succeeded, " << failed << " failed." << std::endl;
     return failed;
   }
 };

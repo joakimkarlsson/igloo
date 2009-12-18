@@ -30,7 +30,7 @@ public:
   }
 
 private:
-  stack<IOperator* > _operators;
+   std::stack<IOperator* > _operators;
 
 };
 
