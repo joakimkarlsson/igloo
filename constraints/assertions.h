@@ -17,17 +17,17 @@ public:
   static void That(T actual, Expression& constraint)
   {
      std::stack<bool> operatorResultsStack;
-    std::stack<std::string> expectations;
+    std::stack<std::string> expectationTexts;
 
     IOperator* op;
     while ((op = constraint.PopOperator()) != NULL)
     {
-      PerformOperation(op, actual, operatorResultsStack, expectations);
+      PerformOperation(op, actual, operatorResultsStack, expectationTexts);
     }
 
     if (!operatorResultsStack.top())
     {
-      throw AssertionException(CreateErrorText(expectations, actual));
+      throw AssertionException(CreateErrorText(expectationTexts, actual));
     }
   }
 
@@ -47,9 +47,9 @@ public:
 private:
 
   template <typename T>
-  static void PerformOperation(IOperator * op, T actual, std::stack<bool>& resultStack, std::stack<std::string>& expectation)
+  static void PerformOperation(IOperator * op, T actual, std::stack<bool>& resultStack, std::stack<std::string>& expectationTexts)
   {
-    expectation.push(op->ExpectationText());
+    expectationTexts.push(op->ExpectationText());
 
     if (op->IsLogicalOperator())
     {
@@ -66,17 +66,17 @@ private:
   }
 
   template <typename T>
-  static std::string CreateErrorText(std::stack<std::string>& operatorExpectations, T actual)
+  static std::string CreateErrorText(std::stack<std::string>& expectationTexts, T actual)
   {
      std::ostringstream str;
     str << "Expected: ";
 
-    while (!operatorExpectations.empty())
+    while (!expectationTexts.empty())
     {
-      str << operatorExpectations.top();
-      operatorExpectations.pop();
+      str << expectationTexts.top();
+      expectationTexts.pop();
 
-      if (!operatorExpectations.empty())
+      if (!expectationTexts.empty())
       {
         str << " ";
       }
