@@ -9,7 +9,6 @@
 #include "equaltoconstraint.h"
 #include "greaterthanconstraint.h"
 #include "lessthanconstraint.h"
-#include "evaluatedconstraint.h"
 #include "operatorstack.h"
 #include "expression.h"
 #include "is.h"
@@ -37,7 +36,7 @@ namespace igloo {
     {
       if (!actual)
       {
-        throw AssertionException("Expected condition to be true");
+        throw AssertionException("Expected: true\nActual: false");
       }
     }
 
