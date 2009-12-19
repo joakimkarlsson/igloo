@@ -136,6 +136,11 @@ TestFixture(Assertions)
   {
     Assert::That(5, Is().GreaterThan(4).And().LessThan(6));
   }
+
+  TestMethod(Assertions, ShouldHandleBothLeftAndRightAssociativeOperators)
+  {
+    Assert::That(5, Is().GreaterThan(4).And().Not().LessThan(3));
+  }
 };
 
 int main()

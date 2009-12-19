@@ -25,9 +25,9 @@ namespace igloo {
          return "not";
       }
 
-      virtual LogicalOperator* Clone() const
+      virtual bool IsLeftAssociative() const
       {
-        return new NotOperator();
+        return false;
       }
    };
 }

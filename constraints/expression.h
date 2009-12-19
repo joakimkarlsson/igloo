@@ -69,13 +69,17 @@ namespace igloo {
         IOperator* op = *it;
         if (op->IsLogicalOperator())
         {
-          if (!operatorStack.empty())
+          const LogicalOperator* logical = dynamic_cast<const LogicalOperator*> (op);
+
+          if (logical->IsLeftAssociative())
           {
-            operatorStack.top()->Evaluate(result);
-            operatorStack.pop();
+            while (!operatorStack.empty())
+            {
+              operatorStack.top()->Evaluate(result);
+              operatorStack.pop();
+            }
           }
 
-          const LogicalOperator* logical = dynamic_cast<const LogicalOperator*> (op);
           operatorStack.push(logical);
         }
         else
