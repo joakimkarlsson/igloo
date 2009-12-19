@@ -12,11 +12,13 @@ namespace igloo {
    {
    public:
 
-      virtual bool IsLogicalOperator()
+      virtual bool IsLogicalOperator() const
       {
          return true;
       }
-      virtual void Evaluate(std::stack<bool>& boolStack) = 0;
+
+      virtual void Evaluate(std::stack<bool>& boolStack) const = 0;
+      virtual LogicalOperator* Clone() const = 0;
    };
 }
 #endif	/* _LOGICALOPERATOR_H */

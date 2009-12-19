@@ -10,26 +10,29 @@
 
 namespace igloo {
 
-    template <typename T>
-    class LessThanConstraint : public Constraint<T> {
-    public:
+  template <typename T>
+  class LessThanConstraint : public Constraint<T> {
+  public:
 
-        LessThanConstraint(T expected) : _expected(expected) {
-        }
+    LessThanConstraint(T expected) : _expected(expected)
+    {
+    }
 
-        bool Evaluate(T actual) {
-            return actual < _expected;
-        }
+    bool Evaluate(T actual) const
+    {
+      return actual < _expected;
+    }
 
-        std::string ExpectationText() {
-            std::ostringstream str;
-            str << "less than " << _expected;
-            return str.str();
-        }
+    std::string ExpectationText() const
+    {
+      std::ostringstream str;
+      str << "less than " << _expected;
+      return str.str();
+    }
 
-    private:
-        T _expected;
-    };
+  private:
+    T _expected;
+  };
 
 }
 

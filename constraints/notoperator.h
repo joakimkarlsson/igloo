@@ -13,16 +13,21 @@ namespace igloo {
    {
    public:
 
-      virtual void Evaluate(std::stack<bool>& boolStack)
+      virtual void Evaluate(std::stack<bool>& boolStack) const
       {
          bool currentResult = boolStack.top();
          boolStack.pop();
          boolStack.push(!currentResult);
       }
 
-      virtual std::string ExpectationText()
+      virtual std::string ExpectationText() const
       {
          return "not";
+      }
+
+      virtual LogicalOperator* Clone() const
+      {
+        return new NotOperator();
       }
    };
 }

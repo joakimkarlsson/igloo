@@ -10,26 +10,29 @@
 
 namespace igloo {
 
-    template <typename T>
-    class GreaterThanConstraint : public Constraint<T> {
-    public:
+  template <typename T>
+  class GreaterThanConstraint : public Constraint<T> {
+  public:
 
-        GreaterThanConstraint(T expected) : _expected(expected) {
-        }
+    GreaterThanConstraint(T expected) : _expected(expected)
+    {
+    }
 
-        bool Evaluate(T actual) {
-            return actual > _expected;
-        }
+    bool Evaluate(T actual) const
+    {
+      return actual > _expected;
+    }
 
-        std::string ExpectationText() {
-            std::ostringstream str;
-            str << "greater than " << _expected;
-            return str.str();
-        }
+    std::string ExpectationText() const
+    {
+      std::ostringstream str;
+      str << "greater than " << _expected;
+      return str.str();
+    }
 
-    private:
-        T _expected;
-    };
+  private:
+    T _expected;
+  };
 
 }
 #endif	/* _GREATERTHANCONSTRAINT_H */

@@ -116,7 +116,7 @@ TestFixture(Assertions)
     Assert::That(5, Is().LessThan(6));
   }
 
-    TestMethod(Assertions, ShouldDetectWhenLessThanFails)
+  TestMethod(Assertions, ShouldDetectWhenLessThanFails)
   {
     std::string errorText;
 
@@ -130,6 +130,11 @@ TestFixture(Assertions)
     }
 
     Assert::That(errorText, Is().EqualTo("Expected: less than 5\nActual: 6\n"));
+  }
+
+  TestMethod(Assertions, ShouldHandleCompoundOperators)
+  {
+    Assert::That(5, Is().GreaterThan(4).And().LessThan(6));
   }
 };
 

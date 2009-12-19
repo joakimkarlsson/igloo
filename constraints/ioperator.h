@@ -12,8 +12,8 @@ namespace igloo {
    class IOperator
    {
    public:
-      virtual bool IsLogicalOperator() = 0;
-      virtual std::string ExpectationText() = 0;
+      virtual bool IsLogicalOperator() const = 0;
+      virtual std::string ExpectationText() const = 0;
    };
 }
 #endif	/* _IOPERATOR_H */

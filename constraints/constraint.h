@@ -14,12 +14,12 @@ namespace igloo {
    {
    public:
 
-      virtual bool IsLogicalOperator()
+      virtual bool IsLogicalOperator() const
       {
          return false;
       }
 
-      virtual bool Evaluate(T actual) = 0;
+      virtual bool Evaluate(T actual) const = 0;
    };
 }
 #endif	/* _CONSTRAINT_H */

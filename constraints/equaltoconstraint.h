@@ -18,12 +18,12 @@ namespace igloo {
       {
       }
 
-      bool Evaluate(T actual)
+      bool Evaluate(T actual) const
       {
          return actual == _expected;
       }
 
-      std::string ExpectationText()
+      std::string ExpectationText() const
       {
          std::ostringstream str;
          str << "equal to " << _expected;
