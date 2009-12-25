@@ -54,17 +54,10 @@ namespace igloo {
       return *this;
     }
 
-    StringSyntax& String()
+    StringSyntax String()
     {
-      StringSyntax* stringSyntax = new StringSyntax(_expression);
-      _follower = stringSyntax;
-      return *stringSyntax;
+      return StringSyntax(_expression);
     }
-
-
-
-  private:
-    SyntaxBase* _follower;
   };
 
 
