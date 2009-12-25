@@ -8,10 +8,14 @@
 #ifndef _IS_H
 #define	_IS_H
 
+#include "syntax.h"
+
 namespace igloo {
-   Expression Is()
+   
+
+  Syntax Is()
    {
-      return Expression();
+      return Syntax(new Expression());
    }
 }
 #endif	/* _IS_H */

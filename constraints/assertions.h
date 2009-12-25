@@ -8,10 +8,11 @@
 #include "andoperator.h"
 #include "equaltoconstraint.h"
 #include "greaterthanconstraint.h"
+#include "stringcontainingconstraint.h"
 #include "lessthanconstraint.h"
 #include "operatorstack.h"
 #include "expression.h"
-#include "is.h"
+#include "../is.h"
 
 namespace igloo {
 
@@ -19,17 +20,17 @@ namespace igloo {
   public:
 
     template <typename T>
-    static void That(T actual, Expression& expression)
+    static void That(T actual, SyntaxBase& syntax)
     {
-      if (!expression.Evaluate(actual))
+      if (!syntax.GetExpression().Evaluate(actual))
       {
-        throw AssertionException(CreateErrorText(expression, actual));
+        throw AssertionException(CreateErrorText(syntax.GetExpression(), actual));
       }
     }
 
-    static void That(const char* actual, Expression& constraint)
+    static void That(const char* actual, SyntaxBase& syntax)
     {
-      return That<std::string > (std::string(actual), constraint);
+      return That<std::string > (std::string(actual), syntax);
     }
 
     static void That(bool& actual)

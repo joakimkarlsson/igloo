@@ -141,6 +141,11 @@ TestFixture(Assertions)
   {
     Assert::That(5, Is().GreaterThan(4).And().Not().LessThan(3));
   }
+
+  TestMethod(Assertions, ShouldHandleStringContainsConstraint)
+  {
+    Assert::That("abcdef", Is().String().Containing("bcde"));
+  }
 };
 
 int main()

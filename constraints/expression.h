@@ -20,42 +20,9 @@ namespace igloo {
   public:
     typedef std::list<IOperator*> Operators;
 
-    Expression& Not()
+    void Add(IOperator* op)
     {
-      operators.push_back(new NotOperator());
-      return *this;
-    }
-
-    Expression& And()
-    {
-      operators.push_back(new AndOperator());
-      return *this;
-    }
-
-    template <typename T>
-    Expression& EqualTo(T expectation)
-    {
-      operators.push_back(new EqualToConstraint<T > (expectation));
-      return *this;
-    }
-
-    Expression& EqualTo(const char* expectation)
-    {
-      return EqualTo<std::string > (std::string(expectation));
-    }
-
-    template <typename T>
-    Expression& GreaterThan(T expectation)
-    {
-      operators.push_back(new GreaterThanConstraint<T > (expectation));
-      return *this;
-    }
-
-    template <typename T>
-    Expression& LessThan(T expectation)
-    {
-      operators.push_back(new LessThanConstraint<T > (expectation));
-      return *this;
+      operators.push_back(op);
     }
 
     template <typename T>
