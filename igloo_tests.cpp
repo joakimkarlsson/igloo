@@ -152,7 +152,7 @@ TestFixture(Assertions)
     Assert::That("abcdef", Is().String().Containing("a"));
   }
 
-  TestMethod(Assertions, ShouldHandleStringStartsWithConstraint)
+  TestMethod(Assertions, ShouldHandleStringStartingWithConstraint)
   {
     Assert::That("abcdef", Is().String().StartingWith("abc"));
   }
