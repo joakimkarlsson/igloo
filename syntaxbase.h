@@ -8,15 +8,15 @@ namespace igloo {
   class SyntaxBase
   {
 public:
-    SyntaxBase(Expression* expression) : _expression(expression) {}
+  explicit SyntaxBase(std::auto_ptr<Expression> expression) : _expression(expression) {}
 
     Expression& GetExpression()
     {
-      return *_expression;
+      return *(_expression.get());
     }
 
   protected:
-    Expression* _expression;
+    std::auto_ptr<Expression> _expression;
   };
 
 }

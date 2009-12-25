@@ -3,18 +3,19 @@
 
 #include "syntaxbase.h"
 #include "stringsyntax.h"
+#include "constraints/expression.h"
 
 namespace igloo {
 
-
-  class Syntax : public SyntaxBase
-  {
+  class Syntax : public SyntaxBase {
   public:
-    Syntax(Expression* expression) : SyntaxBase(expression)
+
+    Syntax(std::auto_ptr<Expression> expression) : SyntaxBase(expression)
     {
     }
 
     // Operators
+
     Syntax& Not()
     {
       _expression->Add(new NotOperator());
@@ -28,6 +29,7 @@ namespace igloo {
     }
 
     // Constraints
+
     template <typename T>
     Syntax& EqualTo(T expectation)
     {
@@ -56,7 +58,8 @@ namespace igloo {
 
     StringSyntax String()
     {
-      return StringSyntax(_expression);
+      StringSyntax stringSyntax(_expression);
+      return stringSyntax;
     }
   };
 

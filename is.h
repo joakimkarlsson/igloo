@@ -12,11 +12,12 @@
 
 namespace igloo {
    
-
   Syntax Is()
    {
-      return Syntax(new Expression());
+     Syntax syntax(std::auto_ptr<Expression>(new Expression()));
+     return syntax;
    }
+
 }
 #endif	/* _IS_H */
 

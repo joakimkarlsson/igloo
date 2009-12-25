@@ -20,6 +20,15 @@ namespace igloo {
   public:
     typedef std::list<IOperator*> Operators;
 
+    virtual ~Expression()
+    {
+      Operators::iterator it;
+      for(it=operators.begin(); it != operators.end(); it++)
+	{
+	  delete (*it);
+	}
+    }
+
     void Add(IOperator* op)
     {
       operators.push_back(op);
