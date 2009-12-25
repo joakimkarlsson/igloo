@@ -156,6 +156,11 @@ TestFixture(Assertions)
   {
     Assert::That("abcdef", Is().String().StartingWith("abc"));
   }
+
+  TestMethod(Assertions, ShouldHandleStringEndingWithConstraint)
+  {
+    Assert::That("abcdef", Is().String().EndingWith("def"));
+  }
 };
 
 int main()

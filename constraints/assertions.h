@@ -10,6 +10,7 @@
 #include "greaterthanconstraint.h"
 #include "stringcontainingconstraint.h"
 #include "stringstartingwithconstraint.h"
+#include "stringendingwithconstraint.h"
 #include "lessthanconstraint.h"
 #include "operatorstack.h"
 #include "expression.h"

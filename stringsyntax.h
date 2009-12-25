@@ -26,6 +26,12 @@ namespace igloo {
       _expression->Add(new StringStartingWithConstraint(expectation));
       return *this;
     }
+
+    StringSyntax& EndingWith(std::string expectation)
+    {
+      _expression->Add(new StringEndingWithConstraint(expectation));
+      return *this;
+    }
   };
 
 }
