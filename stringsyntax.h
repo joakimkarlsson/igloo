@@ -20,6 +20,12 @@ namespace igloo {
     {
       return Containing(std::string(expectation));
     }
+
+    StringSyntax& StartingWith(std::string expectation)
+    {
+      _expression->Add(new StringStartingWithConstraint(expectation));
+      return *this;
+    }
   };
 
 }

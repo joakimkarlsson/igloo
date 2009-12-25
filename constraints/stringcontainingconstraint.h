@@ -17,7 +17,7 @@ namespace igloo {
 
     virtual bool Evaluate(std::string actual) const
     {
-      return actual.find(_expected) != 0;
+      return actual.find(_expected) != actual.npos;
     }
 
     std::string ExpectationText() const

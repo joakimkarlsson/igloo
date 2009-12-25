@@ -146,6 +146,16 @@ TestFixture(Assertions)
   {
     Assert::That("abcdef", Is().String().Containing("bcde"));
   }
+
+  TestMethod(Assertions, StringConstraintShouldHandleMatchAtBeginningOfString)
+  {
+    Assert::That("abcdef", Is().String().Containing("a"));
+  }
+
+  TestMethod(Assertions, ShouldHandleStringStartsWithConstraint)
+  {
+    Assert::That("abcdef", Is().String().StartingWith("abc"));
+  }
 };
 
 int main()
