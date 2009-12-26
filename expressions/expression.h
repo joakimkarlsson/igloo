@@ -9,7 +9,7 @@
 #define	_EXPRESSION_H
 
 #include "itoken.h"
-#include "operator.h"
+#include "operators/operator.h"
 
 
 using std::auto_ptr;
