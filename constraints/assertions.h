@@ -12,7 +12,7 @@
 #include "stringstartingwithconstraint.h"
 #include "stringendingwithconstraint.h"
 #include "lessthanconstraint.h"
-#include "operatorstack.h"
+//#include "operatorstack.h"
 #include "expression.h"
 #include "../is.h"
 
