@@ -1,5 +1,5 @@
-#ifndef _SYNTAX_H_
-#define _SYNTAX_H_
+#ifndef _ROOTSYNTAX_H_
+#define _ROOTSYNTAX_H_
 
 #include "expressionsyntax.h"
 #include "stringsyntax.h"
@@ -7,22 +7,22 @@
 
 namespace igloo {
 
-  class Syntax : public ExpressionSyntax {
+  class RootSyntax : public ExpressionSyntax {
   public:
 
-    Syntax(std::auto_ptr<Expression> expression) : ExpressionSyntax(expression)
+    RootSyntax(std::auto_ptr<Expression> expression) : ExpressionSyntax(expression)
     {
     }
 
     // Operators
 
-    Syntax& Not()
+    RootSyntax& Not()
     {
       _expression->Add(new NotOperator());
       return *this;
     }
 
-    Syntax& And()
+    RootSyntax& And()
     {
       _expression->Add(new AndOperator());
       return *this;
@@ -31,26 +31,26 @@ namespace igloo {
     // Constraints
 
     template <typename T>
-    Syntax& EqualTo(T expectation)
+    RootSyntax& EqualTo(T expectation)
     {
       _expression->Add(new EqualToConstraint<T > (expectation));
       return *this;
     }
 
-    Syntax& EqualTo(const char* expectation)
+    RootSyntax& EqualTo(const char* expectation)
     {
       return EqualTo<std::string > (std::string(expectation));
     }
 
     template <typename T>
-    Syntax& GreaterThan(T expectation)
+    RootSyntax& GreaterThan(T expectation)
     {
       _expression->Add(new GreaterThanConstraint<T > (expectation));
       return *this;
     }
 
     template <typename T>
-    Syntax& LessThan(T expectation)
+    RootSyntax& LessThan(T expectation)
     {
       _expression->Add(new LessThanConstraint<T > (expectation));
       return *this;

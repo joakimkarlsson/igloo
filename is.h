@@ -8,13 +8,13 @@
 #ifndef _IS_H
 #define	_IS_H
 
-#include "expressionsyntax/syntax.h"
+#include "expressionsyntax/rootsyntax.h"
 
 namespace igloo {
    
-  Syntax Is()
+  RootSyntax Is()
    {
-     Syntax syntax(std::auto_ptr<Expression>(new Expression()));
+     RootSyntax syntax(std::auto_ptr<Expression>(new Expression()));
      return syntax;
    }
 
