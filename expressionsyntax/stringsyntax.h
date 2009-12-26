@@ -3,10 +3,10 @@
 
 namespace igloo {
 
-  class StringSyntax : public SyntaxBase {
+  class StringSyntax : public ExpressionSyntax {
   public:
 
-    explicit StringSyntax(std::auto_ptr<Expression> expression) : SyntaxBase(expression)
+    explicit StringSyntax(std::auto_ptr<Expression> expression) : ExpressionSyntax(expression)
     {
     }
 

@@ -1,16 +1,16 @@
 #ifndef _SYNTAX_H_
 #define _SYNTAX_H_
 
-#include "syntaxbase.h"
+#include "expressionsyntax.h"
 #include "stringsyntax.h"
 #include "../expressions/expression.h"
 
 namespace igloo {
 
-  class Syntax : public SyntaxBase {
+  class Syntax : public ExpressionSyntax {
   public:
 
-    Syntax(std::auto_ptr<Expression> expression) : SyntaxBase(expression)
+    Syntax(std::auto_ptr<Expression> expression) : ExpressionSyntax(expression)
     {
     }
 

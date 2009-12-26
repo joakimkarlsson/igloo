@@ -21,7 +21,7 @@ namespace igloo {
   public:
 
     template <typename T>
-    static void That(T actual, SyntaxBase& syntax)
+    static void That(T actual, ExpressionSyntax& syntax)
     {
       if (!syntax.GetExpression().Evaluate(actual))
       {
@@ -29,7 +29,7 @@ namespace igloo {
       }
     }
 
-    static void That(const char* actual, SyntaxBase& syntax)
+    static void That(const char* actual, ExpressionSyntax& syntax)
     {
       return That<std::string > (std::string(actual), syntax);
     }
