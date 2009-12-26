@@ -1,7 +1,7 @@
 #ifndef _ASSERTIONS_H
 #define	_ASSERTIONS_H
 #include <stack>
-#include "ioperator.h"
+#include "itoken.h"
 #include "logicaloperator.h"
 #include "constraint.h"
 #include "notoperator.h"
@@ -12,7 +12,6 @@
 #include "stringstartingwithconstraint.h"
 #include "stringendingwithconstraint.h"
 #include "lessthanconstraint.h"
-//#include "operatorstack.h"
 #include "expression.h"
 #include "../is.h"
 

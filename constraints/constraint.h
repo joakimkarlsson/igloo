@@ -10,7 +10,7 @@
 
 namespace igloo {
    template <typename T>
-   class Constraint : public IOperator
+   class Constraint : public IToken
    {
    public:
 

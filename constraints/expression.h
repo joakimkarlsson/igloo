@@ -8,7 +8,7 @@
 #ifndef _EXPRESSION_H
 #define	_EXPRESSION_H
 
-#include "ioperator.h"
+#include "itoken.h"
 #include "logicaloperator.h"
 
 
@@ -18,7 +18,7 @@ namespace igloo {
 
   class Expression {
   public:
-    typedef std::list<IOperator*> Operators;
+    typedef std::list<IToken*> Operators;
 
     virtual ~Expression()
     {
@@ -29,7 +29,7 @@ namespace igloo {
 	}
     }
 
-    void Add(IOperator* op)
+    void Add(IToken* op)
     {
       operators.push_back(op);
     }
@@ -42,7 +42,7 @@ namespace igloo {
 
       for (Operators::const_iterator it = operators.begin(); it != operators.end(); it++)
       {
-        IOperator* op = *it;
+        IToken* op = *it;
         if (op->IsLogicalOperator())
         {
           const LogicalOperator* logical = dynamic_cast<const LogicalOperator*> (op);

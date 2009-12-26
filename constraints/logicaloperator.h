@@ -8,7 +8,7 @@
 #ifndef _LOGICALOPERATOR_H
 #define	_LOGICALOPERATOR_H
 namespace igloo {
-   class LogicalOperator : public IOperator
+   class LogicalOperator : public IToken
    {
    public:
 
