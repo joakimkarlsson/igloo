@@ -10,7 +10,7 @@
 
 namespace igloo {
 
-  class AndOperator : public LogicalOperator {
+  class AndOperator : public Operator {
   public:
 
     virtual void Evaluate(std::stack<bool>& boolStack) const

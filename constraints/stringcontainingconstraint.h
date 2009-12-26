@@ -10,7 +10,7 @@ namespace igloo {
     StringContainingConstraint(const char* expected) : _expected(expected) {}
     StringContainingConstraint(std::string expected) : _expected(expected) {}
 
-    virtual bool IsLogicalOperator() const
+    virtual bool IsOperator() const
     {
        return false;
     }

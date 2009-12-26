@@ -2,7 +2,7 @@
 #define	_ASSERTIONS_H
 #include <stack>
 #include "itoken.h"
-#include "logicaloperator.h"
+#include "operator.h"
 #include "constraint.h"
 #include "notoperator.h"
 #include "andoperator.h"

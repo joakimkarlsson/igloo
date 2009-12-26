@@ -19,7 +19,7 @@ namespace igloo {
     {
     }
 
-    virtual bool IsLogicalOperator() const
+    virtual bool IsOperator() const
     {
       return false;
     }

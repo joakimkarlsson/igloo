@@ -9,7 +9,7 @@
 #define	_NOTOPERATOR_H
 
 namespace igloo {
-   class NotOperator : public LogicalOperator
+   class NotOperator : public Operator
    {
    public:
 

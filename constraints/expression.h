@@ -9,7 +9,7 @@
 #define	_EXPRESSION_H
 
 #include "itoken.h"
-#include "logicaloperator.h"
+#include "operator.h"
 
 
 using std::auto_ptr;
@@ -37,15 +37,15 @@ namespace igloo {
     template <typename T>
     bool Evaluate(T actual) const
     {
-      std::stack<const LogicalOperator*> operatorStack;
+      std::stack<const Operator*> operatorStack;
       std::stack<bool> result;
 
       for (Tokens::const_iterator it = tokens.begin(); it != tokens.end(); it++)
       {
         IToken* op = *it;
-        if (op->IsLogicalOperator())
+        if (op->IsOperator())
         {
-          const LogicalOperator* logical = dynamic_cast<const LogicalOperator*> (op);
+          const Operator* logical = dynamic_cast<const Operator*> (op);
 
           if (logical->IsLeftAssociative())
           {

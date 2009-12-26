@@ -12,7 +12,7 @@ namespace igloo {
    class IToken
    {
    public:
-      virtual bool IsLogicalOperator() const = 0;
+      virtual bool IsOperator() const = 0;
       virtual std::string ExpectationText() const = 0;
    };
 }
