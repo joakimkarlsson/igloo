@@ -12,7 +12,7 @@
 #include "assertionexception.hpp"
 #include "testfixture.hpp"
 #include "testrunner.hpp"                                           
-#include "expressions/assertions.h"
+#include "assert.h"
 
 namespace igloo {
    int RegisterTestFixture(std::string name, TestFixtureBase* testFixture)

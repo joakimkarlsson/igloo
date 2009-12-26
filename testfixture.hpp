@@ -2,7 +2,7 @@
 #define TESTFIXTURE_HPP_K1ONTAQ7
 
 #include "assertionexception.hpp"
-#include "expressions/assertions.h"
+#include "assert.h"
 #include "testresult.h"
 
 namespace igloo {
