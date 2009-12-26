@@ -19,11 +19,6 @@ namespace igloo {
     {
     }
 
-    virtual bool IsOperator() const
-    {
-      return false;
-    }
-
     virtual bool Evaluate(std::string actual) const
     {
       if(_expected.size() > actual.size())

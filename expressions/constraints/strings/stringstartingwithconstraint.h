@@ -17,11 +17,6 @@ namespace igloo {
     StringStartingWithConstraint(const char* expected) : _expected(expected) {}
     StringStartingWithConstraint(std::string expected) : _expected(expected) {}
 
-    virtual bool IsOperator() const
-    {
-       return false;
-    }
-
     virtual bool Evaluate(std::string actual) const
     {
       return actual.find(_expected) == 0;
