@@ -18,12 +18,12 @@ namespace igloo {
 
   class Expression {
   public:
-    typedef std::list<IToken*> Operators;
+    typedef std::list<IToken*> Tokens;
 
     virtual ~Expression()
     {
-      Operators::iterator it;
-      for(it=operators.begin(); it != operators.end(); it++)
+      Tokens::iterator it;
+      for(it=tokens.begin(); it != tokens.end(); it++)
 	{
 	  delete (*it);
 	}
@@ -31,7 +31,7 @@ namespace igloo {
 
     void Add(IToken* op)
     {
-      operators.push_back(op);
+      tokens.push_back(op);
     }
 
     template <typename T>
@@ -40,7 +40,7 @@ namespace igloo {
       std::stack<const LogicalOperator*> operatorStack;
       std::stack<bool> result;
 
-      for (Operators::const_iterator it = operators.begin(); it != operators.end(); it++)
+      for (Tokens::const_iterator it = tokens.begin(); it != tokens.end(); it++)
       {
         IToken* op = *it;
         if (op->IsLogicalOperator())
@@ -78,12 +78,12 @@ namespace igloo {
     {
       std::string expectationText;
 
-      for (Operators::const_iterator it = operators.begin(); it != operators.end();)
+      for (Tokens::const_iterator it = tokens.begin(); it != tokens.end();)
       {
         expectationText += (*it)->ExpectationText();
 
         it++;
-        if (it != operators.end())
+        if (it != tokens.end())
         {
           expectationText += " ";
         }
@@ -93,7 +93,7 @@ namespace igloo {
     }
 
   private:
-    Operators operators;
+    Tokens tokens;
   };
 }
 #endif
