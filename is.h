@@ -8,7 +8,7 @@
 #ifndef _IS_H
 #define	_IS_H
 
-#include "syntax.h"
+#include "expressionsyntax/syntax.h"
 
 namespace igloo {
    

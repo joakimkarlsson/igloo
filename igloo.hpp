@@ -8,7 +8,7 @@
 #include <vector>
 #include <boost/preprocessor.hpp>
 #include <memory>
-#include "syntaxbase.h"
+#include "expressionsyntax/syntaxbase.h"
 #include "assertionexception.hpp"
 #include "testfixture.hpp"
 #include "testrunner.hpp"                                           

@@ -3,7 +3,7 @@
 
 #include "syntaxbase.h"
 #include "stringsyntax.h"
-#include "expressions/expression.h"
+#include "../expressions/expression.h"
 
 namespace igloo {
 
