@@ -16,17 +16,18 @@ using std::auto_ptr;
 
 namespace igloo {
 
-  class Expression {
+  class Expression
+  {
   public:
     typedef std::list<IToken*> Tokens;
 
     virtual ~Expression()
     {
       Tokens::iterator it;
-      for(it=tokens.begin(); it != tokens.end(); it++)
-	{
-	  delete (*it);
-	}
+      for (it = tokens.begin(); it != tokens.end(); it++)
+      {
+        delete (*it);
+      }
     }
 
     void Add(IToken* op)
