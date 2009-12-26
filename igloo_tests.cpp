@@ -161,6 +161,11 @@ TestFixture(Assertions)
   {
     Assert::That("abcdef", Is().String().EndingWith("def"));
   }
+
+  TestMethod(Assertions, ShouldHandleOperatorsWithStringConstraints)
+  {
+    Assert::That("abcdef", Is().String().StartingWith("ab").And().EndingWith("ef"));
+  }
 };
 
 int main()

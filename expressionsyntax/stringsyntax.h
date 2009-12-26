@@ -10,6 +10,12 @@ namespace igloo {
     {
     }
 
+    StringSyntax& And()
+    {
+      _expression->Add(new AndOperator());
+      return *this;
+    }
+
     StringSyntax& Containing(std::string expectation)
     {
       _expression->Add(new StringContainingConstraint(expectation));
