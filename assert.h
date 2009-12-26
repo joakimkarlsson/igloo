@@ -13,7 +13,6 @@
 #include "expressions/constraints/strings/stringendingwithconstraint.h"
 #include "expressions/constraints/lessthanconstraint.h"
 #include "expressions/expression.h"
-#include "is.h"
 
 namespace igloo {
 

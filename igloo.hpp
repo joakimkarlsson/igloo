@@ -14,17 +14,9 @@
 #include "testrunner.hpp"                                           
 #include "assert.h"
 
-namespace igloo {
-   int RegisterTestFixture(std::string name, TestFixtureBase* testFixture)
-   {        
-      TestRunner::FixtureMap[name] = testFixture; 
-      return 0;
-   }  
-}
-
 #define TestFixture(fixture) \
 class fixture; \
-   int fixture##_dummy = igloo::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
+   int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
 class fixture : public igloo::TestFixture<fixture>            
 
 #define TestMethod(fixture, method) \

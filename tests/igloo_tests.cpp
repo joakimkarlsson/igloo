@@ -1,8 +1,7 @@
-#include "igloo.hpp"
+#include "../igloo.hpp"
 
 using igloo::Assert;
 using igloo::AssertionException;
-using igloo::Is;
 using igloo::TestRunner;
 
 TestFixture(Assertions)
