@@ -16,6 +16,12 @@ namespace igloo {
       return *this;
     }
 
+    StringSyntax& Not()
+    {
+      _expression->Add(new NotOperator());
+      return *this;
+    }
+
     StringSyntax& Containing(std::string expectation)
     {
       _expression->Add(new StringContainingConstraint(expectation));
