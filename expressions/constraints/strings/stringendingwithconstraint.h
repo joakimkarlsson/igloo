@@ -13,7 +13,7 @@ namespace igloo {
   class StringEndingWithConstraint : public Constraint<std::string> {
   public:
 
-    StringEndingWithConstraint(std::string expected) : _expected(expected)
+    StringEndingWithConstraint(std::string expected) : Constraint<std::string>(expected)
     {
     }
 
@@ -35,9 +35,6 @@ namespace igloo {
       str << "string ending with " << _expected;
       return str.str();
     }
-
-  private:
-    std::string _expected;
   };
 }
 

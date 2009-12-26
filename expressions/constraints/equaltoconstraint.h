@@ -8,30 +8,30 @@
 #ifndef _EQUALTOCONSTRAINT_H
 #define	_EQUALTOCONSTRAINT_H
 
+#include "constraint.h"
+
 namespace igloo {
-   template <typename T>
+
+  template <typename T>
    class EqualToConstraint : public Constraint<T>
    {
    public:
 
-      EqualToConstraint(T expected) : _expected(expected)
+      EqualToConstraint(T expected) : Constraint<T>(expected)
       {
       }
 
       bool Evaluate(T actual) const
       {
-         return actual == _expected;
+         return actual == Constraint<T>::_expected;
       }
 
       std::string ExpectationText() const
       {
          std::ostringstream str;
-         str << "equal to " << _expected;
+         str << "equal to " << Constraint<T>::_expected;
          return str.str();
       }
-
-   private:
-      T _expected;
    };
 }
 #endif

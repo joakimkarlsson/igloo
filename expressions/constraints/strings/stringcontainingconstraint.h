@@ -7,7 +7,7 @@ namespace igloo {
   {
   public:
 
-    StringContainingConstraint(std::string expected) : _expected(expected) {}
+    StringContainingConstraint(std::string expected) : Constraint<std::string>(expected) {}
 
     virtual bool Evaluate(std::string actual) const
     {
@@ -20,9 +20,6 @@ namespace igloo {
        str << "string containing " << _expected;
        return str.str();
     }
-
-  private:
-    std::string _expected;
   };
 }
 

@@ -14,24 +14,21 @@ namespace igloo {
   class LessThanConstraint : public Constraint<T> {
   public:
 
-    LessThanConstraint(T expected) : _expected(expected)
+    LessThanConstraint(T expected) : Constraint<T>(expected)
     {
     }
 
     bool Evaluate(T actual) const
     {
-      return actual < _expected;
+      return actual < Constraint<T>::_expected;
     }
 
     std::string ExpectationText() const
     {
       std::ostringstream str;
-      str << "less than " << _expected;
+      str << "less than " << Constraint<T>::_expected;
       return str.str();
     }
-
-  private:
-    T _expected;
   };
 
 }
