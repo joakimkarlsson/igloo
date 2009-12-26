@@ -1,5 +1,5 @@
-#ifndef _ASSERTIONS_H
-#define	_ASSERTIONS_H
+#ifndef _ASSERT_H
+#define	_ASSERT_H
 #include <stack>
 #include "itoken.h"
 #include "operators/operator.h"
@@ -57,5 +57,5 @@ namespace igloo {
     }
   };
 }
-#endif	/* _ASSERTIONS_H */
+#endif	/* _ASSERT_H */
 
