@@ -13,8 +13,6 @@ namespace igloo {
   class StringStartingWithConstraint : public Constraint<std::string>
   {
   public:
-
-    StringStartingWithConstraint(const char* expected) : _expected(expected) {}
     StringStartingWithConstraint(std::string expected) : _expected(expected) {}
 
     virtual bool Evaluate(std::string actual) const

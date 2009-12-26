@@ -7,7 +7,6 @@ namespace igloo {
   {
   public:
 
-    StringContainingConstraint(const char* expected) : _expected(expected) {}
     StringContainingConstraint(std::string expected) : _expected(expected) {}
 
     virtual bool Evaluate(std::string actual) const

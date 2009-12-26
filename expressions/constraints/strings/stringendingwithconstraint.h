@@ -13,8 +13,6 @@ namespace igloo {
   class StringEndingWithConstraint : public Constraint<std::string> {
   public:
 
-    //    StringEndingWithConstraint(const char* expected) : _expected(expected) {}
-
     StringEndingWithConstraint(std::string expected) : _expected(expected)
     {
     }
