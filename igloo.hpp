@@ -2,13 +2,11 @@
 #define _IGLOO_HPP
 
 #include <iostream>
-#include <sstream>
 #include <map>
-#include <list>
 #include <vector>
 #include <boost/preprocessor.hpp>
-#include <memory>
-#include "expressionsyntax/expressionsyntax.h"
+
+#include "expressions.h"
 #include "assertionexception.hpp"
 #include "testfixture.hpp"
 #include "testrunner.hpp"                                           

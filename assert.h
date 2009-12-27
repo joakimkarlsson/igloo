@@ -1,18 +1,7 @@
 #ifndef _ASSERT_H
 #define	_ASSERT_H
-#include <stack>
-#include "expressions/itoken.h"
-#include "expressions/operators/operator.h"
-#include "expressions/constraints/constraint.h"
-#include "expressions/operators/notoperator.h"
-#include "expressions/operators/andoperator.h"
-#include "expressions/constraints/equaltoconstraint.h"
-#include "expressions/constraints/greaterthanconstraint.h"
-#include "expressions/constraints/strings/stringcontainingconstraint.h"
-#include "expressions/constraints/strings/stringstartingwithconstraint.h"
-#include "expressions/constraints/strings/stringendingwithconstraint.h"
-#include "expressions/constraints/lessthanconstraint.h"
-#include "expressions/expression.h"
+
+#include "syntax.h"
 
 namespace igloo {
 

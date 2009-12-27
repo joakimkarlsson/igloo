@@ -4,7 +4,7 @@
 #include "assertionexception.hpp"
 #include "assert.h"
 #include "testresult.h"
-#include "expressionsyntax/rootsyntax.h"
+#include "syntax/rootsyntax.h"
 
 namespace igloo {
 
