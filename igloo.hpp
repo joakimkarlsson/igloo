@@ -6,7 +6,7 @@
 #include <vector>
 #include <boost/preprocessor.hpp>
 
-#include "expressions.h"
+#include "syntax.h"
 #include "assertionexception.hpp"
 #include "testfixture.hpp"
 #include "testrunner.hpp"                                           

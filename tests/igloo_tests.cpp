@@ -1,5 +1,3 @@
-#include "../syntax.h"
-
 #include "../igloo.hpp"
 
 using igloo::Assert;
