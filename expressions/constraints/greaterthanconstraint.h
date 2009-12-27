@@ -11,7 +11,8 @@
 namespace igloo {
 
   template <typename T>
-  class GreaterThanConstraint : public Constraint<T> {
+  class GreaterThanConstraint : public Constraint<T>, public IEvaluateConstraint<T>
+  {
   public:
 
     GreaterThanConstraint(T expected) : Constraint<T>(expected)

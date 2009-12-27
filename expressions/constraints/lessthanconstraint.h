@@ -11,12 +11,13 @@
 namespace igloo {
 
   template <typename T>
-  class LessThanConstraint : public Constraint<T> {
+  class LessThanConstraint : public Constraint<T>, public IEvaluateConstraint<T>
+  {
   public:
 
-    LessThanConstraint(T expected) : Constraint<T>(expected)
-    {
-    }
+  LessThanConstraint(T expected) : Constraint<T>(expected)
+  {
+  }
 
     bool Evaluate(T actual) const
     {

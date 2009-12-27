@@ -1,6 +1,8 @@
 #ifndef _STRINGSYNTAX_H_
 #define _STRINGSYNTAX_H_
 
+#include "../expressions/constraints/strings/stringoflengthconstraint.h"
+
 namespace igloo {
 
   class StringSyntax : public ExpressionSyntax {
@@ -42,6 +44,12 @@ namespace igloo {
     StringSyntax& EndingWith(std::string expectation)
     {
       _expression->Add(new StringEndingWithConstraint(expectation));
+      return *this;
+    }
+
+    StringSyntax& OfLength(int expectation)
+    {
+      _expression->Add(new StringOfLengthConstraint(expectation));
       return *this;
     }
   };

@@ -11,6 +11,13 @@
 namespace igloo {
 
   template <typename T>
+  class IEvaluateConstraint
+  {
+  public:
+    virtual bool Evaluate(T actual) const = 0;
+  };
+
+  template <typename T>
   class Constraint : public IToken
   {
   public:
@@ -21,8 +28,6 @@ namespace igloo {
     {
       return false;
     }
-
-    virtual bool Evaluate(T actual) const = 0;
 
   protected:
     T _expected;

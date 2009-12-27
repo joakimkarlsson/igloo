@@ -10,7 +10,7 @@
 
 namespace igloo {
 
-  class StringStartingWithConstraint : public Constraint<std::string>
+  class StringStartingWithConstraint : public Constraint<std::string>, public IEvaluateConstraint<std::string>
   {
   public:
     StringStartingWithConstraint(std::string expected) : Constraint<std::string>(expected) {}

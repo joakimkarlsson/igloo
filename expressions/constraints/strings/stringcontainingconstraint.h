@@ -3,7 +3,7 @@
 
 namespace igloo {
 
-  class StringContainingConstraint : public Constraint<std::string>
+  class StringContainingConstraint : public Constraint<std::string>, public IEvaluateConstraint<std::string>
   {
   public:
 

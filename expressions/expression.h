@@ -61,7 +61,7 @@ namespace igloo {
         }
         else
         {
-          const Constraint<T>* constraint = dynamic_cast<const Constraint<T>*> (op);
+          const IEvaluateConstraint<T>* constraint = dynamic_cast<const IEvaluateConstraint<T>*> (op);
           result.push(constraint->Evaluate(actual));
         }
       }

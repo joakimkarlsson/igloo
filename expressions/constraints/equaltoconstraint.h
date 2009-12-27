@@ -13,7 +13,7 @@
 namespace igloo {
 
   template <typename T>
-   class EqualToConstraint : public Constraint<T>
+    class EqualToConstraint : public Constraint<T>, public IEvaluateConstraint<T>
    {
    public:
 
