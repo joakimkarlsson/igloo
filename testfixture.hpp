@@ -73,7 +73,7 @@ namespace igloo {
       catch (AssertionException& e)
       {
         results.push_back(TestResult(fixtureName, testName, false));
-        std::cout << "Test " << fixtureName << "::" << testName << " failed: " << e.GetMessage() << std::endl;
+        std::cout << "Test " << fixtureName << "::" << testName << " failed: " << std::endl << e.GetMessage() << std::endl;
         return;
       }
 
