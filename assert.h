@@ -9,17 +9,17 @@ namespace igloo {
   public:
 
     template <typename T>
-    static void That(T actual, ExpressionSyntax& syntax)
+    static void That(T actual, ConstraintNode& statement)
     {
-      if (!syntax.GetExpression().Evaluate(actual))
+      if (!statement.Evaluate(actual))
       {
-        throw AssertionException(CreateErrorText(syntax.GetExpression(), actual));
+        throw AssertionException(CreateErrorText(statement.ExpressionAsString(), actual));
       }
     }
 
-    static void That(const char* actual, ExpressionSyntax& syntax)
+    static void That(const char* actual, ConstraintNode& node)
     {
-      return That<std::string > (std::string(actual), syntax);
+      return That<std::string > (std::string(actual), node);
     }
 
     static void That(bool& actual)
@@ -32,11 +32,11 @@ namespace igloo {
 
   private:
     template <typename T>
-    static std::string CreateErrorText(const Expression& expression, const T& actual)
+      static std::string CreateErrorText(std::string expressionAsString, const T& actual)
     {
       std::ostringstream str;
       str << "Expected: ";
-      str << expression.GetExpectationText();
+      str << expressionAsString;
       str << std::endl;
       str << "Actual: " << actual;
       str << std::endl;

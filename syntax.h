@@ -5,6 +5,7 @@
 
 #include "expressions.h"
 
+#include "syntax/statements.h"
 #include "syntax/expressionsyntax.h"
 #include "syntax/rootsyntax.h"
 #include "syntax/stringsyntax.h"

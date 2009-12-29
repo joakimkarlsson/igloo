@@ -75,7 +75,7 @@ namespace igloo {
       return result.top();
     }
 
-    std::string GetExpectationText() const
+    std::string ToString() const
     {
       std::string expectationText;
 
