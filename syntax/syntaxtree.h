@@ -59,6 +59,13 @@ namespace igloo {
       return EqualTo<std::string>(std::string(expected));
     }
 
+    template <typename T>
+    ConstraintNode& GreaterThan(T expected)
+    {
+      GetExpression().Add(new GreaterThanConstraint<T>(expected));
+      return m_constraintNode;
+    }
+
   private:
     ConstraintNode m_constraintNode;
   };
