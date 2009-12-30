@@ -4,7 +4,7 @@
 #include "assertionexception.hpp"
 #include "assert.h"
 #include "testresult.h"
-#include "syntax/statements.h"
+#include "syntax.h"
 
 namespace igloo {
 
@@ -46,7 +46,7 @@ namespace igloo {
 
     RootNode Is()
     {
-      RootNode node(std::auto_ptr<Expression>(new Expression()), std::auto_ptr<INodeFactory>(new NodeFactory()));
+      RootNode node(std::auto_ptr<Expression>(new Expression()));
       return node;
     }
 

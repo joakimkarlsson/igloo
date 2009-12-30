@@ -5,6 +5,6 @@
 
 #include "expressions.h"
 
-#include "syntax/statements.h"
+#include "syntax/syntaxtree.h"
 
 #endif
