@@ -35,6 +35,11 @@ namespace igloo {
     {
       return GetExpression().Evaluate(actual);
     }
+
+    std::string ExpressionAsString()
+    {
+      return GetExpression().ToString();
+    }
   };
 
   class ConstraintOperations : public Node
@@ -42,14 +47,47 @@ namespace igloo {
   public:
     explicit ConstraintOperations(IExpressionOwner& expressionOwner) : Node(expressionOwner), m_constraintNode(expressionOwner) {}
 
+    template <typename T>
+    ConstraintNode& EqualTo(T expected)
+    {
+      GetExpression().Add(new EqualToConstraint<T>(expected));
+      return m_constraintNode;
+    }
+
+    ConstraintNode& EqualTo(const char* expected)
+    {
+      return EqualTo<std::string>(std::string(expected));
+    }
+
   private:
     ConstraintNode m_constraintNode;
   };
 
-  class RootNode : public ConstraintOperations, public IExpressionOwner
+  class UnaryNode : public ConstraintOperations
   {
   public:
-    explicit RootNode(std::auto_ptr<Expression> expression) : m_expression(expression), ConstraintOperations(static_cast<IExpressionOwner&>(*this)) 
+    explicit UnaryNode(IExpressionOwner& expressionOwner) : ConstraintOperations(expressionOwner) {}
+  };
+
+  class BinaryNode : public ConstraintOperations
+  {
+  public:
+    explicit BinaryNode(IExpressionOwner& expressionOwner) : ConstraintOperations(expressionOwner), m_unaryNode(expressionOwner) {}
+
+    UnaryNode& Not()
+    {
+      GetExpression().Add(new NotOperator());
+      return m_unaryNode;
+    }
+
+  private:
+    UnaryNode m_unaryNode;
+  };
+
+  class RootNode : public BinaryNode, public IExpressionOwner
+  {
+  public:
+    explicit RootNode(std::auto_ptr<Expression> expression) : m_expression(expression), BinaryNode(static_cast<IExpressionOwner&>(*this)) 
     {
     }
 
