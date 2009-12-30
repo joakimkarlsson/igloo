@@ -66,6 +66,13 @@ namespace igloo {
       return m_constraintNode;
     }
 
+    template <typename T>
+      ConstraintNode& LessThan(T expected)
+    {
+      GetExpression().Add(new LessThanConstraint<T>(expected));
+      return m_constraintNode;
+    }
+
   private:
     ConstraintNode m_constraintNode;
   };
