@@ -30,9 +30,17 @@ namespace igloo {
       }
     }
 
+    static void Failure(const std::string& message)
+    {
+        std::string adorned = "Forced failure: ";
+        adorned += message;
+
+        throw AssertionException(adorned);
+    }
+
   private:
     template <typename T>
-      static std::string CreateErrorText(std::string expressionAsString, const T& actual)
+    static std::string CreateErrorText(std::string expressionAsString, const T& actual)
     {
       std::ostringstream str;
       str << "Expected: ";

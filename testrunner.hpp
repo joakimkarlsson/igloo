@@ -20,6 +20,7 @@ namespace igloo {
       {
         std::cout << "Running test fixture: " << (*it).first << std::endl;
         (*it).second->Run((*it).first, results);
+        std::cout << std::endl;
       }
 
       return CheckResults(results);

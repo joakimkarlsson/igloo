@@ -1,0 +1,9 @@
+#Ignore Visual Studio project files
+igloo.ncb
+igloo.sln
+igloo.suo
+igloo.vcproj*
+
+#Ignore Visual Studio output dirs
+Debug
+Release

@@ -171,6 +171,22 @@ TestFixture(Assertions)
   {
     Assert::That("abcdef", Is().String().StartingWith("ab").And().Not().EndingWith("qwqw"));
   }
+
+  TestMethod(Assertions, ShouldThrowExplicitFailureMessage)
+  {
+    std::string assertionMessage;
+    
+    try
+    {
+      Assert::Failure("foo");
+    }
+    catch (const AssertionException& e)
+    {
+      assertionMessage = e.GetMessage();
+    }
+
+    Assert::That(assertionMessage, Is().EqualTo("Forced failure: foo"));
+  }
 };
 
 int main()
