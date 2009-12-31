@@ -3,6 +3,7 @@
 
 #include "syntaxtree.h"
 #include "nodebase.h"
+#include "inodeowner.h"
 
 namespace igloo {
 
