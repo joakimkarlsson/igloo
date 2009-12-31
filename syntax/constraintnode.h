@@ -1,7 +1,7 @@
 #ifndef IGLOO_CONSTRAINTNODE_H
 #define IGLOO_CONSTRAINTNODE_H
 
-#include "syntaxtree.h"
+#include "iexpressionowner.h"
 #include "completestatement.h"
 
 namespace igloo {

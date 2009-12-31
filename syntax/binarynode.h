@@ -1,7 +1,7 @@
 #ifndef IGLOO_BINARYNODE_H
 #define IGLOO_BINARYNODE_H
 
-#include "syntaxtree.h"
+#include "iexpressionowner.h"
 
 namespace igloo {
 

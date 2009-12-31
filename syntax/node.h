@@ -1,7 +1,7 @@
 #ifndef IGLOO_NODE_H
 #define IGLOO_NODE_H
 
-#include "syntaxtree.h"
+#include "iexpressionowner.h"
 #include "nodebase.h"
 #include "inodeowner.h"
 

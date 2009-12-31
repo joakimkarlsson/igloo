@@ -1,7 +1,7 @@
 #ifndef IGLOO_ROOTNODE_H
 #define IGLOO_ROOTNODE_H
 
-#include "syntaxtree.h"
+#include "iexpressionowner.h"
 #include "binarynode.h"
 #include "unarynode.h"
 #include "constraintnode.h"
