@@ -1,5 +1,5 @@
-#ifndef IGLOO_SYNTAXTREE_H
-#define IGLOO_SYNTAXTREE_H
+#ifndef IGLOO_IEXPRESSIONOWNER_H
+#define IGLOO_IEXPRESSIONOWNER_H
 
 
 namespace igloo {
