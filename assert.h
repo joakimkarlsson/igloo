@@ -9,7 +9,7 @@ namespace igloo {
   public:
 
     template <typename T>
-    static void That(T actual, ConstraintNode& statement)
+    static void That(T actual, NodeBase& statement)
     {
       if (!statement.Evaluate(actual))
       {
@@ -17,7 +17,7 @@ namespace igloo {
       }
     }
 
-    static void That(const char* actual, ConstraintNode& node)
+    static void That(const char* actual, NodeBase& node)
     {
       return That<std::string > (std::string(actual), node);
     }
