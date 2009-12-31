@@ -87,16 +87,16 @@ namespace igloo {
     } 
   };
 
-  template <typename C>
-    class ConstraintNode : public Node<C>, public CompleteStatement
+  template <typename T>
+    class ConstraintNode : public Node<T>, public CompleteStatement
   {
   public:
-    explicit ConstraintNode(IExpressionOwner& expressionOwner, INodeOwner<C>& nodeOwner) : Node<C>(expressionOwner, nodeOwner), CompleteStatement(expressionOwner) {}
+    explicit ConstraintNode(IExpressionOwner& expressionOwner, INodeOwner<T>& nodeOwner) : Node<T>(expressionOwner, nodeOwner), CompleteStatement(expressionOwner) {}
 
-    BinaryNode<C>& And()
+    BinaryNode<T>& And()
     {
-      Node<C>::GetExpression().Add(new AndOperator());
-      return Node<C>::GetBinaryNode();
+      Node<T>::GetExpression().Add(new AndOperator());
+      return Node<T>::GetBinaryNode();
     }
   };
 
