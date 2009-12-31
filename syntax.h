@@ -9,5 +9,6 @@
 #include "syntax/syntaxtree.h"
 #include "syntax/constraintoperations.h"
 #include "syntax/stringconstraintoperations.h"
+#include "syntax/binarynode.h"
 
 #endif

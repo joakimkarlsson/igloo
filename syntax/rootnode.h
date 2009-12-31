@@ -3,6 +3,7 @@
 
 #include "syntaxtree.h"
 #include "stringconstraintoperations.h"
+#include "binarynode.h"
 
 namespace igloo {
 
