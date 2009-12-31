@@ -94,74 +94,6 @@ namespace igloo {
     }
   };
 
-  class ConstraintOperations : public Node<ConstraintOperations>
-  {
-  public:
-    explicit ConstraintOperations(IExpressionOwner& expressionOwner, INodeOwner<ConstraintOperations>& nodeOwner) : Node(expressionOwner, nodeOwner) {}
-
-    template <typename T>
-    ConstraintNode<ConstraintOperations>& EqualTo(T expected)
-    {
-      GetExpression().Add(new EqualToConstraint<T>(expected));
-      return GetConstraintNode();
-    }
-
-    ConstraintNode<ConstraintOperations>& EqualTo(const char* expected)
-    {
-      return EqualTo<std::string>(std::string(expected));
-    }
-
-    template <typename T>
-    ConstraintNode<ConstraintOperations>& GreaterThan(T expected)
-    {
-      GetExpression().Add(new GreaterThanConstraint<T>(expected));
-      return GetConstraintNode();
-    }
-
-    template <typename T>
-      ConstraintNode<ConstraintOperations>& LessThan(T expected)
-    {
-      GetExpression().Add(new LessThanConstraint<T>(expected));
-      return GetConstraintNode();
-    }
-  };
-
-  class StringConstraintOperations : public Node<StringConstraintOperations>
-  {
-  public:
-    explicit StringConstraintOperations(IExpressionOwner& expressionOwner, INodeOwner<StringConstraintOperations>& nodeOwner) : Node<StringConstraintOperations>(expressionOwner, nodeOwner) {}
-
-    UnaryNode<StringConstraintOperations>& Not()
-    {
-      GetExpression().Add(new NotOperator());
-      return GetUnaryNode();
-    }
-
-    ConstraintNode<StringConstraintOperations>& Containing(std::string expectation)
-    {
-      GetExpression().Add(new StringContainingConstraint(expectation));
-      return GetConstraintNode();
-    }
-
-    ConstraintNode<StringConstraintOperations>& StartingWith(std::string expectation)
-    {
-      GetExpression().Add(new StringStartingWithConstraint(expectation));
-      return GetConstraintNode();
-    }
-
-    ConstraintNode<StringConstraintOperations>& EndingWith(std::string expectation)
-    {
-      GetExpression().Add(new StringEndingWithConstraint(expectation));
-      return GetConstraintNode();
-    }
-
-    ConstraintNode<StringConstraintOperations>& OfLength(int expectation)
-    {
-      GetExpression().Add(new StringOfLengthConstraint(expectation));
-      return GetConstraintNode();
-    }
-  };
-
   template <typename T>
   class UnaryNode : public T
   {
@@ -180,53 +112,6 @@ namespace igloo {
       T::GetExpression().Add(new NotOperator());
       return T::GetUnaryNode();
     }
-  };
-
-  template <typename T>
-  class RootNode : public BinaryNode<T>, public IExpressionOwner, public INodeOwner<T>
-  {
-  public:
-    explicit RootNode(std::auto_ptr<Expression> expression) : m_expression(expression), 
-      BinaryNode<T>(static_cast<IExpressionOwner&>(*this), static_cast<INodeOwner<T>&>(*this)), 
-      m_unaryNode(static_cast<IExpressionOwner&>(*this), static_cast<INodeOwner<T>&>(*this)),
-      m_constraintNode(static_cast<IExpressionOwner&>(*this), static_cast<INodeOwner<T>&>(*this))
-    {
-      
-    }
-
-    // IExpressionOwner
-    virtual Expression& GetExpression()
-    {
-      return *(m_expression.get());
-    }
-
-    // INodeOwner
-    UnaryNode<T>& GetUnaryNode()
-    {
-      return m_unaryNode;
-    }
-
-    BinaryNode<T>& GetBinaryNode()
-    {
-      return static_cast<BinaryNode<T>&>(*this);
-    }
-
-    ConstraintNode<T>& GetConstraintNode()
-    {
-      return m_constraintNode;
-    }
-
-    BinaryNode<StringConstraintOperations>& String()
-    {
-      m_stringRoot = std::auto_ptr<RootNode<StringConstraintOperations> >(new RootNode<StringConstraintOperations>(m_expression));
-      return *(m_stringRoot.get());
-    }
-
-  private:
-    std::auto_ptr<Expression> m_expression;
-    UnaryNode<T> m_unaryNode;
-    ConstraintNode<T> m_constraintNode;
-    std::auto_ptr<RootNode<StringConstraintOperations> > m_stringRoot;
   };
 
 }
