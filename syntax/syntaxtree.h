@@ -28,22 +28,6 @@ namespace igloo {
     virtual BinaryNode<T>& GetBinaryNode() = 0;
     virtual ConstraintNode<T>& GetConstraintNode() = 0;
   };
-
-  class NodeBase
-  {
-  public:
-    NodeBase(IExpressionOwner& expressionOwner) : m_expressionOwner(expressionOwner) {}  
-
-  protected:
-    Expression& GetExpression()
-    {
-      return m_expressionOwner.GetExpression();
-    }
-
-  private:
-    IExpressionOwner& m_expressionOwner;    
-  };
-
 }
 
 #endif

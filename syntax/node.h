@@ -2,6 +2,7 @@
 #define IGLOO_NODE_H
 
 #include "syntaxtree.h"
+#include "nodebase.h"
 
 namespace igloo {
 
