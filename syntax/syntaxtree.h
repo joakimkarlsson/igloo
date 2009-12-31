@@ -69,43 +69,6 @@ namespace igloo {
   private:
     INodeOwner<T>& m_nodeOwner;
   };
-
-  class CompleteStatement : NodeBase
-  {
-  public:
-    explicit CompleteStatement(IExpressionOwner& expressionOwner) : NodeBase(expressionOwner) {}
-
-    template <typename T>
-    bool Evaluate(T actual)
-    {
-      return GetExpression().Evaluate(actual);
-    }
-
-    std::string ExpressionAsString()
-    {
-      return GetExpression().ToString();
-    } 
-  };
-
-  template <typename T>
-    class ConstraintNode : public Node<T>, public CompleteStatement
-  {
-  public:
-    explicit ConstraintNode(IExpressionOwner& expressionOwner, INodeOwner<T>& nodeOwner) : Node<T>(expressionOwner, nodeOwner), CompleteStatement(expressionOwner) {}
-
-    BinaryNode<T>& And()
-    {
-      Node<T>::GetExpression().Add(new AndOperator());
-      return Node<T>::GetBinaryNode();
-    }
-  };
-
-  template <typename T>
-  class UnaryNode : public T
-  {
-  public:
-    explicit UnaryNode(IExpressionOwner& expressionOwner, INodeOwner<T>& nodeOwner) : T(expressionOwner, nodeOwner) {}
-  };
 }
 
 #endif

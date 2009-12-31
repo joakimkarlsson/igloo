@@ -5,10 +5,9 @@
 
 #include "expressions.h"
 
-#include "syntax/rootnode.h"
 #include "syntax/syntaxtree.h"
 #include "syntax/constraintoperations.h"
 #include "syntax/stringconstraintoperations.h"
-#include "syntax/binarynode.h"
+#include "syntax/rootnode.h"
 
 #endif
