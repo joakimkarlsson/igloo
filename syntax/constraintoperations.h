@@ -2,6 +2,7 @@
 #define IGLOO_CONSTRAINTOPERATIONS_H
 
 #include "syntaxtree.h"
+#include "node.h"
 
 namespace igloo {
 
