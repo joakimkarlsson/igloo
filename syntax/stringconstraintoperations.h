@@ -1,7 +1,7 @@
 #ifndef IGLOO_STRINGCONSTRAINTOPERATIONS_H
 #define IGLOO_STRINGCONSTRAINTOPERATIONS_H
 
-#include "iexpressionowner.h"
+#include "syntaxtree/iexpressionowner.h"
 
 namespace igloo {
 

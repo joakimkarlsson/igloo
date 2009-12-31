@@ -1,10 +1,10 @@
 #ifndef IGLOO_ROOTNODE_H
 #define IGLOO_ROOTNODE_H
 
-#include "iexpressionowner.h"
-#include "binarynode.h"
-#include "unarynode.h"
-#include "constraintnode.h"
+#include "syntaxtree/iexpressionowner.h"
+#include "syntaxtree/binarynode.h"
+#include "syntaxtree/unarynode.h"
+#include "syntaxtree/constraintnode.h"
 
 namespace igloo {
 
