@@ -32,18 +32,7 @@ namespace igloo {
   class NodeBase
   {
   public:
-    NodeBase(IExpressionOwner& expressionOwner) : m_expressionOwner(expressionOwner) {}
-
-     template <typename T>
-    bool Evaluate(T actual)
-    {
-      return GetExpression().Evaluate(actual);
-    }
-
-    std::string ExpressionAsString()
-    {
-      return GetExpression().ToString();
-    }   
+    NodeBase(IExpressionOwner& expressionOwner) : m_expressionOwner(expressionOwner) {}  
 
   protected:
     Expression& GetExpression()
@@ -81,11 +70,28 @@ namespace igloo {
     INodeOwner<T>& m_nodeOwner;
   };
 
-  template <typename C>
-  class ConstraintNode : public Node<C>
+  class CompleteStatement : NodeBase
   {
   public:
-    explicit ConstraintNode(IExpressionOwner& expressionOwner, INodeOwner<C>& nodeOwner) : Node<C>(expressionOwner, nodeOwner) {}
+    explicit CompleteStatement(IExpressionOwner& expressionOwner) : NodeBase(expressionOwner) {}
+
+    template <typename T>
+    bool Evaluate(T actual)
+    {
+      return GetExpression().Evaluate(actual);
+    }
+
+    std::string ExpressionAsString()
+    {
+      return GetExpression().ToString();
+    } 
+  };
+
+  template <typename C>
+    class ConstraintNode : public Node<C>, public CompleteStatement
+  {
+  public:
+    explicit ConstraintNode(IExpressionOwner& expressionOwner, INodeOwner<C>& nodeOwner) : Node<C>(expressionOwner, nodeOwner), CompleteStatement(expressionOwner) {}
 
     BinaryNode<C>& And()
     {
