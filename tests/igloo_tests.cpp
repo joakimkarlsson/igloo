@@ -4,6 +4,8 @@ using igloo::Assert;
 using igloo::AssertionException;
 using igloo::TestRunner;
 
+int dummy;
+
 TestFixture(Assertions)
 {
   public:

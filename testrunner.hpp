@@ -14,16 +14,23 @@ namespace igloo {
 
     static int RunAllTests()
     {
-      std::list<TestResult> results;
-
-      for (TestFixtureMap::iterator it = FixtureMap().begin(); it != FixtureMap().end(); it++)
+      try
       {
-        std::cout << "Running test fixture: " << (*it).first << std::endl;
-        (*it).second->Run((*it).first, results);
-        std::cout << std::endl;
-      }
+        std::list<TestResult> results;
 
-      return CheckResults(results);
+        for (TestFixtureMap::iterator it = FixtureMap().begin(); it != FixtureMap().end(); it++)
+        {
+          std::cout << "Running test fixture: " << (*it).first << std::endl;
+          (*it).second->Run((*it).first, results);
+          std::cout << std::endl;
+        }
+
+        return CheckResults(results);
+      }
+      catch(const MaxNumberOfTestMethodsExceededException& exception)
+      {
+        std::cout << std::endl << "ERROR: The maximum number of test methods (" << exception.GetMax() << ") for one test fixture has been exceeded" << std::endl;
+      }
     }
 
     static int CheckResults(const std::list<TestResult>& results)
