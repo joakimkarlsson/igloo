@@ -6,7 +6,7 @@ namespace igloo {
   class CompleteStatement : NodeBase
   {
   public:
-    explicit CompleteStatement(IExpressionOwner& expressionOwner) : NodeBase(expressionOwner) {}
+    explicit CompleteStatement(Expression& expression) : NodeBase(expression) {}
 
     template <typename T>
     bool Evaluate(T actual)

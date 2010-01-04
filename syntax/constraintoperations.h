@@ -9,7 +9,7 @@ namespace igloo {
   class ConstraintOperations : public Node<ConstraintOperations>
   {
   public:
-    explicit ConstraintOperations(IExpressionOwner& expressionOwner, INodeOwner<ConstraintOperations>& nodeOwner) : Node(expressionOwner, nodeOwner) {}
+    explicit ConstraintOperations(Expression& expression, INodeOwner<ConstraintOperations>& nodeOwner) : Node(expression, nodeOwner) {}
 
     template <typename T>
     ConstraintNode<ConstraintOperations>& EqualTo(T expected)

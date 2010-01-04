@@ -8,50 +8,70 @@
 
 namespace igloo {
 
-  template <typename T>
-  class RootNode : public BinaryNode<T>, public IExpressionOwner, public INodeOwner<T>
+  template <typename ConstraintOperationsType>
+    class NodeOwner : public INodeOwner<ConstraintOperationsType>
   {
   public:
-    explicit RootNode(std::auto_ptr<Expression> expression) : m_expression(expression), 
-      BinaryNode<T>(static_cast<IExpressionOwner&>(*this), static_cast<INodeOwner<T>&>(*this)), 
-      m_unaryNode(static_cast<IExpressionOwner&>(*this), static_cast<INodeOwner<T>&>(*this)),
-      m_constraintNode(static_cast<IExpressionOwner&>(*this), static_cast<INodeOwner<T>&>(*this))
+    explicit NodeOwner(Expression& expression) : m_expression(expression) {}
+
+    UnaryNode<ConstraintOperationsType>& GetUnaryNode()
     {
-      
+      if(m_unaryNode.get() == NULL)
+      {
+        m_unaryNode = std::auto_ptr<UnaryNode<ConstraintOperationsType> >(new UnaryNode<ConstraintOperationsType>(m_expression, *this));
+      }
+
+      return *(m_unaryNode.get());
     }
 
-    // IExpressionOwner
-    virtual Expression& GetExpression()
+    BinaryNode<ConstraintOperationsType>& GetBinaryNode()
     {
-      return *(m_expression.get());
+      if(m_binaryNode.get() == NULL)
+      {
+        m_binaryNode = std::auto_ptr<BinaryNode<ConstraintOperationsType> >(new BinaryNode<ConstraintOperationsType>(m_expression, *this));
+      }
+
+      return *(m_binaryNode.get());
     }
 
-    // INodeOwner
-    UnaryNode<T>& GetUnaryNode()
+    ConstraintNode<ConstraintOperationsType>& GetConstraintNode()
     {
-      return m_unaryNode;
+      if(m_constraintNode.get() == NULL)
+      {
+        m_constraintNode = std::auto_ptr<ConstraintNode<ConstraintOperationsType> >(new ConstraintNode<ConstraintOperationsType>(m_expression, *this));
+      }
+
+      return *(m_constraintNode.get());
     }
 
-    BinaryNode<T>& GetBinaryNode()
-    {
-      return static_cast<BinaryNode<T>&>(*this);
-    }
+  private:
+    Expression& m_expression;
+    std::auto_ptr<UnaryNode<ConstraintOperationsType> > m_unaryNode;
+    std::auto_ptr<BinaryNode<ConstraintOperationsType> > m_binaryNode;
+    std::auto_ptr<ConstraintNode<ConstraintOperationsType> > m_constraintNode;
+  };
 
-    ConstraintNode<T>& GetConstraintNode()
-    {
-      return m_constraintNode;
+  template <typename T>
+  class RootNode : public BinaryNode<T>
+  {
+  public:
+    explicit RootNode(std::auto_ptr<Expression> expression, std::auto_ptr<INodeOwner<T> > nodeOwner) 
+      : BinaryNode<T>(*(expression.get()), *(nodeOwner.get())) 
+    { 
+      m_expression = expression;
+      m_nodeOwner = nodeOwner;
     }
 
     BinaryNode<StringConstraintOperations>& String()
     {
-      m_stringRoot = std::auto_ptr<RootNode<StringConstraintOperations> >(new RootNode<StringConstraintOperations>(m_expression));
+      std::auto_ptr<INodeOwner<StringConstraintOperations> > nodeOwner(new NodeOwner<StringConstraintOperations>(*(m_expression.get())));
+      m_stringRoot = std::auto_ptr<RootNode<StringConstraintOperations> >(new RootNode<StringConstraintOperations>(m_expression, nodeOwner));
       return *(m_stringRoot.get());
     }
 
   private:
     std::auto_ptr<Expression> m_expression;
-    UnaryNode<T> m_unaryNode;
-    ConstraintNode<T> m_constraintNode;
+    std::auto_ptr<INodeOwner<T> > m_nodeOwner;
     std::auto_ptr<RootNode<StringConstraintOperations> > m_stringRoot;
   };
 

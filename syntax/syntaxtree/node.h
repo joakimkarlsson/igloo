@@ -11,7 +11,7 @@ namespace igloo {
     class Node : public NodeBase
   {
   public:
-    explicit Node(IExpressionOwner& expressionOwner, INodeOwner<T>& nodeOwner) : NodeBase(expressionOwner), m_nodeOwner(nodeOwner) {}
+    explicit Node(Expression& expression, INodeOwner<T>& nodeOwner) : NodeBase(expression), m_nodeOwner(nodeOwner) {}
 
   protected:
     UnaryNode<T>& GetUnaryNode()
