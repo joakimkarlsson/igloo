@@ -4,8 +4,6 @@ using igloo::Assert;
 using igloo::AssertionException;
 using igloo::TestRunner;
 
-int dummy;
-
 TestFixture(Assertions)
 {
   public:
@@ -189,8 +187,3 @@ TestFixture(Assertions)
     Assert::That(assertionMessage, Is().EqualTo("Forced failure: foo"));
   }
 };
-
-int main()
-{
-  return TestRunner::RunAllTests();
-}

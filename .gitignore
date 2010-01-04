@@ -1,3 +1,6 @@
+#Ignore patch files
+*.patch
+
 #Ignore Visual Studio project files
 igloo.ncb
 igloo.sln
