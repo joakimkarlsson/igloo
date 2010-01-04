@@ -12,6 +12,23 @@ namespace igloo {
   {
   public:
     virtual void Run(const std::string& fixtureName, std::list<TestResult>& results) = 0;
+
+  protected:
+    virtual void SetUp()
+    {
+    }
+
+    virtual void TearDown()
+    {
+    }
+
+    RootNode<ConstraintOperations> Is()
+    {
+      std::auto_ptr<Expression> expression(new Expression());
+      std::auto_ptr<INodeOwner<ConstraintOperations> > nodeOwner(new NodeOwner<ConstraintOperations>(*(expression.get())));
+      RootNode<ConstraintOperations> node(expression, nodeOwner);
+      return node;
+    }
   };
 
   class MaxNumberOfTestMethodsExceededException
@@ -42,24 +59,6 @@ namespace igloo {
       TestMethods testMethods;
       testFixture.GetTests(testMethods);
       CallTests(testFixture, testMethods, fixtureName, results);
-    }
-
-    virtual void SetUp()
-    {
-    }
-
-    virtual void TearDown()
-    {
-    }
-
-  protected:
-
-    RootNode<ConstraintOperations> Is()
-    {
-      std::auto_ptr<Expression> expression(new Expression());
-      std::auto_ptr<INodeOwner<ConstraintOperations> > nodeOwner(new NodeOwner<ConstraintOperations>(*(expression.get())));
-      RootNode<ConstraintOperations> node(expression, nodeOwner);
-      return node;
     }
 
   private:
