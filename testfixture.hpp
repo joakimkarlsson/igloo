@@ -1,5 +1,5 @@
-#ifndef TESTFIXTURE_HPP_K1ONTAQ7
-#define TESTFIXTURE_HPP_K1ONTAQ7
+#ifndef IGLOO_TESTFIXTURE_HPP
+#define IGLOO_TESTFIXTURE_HPP
 
 #include "assertionexception.hpp"
 #include "assert.h"
@@ -303,4 +303,4 @@ namespace igloo {
 
   };
 }
-#endif /* end of include guard: TESTFIXTURE_HPP_K1ONTAQ7 */
+#endif // IGLOO_TESTFIXTURE_HPP

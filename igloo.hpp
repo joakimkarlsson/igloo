@@ -1,5 +1,5 @@
-#ifndef _IGLOO_HPP
-#define _IGLOO_HPP
+#ifndef IGLOO_IGLOO_HPP
+#define IGLOO_IGLOO_HPP
 
 #include <iostream>
 #include <map>

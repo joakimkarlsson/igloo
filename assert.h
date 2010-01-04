@@ -1,5 +1,5 @@
-#ifndef _ASSERT_H
-#define	_ASSERT_H
+#ifndef IGLOO_ASSERT_H
+#define	IGLOO_ASSERT_H
 
 #include "syntax.h"
 
@@ -53,5 +53,5 @@ namespace igloo {
     }
   };
 }
-#endif	/* _ASSERT_H */
+#endif	// IGLOO_ASSERT_H
 

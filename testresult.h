@@ -5,8 +5,8 @@
 * Created on December 8, 2009, 8:32 PM
 */
 
-#ifndef _TESTRESULT_H
-#define	_TESTRESULT_H
+#ifndef IGLOO_TESTRESULT_H
+#define	IGLOO_TESTRESULT_H
 
 namespace igloo {
    class TestResult
@@ -39,5 +39,5 @@ namespace igloo {
       bool _success;
    };
 }
-#endif	/* _TESTRESULT_H */
+#endif	/* IGLOO_TESTRESULT_H */
 
