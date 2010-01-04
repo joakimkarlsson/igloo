@@ -1,5 +1,5 @@
-#ifndef ASSERTIONEXCEPTION_HPP_WLWP5A27
-#define ASSERTIONEXCEPTION_HPP_WLWP5A27
+#ifndef IGLOO_ASSERTIONEXCEPTION_HPP
+#define IGLOO_ASSERTIONEXCEPTION_HPP
 
 namespace igloo {
    class AssertionException : public std::exception
@@ -24,5 +24,4 @@ namespace igloo {
    };
 }
 
-#endif /* end of include guard: ASSERTIONEXCEPTION_HPP_WLWP5A27 */
-
+#endif // IGLOO_ASSERTIONEXCEPTION_HPP
