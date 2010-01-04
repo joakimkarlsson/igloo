@@ -5,22 +5,22 @@ namespace igloo {
    class AssertionException : public std::exception
    {
    public:  
-      AssertionException(const std::string& message)
-		  : m_message(message)
-	  {
-	  }
-      
-	  virtual ~AssertionException() throw()
-	  {
-	  }
+    AssertionException(const std::string& message)
+      : m_message(message)
+    {
+    }
 
-      std::string GetMessage() const
-	  {
-		  return m_message;
-	  }
+    virtual ~AssertionException() throw()
+    {
+    }
+
+    std::string GetMessage() const
+    {
+      return m_message;
+    }
 
    private:
-      std::string m_message;	
+    std::string m_message;  
    };
 }
 
