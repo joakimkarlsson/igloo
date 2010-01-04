@@ -89,7 +89,6 @@ namespace igloo {
         return;
       }
 
-
       results.push_back(TestResult(fixtureName, testName, true));
     }
 
@@ -303,4 +302,5 @@ namespace igloo {
 
   };
 }
+
 #endif // IGLOO_TESTFIXTURE_HPP

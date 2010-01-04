@@ -4,10 +4,9 @@
 #include "syntax.h"
 
 namespace igloo {
-
-  class Assert {
+  class Assert
+  {
   public:
-
     template <typename T>
     static void That(T actual, CompleteStatement& statement)
     {
@@ -53,5 +52,5 @@ namespace igloo {
     }
   };
 }
-#endif	// IGLOO_ASSERT_H
 
+#endif	// IGLOO_ASSERT_H

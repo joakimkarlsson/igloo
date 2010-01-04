@@ -6,8 +6,7 @@ using igloo::TestRunner;
 
 TestFixture(Assertions)
 {
-  public:
-
+public:
   virtual void SetUp()
   {
   }

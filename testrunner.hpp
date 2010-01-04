@@ -6,7 +6,6 @@
 #include "testresult.h"
 
 namespace igloo {
-
   class TestRunner
   {
   public:
@@ -69,4 +68,5 @@ namespace igloo {
     }
   };
 }
+
 #endif // IGLOO_TESTRUNNER_HPP
