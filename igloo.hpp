@@ -15,9 +15,9 @@
 #define IGLOO_PP_CAT_I(a, b) a ## b
 
 #define TestFixture(fixture) \
-class fixture; \
+struct fixture; \
    int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
-class fixture : public igloo::TestFixture<fixture>
+struct fixture : public igloo::TestFixture<fixture>
 
 #define TestMethod(fixture, method) \
 bool IGLOO_PP_CAT(GetTest, __COUNTER__)(std::map<std::string, void (fixture::*)() >& tests) \
