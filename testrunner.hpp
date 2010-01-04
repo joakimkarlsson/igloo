@@ -31,6 +31,8 @@ namespace igloo {
       {
         std::cout << std::endl << "ERROR: The maximum number of test methods (" << exception.GetMax() << ") for one test fixture has been exceeded" << std::endl;
       }
+
+	  return 0;
     }
 
     static int CheckResults(const std::list<TestResult>& results)
