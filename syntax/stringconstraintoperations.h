@@ -8,7 +8,7 @@ namespace igloo {
   class StringConstraintOperations : public Node<StringConstraintOperations>
   {
   public:
-    explicit StringConstraintOperations(IExpressionOwner& expressionOwner, INodeOwner<StringConstraintOperations>& nodeOwner) : Node<StringConstraintOperations>(expressionOwner, nodeOwner) {}
+    explicit StringConstraintOperations(Expression& expression, INodeOwner<StringConstraintOperations>& nodeOwner) : Node<StringConstraintOperations>(expression, nodeOwner) {}
 
     UnaryNode<StringConstraintOperations>& Not()
     {

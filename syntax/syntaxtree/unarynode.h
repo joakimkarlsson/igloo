@@ -9,7 +9,7 @@ namespace igloo {
   class UnaryNode : public T
   {
   public:
-    explicit UnaryNode(IExpressionOwner& expressionOwner, INodeOwner<T>& nodeOwner) : T(expressionOwner, nodeOwner) {}
+    explicit UnaryNode(Expression& expression, INodeOwner<T>& nodeOwner) : T(expression, nodeOwner) {}
   };
 
 }

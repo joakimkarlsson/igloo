@@ -8,16 +8,16 @@ namespace igloo {
   class NodeBase
   {
   public:
-    NodeBase(IExpressionOwner& expressionOwner) : m_expressionOwner(expressionOwner) {}  
+    NodeBase(Expression& expression) : m_expression(expression) {}  
 
   protected:
     Expression& GetExpression()
     {
-      return m_expressionOwner.GetExpression();
+      return m_expression;
     }
 
   private:
-    IExpressionOwner& m_expressionOwner;    
+    Expression& m_expression;    
   };
 
 }

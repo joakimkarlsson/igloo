@@ -3,10 +3,10 @@
 
 namespace igloo {
 
-  class StringOfLengthConstraint : public Constraint<int>, public IEvaluateConstraint<std::string>
+  class StringOfLengthConstraint : public Constraint<unsigned int>, public IEvaluateConstraint<std::string>
   {
   public:
-    explicit StringOfLengthConstraint(int expectation) : Constraint<int>(expectation) {}
+    explicit StringOfLengthConstraint(int expectation) : Constraint<unsigned int>(expectation) {}
 
     virtual bool Evaluate(std::string actual) const
     {

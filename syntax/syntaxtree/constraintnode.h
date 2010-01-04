@@ -10,7 +10,7 @@ namespace igloo {
     class ConstraintNode : public Node<T>, public CompleteStatement
   {
   public:
-    explicit ConstraintNode(IExpressionOwner& expressionOwner, INodeOwner<T>& nodeOwner) : Node<T>(expressionOwner, nodeOwner), CompleteStatement(expressionOwner) {}
+    explicit ConstraintNode(Expression& expression, INodeOwner<T>& nodeOwner) : Node<T>(expression, nodeOwner), CompleteStatement(expression) {}
 
     BinaryNode<T>& And()
     {
