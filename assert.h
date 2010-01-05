@@ -43,7 +43,7 @@ namespace igloo {
 
   private:
     template <typename T>
-    static std::string CreateErrorText(std::string expressionAsString, const T& actual)
+    static std::string CreateErrorText(const std::string& expressionAsString, const T& actual)
     {
       std::ostringstream str;
       str << "Expected: ";

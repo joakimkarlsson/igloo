@@ -28,7 +28,7 @@ namespace igloo {
     {
     }
 
-    void ToString(std::string&) {}
+    void ToString(std::string&, bool) {}
   };
   
   template <typename ConstraintType, typename PreviousExpressionItemType>
@@ -64,14 +64,14 @@ namespace igloo {
       return resultStack.top();
     }
 
-    void ToString(std::string& str)
+    void ToString(std::string& str, bool last = true)
     {
       if(m_previous.get() == NULL)
       {
         return;
       }
 
-      m_previous->ToString(str);
+      m_previous->ToString(str, false);
 
       if(m_operator.get() != NULL)
       {
@@ -83,8 +83,10 @@ namespace igloo {
         m_constraint->ToString(str);
       }
 
-      str += " ";
-
+      if(!last)
+      {
+        str += " ";
+      }
     }
 
     template <typename ActualType>

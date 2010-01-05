@@ -26,7 +26,7 @@ namespace igloo {
          return actual == Constraint<T>::_expected;
       }
 
-      virtual void ToString(std::string str) const
+      void ToString(std::string& str) const
       {
          std::ostringstream stm;
          stm << "equal to " << Constraint<T>::_expected;

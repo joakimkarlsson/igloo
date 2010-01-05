@@ -104,7 +104,7 @@ TestFixture(Assertions)
     {
       Assert::That(5, Is().GreaterThan(5));
     }
-    catch (const AssertionException exception)
+    catch (const AssertionException& exception)
     {
       errorText = exception.GetMessage();
     }
