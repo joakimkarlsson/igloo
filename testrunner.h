@@ -1,8 +1,7 @@
-#ifndef IGLOO_TESTRUNNER_HPP
-#define IGLOO_TESTRUNNER_HPP
+#ifndef IGLOO_TESTRUNNER_H
+#define IGLOO_TESTRUNNER_H
 
 #include <list>
-#include "assertionexception.hpp"
 #include "testresult.h"
 
 namespace igloo {
@@ -69,4 +68,4 @@ namespace igloo {
   };
 }
 
-#endif // IGLOO_TESTRUNNER_HPP
+#endif // IGLOO_TESTRUNNER_H

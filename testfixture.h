@@ -1,7 +1,7 @@
-#ifndef IGLOO_TESTFIXTURE_HPP
-#define IGLOO_TESTFIXTURE_HPP
+#ifndef IGLOO_TESTFIXTURE_H
+#define IGLOO_TESTFIXTURE_H
 
-#include "assertionexception.hpp"
+#include "assertionexception.h"
 #include "assert.h"
 #include "testresult.h"
 #include "syntax.h"
@@ -301,4 +301,4 @@ namespace igloo {
   };
 }
 
-#endif // IGLOO_TESTFIXTURE_HPP
+#endif // IGLOO_TESTFIXTURE_H

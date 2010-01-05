@@ -1,5 +1,5 @@
-#ifndef IGLOO_ASSERTIONEXCEPTION_HPP
-#define IGLOO_ASSERTIONEXCEPTION_HPP
+#ifndef IGLOO_ASSERTIONEXCEPTION_H
+#define IGLOO_ASSERTIONEXCEPTION_H
 
 namespace igloo {
   class AssertionException : public std::exception
@@ -24,4 +24,4 @@ namespace igloo {
   };
 }
 
-#endif // IGLOO_ASSERTIONEXCEPTION_HPP
+#endif // IGLOO_ASSERTIONEXCEPTION_H
