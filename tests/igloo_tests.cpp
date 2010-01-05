@@ -50,7 +50,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleStrings)
   {
-    Assert::That("joakim", Is().EqualTo("joakim"));
+    Assert::That(std::string("joakim"), Is().EqualTo(std::string("joakim")));
   }
 
   TestMethod(Assertions, ShouldHandleNotOperatorsForStrings)
@@ -58,7 +58,7 @@ TestFixture(Assertions)
     Assert::That("joakim", Is().Not().EqualTo("harry"));
   }
 
-  TestMethod(Assertions, ShouldHandleStringsWithoutExplicitTemplateQualification)
+  TestMethod(Assertions, ShouldHandleStringsWithoutExplicitTemplateSpecialization)
   {
     Assert::That("kim", Is().EqualTo("kim"));
   }
