@@ -12,24 +12,23 @@
 
 namespace igloo {
 
-  template <typename T>
-    class EqualToConstraint : public Constraint<T>, public IEvaluateConstraint<T>
+  template <typename ExpectedType>
+    class EqualToConstraint : public Constraint<ExpectedType>
    {
    public:
 
-      EqualToConstraint(T expected) : Constraint<T>(expected)
-      {
-      }
+      EqualToConstraint(ExpectedType expected) : Constraint<ExpectedType>(expected) {}
 
-      bool Evaluate(T actual) const
+     template <typename ActualType>
+      bool Evaluate(ActualType actual) const
       {
-         return actual == Constraint<T>::_expected;
+         return actual == Constraint<ExpectedType>::_expected;
       }
 
       void ToString(std::string& str) const
       {
          std::ostringstream stm;
-         stm << "equal to " << Constraint<T>::_expected;
+         stm << "equal to " << Constraint<ExpectedType>::_expected;
          str += stm.str();
       }
    };

@@ -10,13 +10,6 @@
 
 namespace igloo {
 
-  template <typename T>
-  class IEvaluateConstraint
-  {
-  public:
-    virtual bool Evaluate(T actual) const = 0;
-  };
-
   template <typename OperandType>
   class Constraint
   {

@@ -10,7 +10,7 @@
 
 namespace igloo {
 
-  class StringEndingWithConstraint : public Constraint<std::string>, public IEvaluateConstraint<std::string>
+  class StringEndingWithConstraint : public Constraint<std::string>
   {
   public:
 

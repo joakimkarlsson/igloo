@@ -10,24 +10,25 @@
 
 namespace igloo {
 
-  template <typename T>
-  class LessThanConstraint : public Constraint<T>, public IEvaluateConstraint<T>
+  template <typename ExpectedType>
+  class LessThanConstraint : public Constraint<ExpectedType>
   {
   public:
 
-  LessThanConstraint(T expected) : Constraint<T>(expected)
+  LessThanConstraint(ExpectedType expected) : Constraint<ExpectedType>(expected)
   {
   }
 
-    bool Evaluate(T actual) const
+    template <typename ActualType>
+    bool Evaluate(ActualType actual) const
     {
-      return actual < Constraint<T>::_expected;
+      return actual < Constraint<ExpectedType>::_expected;
     }
 
     void ToString(std::string& str) const
     {
       std::ostringstream stm;
-      stm << "less than " << Constraint<T>::_expected;
+      stm << "less than " << Constraint<ExpectedType>::_expected;
       str += stm.str();
     }
   };
