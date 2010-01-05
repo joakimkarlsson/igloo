@@ -1,5 +1,5 @@
-#ifndef _SYNTAX_H_
-#define _SYNTAX_H_
+#ifndef IGLOO_SYNTAX_H
+#define IGLOO_SYNTAX_H
 
 #include "expressions.h"
 

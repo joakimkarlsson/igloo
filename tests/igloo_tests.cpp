@@ -1,23 +1,11 @@
-#include "../igloo.hpp"
+#include "../igloo.h"
 
 using igloo::Assert;
 using igloo::AssertionException;
 using igloo::TestRunner;
 
-int dummy;
-
 TestFixture(Assertions)
 {
-  public:
-
-  virtual void SetUp()
-  {
-  }
-
-  virtual void TearDown()
-  {
-  }
-
   TestMethod(Assertions, ShouldHandleIntegerEquality)
   {
     Assert::That(5, Is().EqualTo(5));
@@ -62,7 +50,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleStrings)
   {
-    Assert::That("joakim", Is().EqualTo("joakim"));
+    Assert::That(std::string("joakim"), Is().EqualTo(std::string("joakim")));
   }
 
   TestMethod(Assertions, ShouldHandleNotOperatorsForStrings)
@@ -70,7 +58,7 @@ TestFixture(Assertions)
     Assert::That("joakim", Is().Not().EqualTo("harry"));
   }
 
-  TestMethod(Assertions, ShouldHandleStringsWithoutExplicitTemplateQualification)
+  TestMethod(Assertions, ShouldHandleStringsWithoutExplicitTemplateSpecialization)
   {
     Assert::That("kim", Is().EqualTo("kim"));
   }
@@ -189,8 +177,3 @@ TestFixture(Assertions)
     Assert::That(assertionMessage, Is().EqualTo("Forced failure: foo"));
   }
 };
-
-int main()
-{
-  return TestRunner::RunAllTests();
-}

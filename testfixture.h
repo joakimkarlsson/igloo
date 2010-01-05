@@ -1,7 +1,7 @@
-#ifndef TESTFIXTURE_HPP_K1ONTAQ7
-#define TESTFIXTURE_HPP_K1ONTAQ7
+#ifndef IGLOO_TESTFIXTURE_H
+#define IGLOO_TESTFIXTURE_H
 
-#include "assertionexception.hpp"
+#include "assertionexception.h"
 #include "assert.h"
 #include "testresult.h"
 #include "syntax.h"
@@ -12,6 +12,21 @@ namespace igloo {
   {
   public:
     virtual void Run(const std::string& fixtureName, std::list<TestResult>& results) = 0;
+
+  protected:
+    virtual void SetUp()
+    {
+    }
+
+    virtual void TearDown()
+    {
+    }
+
+    RootNode Is()
+    {
+      RootNode node;
+      return node;
+    }
   };
 
   class MaxNumberOfTestMethodsExceededException
@@ -32,9 +47,6 @@ namespace igloo {
   class TestFixture : public TestFixtureBase
   {
   public:
-    typedef void (T::*TestMethodPtr)();
-    typedef std::map<std::string, TestMethodPtr> TestMethods;
-
     void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {
       T testFixture;
@@ -60,8 +72,10 @@ namespace igloo {
     }
 
   private:
+    typedef void (T::*TestMethodPtr)();
+    typedef std::map<std::string, TestMethodPtr> TestMethods;
 
-    void CallTests(T& t, TestMethods& testMethods, std::string fixtureName, std::list<TestResult>& results)
+    void CallTests(T& t, TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
     {
       typename TestMethods::iterator it;
       for (it = testMethods.begin(); it != testMethods.end(); it++)
@@ -71,7 +85,7 @@ namespace igloo {
       }
     }
 
-    void CallTest(T t, const std::string& fixtureName, const std::string& testName, void (T::*method)(), std::list<TestResult>& results)
+    void CallTest(T t, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
     {
       try
       {
@@ -79,13 +93,12 @@ namespace igloo {
         (t.*method)();
         t.TearDown();
       }
-      catch (AssertionException& e)
+      catch (const AssertionException& e)
       {
         results.push_back(TestResult(fixtureName, testName, false));
         std::cout << "Test " << fixtureName << "::" << testName << " failed: " << std::endl << e.GetMessage() << std::endl;
         return;
       }
-
 
       results.push_back(TestResult(fixtureName, testName, true));
     }
@@ -198,106 +211,107 @@ namespace igloo {
 
   protected:
     virtual bool GetTest0(TestMethods&) { return false; }
-    virtual bool GetTest1(TestMethods& ) { return false; }
-    virtual bool GetTest2(TestMethods& ) { return false; }
-    virtual bool GetTest3(TestMethods& ) { return false; }
-    virtual bool GetTest4(TestMethods& ) { return false; }
-    virtual bool GetTest5(TestMethods& ) { return false; }
-    virtual bool GetTest6(TestMethods& ) { return false; }
-    virtual bool GetTest7(TestMethods& ) { return false; }
-    virtual bool GetTest8(TestMethods& ) { return false; }
-    virtual bool GetTest9(TestMethods& ) { return false; }
-    virtual bool GetTest10(TestMethods& ) { return false; }
-    virtual bool GetTest11(TestMethods& ) { return false; }
-    virtual bool GetTest12(TestMethods& ) { return false; }
-    virtual bool GetTest13(TestMethods& ) { return false; }
-    virtual bool GetTest14(TestMethods& ) { return false; }
-    virtual bool GetTest15(TestMethods& ) { return false; }
-    virtual bool GetTest16(TestMethods& ) { return false; }
-    virtual bool GetTest17(TestMethods& ) { return false; }
-    virtual bool GetTest18(TestMethods& ) { return false; }
-    virtual bool GetTest19(TestMethods& ) { return false; }
-    virtual bool GetTest20(TestMethods& ) { return false; }
-    virtual bool GetTest21(TestMethods& ) { return false; }
-    virtual bool GetTest22(TestMethods& ) { return false; }
-    virtual bool GetTest23(TestMethods& ) { return false; }
-    virtual bool GetTest24(TestMethods& ) { return false; }
-    virtual bool GetTest25(TestMethods& ) { return false; }
-    virtual bool GetTest26(TestMethods& ) { return false; }
-    virtual bool GetTest27(TestMethods& ) { return false; }
-    virtual bool GetTest28(TestMethods& ) { return false; }
-    virtual bool GetTest29(TestMethods& ) { return false; }
-    virtual bool GetTest30(TestMethods& ) { return false; }
-    virtual bool GetTest31(TestMethods& ) { return false; }
-    virtual bool GetTest32(TestMethods& ) { return false; }
-    virtual bool GetTest33(TestMethods& ) { return false; }
-    virtual bool GetTest34(TestMethods& ) { return false; }
-    virtual bool GetTest35(TestMethods& ) { return false; }
-    virtual bool GetTest36(TestMethods& ) { return false; }
-    virtual bool GetTest37(TestMethods& ) { return false; }
-    virtual bool GetTest38(TestMethods& ) { return false; }
-    virtual bool GetTest39(TestMethods& ) { return false; }
-    virtual bool GetTest40(TestMethods& ) { return false; }
-    virtual bool GetTest41(TestMethods& ) { return false; }
-    virtual bool GetTest42(TestMethods& ) { return false; }
-    virtual bool GetTest43(TestMethods& ) { return false; }
-    virtual bool GetTest44(TestMethods& ) { return false; }
-    virtual bool GetTest45(TestMethods& ) { return false; }
-    virtual bool GetTest46(TestMethods& ) { return false; }
-    virtual bool GetTest47(TestMethods& ) { return false; }
-    virtual bool GetTest48(TestMethods& ) { return false; }
-    virtual bool GetTest49(TestMethods& ) { return false; }
-    virtual bool GetTest50(TestMethods& ) { return false; }
-    virtual bool GetTest51(TestMethods& ) { return false; }
-    virtual bool GetTest52(TestMethods& ) { return false; }
-    virtual bool GetTest53(TestMethods& ) { return false; }
-    virtual bool GetTest54(TestMethods& ) { return false; }
-    virtual bool GetTest55(TestMethods& ) { return false; }
-    virtual bool GetTest56(TestMethods& ) { return false; }
-    virtual bool GetTest57(TestMethods& ) { return false; }
-    virtual bool GetTest58(TestMethods& ) { return false; }
-    virtual bool GetTest59(TestMethods& ) { return false; }
-    virtual bool GetTest60(TestMethods& ) { return false; }
-    virtual bool GetTest61(TestMethods& ) { return false; }
-    virtual bool GetTest62(TestMethods& ) { return false; }
-    virtual bool GetTest63(TestMethods& ) { return false; }
-    virtual bool GetTest64(TestMethods& ) { return false; }
-    virtual bool GetTest65(TestMethods& ) { return false; }
-    virtual bool GetTest66(TestMethods& ) { return false; }
-    virtual bool GetTest67(TestMethods& ) { return false; }
-    virtual bool GetTest68(TestMethods& ) { return false; }
-    virtual bool GetTest69(TestMethods& ) { return false; }
-    virtual bool GetTest70(TestMethods& ) { return false; }
-    virtual bool GetTest71(TestMethods& ) { return false; }
-    virtual bool GetTest72(TestMethods& ) { return false; }
-    virtual bool GetTest73(TestMethods& ) { return false; }
-    virtual bool GetTest74(TestMethods& ) { return false; }
-    virtual bool GetTest75(TestMethods& ) { return false; }
-    virtual bool GetTest76(TestMethods& ) { return false; }
-    virtual bool GetTest77(TestMethods& ) { return false; }
-    virtual bool GetTest78(TestMethods& ) { return false; }
-    virtual bool GetTest79(TestMethods& ) { return false; }
-    virtual bool GetTest80(TestMethods& ) { return false; }
-    virtual bool GetTest81(TestMethods& ) { return false; }
-    virtual bool GetTest82(TestMethods& ) { return false; }
-    virtual bool GetTest83(TestMethods& ) { return false; }
-    virtual bool GetTest84(TestMethods& ) { return false; }
-    virtual bool GetTest85(TestMethods& ) { return false; }
-    virtual bool GetTest86(TestMethods& ) { return false; }
-    virtual bool GetTest87(TestMethods& ) { return false; }
-    virtual bool GetTest88(TestMethods& ) { return false; }
-    virtual bool GetTest89(TestMethods& ) { return false; }
-    virtual bool GetTest90(TestMethods& ) { return false; }
-    virtual bool GetTest91(TestMethods& ) { return false; }
-    virtual bool GetTest92(TestMethods& ) { return false; }
-    virtual bool GetTest93(TestMethods& ) { return false; }
-    virtual bool GetTest94(TestMethods& ) { return false; }
-    virtual bool GetTest95(TestMethods& ) { return false; }
-    virtual bool GetTest96(TestMethods& ) { return false; }
-    virtual bool GetTest97(TestMethods& ) { return false; }
-    virtual bool GetTest98(TestMethods& ) { return false; }
-    virtual bool GetTest99(TestMethods& ) { return false; }
+    virtual bool GetTest1(TestMethods&) { return false; }
+    virtual bool GetTest2(TestMethods&) { return false; }
+    virtual bool GetTest3(TestMethods&) { return false; }
+    virtual bool GetTest4(TestMethods&) { return false; }
+    virtual bool GetTest5(TestMethods&) { return false; }
+    virtual bool GetTest6(TestMethods&) { return false; }
+    virtual bool GetTest7(TestMethods&) { return false; }
+    virtual bool GetTest8(TestMethods&) { return false; }
+    virtual bool GetTest9(TestMethods&) { return false; }
+    virtual bool GetTest10(TestMethods&) { return false; }
+    virtual bool GetTest11(TestMethods&) { return false; }
+    virtual bool GetTest12(TestMethods&) { return false; }
+    virtual bool GetTest13(TestMethods&) { return false; }
+    virtual bool GetTest14(TestMethods&) { return false; }
+    virtual bool GetTest15(TestMethods&) { return false; }
+    virtual bool GetTest16(TestMethods&) { return false; }
+    virtual bool GetTest17(TestMethods&) { return false; }
+    virtual bool GetTest18(TestMethods&) { return false; }
+    virtual bool GetTest19(TestMethods&) { return false; }
+    virtual bool GetTest20(TestMethods&) { return false; }
+    virtual bool GetTest21(TestMethods&) { return false; }
+    virtual bool GetTest22(TestMethods&) { return false; }
+    virtual bool GetTest23(TestMethods&) { return false; }
+    virtual bool GetTest24(TestMethods&) { return false; }
+    virtual bool GetTest25(TestMethods&) { return false; }
+    virtual bool GetTest26(TestMethods&) { return false; }
+    virtual bool GetTest27(TestMethods&) { return false; }
+    virtual bool GetTest28(TestMethods&) { return false; }
+    virtual bool GetTest29(TestMethods&) { return false; }
+    virtual bool GetTest30(TestMethods&) { return false; }
+    virtual bool GetTest31(TestMethods&) { return false; }
+    virtual bool GetTest32(TestMethods&) { return false; }
+    virtual bool GetTest33(TestMethods&) { return false; }
+    virtual bool GetTest34(TestMethods&) { return false; }
+    virtual bool GetTest35(TestMethods&) { return false; }
+    virtual bool GetTest36(TestMethods&) { return false; }
+    virtual bool GetTest37(TestMethods&) { return false; }
+    virtual bool GetTest38(TestMethods&) { return false; }
+    virtual bool GetTest39(TestMethods&) { return false; }
+    virtual bool GetTest40(TestMethods&) { return false; }
+    virtual bool GetTest41(TestMethods&) { return false; }
+    virtual bool GetTest42(TestMethods&) { return false; }
+    virtual bool GetTest43(TestMethods&) { return false; }
+    virtual bool GetTest44(TestMethods&) { return false; }
+    virtual bool GetTest45(TestMethods&) { return false; }
+    virtual bool GetTest46(TestMethods&) { return false; }
+    virtual bool GetTest47(TestMethods&) { return false; }
+    virtual bool GetTest48(TestMethods&) { return false; }
+    virtual bool GetTest49(TestMethods&) { return false; }
+    virtual bool GetTest50(TestMethods&) { return false; }
+    virtual bool GetTest51(TestMethods&) { return false; }
+    virtual bool GetTest52(TestMethods&) { return false; }
+    virtual bool GetTest53(TestMethods&) { return false; }
+    virtual bool GetTest54(TestMethods&) { return false; }
+    virtual bool GetTest55(TestMethods&) { return false; }
+    virtual bool GetTest56(TestMethods&) { return false; }
+    virtual bool GetTest57(TestMethods&) { return false; }
+    virtual bool GetTest58(TestMethods&) { return false; }
+    virtual bool GetTest59(TestMethods&) { return false; }
+    virtual bool GetTest60(TestMethods&) { return false; }
+    virtual bool GetTest61(TestMethods&) { return false; }
+    virtual bool GetTest62(TestMethods&) { return false; }
+    virtual bool GetTest63(TestMethods&) { return false; }
+    virtual bool GetTest64(TestMethods&) { return false; }
+    virtual bool GetTest65(TestMethods&) { return false; }
+    virtual bool GetTest66(TestMethods&) { return false; }
+    virtual bool GetTest67(TestMethods&) { return false; }
+    virtual bool GetTest68(TestMethods&) { return false; }
+    virtual bool GetTest69(TestMethods&) { return false; }
+    virtual bool GetTest70(TestMethods&) { return false; }
+    virtual bool GetTest71(TestMethods&) { return false; }
+    virtual bool GetTest72(TestMethods&) { return false; }
+    virtual bool GetTest73(TestMethods&) { return false; }
+    virtual bool GetTest74(TestMethods&) { return false; }
+    virtual bool GetTest75(TestMethods&) { return false; }
+    virtual bool GetTest76(TestMethods&) { return false; }
+    virtual bool GetTest77(TestMethods&) { return false; }
+    virtual bool GetTest78(TestMethods&) { return false; }
+    virtual bool GetTest79(TestMethods&) { return false; }
+    virtual bool GetTest80(TestMethods&) { return false; }
+    virtual bool GetTest81(TestMethods&) { return false; }
+    virtual bool GetTest82(TestMethods&) { return false; }
+    virtual bool GetTest83(TestMethods&) { return false; }
+    virtual bool GetTest84(TestMethods&) { return false; }
+    virtual bool GetTest85(TestMethods&) { return false; }
+    virtual bool GetTest86(TestMethods&) { return false; }
+    virtual bool GetTest87(TestMethods&) { return false; }
+    virtual bool GetTest88(TestMethods&) { return false; }
+    virtual bool GetTest89(TestMethods&) { return false; }
+    virtual bool GetTest90(TestMethods&) { return false; }
+    virtual bool GetTest91(TestMethods&) { return false; }
+    virtual bool GetTest92(TestMethods&) { return false; }
+    virtual bool GetTest93(TestMethods&) { return false; }
+    virtual bool GetTest94(TestMethods&) { return false; }
+    virtual bool GetTest95(TestMethods&) { return false; }
+    virtual bool GetTest96(TestMethods&) { return false; }
+    virtual bool GetTest97(TestMethods&) { return false; }
+    virtual bool GetTest98(TestMethods&) { return false; }
+    virtual bool GetTest99(TestMethods&) { return false; }
 
   };
 }
-#endif /* end of include guard: TESTFIXTURE_HPP_K1ONTAQ7 */
+
+#endif // IGLOO_TESTFIXTURE_H

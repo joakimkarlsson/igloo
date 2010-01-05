@@ -1,13 +1,12 @@
-#ifndef _ASSERT_H
-#define	_ASSERT_H
+#ifndef IGLOO_ASSERT_H
+#define	IGLOO_ASSERT_H
 
 #include "syntax.h"
 
 namespace igloo {
-
-  class Assert {
+  class Assert
+  {
   public:
-
     template <typename ActualType, typename SyntaxNodeType>
     static void That(ActualType actual, const SyntaxNodeType& statement)
     {
@@ -56,5 +55,5 @@ namespace igloo {
     }
   };
 }
-#endif	/* _ASSERT_H */
 
+#endif	// IGLOO_ASSERT_H

@@ -1,5 +1,5 @@
-#ifndef _EXPRESSIONS_H_
-#define _EXPRESSIONS_H_
+#ifndef IGLOO_EXPRESSIONS_H
+#define IGLOO_EXPRESSIONS_H
 
 #include <string>
 #include <stack>

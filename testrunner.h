@@ -1,12 +1,10 @@
-#ifndef TESTRUNNER_HPP_X6IAF59Y
-#define TESTRUNNER_HPP_X6IAF59Y
+#ifndef IGLOO_TESTRUNNER_H
+#define IGLOO_TESTRUNNER_H
 
 #include <list>
-#include "assertionexception.hpp"
 #include "testresult.h"
 
 namespace igloo {
-
   class TestRunner
   {
   public:
@@ -69,4 +67,5 @@ namespace igloo {
     }
   };
 }
-#endif /* end of include guard: TESTRUNNER_HPP_X6IAF59Y */
+
+#endif // IGLOO_TESTRUNNER_H

@@ -1,9 +1,9 @@
-#include "../igloo.hpp"
+#include "../igloo.h"
+
 using igloo::Assert;
 
 TestFixture(OperatorTests)
 {
-
   TestMethod(OperatorTests, ShouldHandleAndOperator)
   {
     Assert::That(5, Is().LessThan(6).And().GreaterThan(4));

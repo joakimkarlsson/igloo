@@ -1,4 +1,5 @@
-#include "../igloo.hpp"
+#include "../igloo.h"
+
 using igloo::Assert;
 
 TestFixture(StringConstraints)

@@ -5,39 +5,39 @@
 * Created on December 8, 2009, 8:32 PM
 */
 
-#ifndef _TESTRESULT_H
-#define	_TESTRESULT_H
+#ifndef IGLOO_TESTRESULT_H
+#define	IGLOO_TESTRESULT_H
 
 namespace igloo {
-   class TestResult
-   {
-   public:
+  class TestResult
+  {
+  public:
+    TestResult(std::string fixtureName, std::string methodName, bool success)
+      : _fixtureName(fixtureName), _methodName(methodName), _success(success)
+    {
+    }
 
-      TestResult(std::string fixtureName, std::string methodName, bool success) :
-         _fixtureName(fixtureName), _methodName(methodName), _success(success)
-         {
-         }
+    std::string GetFixtureName() const
+    {
+      return _fixtureName;
+    }
 
-         std::string GetFixtureName() const
-         {
-            return _fixtureName;
-         }
+    std::string GetMethodName() const
+    {
+      return _methodName;
+    }
 
-         std::string GetMethodName() const
-         {
-            return _methodName;
-         }
+    bool GetSuccess() const
+    {
+      return _success;
+    }
 
-         bool GetSuccess() const
-         {
-            return _success;
-         }
-
-   private:
-      std::string _fixtureName;
-      std::string _methodName;
-      bool _success;
-   };
+  private:
+    std::string _fixtureName;
+    std::string _methodName;
+    bool _success;
+  };
 }
-#endif	/* _TESTRESULT_H */
+
+#endif /* IGLOO_TESTRESULT_H */
 
