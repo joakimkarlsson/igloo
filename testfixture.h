@@ -68,7 +68,8 @@ namespace igloo {
 
     RootNode Is()
     {
-      return RootNode();
+      RootNode node;
+      return node;
     }
 
   private:

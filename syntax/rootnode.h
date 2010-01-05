@@ -12,7 +12,6 @@ namespace igloo {
   {
   public:
     explicit RootNode() : BinaryNode<DummyRootExpressionItem>(std::auto_ptr<DummyRootExpressionItem>(new DummyRootExpressionItem())) {}
-    RootNode(const RootNode& rhs) : BinaryNode<DummyRootExpressionItem>(rhs) {}
   };
 
 }

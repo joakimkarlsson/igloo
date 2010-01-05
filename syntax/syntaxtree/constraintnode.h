@@ -10,13 +10,12 @@ namespace igloo {
     
   public:
     explicit ConstraintNode(std::auto_ptr<ExpressionItemType> expressionItem) : ConstraintOperations<ExpressionItemType>(expressionItem) {}
-    ConstraintNode(const ConstraintNode<ExpressionItemType>& rhs) : ConstraintOperations<ExpressionItemType>(rhs) {}
-
 
     BinaryNode<NextExpressionItemType> And()
     {
       std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(std::auto_ptr<Operator>(new AndOperator()), ConstraintOperations<ExpressionItemType>::m_expressionItem));
-      return BinaryNode<NextExpressionItemType>(expressionItem);
+      BinaryNode<NextExpressionItemType> node(expressionItem);
+      return node;
     }
 
 
