@@ -10,20 +10,15 @@
 
 namespace igloo {
 
-  template <typename OperandType>
+  template <typename ExpectedType>
   class Constraint
   {
   public:
 
-    Constraint(OperandType expected) : _expected(expected) {}
-
-    virtual bool IsOperator() const
-    {
-      return false;
-    }
+  Constraint(ExpectedType expected) : _expected(expected) {}
 
   protected:
-    OperandType _expected;
+    ExpectedType _expected;
   };
 }
 #endif	/* _CONSTRAINT_H */
