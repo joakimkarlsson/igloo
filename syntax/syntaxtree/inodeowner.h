@@ -3,22 +3,18 @@
 
 namespace igloo {
 
-  template <typename T>
+  template <typename OperationsType, typename ExpressionItemType>
   class UnaryNode;
 
-  template <typename T>
+  template <typename OperationsType, typename ExpressionItemType>
   class BinaryNode;
 
-  template <typename T>
+  template <typename OperationsType, typename ExpressionItemType>
   class ConstraintNode;
 
-  template <typename T>
+  template <typename OperationsType, typename ExpressionItemType>
   class INodeOwner
   {
-  public:
-    virtual UnaryNode<T>& GetUnaryNode() = 0;
-    virtual BinaryNode<T>& GetBinaryNode() = 0;
-    virtual ConstraintNode<T>& GetConstraintNode() = 0;
   };
 }
 

@@ -5,16 +5,16 @@
 
 namespace igloo {
 
-  template <typename T>
-  class BinaryNode : public T
+  template <typename OperationsType, typename ExpressionItemType>
+  class BinaryNode : public OperationsType
   {
   public:
-    explicit BinaryNode(Expression& expression, INodeOwner<T>& nodeOwner) : T(expression, nodeOwner) {}
+    explicit BinaryNode(std::auto_ptr<ExpressionItemType> expressionItem) : OperationsType(expressionItem) {}
 
-    UnaryNode<T>& Not()
+    UnaryNode<OperationsType, ExpressionItemType> Not()
     {
-      T::GetExpression().Add(new NotOperator());
-      return T::GetUnaryNode();
+      ExpressionItemType expressionItem(std::auto_ptr<Operator>(new NotOperator()), OperationsType::m_expressionItem);
+      return UnaryNode<OperationsType, ExpressionItemType>(expressionItem);
     }
   };
 

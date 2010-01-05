@@ -6,16 +6,23 @@
 
 namespace igloo {
 
-  template <typename T>
-    class ConstraintNode : public Node<T>, public CompleteStatement
+  template <typename OperationsType, typename ExpressionItemType>
+    class ConstraintNode : public OperationsType
   {
   public:
-    explicit ConstraintNode(Expression& expression, INodeOwner<T>& nodeOwner) : Node<T>(expression, nodeOwner), CompleteStatement(expression) {}
+    explicit ConstraintNode(std::auto_ptr<ExpressionItemType> expressionItem) : OperationsType(expressionItem) {}
 
-    BinaryNode<T>& And()
+    BinaryNode<OperationsType, ExpressionItemType> And()
     {
-      Node<T>::GetExpression().Add(new AndOperator());
-      return Node<T>::GetBinaryNode();
+      ExpressionItemType expressionItem(std::auto_ptr<Operator>(new AndOperator()), OperationsType::m_expressionItem);
+      return BinaryNode<OperationsType, ExpressionItemType>(expressionItem);
+    }
+
+
+    template <typename ActualType>
+      bool Evaluate(ActualType actual)
+    {
+      return OperationsType::m_expressionItem->Evaluate(actual);
     }
   };
 

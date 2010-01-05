@@ -24,4 +24,6 @@
 #include "expressions/constraints/strings/stringoflengthconstraint.h"
 #include "expressions/constraints/strings/stringstartingwithconstraint.h"
 
+#include "expressions/expressionitem.h"
+
 #endif

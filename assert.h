@@ -8,8 +8,8 @@ namespace igloo {
   class Assert {
   public:
 
-    template <typename T>
-    static void That(T actual, CompleteStatement& statement)
+    template <typename ActualType, typename SyntaxNodeType>
+    static void That(ActualType actual, SyntaxNodeType statement)
     {
       if (!statement.Evaluate(actual))
       {

@@ -7,30 +7,14 @@
 
 namespace igloo {
 
-  template <typename T>
-    class Node : public NodeBase
+  template <typename ExpressionItemType>
+    class Node
   {
   public:
-    explicit Node(Expression& expression, INodeOwner<T>& nodeOwner) : NodeBase(expression), m_nodeOwner(nodeOwner) {}
+    explicit Node(std::auto_ptr<ExpressionItemType> expressionItem) : m_expressionItem(expressionItem) {}
 
   protected:
-    UnaryNode<T>& GetUnaryNode()
-    {
-      return m_nodeOwner.GetUnaryNode();
-    }
-
-    BinaryNode<T>& GetBinaryNode()
-    {
-      return m_nodeOwner.GetBinaryNode();
-    }
-
-    ConstraintNode<T>& GetConstraintNode()
-    {
-      return m_nodeOwner.GetConstraintNode();
-    }
-
-  private:
-    INodeOwner<T>& m_nodeOwner;
+    std::auto_ptr<ExpressionItemType> m_expressionItem;
   };
 
 }

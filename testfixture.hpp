@@ -54,12 +54,9 @@ namespace igloo {
 
   protected:
 
-    RootNode<ConstraintOperations> Is()
+    RootNode<ConstraintOperations<RootExpressionItem> > Is()
     {
-      std::auto_ptr<Expression> expression(new Expression());
-      std::auto_ptr<INodeOwner<ConstraintOperations> > nodeOwner(new NodeOwner<ConstraintOperations>(*(expression.get())));
-      RootNode<ConstraintOperations> node(expression, nodeOwner);
-      return node;
+      return RootNode<ConstraintOperations<RootExpressionItem> >();
     }
 
   private:

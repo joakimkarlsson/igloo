@@ -6,6 +6,18 @@
 
 namespace igloo {
 
+  class RootExpressionItem
+  {
+  public:
+    typedef std::stack<bool> ResultStack;
+    typedef std::stack<const Operator*> OperatorStack;
+
+    template <typename ActualType>
+      void Evaluate(ActualType, ResultStack&, OperatorStack&)
+    {
+    }
+  };
+  
   template <typename CurrentOperandType, typename PreviousExpressionItemType>
   class ExpressionItem
   {
@@ -18,6 +30,17 @@ namespace igloo {
 
     explicit ExpressionItem(Operator_ptr op, Previous_ptr previous) : m_operator(op), m_constraint(NULL), m_previous(previous) {}
     explicit ExpressionItem(Constraint_ptr constraint, Previous_ptr previous) : m_operator(NULL), m_constraint(constraint), m_previous(previous) {}
+
+    template <typename ActualType>
+      bool Evaluate(ActualType actual)
+    {
+      ResultStack resultStack;
+      OperatorStack operatorStack;
+
+      Evaluate(actual, resultStack, operatorStack);
+
+      return resultStack.top();
+    }
 
     template <typename ActualType>
       void Evaluate(ActualType actual, ResultStack& resultStack, OperatorStack& operatorStack)

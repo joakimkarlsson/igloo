@@ -5,39 +5,34 @@
 
 namespace igloo {
 
-  class StringConstraintOperations : public Node<StringConstraintOperations>
+  template <typename ExpressionItemType>
+  class StringConstraintOperations : public Node<ExpressionItemType>
   {
   public:
-    explicit StringConstraintOperations(Expression& expression, INodeOwner<StringConstraintOperations>& nodeOwner) : Node<StringConstraintOperations>(expression, nodeOwner) {}
+    explicit StringConstraintOperations(std::auto_ptr<ExpressionItemType> expressionItem) : Node<ExpressionItemType>(expressionItem) {}
 
-    UnaryNode<StringConstraintOperations>& Not()
+    ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> > Containing(std::string expected)
     {
-      GetExpression().Add(new NotOperator());
-      return GetUnaryNode();
+      std::auto_ptr<ExpressionItem<std::string, ExpressionItemType> > nextExpressionItem(new ExpressionItem<std::string, ExpressionItemType>(new StringContainingConstraint(expected), Node<ExpressionItemType>::m_expressionItem));
+      return ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> >(nextExpressionItem);
     }
 
-    ConstraintNode<StringConstraintOperations>& Containing(std::string expectation)
+    ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> > StartingWith(std::string expected)
     {
-      GetExpression().Add(new StringContainingConstraint(expectation));
-      return GetConstraintNode();
+      std::auto_ptr<ExpressionItem<std::string, ExpressionItemType> > nextExpressionItem(new ExpressionItem<std::string, ExpressionItemType>(new StringStartingWithConstraint(expected), Node<ExpressionItemType>::m_expressionItem));
+      return ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> >(nextExpressionItem);
     }
 
-    ConstraintNode<StringConstraintOperations>& StartingWith(std::string expectation)
+    ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> > EndingWith(std::string expected)
     {
-      GetExpression().Add(new StringStartingWithConstraint(expectation));
-      return GetConstraintNode();
+      std::auto_ptr<ExpressionItem<std::string, ExpressionItemType> > nextExpressionItem(new ExpressionItem<std::string, ExpressionItemType>(new StringEndingWithConstraint(expected), Node<ExpressionItemType>::m_expressionItem));
+      return ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> >(nextExpressionItem);
     }
 
-    ConstraintNode<StringConstraintOperations>& EndingWith(std::string expectation)
+   ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> > OfLength(int expected)
     {
-      GetExpression().Add(new StringEndingWithConstraint(expectation));
-      return GetConstraintNode();
-    }
-
-    ConstraintNode<StringConstraintOperations>& OfLength(int expectation)
-    {
-      GetExpression().Add(new StringOfLengthConstraint(expectation));
-      return GetConstraintNode();
+      std::auto_ptr<ExpressionItem<std::string, ExpressionItemType> > nextExpressionItem(new ExpressionItem<std::string, ExpressionItemType>(new StringOfLengthConstraint(expected), Node<ExpressionItemType>::m_expressionItem));
+      return ConstraintNode<StringConstraintOperations, ExpressionItem<std::string, ExpressionItemType> >(nextExpressionItem);
     }
   };
 }
