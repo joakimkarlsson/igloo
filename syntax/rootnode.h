@@ -51,22 +51,11 @@ namespace igloo {
 /*     std::auto_ptr<ConstraintNode<ConstraintOperationsType> > m_constraintNode; */
 /*   }; */
 
-  template <typename OperationsType>
-    class RootNode : public BinaryNode<OperationsType, RootExpressionItem>
+  class RootNode : public BinaryNode<DummyRootExpressionItem>
   {
   public:
-    explicit RootNode() : BinaryNode<OperationsType, RootExpressionItem>(std::auto_ptr<RootExpressionItem>(new RootExpressionItem())) 
-    { 
-    }
-
-    RootNode<StringConstraintOperations<RootExpressionItem> >& String()
-    {
-      m_stringRoot = std::auto_ptr<RootNode<StringConstraintOperations<RootExpressionItem> > >(new RootNode<StringConstraintOperations<RootExpressionItem> >());
-      return *(m_stringRoot.get());
-    }
-
-  private:
-    std::auto_ptr<RootNode<StringConstraintOperations<RootExpressionItem> > > m_stringRoot;
+    explicit RootNode() : BinaryNode<DummyRootExpressionItem>(std::auto_ptr<DummyRootExpressionItem>(new DummyRootExpressionItem())) {}
+    RootNode(const RootNode& rhs) : BinaryNode<DummyRootExpressionItem>(rhs) {}
   };
 
 }

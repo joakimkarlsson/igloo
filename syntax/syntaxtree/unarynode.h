@@ -5,11 +5,11 @@
 
 namespace igloo {
 
-  template <typename OperationsType, typename ExpressionItemType>
-  class UnaryNode : public OperationsType
+  template <typename ExpressionItemType>
+  class UnaryNode : public ConstraintOperations<ExpressionItemType>
   {
   public:
-    explicit UnaryNode(std::auto_ptr<ExpressionItemType> expressionItem) : OperationsType(expressionItem) {}
+    explicit UnaryNode(std::auto_ptr<ExpressionItemType> expressionItem) : ConstraintOperations<ExpressionItemType>(expressionItem) {}
   };
 
 }

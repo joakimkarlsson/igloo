@@ -3,16 +3,16 @@
 
 namespace igloo {
 
-  template <typename OperationsType, typename ExpressionItemType>
+  template <typename ExpressionItemType>
   class UnaryNode;
 
-  template <typename OperationsType, typename ExpressionItemType>
+  template <typename ExpressionItemType>
   class BinaryNode;
 
-  template <typename OperationsType, typename ExpressionItemType>
+  template <typename ExpressionItemType>
   class ConstraintNode;
 
-  template <typename OperationsType, typename ExpressionItemType>
+  template <typename ExpressionItemType>
   class INodeOwner
   {
   };

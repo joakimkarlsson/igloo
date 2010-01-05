@@ -6,23 +6,27 @@
 
 namespace igloo {
 
-  template <typename OperationsType, typename ExpressionItemType>
-    class ConstraintNode : public OperationsType
+  template <typename ExpressionItemType>
+    class ConstraintNode : public ConstraintOperations<ExpressionItemType>
   {
+    typedef ExpressionItem<typename ExpressionItemType::CurrentConstraintType, ExpressionItemType> NextExpressionItemType;
+    
   public:
-    explicit ConstraintNode(std::auto_ptr<ExpressionItemType> expressionItem) : OperationsType(expressionItem) {}
+    explicit ConstraintNode(std::auto_ptr<ExpressionItemType> expressionItem) : ConstraintOperations<ExpressionItemType>(expressionItem) {}
+    ConstraintNode(const ConstraintNode<ExpressionItemType>& rhs) : ConstraintOperations<ExpressionItemType>(rhs) {}
 
-    BinaryNode<OperationsType, ExpressionItemType> And()
+
+    BinaryNode<NextExpressionItemType> And()
     {
-      ExpressionItemType expressionItem(std::auto_ptr<Operator>(new AndOperator()), OperationsType::m_expressionItem);
-      return BinaryNode<OperationsType, ExpressionItemType>(expressionItem);
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(std::auto_ptr<Operator>(new AndOperator()), ConstraintOperations<ExpressionItemType>::m_expressionItem));
+      return BinaryNode<NextExpressionItemType>(expressionItem);
     }
 
 
     template <typename ActualType>
-      bool Evaluate(ActualType actual)
+      bool Evaluate(ActualType actual) const
     {
-      return OperationsType::m_expressionItem->Evaluate(actual);
+      return ConstraintOperations<ExpressionItemType>::m_expressionItem->Evaluate(actual);
     }
   };
 

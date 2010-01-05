@@ -145,32 +145,32 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldHandleStringContainsConstraint)
   {
-    Assert::That("abcdef", Is().String().Containing("bcde"));
+    Assert::That("abcdef", Is().Containing("bcde"));
   }
 
   TestMethod(Assertions, StringConstraintShouldHandleMatchAtBeginningOfString)
   {
-    Assert::That("abcdef", Is().String().Containing("a"));
+    Assert::That("abcdef", Is().Containing("a"));
   }
 
   TestMethod(Assertions, ShouldHandleStringStartingWithConstraint)
   {
-    Assert::That("abcdef", Is().String().StartingWith("abc"));
+    Assert::That("abcdef", Is().StartingWith("abc"));
   }
 
   TestMethod(Assertions, ShouldHandleStringEndingWithConstraint)
   {
-    Assert::That("abcdef", Is().String().EndingWith("def"));
+    Assert::That("abcdef", Is().EndingWith("def"));
   }
 
   TestMethod(Assertions, ShouldHandleOperatorsWithStringConstraints)
   {
-    Assert::That("abcdef", Is().String().StartingWith("ab").And().EndingWith("ef"));
+    Assert::That("abcdef", Is().StartingWith("ab").And().EndingWith("ef"));
   }
 
   TestMethod(Assertions, ShouldHandleStringConstraintsWithMultipleOperators)
   {
-    Assert::That("abcdef", Is().String().StartingWith("ab").And().Not().EndingWith("qwqw"));
+    Assert::That("abcdef", Is().StartingWith("ab").And().Not().EndingWith("qwqw"));
   }
 
   TestMethod(Assertions, ShouldThrowExplicitFailureMessage)

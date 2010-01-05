@@ -12,9 +12,11 @@ namespace igloo {
   {
   public:
     explicit Node(std::auto_ptr<ExpressionItemType> expressionItem) : m_expressionItem(expressionItem) {}
+    Node(const Node<ExpressionItemType>& rhs) : m_expressionItem(rhs.m_expressionItem) {}
+
 
   protected:
-    std::auto_ptr<ExpressionItemType> m_expressionItem;
+    mutable std::auto_ptr<ExpressionItemType> m_expressionItem;
   };
 
 }

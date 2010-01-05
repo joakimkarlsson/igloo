@@ -9,20 +9,22 @@ namespace igloo {
   public:
 
     template <typename ActualType, typename SyntaxNodeType>
-    static void That(ActualType actual, SyntaxNodeType statement)
+    static void That(ActualType actual, const SyntaxNodeType& statement)
     {
       if (!statement.Evaluate(actual))
       {
-        throw AssertionException(CreateErrorText(statement.ExpressionAsString(), actual));
+        //throw AssertionException(CreateErrorText(statement.ExpressionAsString(), actual));
+        throw AssertionException("Your message here...");
       }
     }
 
-    static void That(const char* actual, CompleteStatement& node)
+    template <typename SyntaxNodeType>
+    static void That(const char* actual, const SyntaxNodeType& node)
     {
       return That<std::string > (std::string(actual), node);
     }
 
-    static void That(bool& actual)
+    static void That(bool actual)
     {
       if (!actual)
       {

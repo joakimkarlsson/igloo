@@ -5,16 +5,19 @@
 
 namespace igloo {
 
-  template <typename OperationsType, typename ExpressionItemType>
-  class BinaryNode : public OperationsType
+  template <typename ExpressionItemType>
+    class BinaryNode : public ConstraintOperations<ExpressionItemType>
   {
+    typedef ExpressionItem< typename ExpressionItemType::CurrentConstraintType, ExpressionItemType> NextExpressionItemType;
+ 
   public:
-    explicit BinaryNode(std::auto_ptr<ExpressionItemType> expressionItem) : OperationsType(expressionItem) {}
+    explicit BinaryNode(std::auto_ptr<ExpressionItemType> expressionItem) : ConstraintOperations<ExpressionItemType>(expressionItem) {}
+    BinaryNode(const BinaryNode<ExpressionItemType>& rhs) : ConstraintOperations<ExpressionItemType>(rhs) {}
 
-    UnaryNode<OperationsType, ExpressionItemType> Not()
+    UnaryNode<NextExpressionItemType> Not()
     {
-      ExpressionItemType expressionItem(std::auto_ptr<Operator>(new NotOperator()), OperationsType::m_expressionItem);
-      return UnaryNode<OperationsType, ExpressionItemType>(expressionItem);
+      std::auto_ptr<NextExpressionItemType> expressionItem( new NextExpressionItemType(std::auto_ptr<Operator>(new NotOperator()), ConstraintOperations<ExpressionItemType>::m_expressionItem));
+      return UnaryNode<NextExpressionItemType>(expressionItem);
     }
   };
 

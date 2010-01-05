@@ -54,9 +54,9 @@ namespace igloo {
 
   protected:
 
-    RootNode<ConstraintOperations<RootExpressionItem> > Is()
+    RootNode Is()
     {
-      return RootNode<ConstraintOperations<RootExpressionItem> >();
+      return RootNode();
     }
 
   private:

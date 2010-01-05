@@ -17,12 +17,12 @@ namespace igloo {
     virtual bool Evaluate(T actual) const = 0;
   };
 
-  template <typename T>
-  class Constraint : public IToken
+  template <typename OperandType>
+  class Constraint
   {
   public:
 
-    Constraint(T expected) : _expected(expected) {}
+    Constraint(OperandType expected) : _expected(expected) {}
 
     virtual bool IsOperator() const
     {
@@ -30,7 +30,7 @@ namespace igloo {
     }
 
   protected:
-    T _expected;
+    OperandType _expected;
   };
 }
 #endif	/* _CONSTRAINT_H */

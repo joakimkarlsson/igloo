@@ -6,9 +6,18 @@
 
 namespace igloo {
 
-  class RootExpressionItem
+  class NoopConstraint
   {
   public:
+    template <typename ActualType>
+      bool Evaluate(ActualType) { return true; }
+  };
+
+  class DummyRootExpressionItem
+  {
+  public:
+    typedef NoopConstraint CurrentConstraintType;
+
     typedef std::stack<bool> ResultStack;
     typedef std::stack<const Operator*> OperatorStack;
 
@@ -17,17 +26,30 @@ namespace igloo {
     {
     }
   };
+
+/*   class NoopConstraint */
+/*   { */
+/*   public: */
+/*     template <typename ActualType> */
+/*       bool Evaluate(ActualType actual) */
+/*     { */
+/*       return true; */
+/*     } */
+/*   }; */
   
-  template <typename CurrentOperandType, typename PreviousExpressionItemType>
+  template <typename ConstraintType, typename PreviousExpressionItemType>
   class ExpressionItem
   {
   public:
+    typedef ConstraintType CurrentConstraintType;
+
     typedef std::auto_ptr<Operator> Operator_ptr;
-    typedef std::auto_ptr<Constraint<CurrentOperandType> > Constraint_ptr;
+    typedef std::auto_ptr<ConstraintType> Constraint_ptr;
     typedef std::auto_ptr<PreviousExpressionItemType> Previous_ptr;
     typedef std::stack<bool> ResultStack;
     typedef std::stack<const Operator*> OperatorStack;
 
+    ExpressionItem() :  m_operator(NULL), m_constraint(NULL), m_previous(NULL) {}
     explicit ExpressionItem(Operator_ptr op, Previous_ptr previous) : m_operator(op), m_constraint(NULL), m_previous(previous) {}
     explicit ExpressionItem(Constraint_ptr constraint, Previous_ptr previous) : m_operator(NULL), m_constraint(constraint), m_previous(previous) {}
 
@@ -73,9 +95,9 @@ namespace igloo {
     }
 
   private:
-    Previous_ptr m_previous;
     Operator_ptr m_operator;
     Constraint_ptr m_constraint;
+    Previous_ptr m_previous;
   };
 
 }
