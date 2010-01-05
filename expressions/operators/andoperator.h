@@ -24,9 +24,9 @@ namespace igloo {
       boolStack.push(right && left);
     }
 
-    virtual std::string ExpectationText() const
+    virtual void ToString(std::string& str) const
     {
-      return "and";
+      str += "and";
     }
     
     virtual bool IsLeftAssociative() const

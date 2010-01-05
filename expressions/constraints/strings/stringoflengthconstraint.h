@@ -13,11 +13,11 @@ namespace igloo {
       return actual.size() == _expected;
     }
 
-    std::string ExpectationText() const
+    void ToString(std::string& str) const
     {
-       std::ostringstream str;
-       str << "string of length " << _expected;
-       return str.str();
+       std::ostringstream stm;
+       stm << "string of length " << _expected;
+       str += stm.str();
     }
   };
 }

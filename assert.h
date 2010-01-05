@@ -13,8 +13,9 @@ namespace igloo {
     {
       if (!statement.Evaluate(actual))
       {
-        //throw AssertionException(CreateErrorText(statement.ExpressionAsString(), actual));
-        throw AssertionException("Your message here...");
+        std::string str;
+        statement.ToString(str);
+        throw AssertionException(CreateErrorText(str, actual));
       }
     }
 

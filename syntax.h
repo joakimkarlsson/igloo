@@ -4,7 +4,6 @@
 #include "expressions.h"
 
 #include "syntax/constraintoperations.h"
-#include "syntax/stringconstraintoperations.h"
 
 #include "syntax/rootnode.h"
 

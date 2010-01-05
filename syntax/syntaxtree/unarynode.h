@@ -1,7 +1,6 @@
 #ifndef IGLOO_UNARYNODE_H
 #define IGLOO_UNARYNODE_H
 
-#include "iexpressionowner.h"
 
 namespace igloo {
 

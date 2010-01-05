@@ -14,11 +14,11 @@ namespace igloo {
       return actual.find(_expected) != actual.npos;
     }
 
-    std::string ExpectationText() const
+    void ToString(std::string& str) const
     {
-       std::ostringstream str;
-       str << "string containing " << _expected;
-       return str.str();
+       std::ostringstream stm;
+       stm << "string containing " << _expected;
+       str += stm.str();
     }
   };
 }

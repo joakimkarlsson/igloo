@@ -24,11 +24,11 @@ namespace igloo {
       return actual > Constraint<T>::_expected;
     }
 
-    std::string ExpectationText() const
+    void ToString(std::string& str) const
     {
-      std::ostringstream str;
-      str << "greater than " << Constraint<T>::_expected;
-      return str.str();
+      std::ostringstream stm;
+      stm << "greater than " << Constraint<T>::_expected;
+      str += stm.str();
     }
   };
 

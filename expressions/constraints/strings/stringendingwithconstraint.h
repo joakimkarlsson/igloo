@@ -30,11 +30,11 @@ namespace igloo {
       return _expected.compare(endOfActual) == 0;
     }
 
-    std::string ExpectationText() const
+    void ToString(std::string& str) const
     {
-      std::ostringstream str;
-      str << "string ending with " << _expected;
-      return str.str();
+      std::ostringstream stm;
+      stm << "string ending with " << _expected;
+      str += stm.str();
     }
   };
 }

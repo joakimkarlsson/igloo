@@ -11,6 +11,8 @@ namespace igloo {
   public:
     template <typename ActualType>
       bool Evaluate(ActualType) { return true; }
+
+    void ToString(std::string&) {}
   };
 
   class DummyRootExpressionItem
@@ -25,17 +27,9 @@ namespace igloo {
       void Evaluate(ActualType, ResultStack&, OperatorStack&)
     {
     }
-  };
 
-/*   class NoopConstraint */
-/*   { */
-/*   public: */
-/*     template <typename ActualType> */
-/*       bool Evaluate(ActualType actual) */
-/*     { */
-/*       return true; */
-/*     } */
-/*   }; */
+    void ToString(std::string&) {}
+  };
   
   template <typename ConstraintType, typename PreviousExpressionItemType>
   class ExpressionItem
@@ -61,18 +55,45 @@ namespace igloo {
 
       Evaluate(actual, resultStack, operatorStack);
 
+      while(!operatorStack.empty())
+      {
+        operatorStack.top()->Evaluate(resultStack);
+        operatorStack.pop();        
+      }
+
       return resultStack.top();
     }
 
-    template <typename ActualType>
-      void Evaluate(ActualType actual, ResultStack& resultStack, OperatorStack& operatorStack)
+    void ToString(std::string& str)
     {
       if(m_previous.get() == NULL)
       {
         return;
       }
 
-      m_previous->Evaluate(actual, resultStack, operatorStack);
+      m_previous->ToString(str);
+
+      if(m_operator.get() != NULL)
+      {
+        m_operator->ToString(str);
+      }
+
+      if(m_constraint.get() != NULL)
+      {
+        m_constraint->ToString(str);
+      }
+
+      str += " ";
+
+    }
+
+    template <typename ActualType>
+      void Evaluate(ActualType actual, ResultStack& resultStack, OperatorStack& operatorStack)
+    {
+      if(m_previous.get() != NULL)
+      {
+        m_previous->Evaluate(actual, resultStack, operatorStack);
+      }
 
       if(m_operator.get() != NULL)
       {

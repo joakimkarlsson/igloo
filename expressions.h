@@ -7,9 +7,7 @@
 #include <list>
 #include <sstream>
 
-#include "expressions/itoken.h"
 #include "expressions/constraints/constraint.h"
-#include "expressions/expression.h"
 
 #include "expressions/operators/operator.h"
 #include "expressions/operators/andoperator.h"

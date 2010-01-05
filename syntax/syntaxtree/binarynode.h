@@ -1,8 +1,6 @@
 #ifndef IGLOO_BINARYNODE_H
 #define IGLOO_BINARYNODE_H
 
-#include "iexpressionowner.h"
-
 namespace igloo {
 
   template <typename ExpressionItemType>

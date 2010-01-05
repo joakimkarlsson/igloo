@@ -20,11 +20,11 @@ namespace igloo {
       return actual.find(_expected) == 0;
     }
 
-    std::string ExpectationText() const
+    void ToString(std::string& str) const
     {
-       std::ostringstream str;
-       str << "string starting with " << _expected;
-       return str.str();
+       std::ostringstream stm;
+       stm << "string starting with " << _expected;
+       str += stm.str();
     }
   };
 }

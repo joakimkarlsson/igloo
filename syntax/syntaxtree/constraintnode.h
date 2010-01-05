@@ -1,9 +1,6 @@
 #ifndef IGLOO_CONSTRAINTNODE_H
 #define IGLOO_CONSTRAINTNODE_H
 
-#include "iexpressionowner.h"
-#include "completestatement.h"
-
 namespace igloo {
 
   template <typename ExpressionItemType>
@@ -27,6 +24,11 @@ namespace igloo {
       bool Evaluate(ActualType actual) const
     {
       return ConstraintOperations<ExpressionItemType>::m_expressionItem->Evaluate(actual);
+    }
+
+    void ToString(std::string& str) const
+    {
+      return ConstraintOperations<ExpressionItemType>::m_expressionItem->ToString(str);
     }
   };
 

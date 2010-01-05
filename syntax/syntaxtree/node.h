@@ -1,8 +1,6 @@
 #ifndef IGLOO_NODE_H
 #define IGLOO_NODE_H
 
-#include "iexpressionowner.h"
-#include "nodebase.h"
 #include "inodeowner.h"
 
 namespace igloo {
