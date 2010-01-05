@@ -5,6 +5,16 @@
 
 namespace igloo {
 
+template <typename ExpressionItemType>
+class UnaryNode;
+
+template <typename ExpressionItemType>
+class BinaryNode;
+
+template <typename ExpressionItemType>
+class ConstraintNode;
+
+
   template <typename ExpressionItemType>
   class ConstraintOperations : public Node<ExpressionItemType>
   {

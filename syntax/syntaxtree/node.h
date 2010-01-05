@@ -1,8 +1,6 @@
 #ifndef IGLOO_NODE_H
 #define IGLOO_NODE_H
 
-#include "inodeowner.h"
-
 namespace igloo {
 
   template <typename ExpressionItemType>
