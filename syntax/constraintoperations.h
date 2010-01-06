@@ -19,7 +19,9 @@ class ConstraintNode;
   class ConstraintOperations : public Node<ExpressionItemType>
   {
   public:
-    explicit ConstraintOperations(std::auto_ptr<ExpressionItemType> expressionItem) : Node<ExpressionItemType>(expressionItem) {}
+    typedef Node<ExpressionItemType> Base;
+
+    explicit ConstraintOperations(std::auto_ptr<ExpressionItemType> expressionItem) : Base(expressionItem) {}
 
     template <typename ExpectedType>
       ConstraintNode<ExpressionItem<EqualToConstraint<ExpectedType>, ExpressionItemType> > EqualTo(ExpectedType expected)
@@ -27,7 +29,7 @@ class ConstraintNode;
       typedef ExpressionItem<EqualToConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<EqualToConstraint<ExpectedType> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new EqualToConstraint<ExpectedType>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new EqualToConstraint<ExpectedType>(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
@@ -37,7 +39,7 @@ class ConstraintNode;
       typedef ExpressionItem<EqualToConstraint<std::string>, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<EqualToConstraint<std::string> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new EqualToConstraint<std::string>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new EqualToConstraint<std::string>(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
@@ -48,7 +50,7 @@ class ConstraintNode;
       typedef ExpressionItem<GreaterThanConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<GreaterThanConstraint<ExpectedType> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new GreaterThanConstraint<ExpectedType>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new GreaterThanConstraint<ExpectedType>(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
@@ -59,7 +61,7 @@ class ConstraintNode;
       typedef ExpressionItem<LessThanConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<LessThanConstraint<ExpectedType> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new LessThanConstraint<ExpectedType>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new LessThanConstraint<ExpectedType>(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
@@ -68,7 +70,7 @@ class ConstraintNode;
     {
       typedef ExpressionItem<StringContainingConstraint, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<StringContainingConstraint> Constraint_ptr;
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringContainingConstraint(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringContainingConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
@@ -77,7 +79,7 @@ class ConstraintNode;
     {
       typedef ExpressionItem<StringStartingWithConstraint, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<StringStartingWithConstraint> Constraint_ptr;
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringStartingWithConstraint(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringStartingWithConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
@@ -86,7 +88,7 @@ class ConstraintNode;
     {
       typedef ExpressionItem<StringEndingWithConstraint, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<StringEndingWithConstraint> Constraint_ptr;
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringEndingWithConstraint(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringEndingWithConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
@@ -95,7 +97,7 @@ class ConstraintNode;
     {
       typedef ExpressionItem<StringOfLengthConstraint, ExpressionItemType> NextExpressionItemType;
       typedef std::auto_ptr<StringOfLengthConstraint> Constraint_ptr;
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringOfLengthConstraint(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringOfLengthConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
