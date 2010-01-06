@@ -1,13 +1,8 @@
-/* 
-* File:   operator.h
-* Author: joakim
-*
-* Created on December 13, 2009, 11:05 AM
-*/
+#ifndef IGLOO_OPERATOR_H
+#define	IGLOO_OPERATOR_H
 
-#ifndef _OPERATOR_H
-#define	_OPERATOR_H
 namespace igloo {
+
    class Operator
    {
    public:
@@ -15,6 +10,7 @@ namespace igloo {
       virtual bool IsLeftAssociative() const = 0;
       virtual void ToString(std::string& str) const = 0;
    };
+
 }
-#endif	/* _OPERATOR_H */
+#endif
 

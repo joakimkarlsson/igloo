@@ -1,12 +1,5 @@
-/* 
- * File:   greaterthanconstraint.h
- * Author: joakim
- *
- * Created on December 18, 2009, 7:17 PM
- */
-
-#ifndef _GREATERTHANCONSTRAINT_H
-#define	_GREATERTHANCONSTRAINT_H
+#ifndef IGLOO_GREATERTHANCONSTRAINT_H
+#define	IGLOO_GREATERTHANCONSTRAINT_H
 
 namespace igloo {
 
@@ -32,5 +25,5 @@ namespace igloo {
   };
 
 }
-#endif	/* _GREATERTHANCONSTRAINT_H */
+#endif
 

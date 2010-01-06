@@ -1,12 +1,5 @@
-/* 
- * File:   andoperator.h
- * Author: joakim
- *
- * Created on December 18, 2009, 11:45 PM
- */
-
-#ifndef _ANDOPERATOR_H
-#define	_ANDOPERATOR_H
+#ifndef IGLOO_ANDOPERATOR_H
+#define	IGLOO_ANDOPERATOR_H
 
 namespace igloo {
 
@@ -37,5 +30,5 @@ namespace igloo {
 }
 
 
-#endif	/* _ANDOPERATOR_H */
+#endif
 

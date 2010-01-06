@@ -1,12 +1,5 @@
-/* 
- * File:   stringendingwithconstraint.h
- * Author: joakim
- *
- * Created on December 25, 2009, 10:43 PM
- */
-
-#ifndef _STRINGENDINGWITHCONSTRAINT_H
-#define	_STRINGENDINGWITHCONSTRAINT_H
+#ifndef IGLOO_STRINGENDINGWITHCONSTRAINT_H
+#define	IGLOO_STRINGENDINGWITHCONSTRAINT_H
 
 namespace igloo {
 
@@ -39,5 +32,5 @@ namespace igloo {
   };
 }
 
-#endif	/* _STRINGENDINGWITHCONSTRAINT_H */
+#endif
 

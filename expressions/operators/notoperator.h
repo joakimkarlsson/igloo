@@ -1,12 +1,5 @@
-/* 
-* File:   notoperator.h
-* Author: joakim
-*
-* Created on December 13, 2009, 11:11 AM
-*/
-
-#ifndef _NOTOPERATOR_H
-#define	_NOTOPERATOR_H
+#ifndef IGLOO_NOTOPERATOR_H
+#define	IGLOO_NOTOPERATOR_H
 
 namespace igloo {
    class NotOperator : public Operator
@@ -31,5 +24,5 @@ namespace igloo {
       }
    };
 }
-#endif	/* _NOTOPERATOR_H */
+#endif
 

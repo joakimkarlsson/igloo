@@ -1,12 +1,5 @@
-/* 
-* File:   equaltooperator.h
-* Author: joakim
-*
-* Created on December 13, 2009, 11:13 AM
-*/
-
-#ifndef _EQUALTOCONSTRAINT_H
-#define	_EQUALTOCONSTRAINT_H
+#ifndef IGLOO_EQUALTOCONSTRAINT_H
+#define	IGLOO_EQUALTOCONSTRAINT_H
 
 #include "constraint.h"
 

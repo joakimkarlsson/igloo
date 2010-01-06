@@ -1,12 +1,5 @@
-/* 
- * File:   constraint.h
- * Author: joakim
- *
- * Created on December 13, 2009, 11:07 AM
- */
-
-#ifndef _CONSTRAINT_H
-#define	_CONSTRAINT_H
+#ifndef IGLOO_CONSTRAINT_H
+#define	IGLOO_CONSTRAINT_H
 
 namespace igloo {
 
@@ -21,5 +14,5 @@ namespace igloo {
     ExpectedType _expected;
   };
 }
-#endif	/* _CONSTRAINT_H */
+#endif
 

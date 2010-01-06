@@ -1,12 +1,5 @@
-/* 
- * File:   stringstartingwithconstraint.h
- * Author: joakim
- *
- * Created on December 25, 2009, 10:28 PM
- */
-
-#ifndef _STRINGSTARTINGWITHCONSTRAINT_H
-#define	_STRINGSTARTINGWITHCONSTRAINT_H
+#ifndef IGLOO_STRINGSTARTINGWITHCONSTRAINT_H
+#define	IGLOO_STRINGSTARTINGWITHCONSTRAINT_H
 
 namespace igloo {
 
@@ -29,5 +22,5 @@ namespace igloo {
   };
 }
 
-#endif	/* _STRINGSTARTINGWITHCONSTRAINT_H */
+#endif
 
