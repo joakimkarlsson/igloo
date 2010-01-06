@@ -21,13 +21,13 @@ class ConstraintNode;
   public:
     explicit ConstraintOperations(std::auto_ptr<ExpressionItemType> expressionItem) : Node<ExpressionItemType>(expressionItem) {}
 
-    template <typename OperandType>
-      ConstraintNode<ExpressionItem<EqualToConstraint<OperandType>, ExpressionItemType> > EqualTo(OperandType expected)
+    template <typename ExpectedType>
+      ConstraintNode<ExpressionItem<EqualToConstraint<ExpectedType>, ExpressionItemType> > EqualTo(ExpectedType expected)
     {
-      typedef ExpressionItem<EqualToConstraint<OperandType>, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<EqualToConstraint<OperandType> > Constraint_ptr;
+      typedef ExpressionItem<EqualToConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<EqualToConstraint<ExpectedType> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new EqualToConstraint<OperandType>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new EqualToConstraint<ExpectedType>(expected)), Node<ExpressionItemType>::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
@@ -42,24 +42,24 @@ class ConstraintNode;
       return node;
     }
 
-    template <typename OperandType>
-    ConstraintNode<ExpressionItem<GreaterThanConstraint<OperandType>, ExpressionItemType> > GreaterThan(OperandType expected)
+    template <typename ExpectedType>
+    ConstraintNode<ExpressionItem<GreaterThanConstraint<ExpectedType>, ExpressionItemType> > GreaterThan(ExpectedType expected)
     {
-      typedef ExpressionItem<GreaterThanConstraint<OperandType>, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<GreaterThanConstraint<OperandType> > Constraint_ptr;
+      typedef ExpressionItem<GreaterThanConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<GreaterThanConstraint<ExpectedType> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new GreaterThanConstraint<OperandType>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new GreaterThanConstraint<ExpectedType>(expected)), Node<ExpressionItemType>::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
 
-    template <typename OperandType>
-      ConstraintNode<ExpressionItem<LessThanConstraint<OperandType>, ExpressionItemType> > LessThan(OperandType expected)
+    template <typename ExpectedType>
+      ConstraintNode<ExpressionItem<LessThanConstraint<ExpectedType>, ExpressionItemType> > LessThan(ExpectedType expected)
     {
-      typedef ExpressionItem<LessThanConstraint<OperandType>, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<LessThanConstraint<OperandType> > Constraint_ptr;
+      typedef ExpressionItem<LessThanConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<LessThanConstraint<ExpectedType> > Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new LessThanConstraint<OperandType>(expected)), Node<ExpressionItemType>::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(Constraint_ptr(new LessThanConstraint<ExpectedType>(expected)), Node<ExpressionItemType>::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
