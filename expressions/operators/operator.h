@@ -11,12 +11,6 @@ namespace igloo {
    class Operator
    {
    public:
-
-      virtual bool IsOperator() const
-      {
-         return true;
-      }
-
       virtual void Evaluate(std::stack<bool>& boolStack) const = 0;
       virtual bool IsLeftAssociative() const = 0;
       virtual void ToString(std::string& str) const = 0;
