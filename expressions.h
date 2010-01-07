@@ -17,10 +17,10 @@
 #include "expressions/constraints/greaterthanconstraint.h"
 #include "expressions/constraints/lessthanconstraint.h"
 
-#include "expressions/constraints/strings/stringcontainingconstraint.h"
-#include "expressions/constraints/strings/stringendingwithconstraint.h"
-#include "expressions/constraints/strings/stringoflengthconstraint.h"
-#include "expressions/constraints/strings/stringstartingwithconstraint.h"
+#include "expressions/constraints/containingconstraint.h"
+#include "expressions/constraints/endingwithconstraint.h"
+#include "expressions/constraints/oflengthconstraint.h"
+#include "expressions/constraints/startingwithconstraint.h"
 
 #include "expressions/expressionitem.h"
 

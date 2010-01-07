@@ -1,12 +1,12 @@
-#ifndef IGLOO_STRINGOFLENGTHCONSTRAINT_H_
-#define IGLOO_STRINGOFLENGTHCONSTRAINT_H_
+#ifndef IGLOO_OFLENGTHCONSTRAINT_H_
+#define IGLOO_OFLENGTHCONSTRAINT_H_
 
 namespace igloo {
 
-  class StringOfLengthConstraint : public Constraint<unsigned int>
+  class OfLengthConstraint : public Constraint<unsigned int>
   {
   public:
-    explicit StringOfLengthConstraint(int expectation) : Constraint<unsigned int>(expectation) {}
+    explicit OfLengthConstraint(int expectation) : Constraint<unsigned int>(expectation) {}
 
     virtual bool Evaluate(std::string actual) const
     {

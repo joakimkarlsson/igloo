@@ -1,13 +1,13 @@
-#ifndef IGLOO_STRINGENDINGWITHCONSTRAINT_H
-#define	IGLOO_STRINGENDINGWITHCONSTRAINT_H
+#ifndef IGLOO_ENDINGWITHCONSTRAINT_H
+#define	IGLOO_ENDINGWITHCONSTRAINT_H
 
 namespace igloo {
 
-  class StringEndingWithConstraint : public Constraint<std::string>
+  class EndingWithConstraint : public Constraint<std::string>
   {
   public:
 
-    StringEndingWithConstraint(std::string expected) : Constraint<std::string>(expected)
+    EndingWithConstraint(std::string expected) : Constraint<std::string>(expected)
     {
     }
 

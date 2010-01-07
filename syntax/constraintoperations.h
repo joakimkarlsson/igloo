@@ -66,42 +66,42 @@ class ConstraintNode;
       return node;
     }
 
-    ConstraintNode<ExpressionItem<StringContainingConstraint, ExpressionItemType> > Containing(std::string expected)
+    ConstraintNode<ExpressionItem<ContainingConstraint, ExpressionItemType> > Containing(std::string expected)
     {
-      typedef ExpressionItem<StringContainingConstraint, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<StringContainingConstraint> Constraint_ptr;
+      typedef ExpressionItem<ContainingConstraint, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<ContainingConstraint> Constraint_ptr;
  
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringContainingConstraint(expected)), Base::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new ContainingConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
 
-    ConstraintNode<ExpressionItem<StringStartingWithConstraint, ExpressionItemType> > StartingWith(std::string expected)
+    ConstraintNode<ExpressionItem<StartingWithConstraint, ExpressionItemType> > StartingWith(std::string expected)
     {
-      typedef ExpressionItem<StringStartingWithConstraint, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<StringStartingWithConstraint> Constraint_ptr;
+      typedef ExpressionItem<StartingWithConstraint, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<StartingWithConstraint> Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringStartingWithConstraint(expected)), Base::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StartingWithConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
 
-    ConstraintNode<ExpressionItem<StringEndingWithConstraint, ExpressionItemType> > EndingWith(std::string expected)
+    ConstraintNode<ExpressionItem<EndingWithConstraint, ExpressionItemType> > EndingWith(std::string expected)
     {
-      typedef ExpressionItem<StringEndingWithConstraint, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<StringEndingWithConstraint> Constraint_ptr;
+      typedef ExpressionItem<EndingWithConstraint, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<EndingWithConstraint> Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringEndingWithConstraint(expected)), Base::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new EndingWithConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }
 
-   ConstraintNode<ExpressionItem<StringOfLengthConstraint, ExpressionItemType> > OfLength(int expected)
+   ConstraintNode<ExpressionItem<OfLengthConstraint, ExpressionItemType> > OfLength(int expected)
     {
-      typedef ExpressionItem<StringOfLengthConstraint, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<StringOfLengthConstraint> Constraint_ptr;
+      typedef ExpressionItem<OfLengthConstraint, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<OfLengthConstraint> Constraint_ptr;
 
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new StringOfLengthConstraint(expected)), Base::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new OfLengthConstraint(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }

@@ -1,13 +1,13 @@
-#ifndef IGLOO_STRINGCONTAININGCONSTRAINT_H_
-#define IGLOO_STRINGCONTAININGCONSTRAINT_H_
+#ifndef IGLOO_CONTAININGCONSTRAINT_H_
+#define IGLOO_CONTAININGCONSTRAINT_H_
 
 namespace igloo {
 
-  class StringContainingConstraint : public Constraint<std::string>
+  class ContainingConstraint : public Constraint<std::string>
   {
   public:
 
-    StringContainingConstraint(std::string expected) : Constraint<std::string>(expected) {}
+    ContainingConstraint(std::string expected) : Constraint<std::string>(expected) {}
 
     virtual bool Evaluate(std::string actual) const
     {

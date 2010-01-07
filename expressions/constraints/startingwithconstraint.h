@@ -1,12 +1,12 @@
-#ifndef IGLOO_STRINGSTARTINGWITHCONSTRAINT_H
-#define	IGLOO_STRINGSTARTINGWITHCONSTRAINT_H
+#ifndef IGLOO_STARTINGWITHCONSTRAINT_H
+#define	IGLOO_STARTINGWITHCONSTRAINT_H
 
 namespace igloo {
 
-  class StringStartingWithConstraint : public Constraint<std::string>
+  class StartingWithConstraint : public Constraint<std::string>
   {
   public:
-    StringStartingWithConstraint(std::string expected) : Constraint<std::string>(expected) {}
+    StartingWithConstraint(std::string expected) : Constraint<std::string>(expected) {}
 
     virtual bool Evaluate(std::string actual) const
     {
