@@ -8,10 +8,10 @@
 
 namespace igloo {
 
-  class RootNode : public BinaryNode<DummyRootExpressionItem>
+  class RootNode : public BinaryNode<NoopExpressionItem>
   {
   public:
-    explicit RootNode() : BinaryNode<DummyRootExpressionItem>(std::auto_ptr<DummyRootExpressionItem>(new DummyRootExpressionItem())) {}
+    explicit RootNode() : BinaryNode<NoopExpressionItem>(std::auto_ptr<NoopExpressionItem>(new NoopExpressionItem())) {}
   };
 
 }

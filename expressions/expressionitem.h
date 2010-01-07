@@ -15,7 +15,7 @@ namespace igloo {
     void ToString(std::string&) {}
   };
 
-  class DummyRootExpressionItem
+  class NoopExpressionItem
   {
   public:
     typedef NoopConstraint CurrentConstraintType;
