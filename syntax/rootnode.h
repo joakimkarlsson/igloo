@@ -2,9 +2,9 @@
 #define IGLOO_ROOTNODE_H
 
 
-#include "syntaxtree/binarynode.h"
-#include "syntaxtree/unarynode.h"
-#include "syntaxtree/constraintnode.h"
+#include "binarynode.h"
+#include "unarynode.h"
+#include "constraintnode.h"
 
 namespace igloo {
 

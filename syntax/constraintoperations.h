@@ -1,7 +1,7 @@
 #ifndef IGLOO_CONSTRAINTOPERATIONS_H
 #define IGLOO_CONSTRAINTOPERATIONS_H
 
-#include "syntaxtree/node.h"
+#include "node.h"
 
 namespace igloo {
 
