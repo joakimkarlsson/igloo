@@ -15,18 +15,12 @@ namespace igloo {
 
     BinaryNode<NextExpressionItemType> And()
     {
-      boost::shared_ptr<Operator> op(new AndOperator());
-      boost::shared_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(op, Base::m_expressionItem));
-      BinaryNode<NextExpressionItemType> node(expressionItem);
-      return node;
+      return CreateNode(new AndOperator());
     }
 
     BinaryNode<NextExpressionItemType> Or()
     {
-      boost::shared_ptr<Operator> op(new OrOperator());
-      boost::shared_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(op, Base::m_expressionItem));
-      BinaryNode<NextExpressionItemType> node(expressionItem);
-      return node;
+      return CreateNode(new OrOperator());
     }
 
     template <typename ActualType>
@@ -38,6 +32,15 @@ namespace igloo {
     void ToString(std::string& str) const
     {
       return Base::m_expressionItem->ToString(str);
+    }
+
+  private:
+    template <typename OperatorType>
+    BinaryNode<NextExpressionItemType> CreateNode(OperatorType* op)
+    {
+      boost::shared_ptr<Operator> op_ptr(op);
+      boost::shared_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(op_ptr, Base::m_expressionItem));
+      return BinaryNode<NextExpressionItemType>(expressionItem);
     }
   };
 
