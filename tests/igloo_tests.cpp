@@ -131,36 +131,6 @@ TestFixture(Assertions)
     Assert::That(5, Is().GreaterThan(4).And().Not().LessThan(3));
   }
 
-  TestMethod(Assertions, ShouldHandleStringContainsConstraint)
-  {
-    Assert::That("abcdef", Is().Containing("bcde"));
-  }
-
-  TestMethod(Assertions, StringConstraintShouldHandleMatchAtBeginningOfString)
-  {
-    Assert::That("abcdef", Is().Containing("a"));
-  }
-
-  TestMethod(Assertions, ShouldHandleStringStartingWithConstraint)
-  {
-    Assert::That("abcdef", Is().StartingWith("abc"));
-  }
-
-  TestMethod(Assertions, ShouldHandleStringEndingWithConstraint)
-  {
-    Assert::That("abcdef", Is().EndingWith("def"));
-  }
-
-  TestMethod(Assertions, ShouldHandleOperatorsWithStringConstraints)
-  {
-    Assert::That("abcdef", Is().StartingWith("ab").And().EndingWith("ef"));
-  }
-
-  TestMethod(Assertions, ShouldHandleStringConstraintsWithMultipleOperators)
-  {
-    Assert::That("abcdef", Is().StartingWith("ab").And().Not().EndingWith("qwqw"));
-  }
-
   TestMethod(Assertions, ShouldThrowExplicitFailureMessage)
   {
     std::string assertionMessage;
