@@ -15,7 +15,8 @@ namespace igloo {
 
     BinaryNode<NextExpressionItemType> And()
     {
-      boost::shared_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(boost::shared_ptr<Operator>(new AndOperator()), Base::m_expressionItem));
+      boost::shared_ptr<Operator> op(new AndOperator());
+      boost::shared_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(op, Base::m_expressionItem));
       BinaryNode<NextExpressionItemType> node(expressionItem);
       return node;
     }
