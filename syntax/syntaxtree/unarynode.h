@@ -8,7 +8,7 @@ namespace igloo {
   class UnaryNode : public ConstraintOperations<ExpressionItemType>
   {
   public:
-    explicit UnaryNode(std::auto_ptr<ExpressionItemType> expressionItem) : ConstraintOperations<ExpressionItemType>(expressionItem) {}
+    explicit UnaryNode(boost::shared_ptr<ExpressionItemType> expressionItem) : ConstraintOperations<ExpressionItemType>(expressionItem) {}
   };
 
 }

@@ -7,12 +7,12 @@ namespace igloo {
     class Node
   {
   public:
-    explicit Node(std::auto_ptr<ExpressionItemType> expressionItem) : m_expressionItem(expressionItem) {}
-    Node(Node& rhs) : m_expressionItem(rhs.m_expressionItem) {}
+    explicit Node(boost::shared_ptr<ExpressionItemType> expressionItem) : m_expressionItem(expressionItem) {}
+    Node(const Node& rhs) : m_expressionItem(rhs.m_expressionItem) {}
 
 
   protected:
-    std::auto_ptr<ExpressionItemType> m_expressionItem;
+    boost::shared_ptr<ExpressionItemType> m_expressionItem;
   };
 
 }

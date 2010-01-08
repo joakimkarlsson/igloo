@@ -37,15 +37,15 @@ namespace igloo {
   public:
     typedef ConstraintType CurrentConstraintType;
 
-    typedef std::auto_ptr<Operator> Operator_ptr;
-    typedef std::auto_ptr<ConstraintType> Constraint_ptr;
-    typedef std::auto_ptr<PreviousExpressionItemType> Previous_ptr;
+    typedef boost::shared_ptr<Operator> Operator_ptr;
+    typedef boost::shared_ptr<ConstraintType> Constraint_ptr;
+    typedef boost::shared_ptr<PreviousExpressionItemType> Previous_ptr;
     typedef std::stack<bool> ResultStack;
     typedef std::stack<const Operator*> OperatorStack;
 
-    ExpressionItem() :  m_operator(NULL), m_constraint(NULL), m_previous(NULL) {}
-    explicit ExpressionItem(Operator_ptr op, Previous_ptr previous) : m_operator(op), m_constraint(NULL), m_previous(previous) {}
-    explicit ExpressionItem(Constraint_ptr constraint, Previous_ptr previous) : m_operator(NULL), m_constraint(constraint), m_previous(previous) {}
+    ExpressionItem() :  m_operator(), m_constraint(), m_previous() {}
+    explicit ExpressionItem(Operator_ptr op, Previous_ptr previous) : m_operator(op), m_constraint(), m_previous(previous) {}
+    explicit ExpressionItem(Constraint_ptr constraint, Previous_ptr previous) : m_operator(), m_constraint(constraint), m_previous(previous) {}
 
     template <typename ActualType>
       bool Evaluate(ActualType actual)
