@@ -23,14 +23,6 @@ class ConstraintNode;
 
     explicit ConstraintOperations(boost::shared_ptr<ExpressionItemType> expressionItem) : Base(expressionItem) {}
 
-    template <typename ConstraintType, typename NewExpressionItemType>
-      ConstraintNode<NewExpressionItemType> CreateNode(ConstraintType* constraint)
-    {
-      boost::shared_ptr<NewExpressionItemType> expressionItem(new NewExpressionItemType(boost::shared_ptr<ConstraintType>(constraint), Base::m_expressionItem));
-      ConstraintNode<NewExpressionItemType> node(expressionItem);
-      return node;
-   }
-
     template <typename ExpectedType>
       ConstraintNode<ExpressionItem<EqualToConstraint<ExpectedType>, ExpressionItemType> > EqualTo(ExpectedType expected)
     {
@@ -92,6 +84,15 @@ class ConstraintNode;
       typedef OfLengthConstraint ConstraintType;
       typedef ExpressionItem<ConstraintType, ExpressionItemType> NextExpressionItemType;    
       return CreateNode<ConstraintType, NextExpressionItemType>(new ConstraintType(expected));
+    }
+
+  private:
+    template <typename ConstraintType, typename NewExpressionItemType>
+      ConstraintNode<NewExpressionItemType> CreateNode(ConstraintType* constraint)
+    {
+      boost::shared_ptr<NewExpressionItemType> expressionItem(new NewExpressionItemType(boost::shared_ptr<ConstraintType>(constraint), Base::m_expressionItem));
+      ConstraintNode<NewExpressionItemType> node(expressionItem);
+      return node;
     }
 
   };
