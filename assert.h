@@ -53,6 +53,12 @@ namespace igloo {
 
       return str.str();
     }
+
+    template <typename T>
+      static std::string CreateErrorText(const std::string& expressionAsString, const std::vector<T>&)
+    {
+      return CreateErrorText(expressionAsString, "vector");
+    }
   };
 }
 

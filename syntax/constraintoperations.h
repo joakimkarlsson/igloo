@@ -66,12 +66,13 @@ class ConstraintNode;
       return node;
     }
 
-    ConstraintNode<ExpressionItem<ContainingConstraint, ExpressionItemType> > Containing(std::string expected)
+    template <typename ExpectedType>
+    ConstraintNode<ExpressionItem<ContainingConstraint<ExpectedType>, ExpressionItemType> > Containing(ExpectedType expected)
     {
-      typedef ExpressionItem<ContainingConstraint, ExpressionItemType> NextExpressionItemType;
-      typedef std::auto_ptr<ContainingConstraint> Constraint_ptr;
+      typedef ExpressionItem<ContainingConstraint<ExpectedType>, ExpressionItemType> NextExpressionItemType;
+      typedef std::auto_ptr<ContainingConstraint<ExpectedType> > Constraint_ptr;
  
-      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new ContainingConstraint(expected)), Base::m_expressionItem));
+      std::auto_ptr<NextExpressionItemType> nextExpressionItem(new NextExpressionItemType(Constraint_ptr(new ContainingConstraint<ExpectedType>(expected)), Base::m_expressionItem));
       ConstraintNode<NextExpressionItemType> node(nextExpressionItem);
       return node;
     }

@@ -13,4 +13,9 @@ TestFixture(StringConstraints)
   {
     Assert::That("12345", Is().OfLength(5).And().StartingWith("123").And().Not().EndingWith("zyxxy"));
   }
+
+  TestMethod(StringConstraints, ShouldHandleStdStrings)
+  {
+    Assert::That("12345", Is().Containing(std::string("23")));
+  }
 };
