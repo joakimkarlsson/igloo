@@ -11,6 +11,7 @@
 
 #include "expressions/operators/operator.h"
 #include "expressions/operators/andoperator.h"
+#include "expressions/operators/oroperator.h"
 #include "expressions/operators/notoperator.h"
 
 #include "expressions/constraints/equaltoconstraint.h"

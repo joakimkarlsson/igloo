@@ -21,6 +21,14 @@ namespace igloo {
       return node;
     }
 
+    BinaryNode<NextExpressionItemType> Or()
+    {
+      boost::shared_ptr<Operator> op(new OrOperator());
+      boost::shared_ptr<NextExpressionItemType> expressionItem(new NextExpressionItemType(op, Base::m_expressionItem));
+      BinaryNode<NextExpressionItemType> node(expressionItem);
+      return node;
+    }
+
     template <typename ActualType>
       bool Evaluate(ActualType actual) const
     {
