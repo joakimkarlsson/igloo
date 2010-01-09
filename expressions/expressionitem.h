@@ -54,12 +54,7 @@ namespace igloo {
       OperatorStack operatorStack;
 
       Evaluate(actual, resultStack, operatorStack);
-
-      while(!operatorStack.empty())
-      {
-        operatorStack.top()->Evaluate(resultStack);
-        operatorStack.pop();        
-      }
+      Operator::EvaluateOperatorsOnStack(operatorStack, resultStack);
 
       return resultStack.top();
     }
@@ -99,16 +94,7 @@ namespace igloo {
 
       if(m_operator.get() != NULL)
       {
-        if(m_operator->IsLeftAssociative())
-        {
-          while(!operatorStack.empty())
-          {
-            operatorStack.top()->Evaluate(resultStack);
-            operatorStack.pop();
-          }
-        }
-
-        operatorStack.push(m_operator.get());
+        m_operator->Evaluate(operatorStack, resultStack);
       }
 
       if(m_constraint.get() != NULL)
