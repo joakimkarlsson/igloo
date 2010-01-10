@@ -61,7 +61,6 @@ namespace igloo {
   class ExpressionItem
   {
   public:
-    typedef ExpressionType CurrentExpressionType;
     typedef ExpressionItem<ExpressionType, PreviousExpressionItemType> MyType;
 
     typedef boost::shared_ptr<ExpressionType> Expression_ptr;
