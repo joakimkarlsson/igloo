@@ -6,6 +6,32 @@
 
 namespace igloo {
 
+  template <typename ExpressionType, typename ExpressionItemType>
+    struct expression_evaluation_trait
+  {
+    typedef std::stack<bool> ResultStack;
+    typedef std::stack<const Operator*> OperatorStack;
+
+    template <typename ActualType>
+    static void Evaluate(const ExpressionType& expression, const ActualType& actual, ResultStack& resultStack, OperatorStack&)
+    {
+      resultStack.push(expression.Evaluate(actual));
+    }
+  };
+
+  template <typename ExpressionItemType>
+    struct expression_evaluation_trait<Operator, ExpressionItemType>
+  {
+    typedef std::stack<bool> ResultStack;
+    typedef std::stack<const Operator*> OperatorStack;
+
+    template <typename ActualType>
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    {
+      expression.Evaluate(operatorStack, resultStack);
+    }
+    };
+
   class NoopConstraint
   {
   public:
@@ -31,21 +57,20 @@ namespace igloo {
     void ToString(std::string&, bool) {}
   };
   
-  template <typename ConstraintType, typename PreviousExpressionItemType>
+  template <typename ExpressionType, typename PreviousExpressionItemType>
   class ExpressionItem
   {
   public:
-    typedef ConstraintType CurrentConstraintType;
+    typedef ExpressionType CurrentExpressionType;
+    typedef ExpressionItem<ExpressionType, PreviousExpressionItemType> MyType;
 
-    typedef boost::shared_ptr<Operator> Operator_ptr;
-    typedef boost::shared_ptr<ConstraintType> Constraint_ptr;
+    typedef boost::shared_ptr<ExpressionType> Expression_ptr;
     typedef boost::shared_ptr<PreviousExpressionItemType> Previous_ptr;
     typedef std::stack<bool> ResultStack;
     typedef std::stack<const Operator*> OperatorStack;
 
-    ExpressionItem() :  m_operator(), m_constraint(), m_previous() {}
-    explicit ExpressionItem(Operator_ptr op, Previous_ptr previous) : m_operator(op), m_constraint(), m_previous(previous) {}
-    explicit ExpressionItem(Constraint_ptr constraint, Previous_ptr previous) : m_operator(), m_constraint(constraint), m_previous(previous) {}
+    ExpressionItem() : m_expression(), m_previous() {}
+    explicit ExpressionItem(Expression_ptr expression, Previous_ptr previous) : m_expression(expression), m_previous(previous) {}
 
     template <typename ActualType>
       bool Evaluate(ActualType actual)
@@ -68,15 +93,7 @@ namespace igloo {
 
       m_previous->ToString(str, false);
 
-      if(m_operator.get() != NULL)
-      {
-        m_operator->ToString(str);
-      }
-
-      if(m_constraint.get() != NULL)
-      {
-        m_constraint->ToString(str);
-      }
+      m_expression->ToString(str);
 
       if(!last)
       {
@@ -92,20 +109,11 @@ namespace igloo {
         m_previous->Evaluate(actual, resultStack, operatorStack);
       }
 
-      if(m_operator.get() != NULL)
-      {
-        m_operator->Evaluate(operatorStack, resultStack);
-      }
-
-      if(m_constraint.get() != NULL)
-      {
-        resultStack.push(m_constraint->Evaluate(actual));
-      }
+      expression_evaluation_trait<ExpressionType, MyType>::Evaluate(*(m_expression.get()), actual, resultStack, operatorStack);
     }
 
-  private:
-    Operator_ptr m_operator;
-    Constraint_ptr m_constraint;
+  public:
+    Expression_ptr m_expression;
     Previous_ptr m_previous;
   };
 

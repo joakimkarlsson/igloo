@@ -7,7 +7,7 @@ namespace igloo {
     class ConstraintNode : public Node<ExpressionItemType>
   {
     typedef Node<ExpressionItemType> Base;
-    typedef ExpressionItem<typename ExpressionItemType::CurrentConstraintType, ExpressionItemType> NextExpressionItemType;
+    typedef ExpressionItem<Operator, ExpressionItemType> NextExpressionItemType;
     
   public:
     explicit ConstraintNode(boost::shared_ptr<ExpressionItemType> expressionItem) : Base(expressionItem) {}

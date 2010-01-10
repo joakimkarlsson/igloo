@@ -9,7 +9,7 @@ namespace igloo {
      typedef std::stack<bool> ResultStack;
 
    public:
-     void Evaluate(OperatorStack& opStack, ResultStack& resultStack)
+     void Evaluate(OperatorStack& opStack, ResultStack& resultStack) const
      {
        if(IsLeftAssociative())
        {
