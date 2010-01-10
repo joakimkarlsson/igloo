@@ -11,7 +11,7 @@ namespace igloo {
     
   public:
     explicit ConstraintNode(boost::shared_ptr<ExpressionItemType> expressionItem) : Base(expressionItem) {}
-    ConstraintNode(const ConstraintNode& rhs) : Base(rhs) {}
+    ConstraintNode(const ConstraintNode<ExpressionItemType>& rhs) : Base(rhs) {}
 
     BinaryNode<NextExpressionItemType> And()
     {
