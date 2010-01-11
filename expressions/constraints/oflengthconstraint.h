@@ -18,7 +18,7 @@ namespace igloo {
     void ToString(std::string& str) const
     {
        std::ostringstream stm;
-       stm << "string of length " << _expected;
+       stm << "of length " << _expected;
        str += stm.str();
     }
   };
