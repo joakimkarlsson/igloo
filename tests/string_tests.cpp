@@ -1,4 +1,4 @@
-#include "../igloo.h"
+#include "igloo_self_test.h"
 
 using igloo::Assert;
 

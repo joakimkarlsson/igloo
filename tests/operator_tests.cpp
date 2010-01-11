@@ -1,4 +1,4 @@
-#include "../igloo.h"
+#include "igloo_self_test.h"
 
 using namespace igloo;
 
@@ -11,18 +11,7 @@ TestFixture(OperatorTests)
 
   TestMethod(OperatorTests, ShouldHandleAndOperatorFail)
   {
-    bool exception_thrown = false;
-
-    try
-    {
-      Assert::That(5, Is().LessThan(7).And().GreaterThan(5));
-    }
-    catch(const AssertionException&)
-    {
-      exception_thrown = true;
-    }
-
-    Assert::That(exception_thrown);
+    AssertTestFails(Assert::That(5, Is().LessThan(7).And().GreaterThan(5)), "less than 7 and greater than 5");
   }
 
   TestMethod(OperatorTests, ShouldHandleOrOperator)

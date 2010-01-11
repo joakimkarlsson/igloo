@@ -1,4 +1,4 @@
-#include "../igloo.h"
+#include "igloo_self_test.h"
 
 using igloo::Assert;
 using igloo::AssertionException;
@@ -34,17 +34,7 @@ TestFixture(ContainerConstraints)
   {
     const IntVector& v = *(m_vector.get());
 
-    std::string error;
-    try
-    {
-      Assert::That(v, Is().OfLength(7));
-    }
-    catch(const AssertionException& e)
-    {
-      error = e.GetMessage();
-    }
-
-    Assert::That(error, Is().StartingWith("Expected: of length 7\nActual:"));
+    AssertTestFails(Assert::That(v, Is().OfLength(7)), "of length 7\nActual:");
   }
 
   std::auto_ptr<IntVector> m_vector;

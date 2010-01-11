@@ -1,8 +1,7 @@
-#include "../igloo.h"
+#include "igloo_self_test.h"
 
 using igloo::Assert;
 using igloo::AssertionException;
-using igloo::TestRunner;
 
 TestFixture(Assertions)
 {
@@ -13,18 +12,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldDetectIntegerInequality)
   {
-    bool exceptionIsThrown = false;
-
-    try
-    {
-      Assert::That(5, Is().EqualTo(4));
-    }
-    catch (const AssertionException&)
-    {
-      exceptionIsThrown = true;
-    }
-
-    Assert::That(exceptionIsThrown);
+    AssertTestFails(Assert::That(5, Is().EqualTo(4)), "equal to 4");
   }
 
   TestMethod(Assertions, ShouldHandleNotOperators)
@@ -34,18 +22,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldDetectIfNotFails)
   {
-    bool exceptionIsThrown = false;
-
-    try
-    {
-      Assert::That(5, Is().Not().EqualTo(5));
-    }
-    catch (const AssertionException&)
-    {
-      exceptionIsThrown = true;
-    }
-
-    Assert::That(exceptionIsThrown);
+    AssertTestFails( Assert::That(5, Is().Not().EqualTo(5)), "not equal to 5");
   }
 
   TestMethod(Assertions, ShouldHandleStrings)
@@ -86,18 +63,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldDetectWhenGreaterThanFails)
   {
-    std::string errorText;
-
-    try
-    {
-      Assert::That(5, Is().GreaterThan(5));
-    }
-    catch (const AssertionException& exception)
-    {
-      errorText = exception.GetMessage();
-    }
-
-    Assert::That(errorText, Is().EqualTo("Expected: greater than 5\nActual: 5\n"));
+    AssertTestFails(Assert::That(5, Is().GreaterThan(5)), "Expected: greater than 5\nActual: 5\n");
   }
 
   TestMethod(Assertions, ShouldHandleLessThan)
@@ -107,18 +73,7 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldDetectWhenLessThanFails)
   {
-    std::string errorText;
-
-    try
-    {
-      Assert::That(6, Is().LessThan(5));
-    }
-    catch (const AssertionException exception)
-    {
-      errorText = exception.GetMessage();
-    }
-
-    Assert::That(errorText, Is().EqualTo("Expected: less than 5\nActual: 6\n"));
+    AssertTestFails(Assert::That(6, Is().LessThan(5)), "Expected: less than 5\nActual: 6\n");
   }
 
   TestMethod(Assertions, ShouldHandleCompoundOperators)
@@ -133,17 +88,6 @@ TestFixture(Assertions)
 
   TestMethod(Assertions, ShouldThrowExplicitFailureMessage)
   {
-    std::string assertionMessage;
-    
-    try
-    {
-      Assert::Failure("foo");
-    }
-    catch (const AssertionException& e)
-    {
-      assertionMessage = e.GetMessage();
-    }
-
-    Assert::That(assertionMessage, Is().EqualTo("Forced failure: foo"));
+    AssertTestFails(Assert::Failure("foo"), "Forced failure: foo");
   }
 };
