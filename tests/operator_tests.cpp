@@ -17,7 +17,7 @@ TestFixture(OperatorTests)
     {
       Assert::That(5, Is().LessThan(7).And().GreaterThan(5));
     }
-    catch(const AssertionException& e)
+    catch(const AssertionException&)
     {
       exception_thrown = true;
     }
