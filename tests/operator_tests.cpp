@@ -19,19 +19,24 @@ TestFixture(OperatorTests)
     Assert::That(12, Is().LessThan(7).Or().GreaterThan(5));
   }
 
+  TestMethod(OperatorTests, ShouldHandleOrOperatorFails)
+  {
+    AssertTestFails(Assert::That(67, Is().LessThan(12).Or().GreaterThan(99)), "less than 12 or greater than 99");
+  }
+
   TestMethod(OperatorTests, ShouldHandleNotOperators)
   {
     Assert::That(5, Is().Not().EqualTo(4));
   }
 
+  TestMethod(OperatorTests, ShouldHandleNotOperatorsFails)
+  {
+    AssertTestFails(Assert::That(12, Is().Not().EqualTo(12)), "not equal to 12");
+  }
+
   TestMethod(OperatorTests, ShouldHandleNotOperatorsForStrings)
   {
     Assert::That("joakim", Is().Not().EqualTo("harry"));
-  }
-
-  TestMethod(OperatorTests, ShouldHandleCompoundOperators)
-  {
-    Assert::That(5, Is().GreaterThan(4).And().LessThan(6));
   }
 
   TestMethod(OperatorTests, ShouldHandleBothLeftAndRightAssociativeOperators)
