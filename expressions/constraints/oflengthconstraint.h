@@ -8,7 +8,9 @@ namespace igloo {
   public:
     explicit OfLengthConstraint(int expectation) : Constraint<unsigned int>(expectation) {}
 
-    virtual bool Evaluate(std::string actual) const
+
+    template <typename ActualType>
+    bool Evaluate(const ActualType& actual) const
     {
       return actual.size() == _expected;
     }

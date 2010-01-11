@@ -69,7 +69,7 @@ class ConstraintNode;
       return CreateNode(new ConstraintType(expected));
     }
 
-   ConstraintNode<ExpressionItem<OfLengthConstraint, ExpressionItemType> > OfLength(int expected)
+    ConstraintNode<ExpressionItem<OfLengthConstraint, ExpressionItemType> > OfLength(unsigned int expected)
     {
       typedef OfLengthConstraint ConstraintType;
       return CreateNode(new ConstraintType(expected));
