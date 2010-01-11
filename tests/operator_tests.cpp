@@ -18,4 +18,24 @@ TestFixture(OperatorTests)
   {
     Assert::That(12, Is().LessThan(7).Or().GreaterThan(5));
   }
+
+  TestMethod(OperatorTests, ShouldHandleNotOperators)
+  {
+    Assert::That(5, Is().Not().EqualTo(4));
+  }
+
+  TestMethod(OperatorTests, ShouldHandleNotOperatorsForStrings)
+  {
+    Assert::That("joakim", Is().Not().EqualTo("harry"));
+  }
+
+  TestMethod(OperatorTests, ShouldHandleCompoundOperators)
+  {
+    Assert::That(5, Is().GreaterThan(4).And().LessThan(6));
+  }
+
+  TestMethod(OperatorTests, ShouldHandleBothLeftAndRightAssociativeOperators)
+  {
+    Assert::That(5, Is().GreaterThan(4).And().Not().LessThan(3));
+  }
 };

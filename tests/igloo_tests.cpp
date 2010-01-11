@@ -15,11 +15,6 @@ TestFixture(Assertions)
     AssertTestFails(Assert::That(5, Is().EqualTo(4)), "equal to 4");
   }
 
-  TestMethod(Assertions, ShouldHandleNotOperators)
-  {
-    Assert::That(5, Is().Not().EqualTo(4));
-  }
-
   TestMethod(Assertions, ShouldDetectIfNotFails)
   {
     AssertTestFails( Assert::That(5, Is().Not().EqualTo(5)), "not equal to 5");
@@ -28,11 +23,6 @@ TestFixture(Assertions)
   TestMethod(Assertions, ShouldHandleStrings)
   {
     Assert::That(std::string("joakim"), Is().EqualTo(std::string("joakim")));
-  }
-
-  TestMethod(Assertions, ShouldHandleNotOperatorsForStrings)
-  {
-    Assert::That("joakim", Is().Not().EqualTo("harry"));
   }
 
   TestMethod(Assertions, ShouldHandleStringsWithoutExplicitTemplateSpecialization)
@@ -74,16 +64,6 @@ TestFixture(Assertions)
   TestMethod(Assertions, ShouldDetectWhenLessThanFails)
   {
     AssertTestFails(Assert::That(6, Is().LessThan(5)), "Expected: less than 5\nActual: 6\n");
-  }
-
-  TestMethod(Assertions, ShouldHandleCompoundOperators)
-  {
-    Assert::That(5, Is().GreaterThan(4).And().LessThan(6));
-  }
-
-  TestMethod(Assertions, ShouldHandleBothLeftAndRightAssociativeOperators)
-  {
-    Assert::That(5, Is().GreaterThan(4).And().Not().LessThan(3));
   }
 
   TestMethod(Assertions, ShouldThrowExplicitFailureMessage)
