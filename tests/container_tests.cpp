@@ -5,8 +5,6 @@ using igloo::AssertionException;
 
 TestFixture(ContainerConstraints)
 {
-  typedef std::vector<int> IntVector;
-
   void SetUp()
   {
     m_vector.clear();
@@ -31,5 +29,5 @@ TestFixture(ContainerConstraints)
     AssertTestFails(Assert::That(m_vector, Is().OfLength(7)), "of length 7\nActual:");
   }
 
-  IntVector m_vector;
+  std::vector<int> m_vector;
 };

@@ -13,20 +13,20 @@ namespace igloo {
 
     virtual bool Evaluate(std::string actual) const
     {
-      if(_expected.size() > actual.size())
+      if(m_expected.size() > actual.size())
       {
         return false;
       }
 
-      std::string endOfActual = actual.substr(actual.size()-_expected.size());
+      std::string endOfActual = actual.substr(actual.size()-m_expected.size());
 
-      return _expected.compare(endOfActual) == 0;
+      return m_expected.compare(endOfActual) == 0;
     }
 
     void ToString(std::string& str) const
     {
       std::ostringstream stm;
-      stm << "string ending with " << _expected;
+      stm << "string ending with " << m_expected;
       str += stm.str();
     }
   };

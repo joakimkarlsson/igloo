@@ -8,10 +8,10 @@ namespace igloo {
   {
   public:
 
-  Constraint(ExpectedType expected) : _expected(expected) {}
+  Constraint(ExpectedType expected) : m_expected(expected) {}
 
   protected:
-    ExpectedType _expected;
+    ExpectedType m_expected;
   };
 }
 #endif

@@ -10,13 +10,13 @@ namespace igloo {
 
     virtual bool Evaluate(std::string actual) const
     {
-      return actual.find(_expected) == 0;
+      return actual.find(m_expected) == 0;
     }
 
     void ToString(std::string& str) const
     {
        std::ostringstream stm;
-       stm << "string starting with " << _expected;
+       stm << "string starting with " << m_expected;
        str += stm.str();
     }
   };

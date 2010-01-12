@@ -12,13 +12,13 @@ namespace igloo {
     template <typename ActualType>
     bool Evaluate(const ActualType& actual) const
     {
-      return actual.size() == _expected;
+      return actual.size() == m_expected;
     }
 
     void ToString(std::string& str) const
     {
        std::ostringstream stm;
-       stm << "of length " << _expected;
+       stm << "of length " << m_expected;
        str += stm.str();
     }
   };

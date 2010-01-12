@@ -17,13 +17,13 @@ namespace igloo {
     template <typename ActualType>
     bool Evaluate(ActualType actual) const
     {
-      return find(actual.begin(), actual.end(), Base::_expected) != actual.end();
+      return find(actual.begin(), actual.end(), Base::m_expected) != actual.end();
     }
 
     void ToString(std::string& str) const
     {
        std::ostringstream stm;
-       stm << "containing " << Base::_expected;
+       stm << "containing " << Base::m_expected;
        str += stm.str();
     }
   };
@@ -39,13 +39,13 @@ namespace igloo {
     template <typename ActualType>
     bool Evaluate(ActualType actual) const
     {
-      return actual.find(Base::_expected) != actual.npos;
+      return actual.find(Base::m_expected) != actual.npos;
     }
 
     void ToString(std::string& str) const
     {
        std::ostringstream stm;
-       stm << "string containing " << Base::_expected;
+       stm << "string containing " << Base::m_expected;
        str += stm.str();
     }
   };

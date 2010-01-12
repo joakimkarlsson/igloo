@@ -13,13 +13,13 @@ namespace igloo {
     template <typename ActualType>
     bool Evaluate(ActualType actual) const
     {
-      return actual > Constraint<ExpectedType>::_expected;
+      return actual > Constraint<ExpectedType>::m_expected;
     }
 
     void ToString(std::string& str) const
     {
       std::ostringstream stm;
-      stm << "greater than " << Constraint<ExpectedType>::_expected;
+      stm << "greater than " << Constraint<ExpectedType>::m_expected;
       str += stm.str();
     }
   };
