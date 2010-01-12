@@ -47,6 +47,8 @@ namespace igloo {
   class TestFixture : public TestFixtureBase
   {
   public:
+   typedef T IGLOO_FIXTURE_TYPE;
+
     void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {
       T testFixture;

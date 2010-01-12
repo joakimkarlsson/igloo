@@ -18,7 +18,6 @@
 #define TestFixture(fixture) \
 struct fixture; \
 int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
-typedef fixture IGLOO_FIXTURE_TYPE; \
 struct fixture : public igloo::TestFixture<fixture>
 
 #define TestMethod(method) \

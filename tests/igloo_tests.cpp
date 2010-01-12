@@ -71,3 +71,7 @@ TestFixture(Assertions)
     AssertTestFails(Assert::Failure("foo"), "Forced failure: foo");
   }
 };
+
+TestFixture(WeCanHaveSeveralFixturesInTheSameFile)
+{
+};
