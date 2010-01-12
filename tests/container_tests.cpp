@@ -16,21 +16,21 @@ TestFixture(ContainerConstraints)
     m_vector->push_back(54);
   }
 
-  TestMethod(ContainerConstraints, ShouldHandleContainingForVectors)
+  TestMethod(ShouldHandleContainingForVectors)
   {
     const IntVector& v = *(m_vector.get());
 
     Assert::That(v, Is().Containing(43));
   }
 
-  TestMethod(ContainerConstraints, ShouldHandleOfLengthForVectors)
+  TestMethod(ShouldHandleOfLengthForVectors)
   {
     const IntVector& v = *(m_vector.get());
 
     Assert::That(v, Is().OfLength(4));
   }
 
-  TestMethod(ContainerConstraints, ShouldHandleFailingOfLengthForVectors)
+  TestMethod(ShouldHandleFailingOfLengthForVectors)
   {
     const IntVector& v = *(m_vector.get());
 

@@ -17,13 +17,14 @@
 
 #define TestFixture(fixture) \
 struct fixture; \
-   int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
+int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
+typedef fixture IGLOO_FIXTURE_TYPE; \
 struct fixture : public igloo::TestFixture<fixture>
 
-#define TestMethod(fixture, method) \
-bool IGLOO_PP_CAT(GetTest, __COUNTER__)(std::map<std::string, void (fixture::*)() >& tests) \
+#define TestMethod(method) \
+bool IGLOO_PP_CAT(GetTest, __COUNTER__)(std::map<std::string, void (IGLOO_FIXTURE_TYPE::*)() >& tests) \
 { \
-   tests[#method] = &fixture::method; \
+   tests[#method] = &IGLOO_FIXTURE_TYPE::method; \
    return true; \
 } \
 void method()
