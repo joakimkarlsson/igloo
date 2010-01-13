@@ -2,16 +2,16 @@
 
 using namespace igloo;
 
-   template <typename T>
-   struct stringize_trait<std::vector<T> >
-   {
-      static std::string Stringize(const std::vector<T>& t)
-      {
-         std::ostringstream stm;
-         stm << "vector (size: " << t.size() << ")";
-         return stm.str();
-      }
-   };
+namespace igloo {
+
+  template< typename T >
+  std::string Stringize(const std::vector<T>& t)
+  {
+     std::ostringstream stm;
+     stm << "vector (size: " << t.size() << ")";
+     return stm.str();
+  }
+}
 
 TestFixture(ContainerConstraints)
 {

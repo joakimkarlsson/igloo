@@ -2,84 +2,81 @@
 #define IGLOO_STRINGIZE_H
 
 namespace igloo {
-   namespace detail {
+  namespace detail {
 
-      // A tag type returned by operator == for the any struct in this namespace
-      // when T does not support ==.
-      struct tag {};
+    // A tag type returned by operator == for the any struct in this namespace
+    // when T does not support ==.
+    struct tag {};
 
-      // This type soaks up any implicit conversions and makes the following operator<<
-      // less preferred than any other such operator found via ADL.
-      struct any
-      {
-         // Conversion constructor for any type.
-         template <class T>
-         any(T const&);
-      };
-
-      // Fallback operator<< for types T that don't support <<.
-      tag operator<<(std::ostream&, any const&);
-
-      // Two overloads to distinguish whether T supports a certain operator expression.
-      // The first overload returns a reference to a two-element character array and is chosen if
-      // T does not support the expression, such as <<, whereas the second overload returns a char 
-      // directly and is chosen if T supports the expression. So using sizeof(check(<expression>))
-      // returns 2 for the first overload and 1 for the second overload.
-      typedef char yes;
-      typedef char (&no)[2];
-
-      no check(tag);
-
+    // This type soaks up any implicit conversions and makes the following operator<<
+    // less preferred than any other such operator found via ADL.
+    struct any
+    {
+      // Conversion constructor for any type.
       template <class T>
-      yes check(T const&);
+      any(T const&);
+    };
 
-      template <class T>
-      struct is_output_streamable_impl
-      {
-         // Should use boost.typetraits to peel off cv-qualifiers, pointer and/or reference decoration from T
-         static const T& x;
+    // Fallback operator<< for types T that don't support <<.
+    tag operator<<(std::ostream&, any const&);
 
-         static const bool value = sizeof(check(std::cout << x)) == sizeof(yes);
-      };
-   }
+    // Two overloads to distinguish whether T supports a certain operator expression.
+    // The first overload returns a reference to a two-element character array and is chosen if
+    // T does not support the expression, such as <<, whereas the second overload returns a char 
+    // directly and is chosen if T supports the expression. So using sizeof(check(<expression>))
+    // returns 2 for the first overload and 1 for the second overload.
+    typedef char yes;
+    typedef char (&no)[2];
 
-   template <class T>
-   struct is_output_streamable : detail::is_output_streamable_impl<T> {};
+    no check(tag);
 
-   template<typename T, bool type_is_streamable>
-   struct Stringizer
-   {
+    template <class T>
+    yes check(T const&);
+
+    template <class T>
+    struct is_output_streamable
+    {
+      // Should we use boost.typetraits to peel off cv-qualifiers, pointer and/or reference decoration from T?
+      static const T& x;
+      static const bool value = sizeof(check(std::cout << x)) == sizeof(yes);
+    };
+    
+    template<typename T, bool type_is_streamable>
+    struct Stringizer
+    {
       static std::string Convert(const T& value)
       {
-         std::ostringstream buf;
-         buf << value;
-         return buf.str();
+        std::ostringstream buf;
+        buf << value;
+        return buf.str();
       }
-   };
+    };
 
-   template<typename T>
-   struct Stringizer<T, false>
-   {
+    template<typename T>
+    struct Stringizer<T, false>
+    {
       static std::string Convert(const T&)
       {
-         return "unsupported type";
+        return "unsupported type";
       }
-   };
+    };
+  }
 
-   template<typename T>
-   std::string Stringize(const T& t)
-   {
-      return Stringizer< T, is_output_streamable<T>::value >::Convert(t);
-   }
+  template<typename T>
+  std::string Stringize(const T& t)
+  {
+	typedef detail::Stringizer< T, detail::is_output_streamable<T>::value > Stringizer;
+    return Stringizer::Convert(t);
+  }
 }
 
-template <typename T>
-struct stringize_trait
-{
-   static std::string Stringize(const T& t)
-   {
-      return igloo::Stringize(t);
-   }
-};
+//template <typename T>
+//struct stringize_trait
+//{
+//  static std::string Stringize(const T& t)
+//  {
+//    return igloo::Stringize(t);
+//  }
+//};
 
 #endif

@@ -53,14 +53,10 @@ bool operator==(const NoStreamOpButWithTraits& lhs, const NoStreamOpButWithTrait
   return lhs.m_id == rhs.m_id;
 }
 
-template<>
-struct stringize_trait<NoStreamOpButWithTraits>
+inline std::string Stringize(const NoStreamOpButWithTraits& t)
 {
-   static std::string Stringize(const NoStreamOpButWithTraits& t)
-   {
-     return stringize_trait<int>::Stringize(t.m_id);
-   }  
-};
+  return Stringize(t.m_id);
+}  
 
 TestFixture(StringizeTests)
 {

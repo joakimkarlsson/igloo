@@ -22,7 +22,7 @@ namespace igloo {
       void ToString(std::string& str) const
       {
          std::ostringstream stm;
-         stm << "equal to " << stringize_trait<ExpectedType>::Stringize(Constraint<ExpectedType>::m_expected);
+         stm << "equal to " << Stringize(Constraint<ExpectedType>::m_expected);
          str += stm.str();
       }
    };

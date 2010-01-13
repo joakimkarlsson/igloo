@@ -50,7 +50,7 @@ namespace igloo {
          str << "Expected: ";
          str << expressionAsString;
          str << std::endl;
-         str << "Actual: " << stringize_trait<T>::Stringize(actual);
+         str << "Actual: " << Stringize(actual);
          str << std::endl;
 
          return str.str();
