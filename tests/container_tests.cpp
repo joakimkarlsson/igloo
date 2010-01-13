@@ -31,7 +31,7 @@ TestFixture(ContainerConstraints)
 
   TestMethod(ShouldHandleOfLengthForVectors)
   {
-    Assert::That(m_vector, Is().OfLength(5));
+    Assert::That(m_vector, Is().OfLength(4));
   }
 
   TestMethod(ShouldHandleFailingOfLengthForVectors)
