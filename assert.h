@@ -4,15 +4,6 @@
 #include "syntax.h"
 #include "stringize.h"
 
-   template <typename T>
-   struct stringize_trait
-   {
-      static std::string Stringize(const T& t)
-      {
-         return igloo::Stringize(t);
-      }
-   };
-
 namespace igloo {
 
    class Assert

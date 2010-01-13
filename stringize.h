@@ -60,7 +60,7 @@ namespace igloo {
    template<typename T>
    struct Stringizer<T, false>
    {
-      static std::string Convert(const T& value)
+      static std::string Convert(const T&)
       {
          return "unsupported type";
       }
@@ -72,5 +72,14 @@ namespace igloo {
       return Stringizer< T, is_output_streamable<T>::value >::Convert(t);
    }
 }
+
+template <typename T>
+struct stringize_trait
+{
+   static std::string Stringize(const T& t)
+   {
+      return igloo::Stringize(t);
+   }
+};
 
 #endif
