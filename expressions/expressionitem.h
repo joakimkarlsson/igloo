@@ -36,7 +36,7 @@ namespace igloo {
   {
   public:
     template <typename ActualType>
-      bool Evaluate(ActualType) { return true; }
+      bool Evaluate(const ActualType&) { return true; }
 
     void ToString(std::string&) {}
   };
@@ -50,7 +50,7 @@ namespace igloo {
     typedef std::stack<const Operator*> OperatorStack;
 
     template <typename ActualType>
-      void Evaluate(ActualType, ResultStack&, OperatorStack&)
+      void Evaluate(const ActualType&, ResultStack&, OperatorStack&)
     {
     }
 
@@ -72,7 +72,7 @@ namespace igloo {
     explicit ExpressionItem(Expression_ptr expression, Previous_ptr previous) : m_expression(expression), m_previous(previous) {}
 
     template <typename ActualType>
-      bool Evaluate(ActualType actual)
+      bool Evaluate(const ActualType& actual)
     {
       ResultStack resultStack;
       OperatorStack operatorStack;
@@ -101,7 +101,7 @@ namespace igloo {
     }
 
     template <typename ActualType>
-      void Evaluate(ActualType actual, ResultStack& resultStack, OperatorStack& operatorStack)
+      void Evaluate(const ActualType& actual, ResultStack& resultStack, OperatorStack& operatorStack)
     {
       if(m_previous.get() != NULL)
       {

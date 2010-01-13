@@ -15,7 +15,7 @@ namespace igloo {
     ContainingConstraint(ExpectedType expected) : Base(expected) {}
 
     template <typename ActualType>
-    bool Evaluate(ActualType actual) const
+    bool Evaluate(const ActualType& actual) const
     {
       return find(actual.begin(), actual.end(), Base::m_expected) != actual.end();
     }

@@ -24,7 +24,7 @@ namespace igloo {
     }
 
     template <typename ActualType>
-      bool Evaluate(ActualType actual) const
+      bool Evaluate(const ActualType& actual) const
     {
       return Base::m_expressionItem->Evaluate(actual);
     }

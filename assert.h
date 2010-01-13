@@ -10,7 +10,7 @@ namespace igloo {
    {
    public:
       template <typename ActualType, typename SyntaxNodeType>
-      static void That(ActualType actual, const SyntaxNodeType& statement)
+      static void That(const ActualType& actual, const SyntaxNodeType& statement)
       {
          if (!statement.Evaluate(actual))
          {

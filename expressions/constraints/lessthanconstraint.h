@@ -13,7 +13,7 @@ namespace igloo {
   }
 
     template <typename ActualType>
-    bool Evaluate(ActualType actual) const
+    bool Evaluate(const ActualType& actual) const
     {
       return actual < Constraint<ExpectedType>::m_expected;
     }
