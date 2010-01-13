@@ -4,6 +4,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
+#include <sstream>
 #include <boost/shared_ptr.hpp>
 
 #include "syntax.h"

@@ -1,65 +1,70 @@
 #ifndef IGLOO_ASSERT_H
-#define	IGLOO_ASSERT_H
+#define IGLOO_ASSERT_H
 
 #include "syntax.h"
+#include "stringize.h"
 
 namespace igloo {
-  class Assert
-  {
-  public:
-    template <typename ActualType, typename SyntaxNodeType>
-    static void That(ActualType actual, const SyntaxNodeType& statement)
-    {
-      if (!statement.Evaluate(actual))
+
+   template <typename T>
+   struct stringize_trait
+   {
+      static std::string Stringize(const T& t)
       {
-        std::string str;
-        statement.ToString(str);
-        throw AssertionException(CreateErrorText(str, actual));
+         return igloo::Stringize(t);
       }
-    }
+   };
 
-    template <typename SyntaxNodeType>
-    static void That(const char* actual, const SyntaxNodeType& node)
-    {
-      return That<std::string > (std::string(actual), node);
-    }
-
-    static void That(bool actual)
-    {
-      if (!actual)
+   class Assert
+   {
+   public:
+      template <typename ActualType, typename SyntaxNodeType>
+      static void That(ActualType actual, const SyntaxNodeType& statement)
       {
-        throw AssertionException("Expected: true\nActual: false");
+         if (!statement.Evaluate(actual))
+         {
+            std::string str;
+            statement.ToString(str);
+            throw AssertionException(CreateErrorText(str, actual));
+         }
       }
-    }
 
-    static void Failure(const std::string& message)
-    {
-        std::string adorned = "Forced failure: ";
-        adorned += message;
+      template <typename SyntaxNodeType>
+      static void That(const char* actual, const SyntaxNodeType& node)
+      {
+         return That<std::string > (std::string(actual), node);
+      }
 
-        throw AssertionException(adorned);
-    }
+      static void That(bool actual)
+      {
+         if (!actual)
+         {
+            throw AssertionException("Expected: true\nActual: false");
+         }
+      }
 
-  private:
-    template <typename T>
-    static std::string CreateErrorText(const std::string& expressionAsString, const T& actual)
-    {
-      std::ostringstream str;
-      str << "Expected: ";
-      str << expressionAsString;
-      str << std::endl;
-      str << "Actual: " << actual;
-      str << std::endl;
+      static void Failure(const std::string& message)
+      {
+         std::string adorned = "Forced failure: ";
+         adorned += message;
 
-      return str.str();
-    }
+         throw AssertionException(adorned);
+      }
 
-    template <typename T>
-      static std::string CreateErrorText(const std::string& expressionAsString, const std::vector<T>&)
-    {
-      return CreateErrorText(expressionAsString, "vector");
-    }
-  };
+   private:
+      template <typename T>
+      static std::string CreateErrorText(const std::string& expressionAsString, const T& actual)
+      {
+         std::ostringstream str;
+         str << "Expected: ";
+         str << expressionAsString;
+         str << std::endl;
+         str << "Actual: " << stringize_trait<T>::Stringize(actual);
+         str << std::endl;
+
+         return str.str();
+      }
+   };
 }
 
 #endif	// IGLOO_ASSERT_H

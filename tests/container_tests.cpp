@@ -1,7 +1,17 @@
 #include "igloo_self_test.h"
 
-using igloo::Assert;
-using igloo::AssertionException;
+using namespace igloo;
+
+   template <typename T>
+   struct stringize_trait<std::vector<T> >
+   {
+      static std::string Stringize(const std::vector<T>& t)
+      {
+         std::ostringstream stm;
+         stm << "vector (size: " << t.size() << ")";
+         return stm.str();
+      }
+   };
 
 TestFixture(ContainerConstraints)
 {
@@ -21,7 +31,7 @@ TestFixture(ContainerConstraints)
 
   TestMethod(ShouldHandleOfLengthForVectors)
   {
-    Assert::That(m_vector, Is().OfLength(4));
+    Assert::That(m_vector, Is().OfLength(5));
   }
 
   TestMethod(ShouldHandleFailingOfLengthForVectors)
