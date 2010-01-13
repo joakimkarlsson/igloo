@@ -8,7 +8,7 @@ namespace igloo {
   {
   public:
 
-  Constraint(ExpectedType expected) : m_expected(expected) {}
+  Constraint(const ExpectedType& expected) : m_expected(expected) {}
 
   protected:
     ExpectedType m_expected;

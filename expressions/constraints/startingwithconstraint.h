@@ -6,9 +6,9 @@ namespace igloo {
   class StartingWithConstraint : public Constraint<std::string>
   {
   public:
-    StartingWithConstraint(std::string expected) : Constraint<std::string>(expected) {}
+    StartingWithConstraint(const std::string& expected) : Constraint<std::string>(expected) {}
 
-    virtual bool Evaluate(std::string actual) const
+    bool Evaluate(const std::string& actual) const
     {
       return actual.find(m_expected) == 0;
     }

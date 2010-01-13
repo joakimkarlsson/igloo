@@ -54,7 +54,7 @@ namespace igloo {
       return failed;
     }
 
-    static int RegisterTestFixture(std::string name, TestFixtureBase* testFixture)
+    static int RegisterTestFixture(const std::string& name, TestFixtureBase* testFixture)
     {
       TestRunner::FixtureMap()[name] = testFixture;
       return 0;

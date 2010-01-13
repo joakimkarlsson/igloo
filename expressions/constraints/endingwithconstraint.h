@@ -7,11 +7,11 @@ namespace igloo {
   {
   public:
 
-    EndingWithConstraint(std::string expected) : Constraint<std::string>(expected)
+    EndingWithConstraint(const std::string& expected) : Constraint<std::string>(expected)
     {
     }
 
-    virtual bool Evaluate(std::string actual) const
+    virtual bool Evaluate(const std::string& actual) const
     {
       if(m_expected.size() > actual.size())
       {

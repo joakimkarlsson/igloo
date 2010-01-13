@@ -34,10 +34,10 @@ namespace igloo {
     typedef Constraint<std::string> Base;
   public:
 
-    ContainingConstraint(std::string expected) : Base(expected) {}
+    ContainingConstraint(const std::string& expected) : Base(expected) {}
 
     template <typename ActualType>
-    bool Evaluate(ActualType actual) const
+    bool Evaluate(const ActualType& actual) const
     {
       return actual.find(Base::m_expected) != actual.npos;
     }
@@ -59,7 +59,7 @@ namespace igloo {
     ContainingConstraint(const char* expected) : Base(expected) {}
 
     template <typename ActualType>
-    bool Evaluate(ActualType actual) const
+    bool Evaluate(const ActualType& actual) const
     {
       return Base::Evaluate(std::string(actual));
     }

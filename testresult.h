@@ -12,7 +12,7 @@ namespace igloo {
   class TestResult
   {
   public:
-    TestResult(std::string fixtureName, std::string methodName, bool success)
+    TestResult(const std::string& fixtureName, const std::string& methodName, bool success)
       : _fixtureName(fixtureName), _methodName(methodName), _success(success)
     {
     }

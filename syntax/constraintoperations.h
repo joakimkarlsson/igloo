@@ -57,13 +57,13 @@ class ConstraintNode;
       return CreateNode(new ConstraintType(expected));
     }
 
-    ConstraintNode<ExpressionItem<StartingWithConstraint, ExpressionItemType> > StartingWith(std::string expected)
+    ConstraintNode<ExpressionItem<StartingWithConstraint, ExpressionItemType> > StartingWith(const std::string& expected)
     {
       typedef StartingWithConstraint ConstraintType;
       return CreateNode(new ConstraintType(expected));
     }
 
-    ConstraintNode<ExpressionItem<EndingWithConstraint, ExpressionItemType> > EndingWith(std::string expected)
+    ConstraintNode<ExpressionItem<EndingWithConstraint, ExpressionItemType> > EndingWith(const std::string& expected)
     {
       typedef EndingWithConstraint ConstraintType;
       return CreateNode(new ConstraintType(expected));

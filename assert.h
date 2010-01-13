@@ -23,7 +23,7 @@ namespace igloo {
       template <typename SyntaxNodeType>
       static void That(const char* actual, const SyntaxNodeType& node)
       {
-         return That<std::string > (std::string(actual), node);
+         return That<std::string>(std::string(actual), node);
       }
 
       static void That(bool actual)
