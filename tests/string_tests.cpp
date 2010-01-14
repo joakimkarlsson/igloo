@@ -16,7 +16,7 @@ TestFixture(Strings)
 
   TestMethod(ShouldHandleStringStartingWithConstraint)
   {
-    Assert::That("abcdef", Is().StartingWith("bbc"));
+    Assert::That("abcdef", Is().StartingWith("abc"));
   }
 
   TestMethod(ShouldHandleStringEndingWithConstraint)
