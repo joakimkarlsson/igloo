@@ -15,7 +15,7 @@ namespace igloo {
     ContainingConstraint(ExpectedType expected) : Base(expected) {}
 
     template <typename ActualType>
-    bool Evaluate(const ActualType& actual) const
+    bool Evaluate(ActualType actual) const
     {
       return find(actual.begin(), actual.end(), Base::m_expected) != actual.end();
     }
@@ -34,10 +34,10 @@ namespace igloo {
     typedef Constraint<std::string> Base;
   public:
 
-    ContainingConstraint(const std::string& expected) : Base(expected) {}
+    ContainingConstraint(std::string expected) : Base(expected) {}
 
     template <typename ActualType>
-    bool Evaluate(const ActualType& actual) const
+    bool Evaluate(ActualType actual) const
     {
       return actual.find(Base::m_expected) != actual.npos;
     }
@@ -45,7 +45,7 @@ namespace igloo {
     void ToString(std::string& str) const
     {
        std::ostringstream stm;
-       stm << "string containing " << Base::m_expected;
+       stm << "string containing " << "\"" << Base::m_expected << "\"";
        str += stm.str();
     }
   };
@@ -59,7 +59,7 @@ namespace igloo {
     ContainingConstraint(const char* expected) : Base(expected) {}
 
     template <typename ActualType>
-    bool Evaluate(const ActualType& actual) const
+    bool Evaluate(ActualType actual) const
     {
       return Base::Evaluate(std::string(actual));
     }

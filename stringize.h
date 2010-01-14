@@ -57,7 +57,7 @@ namespace igloo {
     {
       static std::string Convert(const T&)
       {
-        return "unsupported type";
+        return "[unsupported type]";
       }
     };
   }

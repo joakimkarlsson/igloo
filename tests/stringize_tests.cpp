@@ -71,7 +71,7 @@ TestFixture(StringizeTests)
   {
     NoStreamOp a(12);
     NoStreamOp b(13);
-    AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to unsupported type\nActual: unsupported type");
+    AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to [unsupported type]\nActual: [unsupported type]");
   }
 
   TestMethod(ShouldHandleTypesWithTraits)
