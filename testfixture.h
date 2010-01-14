@@ -83,12 +83,18 @@ namespace igloo {
       typename TestMethods::iterator it;
       for (it = testMethods.begin(); it != testMethods.end(); it++)
       {
-        std::cout << "Running test " << (*it).first << std::endl;
-        CallTest(t, fixtureName, (*it).first, (*it).second, results);
+        if(CallTest(t, fixtureName, (*it).first, (*it).second, results))
+        {
+           std::cout << ".";
+        }
+        else
+        {
+           std::cout << "F";
+        }
       }
     }
 
-    void CallTest(T t, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
+    bool CallTest(T t, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
     {
       try
       {
@@ -98,12 +104,12 @@ namespace igloo {
       }
       catch (const AssertionException& e)
       {
-        results.push_back(TestResult(fixtureName, testName, false));
-        std::cout << "Test " << fixtureName << "::" << testName << " failed: " << std::endl << e.GetMessage() << std::endl;
-        return;
+        results.push_back(TestResult(fixtureName, testName, false, e.GetMessage()));
+        return false;
       }
 
-      results.push_back(TestResult(fixtureName, testName, true));
+      results.push_back(TestResult(fixtureName, testName, true, "Test succeeded"));
+      return true;
     }
 
     void GetTests(TestMethods& testMethods)

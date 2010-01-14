@@ -18,10 +18,10 @@ namespace igloo {
 
         for (TestFixtureMap::iterator it = FixtureMap().begin(); it != FixtureMap().end(); it++)
         {
-          std::cout << "Running test fixture: " << (*it).first << std::endl;
           (*it).second->Run((*it).first, results);
-          std::cout << std::endl;
         }
+
+        std::cout << std::endl;
 
         return CheckResults(results);
       }
@@ -47,6 +47,10 @@ namespace igloo {
         else
         {
           failed++;
+
+          const TestResult& result = *it;
+
+          std::cout << result.GetFixtureName() << "::" << result.GetMethodName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
         }
       }
 

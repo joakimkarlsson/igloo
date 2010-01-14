@@ -64,7 +64,7 @@ TestFixture(StringizeTests)
   {
     HasStreamOp a(12);
     HasStreamOp b(13);
-    AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
+    AssertTestFails(Assert::That(a, Is().EqualTo(a)), "Expected: equal to 13\nActual: 12");
   }
 
   TestMethod(ShouldHandleTypesWithoutStreamOperators)
