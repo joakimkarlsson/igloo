@@ -47,7 +47,7 @@ namespace igloo {
   class TestFixture : public TestFixtureBase
   {
   public:
-   typedef T IGLOO_FIXTURE_TYPE;
+    typedef T IGLOO_FIXTURE_TYPE;
 
     void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {
@@ -56,22 +56,6 @@ namespace igloo {
       TestMethods testMethods;
       testFixture.GetTests(testMethods);
       CallTests(testFixture, testMethods, fixtureName, results);
-    }
-
-    virtual void SetUp()
-    {
-    }
-
-    virtual void TearDown()
-    {
-    }
-
-  protected:
-
-    RootNode Is()
-    {
-      RootNode node;
-      return node;
     }
 
   private:
@@ -319,7 +303,6 @@ namespace igloo {
     virtual bool GetTest97(TestMethods&) { return false; }
     virtual bool GetTest98(TestMethods&) { return false; }
     virtual bool GetTest99(TestMethods&) { return false; }
-
   };
 }
 
