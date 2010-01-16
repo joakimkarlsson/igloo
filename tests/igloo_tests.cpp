@@ -17,7 +17,7 @@ TestFixture(Assertions)
 
   TestMethod(ShouldDetectIfNotFails)
   {
-    AssertTestFails( Assert::That(5, Is().Not().EqualTo(5)), "not equal to 5");
+    AssertTestFails( Assert::That(5, Is().Not().EqualTo(5)), "Expected: not equal to 5\nActual: 5\n");
   }
 
   TestMethod(ShouldHandleStrings)
@@ -28,22 +28,6 @@ TestFixture(Assertions)
   TestMethod(ShouldHandleStringsWithoutExplicitTemplateSpecialization)
   {
     Assert::That("kim", Is().EqualTo("kim"));
-  }
-
-  TestMethod(ShouldReturnAReadableErrorTextUponFailure)
-  {
-    std::string errorText;
-
-    try
-    {
-      Assert::That(5, Is().Not().EqualTo(5));
-    }
-    catch (const AssertionException& exception)
-    {
-      errorText = exception.GetMessage();
-    }
-
-    Assert::That(errorText, Is().EqualTo("Expected: not equal to 5\nActual: 5\n"));
   }
 
   TestMethod(ShouldHandleGreaterThan)
