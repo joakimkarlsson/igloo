@@ -1,5 +1,7 @@
 #include "igloo_self_test.h"
 
+#include "../constraints/equalsconstraint.h"
+
 using igloo::Assert;
 using igloo::AssertionException;
 
@@ -7,27 +9,27 @@ TestFixture(Assertions)
 {
   TestMethod(ShouldHandleIntegerEquality)
   {
-    Assert::That(5, Is().EqualTo(5));
+    Assert::That(5, Equals(5));
   }
 
   TestMethod(ShouldDetectIntegerInequality)
   {
-    AssertTestFails(Assert::That(5, Is().EqualTo(4)), "equal to 4");
+    AssertTestFails(Assert::That(5, Equals(4)), "equal to 4");
   }
 
   TestMethod(ShouldDetectIfNotFails)
   {
-    AssertTestFails( Assert::That(5, Is().Not().EqualTo(5)), "Expected: not equal to 5\nActual: 5\n");
+    AssertTestFails(Assert::That(5, !Equals(5)), "Expected: not equal to 5\nActual: 5\n");
   }
 
   TestMethod(ShouldHandleStrings)
   {
-    Assert::That(std::string("joakim"), Is().EqualTo(std::string("joakim")));
+    Assert::That(std::string("joakim"), Equals(std::string("joakim")));
   }
 
   TestMethod(ShouldHandleStringsWithoutExplicitTemplateSpecialization)
   {
-    Assert::That("kim", Is().EqualTo("kim"));
+    Assert::That("kim", Equals("kim"));
   }
 
   TestMethod(ShouldHandleGreaterThan)

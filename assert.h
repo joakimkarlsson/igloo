@@ -10,7 +10,7 @@ namespace igloo {
    {
    public:
       template <typename ActualType, typename SyntaxNodeType>
-      static void That(const ActualType& actual, const SyntaxNodeType& statement)
+      static void That(const ActualType& actual, const ConstraintNode<SyntaxNodeType>& statement)
       {
          if (!statement.Evaluate(actual))
          {
@@ -21,9 +21,25 @@ namespace igloo {
       }
 
       template <typename SyntaxNodeType>
-      static void That(const char* actual, const SyntaxNodeType& node)
+      static void That(const char* actual, const ConstraintNode<SyntaxNodeType>& node)
       {
          return That<std::string>(std::string(actual), node);
+      }
+
+      template <typename ActualType, typename ExpressionType>
+      static void That(const ActualType& actual, const ExpressionType& evaluate)
+      {
+        if (!evaluate(actual))
+        {
+          std::string expected = Stringize(evaluate);
+          throw AssertionException(CreateErrorText(expected, actual));
+        }
+      }
+
+      template <typename ExpressionType>
+      static void That(const char* actual, const ExpressionType& evaluate)
+      {
+        return That<std::string>(std::string(actual), evaluate);
       }
 
       static void That(bool actual)
