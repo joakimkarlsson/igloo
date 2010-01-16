@@ -1,6 +1,8 @@
 #include "igloo_self_test.h"
 
 #include "../constraints/equalsconstraint.h"
+#include "../constraints/isgreaterthanconstraint.h"
+#include "../constraints/islessthanconstraint.h"
 
 using igloo::Assert;
 using igloo::AssertionException;
@@ -34,22 +36,22 @@ TestFixture(Assertions)
 
   TestMethod(ShouldHandleGreaterThan)
   {
-    Assert::That(5, Is().GreaterThan(4));
+    Assert::That(5, IsGreaterThan(4));
   }
 
   TestMethod(ShouldDetectWhenGreaterThanFails)
   {
-    AssertTestFails(Assert::That(5, Is().GreaterThan(5)), "Expected: greater than 5\nActual: 5\n");
+    AssertTestFails(Assert::That(5, IsGreaterThan(5)), "Expected: greater than 5\nActual: 5\n");
   }
 
   TestMethod(ShouldHandleLessThan)
   {
-    Assert::That(5, Is().LessThan(6));
+    Assert::That(5, IsLessThan(6));
   }
 
   TestMethod(ShouldDetectWhenLessThanFails)
   {
-    AssertTestFails(Assert::That(6, Is().LessThan(5)), "Expected: less than 5\nActual: 6\n");
+    AssertTestFails(Assert::That(6, IsLessThan(5)), "Expected: less than 5\nActual: 6\n");
   }
 
   TestMethod(ShouldThrowExplicitFailureMessage)

@@ -1,7 +1,7 @@
 #ifndef INCLUDED_EQUALSCONSTRAINT_H
 #define INCLUDED_EQUALSCONSTRAINT_H
 
-#include "expression.h"
+#include "expressions/expression.h"
 
 template< typename ExpectedType >
 struct EqualsConstraint : Expression< EqualsConstraint<ExpectedType> >
