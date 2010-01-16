@@ -31,4 +31,4 @@ inline std::string Stringize(const AndExpression<LeftExpression, RightExpression
   return builder.str();
 }
 
-#endif INCLUDED_ANDEXPRESSION_H
+#endif

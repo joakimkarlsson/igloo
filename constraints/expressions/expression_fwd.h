@@ -4,4 +4,4 @@
 template<typename T>
 struct Expression;
 
-#endif INCLUDED_EXPRESSION_FWD_H
+#endif

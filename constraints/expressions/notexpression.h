@@ -7,26 +7,26 @@ template< typename ExpressionType >
 struct NotExpression : Expression< NotExpression<ExpressionType> >
 {
 	NotExpression(const ExpressionType& expression)
-		: expression(expression)
+		: m_expression(expression)
 	{
 	}
 
 	template<typename ActualType>
 	bool operator()(const ActualType& actual) const
 	{
-		return !expression(actual);
+		return !m_expression(actual);
 	}
 
-	ExpressionType expression;
+	ExpressionType m_expression;
 };
 
 template< typename ExpressionType >
 inline std::string Stringize(const NotExpression<ExpressionType>& expression)
 {
   std::ostringstream builder;
-  builder << "not " << Stringize(expression.expression);
+  builder << "not " << Stringize(expression.m_expression);
 
   return builder.str();
 }
 
-#endif INCLUDED_NOTEXPRESSION_H
+#endif

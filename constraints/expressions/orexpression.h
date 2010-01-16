@@ -31,4 +31,4 @@ inline std::string Stringize(const OrExpression<LeftExpression, RightExpression>
   return builder.str();
 }
 
-#endif INCLUDED_OREXPRESSION_H
+#endif

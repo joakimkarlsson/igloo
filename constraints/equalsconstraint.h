@@ -40,4 +40,4 @@ inline std::string Stringize(const EqualsConstraint<ExpectedType>& constraint)
   return builder.str();
 }
 
-#endif INCLUDED_EQUALSCONSTRAINT_H
+#endif

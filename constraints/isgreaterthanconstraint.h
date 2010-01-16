@@ -40,4 +40,4 @@ inline std::string Stringize(const IsGreaterThanConstraint<ExpectedType>& constr
   return builder.str();
 }
 
-#endif INCLUDED_ISGREATERTHANCONSTRAINT_H
+#endif
