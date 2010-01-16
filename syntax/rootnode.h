@@ -11,7 +11,7 @@ namespace igloo {
   class RootNode : public BinaryNode<NoopExpressionItem>
   {
   public:
-    explicit RootNode() : BinaryNode<NoopExpressionItem>(boost::shared_ptr<NoopExpressionItem>(new NoopExpressionItem())) {}
+    explicit RootNode() : BinaryNode<NoopExpressionItem>(NoopExpressionItem()) {}
   };
 
 }

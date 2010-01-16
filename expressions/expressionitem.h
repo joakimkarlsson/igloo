@@ -5,13 +5,13 @@
 #include "constraints/constraint.h"
 
 namespace igloo {
+       
+  typedef std::stack<bool> ResultStack;
+  typedef std::stack<const Operator*> OperatorStack;
 
   template <typename ExpressionType, typename ExpressionItemType>
     struct expression_evaluation_trait
   {
-    typedef std::stack<bool> ResultStack;
-    typedef std::stack<const Operator*> OperatorStack;
-
     template <typename ActualType>
     static void Evaluate(const ExpressionType& expression, const ActualType& actual, ResultStack& resultStack, OperatorStack&)
     {
@@ -22,23 +22,50 @@ namespace igloo {
   template <typename ExpressionItemType>
     struct expression_evaluation_trait<Operator, ExpressionItemType>
   {
-    typedef std::stack<bool> ResultStack;
-    typedef std::stack<const Operator*> OperatorStack;
-
     template <typename ActualType>
     static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
     {
       expression.Evaluate(operatorStack, resultStack);
     }
-    };
+  };
+
+  template <typename ExpressionItemType>
+    struct expression_evaluation_trait<NotOperator, ExpressionItemType>
+  {
+    template <typename ActualType>
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    {
+      expression.Evaluate(operatorStack, resultStack);
+    }
+  };     
+ 
+  template <typename ExpressionItemType>
+    struct expression_evaluation_trait<OrOperator, ExpressionItemType>
+  {
+    template <typename ActualType>
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    {
+      expression.Evaluate(operatorStack, resultStack);
+    }
+  };
+
+  template <typename ExpressionItemType>
+    struct expression_evaluation_trait<AndOperator, ExpressionItemType>
+  {
+    template <typename ActualType>
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    {
+      expression.Evaluate(operatorStack, resultStack);
+    }
+  };
 
   class NoopConstraint
   {
   public:
     template <typename ActualType>
-      bool Evaluate(const ActualType&) { return true; }
+      bool Evaluate(const ActualType&) const { return true; }
 
-    void ToString(std::string&) {}
+    void ToString(std::string&) const {}
   };
 
   class NoopExpressionItem
@@ -50,11 +77,11 @@ namespace igloo {
     typedef std::stack<const Operator*> OperatorStack;
 
     template <typename ActualType>
-      void Evaluate(const ActualType&, ResultStack&, OperatorStack&)
+      void Evaluate(const ActualType&, ResultStack&, OperatorStack&) const
     {
     }
 
-    void ToString(std::string&, bool) {}
+    void ToString(std::string&, bool) const {}
   };
   
   template <typename ExpressionType, typename PreviousExpressionItemType>
@@ -63,16 +90,14 @@ namespace igloo {
   public:
     typedef ExpressionItem<ExpressionType, PreviousExpressionItemType> MyType;
 
-    typedef boost::shared_ptr<ExpressionType> Expression_ptr;
-    typedef boost::shared_ptr<PreviousExpressionItemType> Previous_ptr;
     typedef std::stack<bool> ResultStack;
     typedef std::stack<const Operator*> OperatorStack;
 
-    ExpressionItem() : m_expression(), m_previous() {}
-    explicit ExpressionItem(Expression_ptr expression, Previous_ptr previous) : m_expression(expression), m_previous(previous) {}
+    ExpressionItem(const MyType& rhs) : m_expression(rhs.m_expression), m_previous(rhs.m_previous) {}
+    explicit ExpressionItem(const ExpressionType& expression, const PreviousExpressionItemType& previous) : m_expression(expression), m_previous(previous) {}
 
     template <typename ActualType>
-      bool Evaluate(const ActualType& actual)
+      bool Evaluate(const ActualType& actual) const
     {
       ResultStack resultStack;
       OperatorStack operatorStack;
@@ -83,16 +108,10 @@ namespace igloo {
       return resultStack.top();
     }
 
-    void ToString(std::string& str, bool last = true)
+    void ToString(std::string& str, bool last = true) const
     {
-      if(m_previous.get() == NULL)
-      {
-        return;
-      }
-
-      m_previous->ToString(str, false);
-
-      m_expression->ToString(str);
+      m_previous.ToString(str, false);
+      m_expression.ToString(str);
 
       if(!last)
       {
@@ -101,19 +120,15 @@ namespace igloo {
     }
 
     template <typename ActualType>
-      void Evaluate(const ActualType& actual, ResultStack& resultStack, OperatorStack& operatorStack)
+      void Evaluate(const ActualType& actual, ResultStack& resultStack, OperatorStack& operatorStack) const
     {
-      if(m_previous.get() != NULL)
-      {
-        m_previous->Evaluate(actual, resultStack, operatorStack);
-      }
-
-      expression_evaluation_trait<ExpressionType, MyType>::Evaluate(*(m_expression.get()), actual, resultStack, operatorStack);
+      m_previous.Evaluate(actual, resultStack, operatorStack);
+      expression_evaluation_trait<ExpressionType, MyType>::Evaluate(m_expression, actual, resultStack, operatorStack);
     }
 
   public:
-    Expression_ptr m_expression;
-    Previous_ptr m_previous;
+    ExpressionType m_expression;
+    PreviousExpressionItemType m_previous;
   };
 
 }

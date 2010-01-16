@@ -9,4 +9,7 @@ igloo.vcproj*
 
 #Ignore Visual Studio output dirs
 Debug
-Release
+Release      
+
+#Ignore TextMate project files
+*.tmproj
