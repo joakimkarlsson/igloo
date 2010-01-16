@@ -20,16 +20,6 @@ namespace igloo {
   };
 
   template <typename ExpressionItemType>
-    struct expression_evaluation_trait<Operator, ExpressionItemType>
-  {
-    template <typename ActualType>
-    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
-    {
-      expression.Evaluate(operatorStack, resultStack);
-    }
-  };
-
-  template <typename ExpressionItemType>
     struct expression_evaluation_trait<NotOperator, ExpressionItemType>
   {
     template <typename ActualType>
@@ -73,9 +63,6 @@ namespace igloo {
   public:
     typedef NoopConstraint CurrentConstraintType;
 
-    typedef std::stack<bool> ResultStack;
-    typedef std::stack<const Operator*> OperatorStack;
-
     template <typename ActualType>
       void Evaluate(const ActualType&, ResultStack&, OperatorStack&) const
     {
@@ -89,9 +76,6 @@ namespace igloo {
   {
   public:
     typedef ExpressionItem<ExpressionType, PreviousExpressionItemType> MyType;
-
-    typedef std::stack<bool> ResultStack;
-    typedef std::stack<const Operator*> OperatorStack;
 
     ExpressionItem(const MyType& rhs) : m_expression(rhs.m_expression), m_previous(rhs.m_previous) {}
     explicit ExpressionItem(const ExpressionType& expression, const PreviousExpressionItemType& previous) : m_expression(expression), m_previous(previous) {}
