@@ -4,8 +4,7 @@
 #include "../constraints/isgreaterthanconstraint.h"
 #include "../constraints/islessthanconstraint.h"
 
-using igloo::Assert;
-using igloo::AssertionException;
+using namespace igloo;
 
 TestFixture(Assertions)
 {

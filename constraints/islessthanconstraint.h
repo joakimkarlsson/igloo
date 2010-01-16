@@ -3,41 +3,42 @@
 
 #include "expressions/expression.h"
 
-template< typename ExpectedType >
-struct IsLessThanConstraint : Expression< IsLessThanConstraint<ExpectedType> >
-{
-	IsLessThanConstraint(const ExpectedType& expected)
-		: m_expected(expected)
+namespace igloo {
+	template< typename ExpectedType >
+	struct IsLessThanConstraint : Expression< IsLessThanConstraint<ExpectedType> >
 	{
+		IsLessThanConstraint(const ExpectedType& expected)
+			: m_expected(expected)
+		{
+		}
+
+		template<typename ActualType>
+		bool operator()(const ActualType& actual) const
+		{
+			return (actual < m_expected);
+		}
+
+		ExpectedType m_expected;
+	};
+
+	template< typename ExpectedType >
+	inline IsLessThanConstraint<ExpectedType> IsLessThan(const ExpectedType& expected)
+	{
+		return IsLessThanConstraint<ExpectedType>(expected);
 	}
 
-	template<typename ActualType>
-	bool operator()(const ActualType& actual) const
+	inline IsLessThanConstraint<std::string> IsLessThan(const char* expected)
 	{
-		return (actual < m_expected);
+		return IsLessThanConstraint<std::string>(expected);
 	}
 
-	ExpectedType m_expected;
-};
+	template< typename ExpectedType >
+	inline std::string Stringize(const IsLessThanConstraint<ExpectedType>& constraint)
+	{
+	  std::ostringstream builder;
+	  builder << "less than " << constraint.m_expected;
 
-template< typename ExpectedType >
-inline IsLessThanConstraint<ExpectedType> IsLessThan(const ExpectedType& expected)
-{
-	return IsLessThanConstraint<ExpectedType>(expected);
+	  return builder.str();
+	}
 }
-
-inline IsLessThanConstraint<std::string> IsLessThan(const char* expected)
-{
-	return IsLessThanConstraint<std::string>(expected);
-}
-
-template< typename ExpectedType >
-inline std::string Stringize(const IsLessThanConstraint<ExpectedType>& constraint)
-{
-  std::ostringstream builder;
-  builder << "less than " << constraint.m_expected;
-
-  return builder.str();
-}
-
 #endif
