@@ -21,18 +21,18 @@ struct EqualsConstraint : Expression< EqualsConstraint<ExpectedType> >
 };
 
 template< typename ExpectedType >
-EqualsConstraint<ExpectedType> Equals(const ExpectedType& expected)
+inline EqualsConstraint<ExpectedType> Equals(const ExpectedType& expected)
 {
 	return EqualsConstraint<ExpectedType>(expected);
 }
 
-EqualsConstraint<std::string> Equals(const char* expected)
+inline EqualsConstraint<std::string> Equals(const char* expected)
 {
 	return EqualsConstraint<std::string>(expected);
 }
 
 template< typename ExpectedType >
-std::string Stringize(const EqualsConstraint<ExpectedType>& constraint)
+inline std::string Stringize(const EqualsConstraint<ExpectedType>& constraint)
 {
   std::ostringstream builder;
   builder << "equal to " << constraint.m_expected;

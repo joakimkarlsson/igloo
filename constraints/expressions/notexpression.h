@@ -21,7 +21,7 @@ struct NotExpression : Expression< NotExpression<ExpressionType> >
 };
 
 template< typename ExpressionType >
-std::string Stringize(const NotExpression<ExpressionType>& expression)
+inline std::string Stringize(const NotExpression<ExpressionType>& expression)
 {
   std::ostringstream builder;
   builder << "not " << Stringize(expression.expression);

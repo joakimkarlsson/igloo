@@ -22,4 +22,13 @@ struct OrExpression : Expression< OrExpression<LeftExpression, RightExpression> 
 	RightExpression m_right;
 };
 
+template< typename LeftExpression, typename RightExpression >
+inline std::string Stringize(const OrExpression<LeftExpression, RightExpression>& expression)
+{
+  std::ostringstream builder;
+  builder << Stringize(expression.m_left) << " or " << Stringize(expression.m_right);
+
+  return builder.str();
+}
+
 #endif INCLUDED_OREXPRESSION_H
