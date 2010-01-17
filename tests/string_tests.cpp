@@ -1,18 +1,23 @@
 #include "igloo_self_test.h"
 
-using igloo::Assert;
+using namespace igloo;
 
 TestFixture(Strings)
 {
   TestMethod(ShouldHandleStringContainsConstraint)
   {
-    Assert::That("abcdef", Is().Containing("bcde"));
+    Assert::That("abcdef", Contains("bcde"));
   }
 
   TestMethod(StringConstraintShouldHandleMatchAtBeginningOfString)
   {
-    Assert::That("abcdef", Is().Containing("a"));
-  }
+    Assert::That("abcdef", Contains("a"));
+  }  
+
+	TestMethod(ShouldDetectFailingContains)
+	{
+		AssertTestFails(Assert::That("abcdef", Contains("hello")), "contains hello");
+	}
 
   TestMethod(ShouldHandleStringStartingWithConstraint)
   {

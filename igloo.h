@@ -10,7 +10,12 @@
 #include "assertionexception.h"
 #include "testfixture.h"
 #include "testrunner.h"
-#include "assert.h"
+#include "assert.h"                
+
+#include "constraints/equalsconstraint.h"
+#include "constraints/isgreaterthanconstraint.h"
+#include "constraints/islessthanconstraint.h"       
+#include "constraints/containsconstraint.h"
 
 #define IGLOO_PP_CAT(a, b) IGLOO_PP_CAT_I(a, b)
 #define IGLOO_PP_CAT_I(a, b) a ## b

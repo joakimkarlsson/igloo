@@ -1,9 +1,5 @@
 #include "igloo_self_test.h"
 
-#include "../constraints/equalsconstraint.h"
-#include "../constraints/isgreaterthanconstraint.h"
-#include "../constraints/islessthanconstraint.h"
-
 using namespace igloo;
 
 TestFixture(Assertions)

@@ -12,7 +12,7 @@ namespace igloo {
     typedef Constraint<ExpectedType> Base;
   public:
 
-    ContainingConstraint(ExpectedType expected) : Base(expected) {}
+    ContainingConstraint(const ExpectedType& expected) : Base(expected) {}
 
     template <typename ActualType>
     bool Evaluate(ActualType actual) const

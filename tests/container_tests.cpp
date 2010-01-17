@@ -26,8 +26,13 @@ TestFixture(ContainerConstraints)
 
   TestMethod(ShouldHandleContainingForVectors)
   {
-    Assert::That(m_vector, Is().Containing(43));
+    Assert::That(m_vector, Contains(43));
   }
+
+	TestMethod(ShouldDetectFailingContains)
+	{
+		AssertTestFails(Assert::That(m_vector, Contains(99)), "contains 99");
+	}
 
   TestMethod(ShouldHandleOfLengthForVectors)
   {

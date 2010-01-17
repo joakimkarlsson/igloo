@@ -1,6 +1,6 @@
 #ifndef INCLUDED_NOTEXPRESSION_H
 #define INCLUDED_NOTEXPRESSION_H
-
+  
 #include "expression_fwd.h"
 
 namespace igloo {
