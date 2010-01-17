@@ -16,17 +16,17 @@ namespace igloo {
 
       boolStack.push(right && left);
     }
-
-    virtual void ToString(std::string& str) const
-    {
-      str += "and";
-    }
     
     virtual bool IsLeftAssociative() const
     {
       return true;
     }
-  };
+  }; 
+
+	inline std::string Stringize(const AndOperator&)
+	{
+		return "and";
+	}
 }
 
 

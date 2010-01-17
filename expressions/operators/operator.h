@@ -30,7 +30,6 @@ namespace igloo {
 
      virtual void Evaluate(ResultStack& boolStack) const = 0;
      virtual bool IsLeftAssociative() const = 0;
-     virtual void ToString(std::string& str) const = 0;
    };
 
 }

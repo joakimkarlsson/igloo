@@ -13,16 +13,17 @@ namespace igloo {
          boolStack.push(!currentResult);
       }
 
-      virtual void ToString(std::string& str) const
-      {
-         str += "not";
-      }
-
       virtual bool IsLeftAssociative() const
       {
         return false;
       }
-   };
+   }; 
+
+	inline std::string Stringize(const NotOperator&)
+	{
+		return "not";
+	}
+
 }
 #endif
 
