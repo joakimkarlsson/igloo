@@ -64,6 +64,30 @@ TestFixture(StringizeTests)
   {
     HasStreamOp a(12);
     HasStreamOp b(13);
+    AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
+  }
+
+  TestMethod(ShouldHandleTypesWithoutStreamOperators)
+  {
+    NoStreamOp a(12);
+    NoStreamOp b(13);
+    AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to [unsupported type]\nActual: [unsupported type]");
+  }
+
+  TestMethod(ShouldHandleTypesWithTraits)
+  {
+    NoStreamOpButWithTraits a(12);
+    NoStreamOpButWithTraits b(13);
+    AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
+  }
+}; 
+
+TestFixture(StringizeTestsExpressionTemplates)
+{
+  TestMethod(ShouldHandleTypesWithStreamOperators)
+  {
+    HasStreamOp a(12);
+    HasStreamOp b(13);
     AssertTestFails(Assert::That(a, Equals(b)), "Expected: equal to 13\nActual: 12");
   }
 
@@ -80,5 +104,5 @@ TestFixture(StringizeTests)
     NoStreamOpButWithTraits b(13);
     AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
   }
-};  
+}; 
 

@@ -46,24 +46,29 @@ class ConstraintNode;
     }
 
     template <typename ExpectedType>
-    ConstraintNode<ExpressionItem<IsGreaterThanConstraint<ExpectedType>, ExpressionItemType> > GreaterThan(ExpectedType expected)
+    ConstraintNode<ExpressionItem<IsGreaterThanConstraint<ExpectedType>, ExpressionItemType> > GreaterThan(const ExpectedType& expected)
     {
       typedef IsGreaterThanConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
     template <typename ExpectedType>
-      ConstraintNode<ExpressionItem<IsLessThanConstraint<ExpectedType>, ExpressionItemType> > LessThan(ExpectedType expected)
+      ConstraintNode<ExpressionItem<IsLessThanConstraint<ExpectedType>, ExpressionItemType> > LessThan(const ExpectedType& expected)
     {
       typedef IsLessThanConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
     template <typename ExpectedType>
-    ConstraintNode<ExpressionItem<ContainsConstraint<ExpectedType>, ExpressionItemType> > Containing(ExpectedType expected)
+    ConstraintNode<ExpressionItem<ContainsConstraint<ExpectedType>, ExpressionItemType> > Containing(const ExpectedType& expected)
     {
       typedef ContainsConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
+    }
+     
+    ConstraintNode<ExpressionItem<ContainsConstraint<std::string>, ExpressionItemType> > Containing(const char* expected)
+    {                                                           
+			return Containing<std::string>(std::string(expected));
     }
 
     template <typename ExpectedType> 
@@ -81,7 +86,7 @@ class ConstraintNode;
     }
 
     template <typename ExpectedType> 
-    ConstraintNode<ExpressionItem<HasLengthConstraint<ExpectedType>, ExpressionItemType> > OfLength(unsigned int expected)
+    ConstraintNode<ExpressionItem<HasLengthConstraint<ExpectedType>, ExpressionItemType> > OfLength(const ExpectedType& expected)
     {
       typedef HasLengthConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
