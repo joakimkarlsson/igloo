@@ -43,7 +43,7 @@ namespace igloo {
 		inline std::string Stringize(const ContainsConstraint<ExpectedType>& constraint)
 		{
 			std::ostringstream builder;
-			builder << "contains " << constraint.m_expected;
+			builder << "contains " << Stringize(constraint.m_expected);
 
 			return builder.str();
 		}

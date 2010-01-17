@@ -35,7 +35,7 @@ namespace igloo {
   inline std::string Stringize(const HasLengthConstraint<ExpectedType>& constraint)
   {
     std::ostringstream builder;
-    builder << "of length " << constraint.m_expected;
+    builder << "of length " << Stringize(constraint.m_expected);
 
     return builder.str();
   }

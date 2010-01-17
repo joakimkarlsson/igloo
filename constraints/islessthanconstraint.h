@@ -36,7 +36,7 @@ namespace igloo {
 	inline std::string Stringize(const IsLessThanConstraint<ExpectedType>& constraint)
 	{
 	  std::ostringstream builder;
-	  builder << "less than " << constraint.m_expected;
+	  builder << "less than " << Stringize(constraint.m_expected);
 
 	  return builder.str();
 	}

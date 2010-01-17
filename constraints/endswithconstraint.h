@@ -33,7 +33,7 @@ namespace igloo {
   inline std::string Stringize(const EndsWithConstraint<ExpectedType>& constraint)
   {
     std::ostringstream builder;
-    builder << "starts with " << constraint.m_expected;
+    builder << "starts with " << Stringize(constraint.m_expected);
 
     return builder.str();
   }

@@ -36,7 +36,7 @@ template< typename ExpectedType >
 	inline std::string Stringize(const EqualsConstraint<ExpectedType>& constraint)
 	{
 		std::ostringstream builder;
-		builder << "equal to " << constraint.m_expected;
+		builder << "equal to " << Stringize(constraint.m_expected);
 
 		return builder.str();
 	}
