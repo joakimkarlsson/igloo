@@ -1,7 +1,7 @@
 #ifndef IGLOO_CONSTRAINTOPERATIONS_H
 #define IGLOO_CONSTRAINTOPERATIONS_H
 
-#include "node.h"   
+#include "nodes/node.h"   
 #include "../constraints/expressions/expression.h"
 #include "../constraints/equalsconstraint.h" 
 #include "../constraints/endswithconstraint.h"

@@ -5,6 +5,6 @@
 
 #include "syntax/constraintoperations.h"
 
-#include "syntax/rootnode.h"
+#include "syntax/nodes/rootnode.h"
 
 #endif
