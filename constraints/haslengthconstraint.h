@@ -11,8 +11,10 @@ namespace igloo {
 			
 		template <typename ActualType>
 		bool operator()(const ActualType& actual) const
-		{
-			return (actual.size() == m_expected);
+		{                                    
+			typedef typename ActualType::size_type SizeType;
+			SizeType expectedSize = static_cast<SizeType>(m_expected);
+			return (actual.size() == expectedSize);
 		} 
 		
 		ExpectedType m_expected;
