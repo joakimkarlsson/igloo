@@ -2,7 +2,6 @@
 #define IGLOO_EXPRESSIONITEM_H
 
 #include "operators/operator.h"
-#include "constraints/constraint.h"
 
 namespace igloo {
        
