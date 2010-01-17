@@ -4,10 +4,15 @@ using namespace igloo;
 
 TestFixture(Assertions)
 {
-  TestMethod(ShouldHandleIntegerEquality)
+  TestMethod(ShouldHandleIntegerEqualityWithExpressionTemplates)
   {
     Assert::That(5, Equals(5));
-  }
+  }                                                            
+
+	TestMethod(ShouldHandleIntegerEquality)  
+	{
+    Assert::That(5, Is().EqualTo(5));		
+	}
 
   TestMethod(ShouldDetectIntegerInequality)
   {

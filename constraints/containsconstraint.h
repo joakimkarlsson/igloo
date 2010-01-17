@@ -21,7 +21,7 @@ namespace igloo {
 		bool operator()(const std::string& actual) const
 		{
 			return actual.find(m_expected) != actual.npos; 
-		} 
+		} 	
 		
 		ExpectedType m_expected;
 	};              

@@ -15,7 +15,7 @@ namespace igloo {
     template <typename ActualType>
     static void Evaluate(const ExpressionType& expression, const ActualType& actual, ResultStack& resultStack, OperatorStack&)
     {
-      resultStack.push(expression.Evaluate(actual));
+      resultStack.push(expression(actual));
     }
   };
 
@@ -95,7 +95,7 @@ namespace igloo {
     void ToString(std::string& str, bool last = true) const
     {
       m_previous.ToString(str, false);
-      m_expression.ToString(str);
+			str += Stringize(m_expression);
 
       if(!last)
       {

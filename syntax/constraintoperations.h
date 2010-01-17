@@ -1,7 +1,16 @@
 #ifndef IGLOO_CONSTRAINTOPERATIONS_H
 #define IGLOO_CONSTRAINTOPERATIONS_H
 
-#include "node.h"
+#include "node.h"   
+#include "../constraints/expressions/expression.h"
+#include "../constraints/equalsconstraint.h" 
+#include "../constraints/endswithconstraint.h"
+#include "../constraints/containsconstraint.h"
+#include "../constraints/haslengthconstraint.h"
+#include "../constraints/isgreaterthanconstraint.h"
+#include "../constraints/islessthanconstraint.h"
+#include "../constraints/startswithconstraint.h"
+
 
 namespace igloo {
 
@@ -24,54 +33,57 @@ class ConstraintNode;
     explicit ConstraintOperations(const ExpressionItemType& expressionItem) : Base(expressionItem) {}
 
     template <typename ExpectedType>
-      ConstraintNode<ExpressionItem<EqualToConstraint<ExpectedType>, ExpressionItemType> > EqualTo(ExpectedType expected)
+      ConstraintNode<ExpressionItem<EqualsConstraint<ExpectedType>, ExpressionItemType> > EqualTo(ExpectedType expected)
     {
-      typedef EqualToConstraint<ExpectedType> ConstraintType;
+      typedef EqualsConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
-    ConstraintNode<ExpressionItem<EqualToConstraint<std::string>, ExpressionItemType> > EqualTo(const char* expected)
+    ConstraintNode<ExpressionItem<EqualsConstraint<std::string>, ExpressionItemType> > EqualTo(const char* expected)
     {
-      typedef EqualToConstraint<std::string> ConstraintType;
-      return CreateNode(ConstraintType(expected));
-    }
-
-    template <typename ExpectedType>
-    ConstraintNode<ExpressionItem<GreaterThanConstraint<ExpectedType>, ExpressionItemType> > GreaterThan(ExpectedType expected)
-    {
-      typedef GreaterThanConstraint<ExpectedType> ConstraintType;
+      typedef EqualsConstraint<std::string> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
     template <typename ExpectedType>
-      ConstraintNode<ExpressionItem<LessThanConstraint<ExpectedType>, ExpressionItemType> > LessThan(ExpectedType expected)
+    ConstraintNode<ExpressionItem<IsGreaterThanConstraint<ExpectedType>, ExpressionItemType> > GreaterThan(ExpectedType expected)
     {
-      typedef LessThanConstraint<ExpectedType> ConstraintType;
+      typedef IsGreaterThanConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
     template <typename ExpectedType>
-    ConstraintNode<ExpressionItem<ContainingConstraint<ExpectedType>, ExpressionItemType> > Containing(ExpectedType expected)
+      ConstraintNode<ExpressionItem<IsLessThanConstraint<ExpectedType>, ExpressionItemType> > LessThan(ExpectedType expected)
     {
-      typedef ContainingConstraint<ExpectedType> ConstraintType;
+      typedef IsLessThanConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
-    ConstraintNode<ExpressionItem<StartingWithConstraint, ExpressionItemType> > StartingWith(const std::string& expected)
+    template <typename ExpectedType>
+    ConstraintNode<ExpressionItem<ContainsConstraint<ExpectedType>, ExpressionItemType> > Containing(ExpectedType expected)
     {
-      typedef StartingWithConstraint ConstraintType;
+      typedef ContainsConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
-    ConstraintNode<ExpressionItem<EndingWithConstraint, ExpressionItemType> > EndingWith(const std::string& expected)
+    template <typename ExpectedType> 
+    ConstraintNode<ExpressionItem<StartsWithConstraint<ExpectedType>, ExpressionItemType> > StartingWith(const std::string& expected)
     {
-      typedef EndingWithConstraint ConstraintType;
+      typedef StartsWithConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
-    ConstraintNode<ExpressionItem<OfLengthConstraint, ExpressionItemType> > OfLength(unsigned int expected)
+    template <typename ExpectedType> 
+    ConstraintNode<ExpressionItem<EndsWithConstraint<ExpectedType>, ExpressionItemType> > EndingWith(const std::string& expected)
     {
-      typedef OfLengthConstraint ConstraintType;
+      typedef EndsWithConstraint<ExpectedType> ConstraintType;
+      return CreateNode(ConstraintType(expected));
+    }
+
+    template <typename ExpectedType> 
+    ConstraintNode<ExpressionItem<HasLengthConstraint<ExpectedType>, ExpressionItemType> > OfLength(unsigned int expected)
+    {
+      typedef HasLengthConstraint<ExpectedType> ConstraintType;
       return CreateNode(ConstraintType(expected));
     }
 
