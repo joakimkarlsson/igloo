@@ -25,15 +25,28 @@
 
 #define TestFixture(fixture) \
 struct fixture; \
-int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
-struct fixture : public igloo::TestFixture<fixture>
+	const int IGLOO_PP_CAT(IGLOO_FIRST_METHOD_SLOT_, fixture) = __COUNTER__; \
+int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture, IGLOO_PP_CAT(IGLOO_FIRST_METHOD_SLOT_, fixture)>()); \
+struct fixture : public igloo::TestFixture<fixture, IGLOO_PP_CAT(IGLOO_FIRST_METHOD_SLOT_, fixture)>
+         
+template <typename FixtureType, int MethodSlotValue>                             
+struct test_slot_base
+{ 
+	typedef FixtureType SlotFixtureType;
+	const static int MethodSlot = MethodSlotValue;
+};
 
 #define TestMethod(method) \
-bool IGLOO_PP_CAT(GetTest, __COUNTER__)(std::map<std::string, void (IGLOO_FIXTURE_TYPE::*)() >& tests) \
+const static int IGLOO_PP_CAT(IGLOO_METHOD_SLOT_, method) = __COUNTER__; \
+template <typename IGLOO_DUMMY> \
+struct test_slot<IGLOO_FIXTURE_TYPE, IGLOO_PP_CAT(IGLOO_METHOD_SLOT_, method), IGLOO_DUMMY> : public test_slot_base<IGLOO_FIXTURE_TYPE, IGLOO_PP_CAT(IGLOO_METHOD_SLOT_, method)>\
 { \
-   tests[#method] = &IGLOO_FIXTURE_TYPE::method; \
-   return true; \
-} \
+	static void reg(std::map<std::string, void (IGLOO_FIXTURE_TYPE::*)()>& tests) \
+	{ \
+		tests[#method] = &SlotFixtureType::method; \
+		test_slot<SlotFixtureType, MethodSlot+1>::reg(tests); \
+	}	\
+}; \
 void method()
 
 #endif

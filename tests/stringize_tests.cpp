@@ -80,4 +80,5 @@ TestFixture(StringizeTests)
     NoStreamOpButWithTraits b(13);
     AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
   }
-};
+};  
+
