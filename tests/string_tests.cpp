@@ -21,36 +21,41 @@ TestFixture(Strings)
 
   TestMethod(ShouldHandleStringStartingWithConstraint)
   {
-    Assert::That("abcdef", Is().StartingWith("abc"));
+    Assert::That("abcdef", StartsWith("abc"));
   }
 
   TestMethod(ShouldHandleStringEndingWithConstraint)
   {
-    Assert::That("abcdef", Is().EndingWith("def"));
+    Assert::That("abcdef", EndsWith("def"));
   }
 
   TestMethod(ShouldHandleOperatorsForStrings)
   {
-    Assert::That("abcdef", Is().StartingWith("ab").And().EndingWith("ef"));
+    Assert::That("abcdef", StartsWith("ab") && EndsWith("ef"));
   }
 
   TestMethod(ShouldHandleStringsWithMultipleOperators)
   {
-    Assert::That("abcdef", Is().StartingWith("ab").And().Not().EndingWith("qwqw"));
+    Assert::That("abcdef", StartsWith("ab") && !EndsWith("qwqw"));
   }
 
   TestMethod(ShouldHandleOfLength)
   {
-    Assert::That("12345", Is().OfLength(5));
+    Assert::That("12345", HasLength(5));
   }
 
   TestMethod(ShouldHandleWeirdLongExpressions)
   {
-    Assert::That("12345", Is().OfLength(5).And().StartingWith("123").And().Not().EndingWith("zyxxy"));
+    Assert::That("12345", HasLength(5) && StartsWith("123") && !EndsWith("zyxxy"));
   }
 
   TestMethod(ShouldHandleStdStrings)
   {
-    Assert::That("12345", Is().Containing(std::string("23")));
+    Assert::That("12345", Contains(std::string("23")));
+  }
+
+  TestMethod(ShouldHandleSimpleChar)
+  {
+    Assert::That("12345", StartsWith('1'));
   }
 };

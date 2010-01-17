@@ -16,6 +16,9 @@
 #include "constraints/isgreaterthanconstraint.h"
 #include "constraints/islessthanconstraint.h"       
 #include "constraints/containsconstraint.h"
+#include "constraints/haslengthconstraint.h"
+#include "constraints/startswithconstraint.h"
+#include "constraints/endswithconstraint.h"
 
 #define IGLOO_PP_CAT(a, b) IGLOO_PP_CAT_I(a, b)
 #define IGLOO_PP_CAT_I(a, b) a ## b

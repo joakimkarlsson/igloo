@@ -36,12 +36,12 @@ TestFixture(ContainerConstraints)
 
   TestMethod(ShouldHandleOfLengthForVectors)
   {
-    Assert::That(m_vector, Is().OfLength(4));
+    Assert::That(m_vector, HasLength(4));
   }
 
   TestMethod(ShouldHandleFailingOfLengthForVectors)
   {
-    AssertTestFails(Assert::That(m_vector, Is().OfLength(7)), "of length 7\nActual:");
+    AssertTestFails(Assert::That(m_vector, HasLength(7)), "of length 7\nActual:");
   }
 
   std::vector<int> m_vector;
