@@ -7,7 +7,7 @@
 #include <list>
 #include <sstream>
    
-#include "stringize.h"
+#include "../stringize.h"
 
 #include "expressions/operators/operator.h"
 #include "expressions/operators/andoperator.h"
