@@ -5,16 +5,7 @@
 #include "assert.h"
 #include "testresult.h"
 #include "syntax.h"
-               
 
-	template <typename FixtureType, int MethodSlot, typename DUMMIEE = void>
-	struct test_slot
-	{
-		static void reg(std::map<std::string, void (FixtureType::*)()>&)
-		{
-		}
-	};
-	
 namespace igloo {
 
   class TestFixtureBase
@@ -53,18 +44,22 @@ namespace igloo {
   };
                         
 
-  template <typename T, int FirstMethodSlot>
+  template <typename T>
   class TestFixture : public TestFixtureBase
   {
   public:
     typedef T IGLOO_FIXTURE_TYPE;
 
+    static void RegisterTestMethod(const std::string& name, void (IGLOO_FIXTURE_TYPE::*method)())
+    {
+      GetTestMethods().insert(std::make_pair(name, method));
+    }
+
     void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {
       T testFixture;
 
-      TestMethods testMethods;
-      testFixture.GetTests(testMethods);
+      const TestMethods& testMethods = GetTestMethods();
       CallTests(testFixture, testMethods, fixtureName, results);
     }
 
@@ -72,9 +67,9 @@ namespace igloo {
     typedef void (T::*TestMethodPtr)();
     typedef std::map<std::string, TestMethodPtr> TestMethods;
 
-    void CallTests(T& t, TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
+    void CallTests(T& t, const TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
     {
-      typename TestMethods::iterator it;
+      typename TestMethods::const_iterator it;
       for (it = testMethods.begin(); it != testMethods.end(); it++)
       {
         if(CallTest(t, fixtureName, (*it).first, (*it).second, results))
@@ -106,9 +101,10 @@ namespace igloo {
       return true;
     }
 
-    void GetTests(TestMethods& testMethods)
-    {                                
-			test_slot<T, FirstMethodSlot+1>::reg(testMethods);
+    static TestMethods& GetTestMethods()
+    {
+      static TestMethods testMethods;
+      return testMethods;
     }
   };
 }

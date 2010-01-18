@@ -31,7 +31,7 @@ TestFixture(ContainerConstraints)
 
 	TestMethod(ShouldDetectFailingContains)
 	{
-		AssertTestFails(Assert::That(m_vector, Is().Containing(99)), "contains 99");
+      AssertTestFails(Assert::That(m_vector, Is().Containing(99)), "contains 99\nActual: vector (size: 4)");
 	}
 
   TestMethod(ShouldHandleOfLengthForVectors)
@@ -65,7 +65,7 @@ TestFixture(ContainerConstraintsExpressionTemplates)
 
 	TestMethod(ShouldDetectFailingContains)
 	{
-		AssertTestFails(Assert::That(m_vector, Contains(99)), "contains 99");
+		AssertTestFails(Assert::That(m_vector, Contains(99)), "contains 99\nActual: vector (size: 4)");
 	}
 
   TestMethod(ShouldHandleOfLengthForVectors)
