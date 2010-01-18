@@ -22,7 +22,13 @@
 
 #define TestFixture(fixture) \
 struct fixture; \
-int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
+struct TestFixtureRegistrar##fixture \
+{ \
+   TestFixtureRegistrar##fixture() \
+   { \
+     igloo::TestRunner::RegisterTestFixture(#fixture, new igloo::TestFixture<fixture>()); \
+   } \
+} fixture##IglooRegistrar; \
 struct fixture : public igloo::TestFixture<fixture>
          
 #define TestMethod(method) \

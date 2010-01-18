@@ -6,6 +6,14 @@
 
 namespace igloo {
 
+   template< typename T >
+   std::string Stringize(const std::vector<T>& t)
+   {
+      std::ostringstream stm;
+      stm << "vector (size: " << t.size() << ")";
+      return stm.str();
+   }
+
    class Assert
    {
    public:
