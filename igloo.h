@@ -20,9 +20,6 @@
 #include "constraints/startswithconstraint.h"
 #include "constraints/endswithconstraint.h"
 
-#define IGLOO_PP_CAT(a, b) IGLOO_PP_CAT_I(a, b)
-#define IGLOO_PP_CAT_I(a, b) a ## b
-
 #define TestFixture(fixture) \
 struct fixture; \
 int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
