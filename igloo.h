@@ -8,7 +8,8 @@
 
 #include "syntax.h"
 #include "assertionexception.h"
-#include "testfixture.h"
+#include "testfixture.h" 
+#include "testfixturerunner.h"
 #include "testrunner.h"
 #include "assert.h"                
 
@@ -26,7 +27,7 @@ struct TestFixtureRegistrar##fixture \
 { \
    TestFixtureRegistrar##fixture() \
    { \
-     igloo::TestRunner::RegisterTestFixture(#fixture, new igloo::TestFixture<fixture>()); \
+     igloo::TestRunner::RegisterTestFixture(#fixture, new igloo::TestFixtureRunner<fixture>()); \
    } \
 } fixture##IglooRegistrar; \
 struct fixture : public igloo::TestFixture<fixture>
@@ -36,7 +37,7 @@ struct TestMethodRegistrar##method \
 { \
   TestMethodRegistrar##method() \
   { \
-    IGLOO_FIXTURE_TYPE::RegisterTestMethod(#method, &IGLOO_FIXTURE_TYPE::method); \
+    TestFixtureRunner<IGLOO_FIXTURE_TYPE>::RegisterTestMethod(#method, &IGLOO_FIXTURE_TYPE::method); \
   } \
 } method##Registrar; \
 \

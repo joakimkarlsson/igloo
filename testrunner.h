@@ -8,13 +8,13 @@ namespace igloo {
   class TestRunner
   {
   public:
-    typedef std::map<std::string, TestFixtureBase* > TestFixtureMap;
+    typedef std::map<std::string, TestFixtureRunnerBase* > TestFixtureRunners;
 
     static int RunAllTests()
     {
         std::list<TestResult> results;
 
-        for (TestFixtureMap::iterator it = FixtureMap().begin(); it != FixtureMap().end(); it++)
+        for (TestFixtureRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
         {
           (*it).second->Run((*it).first, results);
         }
@@ -49,15 +49,15 @@ namespace igloo {
       return failed;
     }
 
-    static void RegisterTestFixture(const std::string& name, TestFixtureBase* testFixture)
+    static void RegisterTestFixture(const std::string& name, TestFixtureRunnerBase* testFixture)
     {
-      TestRunner::FixtureMap()[name] = testFixture;
+      TestRunner::FixtureRunners()[name] = testFixture;
     }
 
-    static TestRunner::TestFixtureMap& FixtureMap()
+    static TestRunner::TestFixtureRunners& FixtureRunners()
     {
-      static TestRunner::TestFixtureMap _fixtureMap;
-      return _fixtureMap;
+      static TestRunner::TestFixtureRunners _fixtureRunners;
+      return _fixtureRunners;
     }
   };
 }
