@@ -29,11 +29,11 @@ namespace igloo {
     }
   };
 
-  template <typename T>
+  template <typename FixtureType>
   class TestFixture : public TestFixtureBase
   {
   public:
-    typedef T IGLOO_FIXTURE_TYPE;
+    typedef FixtureType IGLOO_FIXTURE_TYPE;
 
     static void RegisterTestMethod(const std::string& name, void (IGLOO_FIXTURE_TYPE::*method)())
     {
@@ -42,22 +42,22 @@ namespace igloo {
 
     void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {
-      T testFixture;
+      FixtureType testFixture;
 
       const TestMethods& testMethods = GetTestMethods();
       CallTests(testFixture, testMethods, fixtureName, results);
     }
 
   private:
-    typedef void (T::*TestMethodPtr)();
+    typedef void (FixtureType::*TestMethodPtr)();
     typedef std::map<std::string, TestMethodPtr> TestMethods;
 
-    void CallTests(T& t, const TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
+    void CallTests(FixtureType& fixture, const TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
     {
       typename TestMethods::const_iterator it;
       for (it = testMethods.begin(); it != testMethods.end(); it++)
       {
-        if(CallTest(t, fixtureName, (*it).first, (*it).second, results))
+        if(CallTest(fixture, fixtureName, (*it).first, (*it).second, results))
         {
            std::cout << ".";
         }
@@ -68,13 +68,13 @@ namespace igloo {
       }
     }
 
-    bool CallTest(T t, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
+    bool CallTest(FixtureType& fixture, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
     {
       try
       {
-        t.SetUp();
-        (t.*method)();
-        t.TearDown();
+        fixture.SetUp();
+        (fixture.*method)();
+        fixture.TearDown();
       }
       catch (const AssertionException& e)
       {
