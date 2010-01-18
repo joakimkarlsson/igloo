@@ -25,7 +25,6 @@
 
 #define TestFixture(fixture) \
 struct fixture; \
-	const int IGLOO_PP_CAT(IGLOO_FIRST_METHOD_SLOT_, fixture) = __COUNTER__; \
 int fixture##_dummy = igloo::TestRunner::RegisterTestFixture( #fixture , new igloo::TestFixture<fixture>()); \
 struct fixture : public igloo::TestFixture<fixture>
          
