@@ -29,21 +29,6 @@ namespace igloo {
     }
   };
 
-  class MaxNumberOfTestMethodsExceededException
-  {
-  public:
-    MaxNumberOfTestMethodsExceededException(int max) : m_max(max) {}
-
-    int GetMax() const
-    {
-      return m_max;
-    }
-
-  private:
-    int m_max;
-  };
-                        
-
   template <typename T>
   class TestFixture : public TestFixtureBase
   {

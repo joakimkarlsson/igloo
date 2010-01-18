@@ -12,8 +12,6 @@ namespace igloo {
 
     static int RunAllTests()
     {
-      try
-      {
         std::list<TestResult> results;
 
         for (TestFixtureMap::iterator it = FixtureMap().begin(); it != FixtureMap().end(); it++)
@@ -24,13 +22,6 @@ namespace igloo {
         std::cout << std::endl;
 
         return CheckResults(results);
-      }
-      catch(const MaxNumberOfTestMethodsExceededException& exception)
-      {
-        std::cout << std::endl << "ERROR: The maximum number of test methods (" << exception.GetMax() << ") for one test fixture has been exceeded" << std::endl;
-      }
-
-      return 0;
     }
 
     static int CheckResults(const std::list<TestResult>& results)
