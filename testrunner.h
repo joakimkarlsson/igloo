@@ -17,6 +17,7 @@ namespace igloo {
         for (TestFixtureRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
         {
           (*it).second->Run((*it).first, results);
+          delete (*it).second;
         }
 
         std::cout << std::endl;
@@ -49,9 +50,10 @@ namespace igloo {
       return failed;
     }
 
-    static void RegisterTestFixture(const std::string& name, TestFixtureRunnerBase* testFixture)
+    template <typename FixtureRunnerType>
+    static void RegisterTestFixture(const std::string& name)
     {
-      TestRunner::FixtureRunners()[name] = testFixture;
+      TestRunner::FixtureRunners()[name] = new FixtureRunnerType();
     }
 
     static TestRunner::TestFixtureRunners& FixtureRunners()

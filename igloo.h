@@ -27,7 +27,7 @@ struct TestFixtureRegistrar##fixture \
 { \
    TestFixtureRegistrar##fixture() \
    { \
-     igloo::TestRunner::RegisterTestFixture(#fixture, new igloo::TestFixtureRunner<fixture>()); \
+     igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<fixture> >(#fixture); \
    } \
 } fixture##IglooRegistrar; \
 struct fixture : public igloo::TestFixture<fixture>
