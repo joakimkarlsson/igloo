@@ -18,4 +18,9 @@ TestFixture(MapTests)
   {
     Assert::That(ages, Is().Containing("joakim"));
   }
+  
+  TestMethod(ShouldGiveAProperMessageWhenContainingFails)
+  {
+    AssertTestFails(Assert::That(ages, Is().Not().Containing("hanna")), "Expected: not contains hanna"); 
+  }
 };
