@@ -2,7 +2,7 @@
 
 using namespace igloo;
 
-TestFixture(ContainerConstraints)
+TestFixture(VectorConstraints)
 {
   void SetUp()
   {
@@ -36,7 +36,7 @@ TestFixture(ContainerConstraints)
   std::vector<int> m_vector;
 };       
 
-TestFixture(ContainerConstraintsExpressionTemplates)
+TestFixture(VectorConstraintsExpressionTemplates)
 {
   void SetUp()
   {
