@@ -48,20 +48,9 @@ namespace igloo {
     }
   };
 
-  class NoopConstraint
-  {
-  public:
-    template <typename ActualType>
-      bool Evaluate(const ActualType&) const { return true; }
-
-    void ToString(std::string&) const {}
-  };
-
   class NoopExpressionItem
   {
   public:
-    typedef NoopConstraint CurrentConstraintType;
-
     template <typename ActualType>
       void Evaluate(const ActualType&, ResultStack&, OperatorStack&) const
     {
