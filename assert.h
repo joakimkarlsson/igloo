@@ -1,7 +1,6 @@
 #ifndef IGLOO_ASSERT_H
 #define IGLOO_ASSERT_H
 
-#include "syntax.h"
 #include "stringize.h"
 
 namespace igloo {

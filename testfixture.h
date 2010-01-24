@@ -4,7 +4,6 @@
 #include "assertionexception.h"
 #include "assert.h"
 #include "testresult.h"
-#include "syntax.h"
 
 namespace igloo {
 

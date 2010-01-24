@@ -1,6 +1,8 @@
 #ifndef IGLOO_TESTFIXTURERUNNER_H
 #define IGLOO_TESTFIXTURERUNNER_H
 
+#include <list>
+
 namespace igloo {
  
   struct TestFixtureRunnerBase

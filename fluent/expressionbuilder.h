@@ -117,7 +117,7 @@ namespace igloo {
       typedef ExpressionBuilder<typename type_concat<ConstraintListType, AllOperatorNode>::t> builder_type;
       AllOperator op;
       AllOperatorNode node(op, Nil());
-      return builder_type(concat(m_constraint_list, node));
+      return builder_type(Concatenate(m_constraint_list, node));
     }
     
     ExpressionBuilder<typename type_concat<ConstraintListType, AndOperatorNode>::t> And()

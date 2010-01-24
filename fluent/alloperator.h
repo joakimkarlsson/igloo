@@ -6,7 +6,7 @@ namespace igloo {
   struct AllOperator : public ConstraintOperator
   {
     template <typename ConstraintListType, typename ActualType>
-    void evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
+    void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
     {
       while(!operators.empty())
       {

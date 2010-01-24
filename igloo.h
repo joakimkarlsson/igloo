@@ -18,7 +18,6 @@
 
 #include "fluent/fluent.h"
 
-#include "syntax.h"
 #include "assertionexception.h"
 #include "testfixture.h" 
 #include "testfixturerunner.h"
