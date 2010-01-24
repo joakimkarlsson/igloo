@@ -17,6 +17,11 @@ namespace igloo {
     
     void PerformOperation(ResultStack& result)
     {
+      if(result.size() < 1)
+      {
+        throw InvalidExpressionException("The expression contains a not operator without any operand");
+      }
+      
       bool right = result.top();
       result.pop();
             

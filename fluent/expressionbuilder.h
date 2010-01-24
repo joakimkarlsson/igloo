@@ -170,8 +170,12 @@ namespace igloo {
     std::ostringstream stm;
     StringizeConstraintList(builder.m_constraint_list, stm);
     std::string str = stm.str();
-    str.erase(str.end()-1, str.end());
-    str.erase(str.begin(), str.begin()+1);
+    
+    if(str.length() >= 2)
+    {
+      str.erase(str.end()-1, str.end());
+      str.erase(str.begin(), str.begin()+1);
+    }
     return str;
   }
   

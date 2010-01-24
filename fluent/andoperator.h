@@ -19,7 +19,7 @@ namespace igloo {
     {
       if(result.size() < 2)
       {
-        throw InvalidExpressionException("Too few arguments for and operator");
+        throw InvalidExpressionException("The expression contains an and operator with too few operands");
       }
       
       bool right = result.top();

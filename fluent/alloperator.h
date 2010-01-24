@@ -21,6 +21,11 @@ namespace igloo {
         
         EvaluateAllOperatorsOnStack(innerOperators, innerResult);
         
+        if(innerResult.empty())
+        {
+          throw InvalidExpressionException("The expression after an all operator does not yield any result");
+        }
+        
         if(!innerResult.top())
         {
           evaluation_result = false;

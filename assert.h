@@ -32,19 +32,22 @@ namespace igloo {
         op->PerformOperation(result);
         operators.pop();
       }
+        
+      if(result.empty())
+      {
+        throw InvalidExpressionException("The expression did not yield any result");
+      }
       
       if(!result.top())
       {
         std::string expected = Stringize(expression);
         throw AssertionException(CreateErrorText(expected, actual));
+      }      
       }
-        
-      }
-      catch (const InvalidExpressionException& exception) 
+      catch (const InvalidExpressionException& e) 
       {
-        std::cout << "Ouch! That was an invalid expression: " << exception.Message() << std::endl;
+        throw AssertionException("Malformed expression: \"" + Stringize(expression) + "\"\n" + e.Message());
       }
-      
     }
     
     template <typename ConstraintListType>

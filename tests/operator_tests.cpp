@@ -91,6 +91,10 @@ TestFixture(OperatorTests)
     v.push_back(5);
     
     Assert::That(v, Is().All().GreaterThan(1).Or().LessThan(4));
-    
+  }
+  
+  TestMethod(MalformedExpressionYieldsError)
+  {
+    AssertTestFails(Assert::That(4, Is().Not()), "The expression contains a not operator without any operand");
   }
 };

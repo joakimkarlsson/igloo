@@ -17,6 +17,11 @@ namespace igloo {
     
     void PerformOperation(ResultStack& result)
     {
+      if(result.size() < 2)
+      {
+        throw InvalidExpressionException("The expression contains an or operator with too few operands");
+      }
+      
       bool right = result.top();
       result.pop();
       bool left = result.top();
