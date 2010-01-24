@@ -13,7 +13,6 @@ namespace igloo {
     typedef HT HeadType;
     typedef TT TailType;
     
-    ConstraintList() {}
     ConstraintList(const HeadType& head, const TailType& tail) 
     : m_head(head), m_tail(tail)
     {
@@ -49,20 +48,21 @@ namespace igloo {
   }
   
   template <typename L1, typename L2, typename L3>
-  inline void tr_concat(const L1& a, const L2& b, L3& result)
+  inline void tr_concat(const L1& a, const L2& b)
   {
-    result.m_head = a.m_head;
-    tr_concat(a.m_tail, b, result.m_tail);
+    L3 result(a.m_head, Nil());
+    result.m_tail = tr_concat(a.m_tail, b);
+    return result;
   }
   
   template <typename L2, typename L3>
-  inline void tr_concat(const Nil& a, const L2& b, L3& result)
+  inline void tr_concat(const Nil& a, const L2& b)
   {
-    result.m_head = b.m_head;
-    tr_concat(a, b.m_tail, result.m_tail);
+    L3 result(b.m_head, Nil());
+    result.m_tail = tr_concat(a, b.m_tail);
   }
   
-  template <typename L3> inline void tr_concat(const Nil&, const Nil&, L3& result) {}  
+  template <typename L3> inline L3 tr_concat(const Nil&, const Nil&) { return Nil(); }  
   
   // ---- Evaluation of list of constraints
   

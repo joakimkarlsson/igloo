@@ -6,7 +6,6 @@ namespace igloo {
   template <typename ConstraintType>
   struct ConstraintAdapter
   {
-    ConstraintAdapter() {}
     ConstraintAdapter(const ConstraintType& constraint) : m_constraint(constraint)
     {
     }
