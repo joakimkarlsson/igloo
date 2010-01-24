@@ -48,7 +48,11 @@ namespace igloo {
         operators.pop();
       }
       
-      std::cout << "Test result: " << result.top() << std::endl;      
+      if(!result.top())
+      {
+        std::string expected = Stringize(expression);
+        throw AssertionException(CreateErrorText(expected, actual));
+      }
     }
     
     template <typename ActualType, typename ExpressionType>

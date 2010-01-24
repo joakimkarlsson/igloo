@@ -6,7 +6,7 @@ TestFixture(FluentTests)
 {
   TestMethod(SimpleEqualsContraints)
   {
-    Assert::That(5, Iz().EqualTo(5));
+    Assert::That(5, Iz().EqualTo(5).And().EqualTo(5).And().EqualTo(5));
   }
 };
 

@@ -34,7 +34,7 @@ namespace igloo {
     
     ExpressionBuilder<typename type_concat<ConstraintListType, AndOperatorNode>::t> And()
     {
-      ExpressionBuilder<typename type_concat<ConstraintListType, AndOperatorNode>::t> builder_type;
+      typedef ExpressionBuilder<typename type_concat<ConstraintListType, AndOperatorNode>::t> builder_type;
       AndOperator op;
       AndOperatorNode node(op, Nil());
       return builder_type(concat(m_constraint_list, node));
