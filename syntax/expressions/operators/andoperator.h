@@ -1,9 +1,9 @@
-#ifndef IGLOO_ANDOPERATOR_H
-#define	IGLOO_ANDOPERATOR_H
+#ifndef IGLOO_ANDOPERATOR_OLD_H
+#define	IGLOO_ANDOPERATOR_OLD_H
 
 namespace igloo {
 
-  class AndOperator : public Operator {
+  class AndOperator_OLD : public Operator {
   public:
 
     virtual void Evaluate(std::stack<bool>& boolStack) const
@@ -23,7 +23,7 @@ namespace igloo {
     }
   }; 
 
-	inline std::string Stringize(const AndOperator&)
+	inline std::string Stringize(const AndOperator_OLD&)
 	{
 		return "and";
 	}

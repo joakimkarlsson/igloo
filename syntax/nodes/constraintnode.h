@@ -12,9 +12,9 @@ namespace igloo {
     explicit ConstraintNode(const ExpressionItemType& expressionItem) : Base(expressionItem) {}
     ConstraintNode(const ConstraintNode<ExpressionItemType>& rhs) : Base(rhs) {}
 
-    BinaryNode<ExpressionItem<AndOperator, ExpressionItemType> > And()
+    BinaryNode<ExpressionItem<AndOperator_OLD, ExpressionItemType> > And()
     {
-      return CreateNode<AndOperator>();
+      return CreateNode<AndOperator_OLD>();
     }
 
     BinaryNode<ExpressionItem<OrOperator, ExpressionItemType> > Or()

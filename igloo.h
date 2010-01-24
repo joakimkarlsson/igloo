@@ -21,6 +21,8 @@
 #include "constraints/startswithconstraint.h"
 #include "constraints/endswithconstraint.h"
 
+#include "fluent/fluent.h"
+
 #define TestFixture(fixture) \
 struct fixture; \
 struct TestFixtureRegistrar##fixture \

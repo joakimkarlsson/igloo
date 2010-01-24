@@ -6,13 +6,13 @@
 namespace igloo {
        
   typedef std::stack<bool> ResultStack;
-  typedef std::stack<const Operator*> OperatorStack;
+  typedef std::stack<const Operator*> OperatorStack_;
 
   template <typename ExpressionType, typename ExpressionItemType>
     struct expression_evaluation_trait
   {
     template <typename ActualType>
-    static void Evaluate(const ExpressionType& expression, const ActualType& actual, ResultStack& resultStack, OperatorStack&)
+    static void Evaluate(const ExpressionType& expression, const ActualType& actual, ResultStack& resultStack, OperatorStack_&)
     {
       resultStack.push(expression(actual));
     }
@@ -22,7 +22,7 @@ namespace igloo {
     struct expression_evaluation_trait<NotOperator, ExpressionItemType>
   {
     template <typename ActualType>
-    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack_& operatorStack)
     {
       expression.Evaluate(operatorStack, resultStack);
     }
@@ -32,17 +32,17 @@ namespace igloo {
     struct expression_evaluation_trait<OrOperator, ExpressionItemType>
   {
     template <typename ActualType>
-    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack_& operatorStack)
     {
       expression.Evaluate(operatorStack, resultStack);
     }
   };
 
   template <typename ExpressionItemType>
-    struct expression_evaluation_trait<AndOperator, ExpressionItemType>
+    struct expression_evaluation_trait<AndOperator_OLD, ExpressionItemType>
   {
     template <typename ActualType>
-    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack& operatorStack)
+    static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack_& operatorStack)
     {
       expression.Evaluate(operatorStack, resultStack);
     }
@@ -52,7 +52,7 @@ namespace igloo {
   {
   public:
     template <typename ActualType>
-      void Evaluate(const ActualType&, ResultStack&, OperatorStack&) const
+      void Evaluate(const ActualType&, ResultStack&, OperatorStack_&) const
     {
     }
 
@@ -72,7 +72,7 @@ namespace igloo {
       bool Evaluate(const ActualType& actual) const
     {
       ResultStack resultStack;
-      OperatorStack operatorStack;
+      OperatorStack_ operatorStack;
 
       Evaluate(actual, resultStack, operatorStack);
       Operator::EvaluateOperatorsOnStack(operatorStack, resultStack);
@@ -92,7 +92,7 @@ namespace igloo {
     }
 
     template <typename ActualType>
-      void Evaluate(const ActualType& actual, ResultStack& resultStack, OperatorStack& operatorStack) const
+      void Evaluate(const ActualType& actual, ResultStack& resultStack, OperatorStack_& operatorStack) const
     {
       m_previous.Evaluate(actual, resultStack, operatorStack);
       expression_evaluation_trait<ExpressionType, MyType>::Evaluate(m_expression, actual, resultStack, operatorStack);

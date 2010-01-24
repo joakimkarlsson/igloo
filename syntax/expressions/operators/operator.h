@@ -5,11 +5,11 @@ namespace igloo {
 
    class Operator
    {
-     typedef std::stack<const Operator*> OperatorStack;
+     typedef std::stack<const Operator*> OperatorStack_;
      typedef std::stack<bool> ResultStack;
 
    public:
-     void Evaluate(OperatorStack& opStack, ResultStack& resultStack) const
+     void Evaluate(OperatorStack_& opStack, ResultStack& resultStack) const
      {
        if(IsLeftAssociative())
        {
@@ -19,7 +19,7 @@ namespace igloo {
        opStack.push(this);
      }
 
-     static void EvaluateOperatorsOnStack(OperatorStack& opStack, ResultStack& resultStack)
+     static void EvaluateOperatorsOnStack(OperatorStack_& opStack, ResultStack& resultStack)
      {
        while(!opStack.empty())
        {
