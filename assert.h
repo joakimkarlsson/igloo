@@ -34,6 +34,23 @@ namespace igloo {
       return That<std::string>(std::string(actual), node);
     }
     
+    template <typename ActualType, typename ConstraintListType>
+    static void That(const ActualType& actual, ExpressionBuilder<ConstraintListType> expression)
+    {
+      ResultStack result;
+      OperatorStack operators;
+      expression.Evaluate(result, operators, actual);
+      
+      while(!operators.empty())
+      {
+        ConstraintOperator* op = operators.top();
+        op->PerformOperation(result);
+        operators.pop();
+      }
+      
+      std::cout << "Test result: " << result.top() << std::endl;      
+    }
+    
     template <typename ActualType, typename ExpressionType>
     static void That(const ActualType& actual, const ExpressionType& evaluate)
     {

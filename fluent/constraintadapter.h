@@ -12,7 +12,7 @@ namespace igloo {
     }
     
     template <typename ConstraintListType, typename ActualType>
-    void evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
+    void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
     {
       result.push(m_constraint(actual));
       EvaluateConstraintList(list.m_tail, result, operators, actual);

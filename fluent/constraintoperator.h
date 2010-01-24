@@ -13,7 +13,7 @@ namespace igloo {
     Noop() {}
     Noop(const Noop&) {}
     template <typename ConstraintListType, typename ActualType> 
-    void evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual) 
+    void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual) 
     {
       EvaluateConstraintList(list.m_tail, result, operators, actual);
     }

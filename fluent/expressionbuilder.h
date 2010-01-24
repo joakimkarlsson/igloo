@@ -3,6 +3,10 @@
 
 namespace igloo {
   
+  typedef ConstraintList<AllOperator, Nil> AllOperatorNode;
+  typedef ConstraintList<AndOperator, Nil> AndOperatorNode;
+  
+  
   template <typename ConstraintListType>
   struct ExpressionBuilder
   {
@@ -11,35 +15,35 @@ namespace igloo {
     }
     
     template <typename ExpectedType>
-    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<ExpectedType> >, Nil> >::t > 
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<ExpectedType> >, Nil> >::t> 
       EqualTo(const ExpectedType& expected)
     {
       typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<ExpectedType> >, Nil> >::t > builder_type;
       ConstraintAdapter<EqualsConstraint<ExpectedType> > constraint(expected);
-      ConstraintList<ConstraintAdapter<EqualsConstraint<ExpectedType> >, Nil> list(constraint, Nil());
-      return builder_type(concat(m_constraint_list, list));
+      ConstraintList<ConstraintAdapter<EqualsConstraint<ExpectedType> >, Nil> node(constraint, Nil());
+      return builder_type(concat(m_constraint_list, node));
     }
     
-    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<AllOperator, Nil> >::t> All()
+    ExpressionBuilder<typename type_concat<ConstraintListType, AllOperatorNode>::t> All()
     {
-      typedef ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<AllOperator, Nil> >::t> builder_type;
+      typedef ExpressionBuilder<typename type_concat<ConstraintListType, AllOperatorNode>::t> builder_type;
       AllOperator op;
-      ConstraintList<AllOperator, Nil> list(op, Nil());
-      return builder_type(concat(m_constraint_list, list));
+      AllOperatorNode node(op, Nil());
+      return builder_type(concat(m_constraint_list, node));
     }
     
-    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<AndOperator, Nil> >::t> And()
+    ExpressionBuilder<typename type_concat<ConstraintListType, AndOperatorNode>::t> And()
     {
-      ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<AndOperator, Nil> >::t> builder_type;
+      ExpressionBuilder<typename type_concat<ConstraintListType, AndOperatorNode>::t> builder_type;
       AndOperator op;
-      ConstraintList<AndOperator, Nil> list(op, Nil());
-      return builder_type(concat(m_constraint_list, list));
+      AndOperatorNode node(op, Nil());
+      return builder_type(concat(m_constraint_list, node));
     }
     
     template <typename ActualType>
-    void evaluate(ResultStack& result, OperatorStack& operators, const ActualType& actual)
+    void Evaluate(ResultStack& result, OperatorStack& operators, const ActualType& actual)
     {
-      evaluate_list(m_constraint_list, result, operators, actual);
+      EvaluateConstraintList(m_constraint_list, result, operators, actual);
     }
     
     ConstraintListType m_constraint_list;

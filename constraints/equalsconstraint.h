@@ -7,6 +7,8 @@ namespace igloo {
 template< typename ExpectedType >
 	struct EqualsConstraint : Expression< EqualsConstraint<ExpectedType> >
 	{
+    EqualsConstraint() {}
+    EqualsConstraint(const EqualsConstraint& other) : m_expected(other.m_expected) {}
 		EqualsConstraint(const ExpectedType& expected)
 			: m_expected(expected)
 		{

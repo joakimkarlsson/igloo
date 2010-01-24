@@ -35,7 +35,7 @@ namespace igloo {
   template <typename L1, typename L2>
   struct type_concat
   {
-    typedef ConstraintList<typename L1::head_type, typename type_concat<typename L1::tail_type, L2>::t> t;
+    typedef ConstraintList<typename L1::HeadType, typename type_concat<typename L1::TailType, L2>::t> t;
   };
   
   template <typename L2> struct type_concat<Nil, L2> { typedef L2 t; };
@@ -51,8 +51,8 @@ namespace igloo {
   template <typename L1, typename L2, typename L3>
   inline void tr_concat(const L1& a, const L2& b, L3& result)
   {
-    result.head_ = a.head_;
-    tr_concat(a.tail_, b, result.tail_);
+    result.m_head = a.m_head;
+    tr_concat(a.m_tail, b, result.m_tail);
   }
   
   template <typename L2, typename L3>

@@ -23,6 +23,13 @@ namespace igloo {
       RootNode node;
       return node;
     }
+    
+    typedef ConstraintList<Noop, Nil> EmptyConstraintList;
+    
+    ExpressionBuilder<EmptyConstraintList> Iz()
+    {
+      return EmptyConstraintList(Noop(), Nil());
+    }
   };
   
   template <typename FixtureType>

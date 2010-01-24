@@ -5,14 +5,9 @@
 #include <map>
 #include <vector>
 #include <sstream>
+#include <stack>
 
-#include "syntax.h"
-#include "assertionexception.h"
-#include "testfixture.h" 
-#include "testfixturerunner.h"
-#include "testrunner.h"
-#include "assert.h"                
-
+#include "stringize.h"
 #include "constraints/equalsconstraint.h"
 #include "constraints/isgreaterthanconstraint.h"
 #include "constraints/islessthanconstraint.h"       
@@ -22,6 +17,15 @@
 #include "constraints/endswithconstraint.h"
 
 #include "fluent/fluent.h"
+
+#include "syntax.h"
+#include "assertionexception.h"
+#include "testfixture.h" 
+#include "testfixturerunner.h"
+#include "testrunner.h"
+#include "assert.h"                
+
+
 
 #define TestFixture(fixture) \
 struct fixture; \
