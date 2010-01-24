@@ -83,4 +83,14 @@ TestFixture(OperatorTests)
   {
     Assert::That(5, IsGreaterThan(4)&& !IsLessThan(3));
   }
+  
+  TestMethod(ShouldHandleAllOperator)
+  {
+    std::vector<int> v;
+    v.push_back(3);
+    v.push_back(5);
+    
+    Assert::That(v, Is().All().GreaterThan(1).Or().LessThan(4));
+    
+  }
 };

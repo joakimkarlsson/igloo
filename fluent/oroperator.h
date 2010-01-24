@@ -8,7 +8,9 @@ namespace igloo {
     template <typename ConstraintListType, typename ActualType>
     void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
     {
-      EvaluateOperatorsOnStack(operators, result);  
+      EvaluateOperatorsWithLessOrEqualPrecedence(operators, result); 
+      
+      operators.push(this);
       
       EvaluateConstraintList(list.m_tail, result, operators, actual);
     }

@@ -9,7 +9,7 @@ namespace igloo {
     virtual int Precedence() = 0;
     
   protected:
-    void EvaluateOperatorsOnStack(OperatorStack& operators, ResultStack& result)
+    void EvaluateOperatorsWithLessOrEqualPrecedence(OperatorStack& operators, ResultStack& result)
     {
       while(!operators.empty())
       {
@@ -23,8 +23,16 @@ namespace igloo {
         op->PerformOperation(result);        
         operators.pop();
       }      
-      
-      operators.push(this);
+    }
+    
+    static void EvaluateAllOperatorsOnStack(OperatorStack& operators, ResultStack& result)
+    {
+      while(!operators.empty())
+      {
+        ConstraintOperator* op = operators.top();
+        op->PerformOperation(result);        
+        operators.pop();
+      } 
     }
   };
   
