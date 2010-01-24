@@ -17,26 +17,12 @@ namespace igloo {
   class Assert
   {
   public:
-    template <typename ActualType, typename SyntaxNodeType>
-    static void That(const ActualType& actual, const ConstraintNode<SyntaxNodeType>& statement)
-    {
-      if (!statement.Evaluate(actual))
-      {
-        std::string str;
-        statement.ToString(str);
-        throw AssertionException(CreateErrorText(str, actual));
-      }
-    }
-    
-    template <typename SyntaxNodeType>
-    static void That(const char* actual, const ConstraintNode<SyntaxNodeType>& node)
-    {
-      return That<std::string>(std::string(actual), node);
-    }
     
     template <typename ActualType, typename ConstraintListType>
     static void That(const ActualType& actual, ExpressionBuilder<ConstraintListType> expression)
     {
+      try 
+      {
       ResultStack result;
       OperatorStack operators;
       expression.Evaluate(result, operators, actual);
@@ -53,6 +39,19 @@ namespace igloo {
         std::string expected = Stringize(expression);
         throw AssertionException(CreateErrorText(expected, actual));
       }
+        
+      }
+      catch (const InvalidExpressionException& exception) 
+      {
+        std::cout << "Ouch! That was an invalid expression: " << exception.Message() << std::endl;
+      }
+      
+    }
+    
+    template <typename ConstraintListType>
+    static void That(const char* actual, ExpressionBuilder<ConstraintListType> expression)
+    {
+      return That<std::string>(std::string(actual), expression);
     }
     
     template <typename ActualType, typename ExpressionType>

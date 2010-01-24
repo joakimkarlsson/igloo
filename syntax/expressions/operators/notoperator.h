@@ -1,8 +1,8 @@
-#ifndef IGLOO_NOTOPERATOR_H
-#define	IGLOO_NOTOPERATOR_H
+#ifndef IGLOO_NOTOPERATOR_OLD_H
+#define	IGLOO_NOTOPERATOR_OLD_H
 
 namespace igloo {
-   class NotOperator : public Operator
+   class NotOperator_Old : public Operator
    {
    public:
 
@@ -19,7 +19,7 @@ namespace igloo {
       }
    }; 
 
-	inline std::string Stringize(const NotOperator&)
+	inline std::string Stringize(const NotOperator_Old&)
 	{
 		return "not";
 	}

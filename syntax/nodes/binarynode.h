@@ -7,14 +7,14 @@ namespace igloo {
     class BinaryNode : public ConstraintOperations<ExpressionItemType>
   {
     typedef ConstraintOperations<ExpressionItemType> Base;
-    typedef ExpressionItem<NotOperator, ExpressionItemType> NextExpressionItemType;
+    typedef ExpressionItem<NotOperator_Old, ExpressionItemType> NextExpressionItemType;
  
   public:
     explicit BinaryNode(const ExpressionItemType& expressionItem) : Base(expressionItem) {}
 
     UnaryNode<NextExpressionItemType> Not()
     {
-      return UnaryNode<NextExpressionItemType>(NextExpressionItemType(NotOperator(), Base::m_expressionItem));
+      return UnaryNode<NextExpressionItemType>(NextExpressionItemType(NotOperator_Old(), Base::m_expressionItem));
     }
   };
 

@@ -17,9 +17,9 @@ namespace igloo {
       return CreateNode<AndOperator_OLD>();
     }
 
-    BinaryNode<ExpressionItem<OrOperator, ExpressionItemType> > Or()
+    BinaryNode<ExpressionItem<OrOperator_Old, ExpressionItemType> > Or()
     {
-      return CreateNode<OrOperator>();
+      return CreateNode<OrOperator_Old>();
     }
 
     template <typename ActualType>

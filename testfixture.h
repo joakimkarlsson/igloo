@@ -17,16 +17,10 @@ namespace igloo {
     virtual void TearDown()
     {
     }
-
-    RootNode Is()
-    {
-      RootNode node;
-      return node;
-    }
     
     typedef ConstraintList<Noop, Nil> EmptyConstraintList;
     
-    ExpressionBuilder<EmptyConstraintList> Iz()
+    ExpressionBuilder<EmptyConstraintList> Is()
     {
       return EmptyConstraintList(Noop(), Nil());
     }

@@ -6,6 +6,26 @@ namespace igloo {
   struct ConstraintOperator
   {
     virtual void PerformOperation(ResultStack& result) = 0;
+    virtual int Precedence() = 0;
+    
+  protected:
+    void EvaluateOperatorsOnStack(OperatorStack& operators, ResultStack& result)
+    {
+      while(!operators.empty())
+      {
+        ConstraintOperator* op = operators.top();
+        
+        if(op->Precedence() > Precedence())
+        {
+          break;
+        }
+        
+        op->PerformOperation(result);        
+        operators.pop();
+      }      
+      
+      operators.push(this);
+    }
   };
   
   struct Noop
@@ -17,6 +37,25 @@ namespace igloo {
     {
       EvaluateConstraintList(list.m_tail, result, operators, actual);
     }
+  };
+  
+  inline std::string Stringize(const Noop&)
+  {
+    return "";
+  }  
+  
+  struct InvalidExpressionException
+  {
+    InvalidExpressionException(const std::string& message) : m_message(message)
+    {
+    }
+    
+    const std::string& Message() const
+    {
+      return m_message;
+    }
+    
+    std::string m_message;
   };
   
 }

@@ -19,7 +19,7 @@ namespace igloo {
   };
 
   template <typename ExpressionItemType>
-    struct expression_evaluation_trait<NotOperator, ExpressionItemType>
+    struct expression_evaluation_trait<NotOperator_Old, ExpressionItemType>
   {
     template <typename ActualType>
     static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack_& operatorStack)
@@ -29,7 +29,7 @@ namespace igloo {
   };     
  
   template <typename ExpressionItemType>
-    struct expression_evaluation_trait<OrOperator, ExpressionItemType>
+    struct expression_evaluation_trait<OrOperator_Old, ExpressionItemType>
   {
     template <typename ActualType>
     static void Evaluate(const Operator& expression, const ActualType&, ResultStack& resultStack, OperatorStack_& operatorStack)

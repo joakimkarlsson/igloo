@@ -5,7 +5,9 @@
 #include "constraintadapter.h"
 #include "constraintoperator.h"
 #include "andoperator.h"
+#include "oroperator.h"
 #include "alloperator.h"
+#include "notoperator.h"
 #include "expressionbuilder.h"
 
 #endif

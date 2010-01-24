@@ -1,42 +1,37 @@
-#ifndef IGLOO_ANDOPERATOR_H
-#define IGLOO_ANDOPERATOR_H
+#ifndef IGLOO_OROPERATOR_H
+#define IGLOO_OROPERATOR_H
 
 namespace igloo {
   
-  struct AndOperator : public ConstraintOperator
+  struct OrOperator : public ConstraintOperator
   {
     template <typename ConstraintListType, typename ActualType>
     void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
     {
-      EvaluateOperatorsOnStack(operators, result);
+      EvaluateOperatorsOnStack(operators, result);  
       
       EvaluateConstraintList(list.m_tail, result, operators, actual);
     }
     
     void PerformOperation(ResultStack& result)
     {
-      if(result.size() < 2)
-      {
-        throw InvalidExpressionException("Too few arguments for and operator");
-      }
-      
       bool right = result.top();
       result.pop();
       bool left = result.top();
       result.pop();
       
-      result.push(left && right);
+      result.push(left || right);
     }
     
     int Precedence()
     {
-      return 3;
+      return 4;
     }
   };
   
-  inline std::string Stringize(const AndOperator&)
+  inline std::string Stringize(const OrOperator&)
   {
-    return "and";
+    return "or";
   }
   
 }

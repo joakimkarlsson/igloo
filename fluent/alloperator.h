@@ -40,7 +40,17 @@ namespace igloo {
     void PerformOperation(ResultStack& result)
     {   
     }
+    
+    int Precedence()
+    {
+      return 1;
+    }
   };
+  
+  inline std::string Stringize(const AllOperator&)
+  {
+    return "all";
+  }
   
 }
 
