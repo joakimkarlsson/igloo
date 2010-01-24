@@ -41,22 +41,40 @@ namespace igloo {
   
   template <typename L3> inline L3 tr_concat(const Nil&, const Nil&) { return Nil(); }    
   
-  template <typename L1, typename L2, typename L3>
-  inline L3 tr_concat(const Nil& a, const L2& b)
+  template <typename LeftList, typename RightList, typename ResultList>
+  struct ListConcat
   {
-    return L3(b.m_head, tr_concat<typename type_concat<Nil, typename L2::TailType>::t>(a, b.m_tail));
-  }
+    static ResultList Concatenate(const LeftList& left, const RightList& right)
+    {
+      return ResultList(left.m_head, ListConcat<LeftList::TailType, RightList, typename type_concat< typename LeftList::TailType, RightList>::t>::Concatenate(left.m_tail, right));
+    }
+  };
+  
+  // Concatenating an empty list with a second list yields the second list
+  template <typename RightList, typename ResultList>
+  struct ListConcat<Nil, RightList, ResultList>
+  {
+    static ResultList Concatenate(const Nil& left, const RightList& right)
+    {
+      return ResultList(right.m_head, ListConcat<Nil, RightList::TailType, typename type_concat<Nil, RightList::TailType>::t>::Concatenate(left, right.m_tail));
+    }
     
-  template <typename L1, typename L2, typename L3>
-  inline L3 tr_concat(const L1& a, const L2& b)
+  };
+   
+  // Concatenating two empty lists yields an empty list
+  template <typename ResultList>
+  struct ListConcat<Nil, Nil, ResultList>
   {
-    return L3(a.m_head, tr_concat<typename L1::TailType, L2, typename type_concat< typename L1::TailType, L2>::t>(a.m_tail, b));
-  }  
+    static ResultList Concatenate(const Nil& left, const Nil& right)
+    {
+      return Nil();
+    }
+  }; 
   
   template <typename L1, typename L2>
-  inline typename type_concat<L1, L2>::t concat(const L1& list1, const L2& list2)
+  inline typename type_concat<L1, L2>::t Concatenate(const L1& list1, const L2& list2)
   {
-    return tr_concat<L1, L2, typename type_concat<L1, L2>::t>(list1, list2);
+    return ListConcat<L1, L2, typename type_concat<L1, L2>::t>::Concatenate(list1, list2);
   }
               
   // ---- Evaluation of list of constraints

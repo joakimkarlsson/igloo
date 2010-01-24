@@ -10,3 +10,14 @@ TestFixture(FluentTests)
   }
 };
 
+TestFixture(ConstraintListTests)
+{
+  TestMethod(CanConcatenateNilWithNil)
+  {
+    Nil list1;
+    Nil list2;
+    
+    type_concat<Nil, Nil>::t result = Concatenate(list1, list2);
+  }
+};
+
