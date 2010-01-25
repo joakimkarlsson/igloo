@@ -1,5 +1,5 @@
-#ifndef INCLUDED_EQUALSCONSTRAINT_H
-#define INCLUDED_EQUALSCONSTRAINT_H
+#ifndef IGLOO_EQUALSCONSTRAINT_H
+#define IGLOO_EQUALSCONSTRAINT_H
 
 #include "expressions/expression.h"
 
