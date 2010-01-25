@@ -29,10 +29,9 @@ namespace igloo {
   };
   
 
-  // ---- List concatenation
-  
-  template <typename L1, typename L2>
-  struct type_concat
+  // ---- These structs defines the resulting types of list concatenation operations
+  template <typename L1, typename L2> 
+  struct type_concat 
   {
     typedef ConstraintList<typename L1::HeadType, typename type_concat<typename L1::TailType, L2>::t> t;
   };
@@ -40,6 +39,9 @@ namespace igloo {
   template <typename L2> struct type_concat<Nil, L2> { typedef L2 t; };
   
   template <typename L3> inline L3 tr_concat(const Nil&, const Nil&) { return Nil(); }    
+  
+  
+  // ---- These structs define the concatenation operations.
   
   template <typename LeftList, typename RightList, typename ResultList>
   struct ListConcat
@@ -56,7 +58,7 @@ namespace igloo {
   {
     static ResultList Concatenate(const Nil& left, const RightList& right)
     {
-      return ResultList(right.m_head, ListConcat<Nil, RightList::TailType, typename type_concat<Nil, RightList::TailType>::t>::Concatenate(left, right.m_tail));
+      return right;
     }
     
   };
@@ -71,23 +73,13 @@ namespace igloo {
     }
   }; 
   
+  // ---- The concatenation operation
+  
   template <typename L1, typename L2>
   inline typename type_concat<L1, L2>::t Concatenate(const L1& list1, const L2& list2)
   {
     return ListConcat<L1, L2, typename type_concat<L1, L2>::t>::Concatenate(list1, list2);
   }
-              
-  // ---- Evaluation of list of constraints
-  
-  template <typename ConstraintListType, typename ActualType> 
-  inline void EvaluateConstraintList(ConstraintListType& constraint_list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
-  {
-    constraint_list.m_head.Evaluate(constraint_list, result, operators, actual);
-  }
-  
-  template <typename ActualType>
-  inline void EvaluateConstraintList(Nil&, ResultStack&, OperatorStack&, const ActualType&) {}
-
 }
 
 #endif

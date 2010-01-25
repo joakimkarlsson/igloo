@@ -8,6 +8,17 @@ namespace igloo {
   typedef ConstraintList<OrOperator, Nil> OrOperatorNode;
   typedef ConstraintList<NotOperator, Nil> NotOperatorNode;
   
+  // ---- Evaluation of list of constraints
+  
+  template <typename ConstraintListType, typename ActualType> 
+  inline void EvaluateConstraintList(ConstraintListType& constraint_list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
+  {
+    constraint_list.m_head.Evaluate(constraint_list, result, operators, actual);
+  }
+  
+  template <typename ActualType>
+  inline void EvaluateConstraintList(Nil&, ResultStack&, OperatorStack&, const ActualType&) {}
+  
   
   template <typename ConstraintListType>
   struct ExpressionBuilder
