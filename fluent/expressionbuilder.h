@@ -3,11 +3,6 @@
 
 namespace igloo {
   
-  typedef ConstraintList<AllOperator, Nil> AllOperatorNode;
-  typedef ConstraintList<AndOperator, Nil> AndOperatorNode;
-  typedef ConstraintList<OrOperator, Nil> OrOperatorNode;
-  typedef ConstraintList<NotOperator, Nil> NotOperatorNode;
-  
   // ---- Evaluation of list of constraints
   
   template <typename ConstraintListType, typename ActualType> 
@@ -31,11 +26,12 @@ namespace igloo {
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<ExpectedType> >, Nil> >::t> 
       EqualTo(const ExpectedType& expected)
     {
-      typedef ConstraintAdapter<EqualsConstraint<ExpectedType> > ConstraintAdapterType;
-      
+      typedef ConstraintAdapter<EqualsConstraint<ExpectedType> > ConstraintAdapterType;      
       typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > builder_type;
+      
       ConstraintAdapterType constraint(expected);
       ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
+      
       return builder_type(Concatenate(m_constraint_list, node));
     }
     
@@ -91,13 +87,19 @@ namespace igloo {
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EndsWithConstraint<ExpectedType> >, Nil> >::t> 
       EndingWith(const ExpectedType& expected)
     {
-      typedef ConstraintAdapter<EndsWithConstraint<ExpectedType> > ConstraintAdapterType;
-      
+      typedef ConstraintAdapter<EndsWithConstraint<ExpectedType> > ConstraintAdapterType;      
       typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > builder_type;
+      
       ConstraintAdapterType constraint(expected);
       ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
       return builder_type(Concatenate(m_constraint_list, node));
     } 
+    
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EndsWithConstraint<std::string> >, Nil> >::t> 
+      EndingWith(const char* expected)
+    {
+      return EndingWith(std::string(expected));
+    }    
     
     template <typename ExpectedType>
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<StartsWithConstraint<ExpectedType> >, Nil> >::t> 
@@ -109,7 +111,13 @@ namespace igloo {
       ConstraintAdapterType constraint(expected);
       ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
       return builder_type(Concatenate(m_constraint_list, node));
-    }  
+    } 
+    
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<StartsWithConstraint<std::string> >, Nil> >::t> 
+      StartingWith(const char* expected)
+    {
+      return StartingWith(std::string(expected));
+    }
     
     template <typename ExpectedType>
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<HasLengthConstraint<ExpectedType> >, Nil> >::t> 
@@ -122,6 +130,12 @@ namespace igloo {
       ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
       return builder_type(Concatenate(m_constraint_list, node));
     }      
+    
+    
+    typedef ConstraintList<AllOperator, Nil> AllOperatorNode;
+    typedef ConstraintList<AndOperator, Nil> AndOperatorNode;
+    typedef ConstraintList<OrOperator, Nil> OrOperatorNode;
+    typedef ConstraintList<NotOperator, Nil> NotOperatorNode;
     
     ExpressionBuilder<typename type_concat<ConstraintListType, AllOperatorNode>::t> All()
     {
