@@ -108,10 +108,11 @@ TestFixture(OperatorTests)
   }
 };
 
-TestFixture(AllOperatorTests)
+TestFixture(ContainerOperatorTests)
 {
    void SetUp()
    {
+      container.clear();
       container.push_back(3);
       container.push_back(5);
    }
@@ -136,5 +137,17 @@ TestFixture(AllOperatorTests)
       AssertTestFails(Assert::That(container, Is().All()), "The expression after an all operator does not yield any result");
    }
 
+   TestMethod(ShouldHandleAtLeastOperator)
+   {
+      Assert::That(container, Is().AtLeast(1).LessThan(5));
+   }
+
+   TestMethod(ShouldHandleFailingAtLeastOperator)
+   {
+      AssertTestFails(Assert::That(container, Is().AtLeast(2).LessThan(5)), "Expected: at least 2 less than 5");
+   }
+
    std::list<int> container;
 };
+
+

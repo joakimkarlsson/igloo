@@ -3,11 +3,12 @@
 
 #include "constraintlist.h"
 #include "constraintadapter.h"
-#include "constraintoperator.h"
-#include "andoperator.h"
-#include "oroperator.h"
-#include "alloperator.h"
-#include "notoperator.h"
+#include "operators/constraintoperator.h"
+#include "operators/andoperator.h"
+#include "operators/oroperator.h"
+#include "operators/collections/alloperator.h"
+#include "operators/collections/atleastoperator.h"
+#include "operators/notoperator.h"
 #include "expressionbuilder.h"
 
 #endif
