@@ -21,6 +21,11 @@ namespace igloo {
     {
       return ExpressionBuilder<Nil>(Nil());
     }
+
+    ExpressionBuilder<Nil> Has()
+    {
+       return ExpressionBuilder<Nil>(Nil());
+    }
   };
   
   template <typename FixtureType>

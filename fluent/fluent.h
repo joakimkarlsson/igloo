@@ -8,6 +8,7 @@
 #include "operators/oroperator.h"
 #include "operators/collections/alloperator.h"
 #include "operators/collections/atleastoperator.h"
+#include "operators/collections/exactlyoperator.h"
 #include "operators/notoperator.h"
 #include "expressionbuilder.h"
 

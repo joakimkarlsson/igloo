@@ -137,6 +137,7 @@ namespace igloo {
     typedef ConstraintList<NotOperator, Nil> NotOperatorNode;
     typedef ConstraintList<AllOperator, Nil> AllOperatorNode;
     typedef ConstraintList<AtLeastOperator, Nil> AtLeastOperatorNode;
+    typedef ConstraintList<ExactlyOperator, Nil> ExactlyOperatorNode;
     
     ExpressionBuilder<typename type_concat<ConstraintListType, AllOperatorNode>::t> All()
     {
@@ -151,6 +152,14 @@ namespace igloo {
       typedef ExpressionBuilder<typename type_concat<ConstraintListType, AtLeastOperatorNode>::t> builder_type;
       AtLeastOperator op(expected);
       AtLeastOperatorNode node(op, Nil());
+      return builder_type(Concatenate(m_constraint_list, node));
+    }
+
+    ExpressionBuilder<typename type_concat<ConstraintListType, ExactlyOperatorNode>::t> Exactly(unsigned int expected)
+    {
+      typedef ExpressionBuilder<typename type_concat<ConstraintListType, ExactlyOperatorNode>::t> builder_type;
+      ExactlyOperator op(expected);
+      ExactlyOperatorNode node(op, Nil());
       return builder_type(Concatenate(m_constraint_list, node));
     }
     

@@ -119,32 +119,42 @@ TestFixture(ContainerOperatorTests)
 
    TestMethod(ShouldHandleAllOperator)
    {
-       Assert::That(container, Is().All().GreaterThan(1).Or().LessThan(4));
+       Assert::That(container, Has().All().GreaterThan(1).Or().LessThan(4));
    }
 
    TestMethod(ShouldHandleFailingAllOperator)
    {
-      AssertTestFails(Assert::That(container, Is().All().GreaterThan(4)), "Expected: all greater than 4");
+      AssertTestFails(Assert::That(container, Has().All().GreaterThan(4)), "Expected: all greater than 4");
    }
 
    TestMethod(SHouldHandleInvalidExpressionAfterAllOperator)
    {
-      AssertTestFails(Assert::That(container, Is().All().Not()), "The expression contains a not operator without any operand");
+      AssertTestFails(Assert::That(container, Has().All().Not()), "The expression contains a not operator without any operand");
    }
 
    TestMethod(ShouldHandleNoExpressionAfterAllOperator)
    {
-      AssertTestFails(Assert::That(container, Is().All()), "The expression after an all operator does not yield any result");
+      AssertTestFails(Assert::That(container, Has().All()), "The expression after an all operator does not yield any result");
    }
 
    TestMethod(ShouldHandleAtLeastOperator)
    {
-      Assert::That(container, Is().AtLeast(1).LessThan(5));
+      Assert::That(container, Has().AtLeast(1).LessThan(5));
    }
 
    TestMethod(ShouldHandleFailingAtLeastOperator)
    {
-      AssertTestFails(Assert::That(container, Is().AtLeast(2).LessThan(5)), "Expected: at least 2 less than 5");
+      AssertTestFails(Assert::That(container, Has().AtLeast(2).LessThan(5)), "Expected: at least 2 less than 5");
+   }
+
+   TestMethod(ShouldHandleExactlyOperator)
+   {
+      Assert::That(container, Has().Exactly(1).EqualTo(3));
+   }
+
+   TestMethod(ShouldHandleFailingExactlyOperator)
+   {
+      AssertTestFails(Assert::That(container, Has().Exactly(2).EqualTo(3)), "Expected: exactly 2 equal to 3");
    }
 
    std::list<int> container;
