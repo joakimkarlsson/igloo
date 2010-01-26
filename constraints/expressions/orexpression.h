@@ -1,5 +1,5 @@
-#ifndef INCLUDED_OREXPRESSION_H
-#define INCLUDED_OREXPRESSION_H
+#ifndef IGLOO_OREXPRESSION_H
+#define IGLOO_OREXPRESSION_H
 
 #include "expression_fwd.h"
        

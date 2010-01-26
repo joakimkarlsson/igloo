@@ -1,5 +1,5 @@
-#ifndef INCLUDED_NOTEXPRESSION_H
-#define INCLUDED_NOTEXPRESSION_H
+#ifndef IGLOO_NOTEXPRESSION_H
+#define IGLOO_NOTEXPRESSION_H
   
 #include "expression_fwd.h"
 

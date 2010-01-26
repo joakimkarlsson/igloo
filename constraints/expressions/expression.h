@@ -1,5 +1,5 @@
-#ifndef INCLUDED_EXPRESSION_H
-#define INCLUDED_EXPRESSION_H
+#ifndef IGLOO_EXPRESSION_H
+#define IGLOO_EXPRESSION_H
 
 #include "notexpression.h"
 #include "andexpression.h"

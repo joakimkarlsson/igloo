@@ -1,5 +1,5 @@
-#ifndef INCLUDED_ANDEXPRESSION_H
-#define INCLUDED_ANDEXPRESSION_H
+#ifndef IGLOO_ANDEXPRESSION_H
+#define IGLOO_ANDEXPRESSION_H
 
 #include "expression_fwd.h"
 
