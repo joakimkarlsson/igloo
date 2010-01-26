@@ -14,11 +14,19 @@ namespace igloo {
       typename ActualType::const_iterator it;
       for(it = actual.begin(); it != actual.end(); it++)
       {
+         EvaluateOneElementAgainstRestOfExpression(list, *it);
+      }
+      
+      result.push(evaluation_result); 
+    }
+
+    template <typename ConstraintListType, typename ActualType>
+    bool EvaluateOneElementAgainstRestOfExpression(ConstraintListType& list, const ActualType& actual)
+    {
         ResultStack innerResult;
         OperatorStack innerOperators;
         
-        EvaluateConstraintList(list.m_tail, innerResult, innerOperators, *it);
-        
+        EvaluateConstraintList(list.m_tail, innerResult, innerOperators, actual);        
         EvaluateAllOperatorsOnStack(innerOperators, innerResult);
         
         if(innerResult.empty())
@@ -26,15 +34,7 @@ namespace igloo {
           throw InvalidExpressionException("The expression after an all operator does not yield any result");
         }
         
-        if(!innerResult.top())
-        {
-          evaluation_result = false;
-          break;
-        }
-        
-      }
-      
-      result.push(evaluation_result); 
+        return innerResult.top();
     }
     
     void PerformOperation(ResultStack& result)
