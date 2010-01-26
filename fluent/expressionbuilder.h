@@ -196,10 +196,9 @@ namespace igloo {
     StringizeConstraintList(builder.m_constraint_list, stm);
     std::string str = stm.str();
     
-    if(str.length() >= 2)
+    if(str.length() >= 1)
     {
       str.erase(str.end()-1, str.end());
-      str.erase(str.begin(), str.begin()+1);
     }
     return str;
   }

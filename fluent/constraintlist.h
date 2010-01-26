@@ -3,7 +3,7 @@
 
 namespace igloo {
   
-  class ConstraintOperator;
+  struct ConstraintOperator;
   typedef std::stack<bool> ResultStack;
   typedef std::stack<ConstraintOperator*> OperatorStack;
 

@@ -6,6 +6,8 @@ igloo.ncb
 igloo.sln
 igloo.suo
 igloo.vcproj*
+_ReSharper.igloo/
+*resharper*
 
 #Ignore Visual Studio output dirs
 Debug
