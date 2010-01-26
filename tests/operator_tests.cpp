@@ -92,9 +92,49 @@ TestFixture(OperatorTests)
     
     Assert::That(v, Is().All().GreaterThan(1).Or().LessThan(4));
   }
+
+  TestMethod(ShouldHandleFailingAll)
+  {
+    std::vector<int> v;
+    v.push_back(3);
+    v.push_back(5);
+    
+    AssertTestFails(Assert::That(v, Is().All().GreaterThan(4)), "Expected: all greater than 4");
+  }
   
   TestMethod(MalformedExpressionYieldsError)
   {
     AssertTestFails(Assert::That(4, Is().Not()), "The expression contains a not operator without any operand");
   }
+};
+
+TestFixture(AllOperatorTests)
+{
+   void SetUp()
+   {
+      container.push_back(3);
+      container.push_back(5);
+   }
+
+   TestMethod(ShouldHandleAllOperator)
+   {
+       Assert::That(container, Is().All().GreaterThan(1).Or().LessThan(4));
+   }
+
+   TestMethod(ShouldHandleFailingAllOperator)
+   {
+      AssertTestFails(Assert::That(container, Is().All().GreaterThan(4)), "Expected: all greater than 4");
+   }
+
+   TestMethod(SHouldHandleInvalidExpressionAfterAllOperator)
+   {
+      AssertTestFails(Assert::That(container, Is().All().Not()), "The expression contains a not operator without any operand");
+   }
+
+   TestMethod(ShouldHandleNoExpressionAfterAllOperator)
+   {
+      AssertTestFails(Assert::That(container, Is().All()), "The expression after an all operator does not yield any result");
+   }
+
+   std::list<int> container;
 };

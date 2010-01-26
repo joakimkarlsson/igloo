@@ -14,14 +14,18 @@ namespace igloo {
       typename ActualType::const_iterator it;
       for(it = actual.begin(); it != actual.end(); it++)
       {
-         EvaluateOneElementAgainstRestOfExpression(list, *it);
+         if(!EvaluateElementAgainstRestOfExpression(list, *it))
+         {
+            evaluation_result = false;
+            break;
+         }
       }
       
       result.push(evaluation_result); 
     }
 
     template <typename ConstraintListType, typename ActualType>
-    bool EvaluateOneElementAgainstRestOfExpression(ConstraintListType& list, const ActualType& actual)
+    bool EvaluateElementAgainstRestOfExpression(ConstraintListType& list, const ActualType& actual)
     {
         ResultStack innerResult;
         OperatorStack innerOperators;
