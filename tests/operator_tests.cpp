@@ -167,6 +167,16 @@ TestFixture(ContainerOperatorTests)
       AssertTestFails(Assert::That(container, Has().AtMost(1).EqualTo(3).Or().EqualTo(5)), "Expected: at most 1 equal to 3 or equal to 5");
    }
 
+   TestMethod(ShouldHandleNoneOperator)
+   {
+      Assert::That(container, Has().None().EqualTo(666));
+   }
+
+   TestMethod(ShouldHandleFailingNoneOperator)
+   {
+      AssertTestFails(Assert::That(container, Has().None().EqualTo(5)), "Expected: none equal to 5");
+   }
+
    std::list<int> container;
 };
 
