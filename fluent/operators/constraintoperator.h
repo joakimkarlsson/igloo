@@ -35,23 +35,7 @@ namespace igloo {
       } 
     }
   };
-  
-  struct Noop
-  {
-    Noop() {}
-    Noop(const Noop&) {}
-    template <typename ConstraintListType, typename ActualType> 
-    void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual) 
-    {
-      EvaluateConstraintList(list.m_tail, result, operators, actual);
-    }
-  };
-  
-  inline std::string Stringize(const Noop&)
-  {
-    return "";
-  }  
-  
+    
   struct InvalidExpressionException
   {
     InvalidExpressionException(const std::string& message) : m_message(message)
