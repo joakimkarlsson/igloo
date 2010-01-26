@@ -157,6 +157,16 @@ TestFixture(ContainerOperatorTests)
       AssertTestFails(Assert::That(container, Has().Exactly(2).EqualTo(3)), "Expected: exactly 2 equal to 3");
    }
 
+   TestMethod(ShouldHandleAtMostOperator)
+   {
+      Assert::That(container, Has().AtMost(1).EqualTo(5));
+   }
+
+   TestMethod(ShouldHandleFailingAtMostOperator)
+   {
+      AssertTestFails(Assert::That(container, Has().AtMost(1).EqualTo(3).Or().EqualTo(5)), "Expected: at most 1 equal to 3 or equal to 5");
+   }
+
    std::list<int> container;
 };
 
