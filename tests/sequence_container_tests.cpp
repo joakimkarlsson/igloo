@@ -6,6 +6,8 @@ const char* ExpectedActual = "\nActual: [ 1, 2, 3, 5, 8 ]";
 template <typename T>
 struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBase<T> >
 {
+  typedef SequenceContainerTestsBase<T> IGLOO_FIXTURE_TYPE;
+  
    void SetUp()
    {
       container.clear();

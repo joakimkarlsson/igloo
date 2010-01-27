@@ -11,7 +11,7 @@ namespace igloo {
       static std::string Stringize(const Container& cont)
       {
          std::ostringstream stm;
-         typedef Container::const_iterator Iterator;
+         typedef typename Container::const_iterator Iterator;
 
          stm << "[ ";
          for(Iterator it = cont.begin(); it != cont.end();)

@@ -30,8 +30,8 @@ namespace igloo {
    public:   
       void Run(const std::string& fixtureName, std::list<TestResult>& results)
       {
-         FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToInstantiate testFixture;
-         BaseFixture<FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToCall>::Run(testFixture, fixtureName, results);
+         typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToInstantiate testFixture;
+         BaseFixture<typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToCall>::Run(testFixture, fixtureName, results);
       }
    };
 }
