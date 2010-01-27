@@ -1,6 +1,8 @@
 #include "igloo_self_test.h"
 using namespace igloo;
 
+const char* ExpectedActual = "\nActual: [ 1, 2, 3, 5, 8 ]";
+
 template <typename T>
 struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBase<T> >
 {
@@ -21,7 +23,7 @@ struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBas
 
    TestMethod(ShouldHandleFailingAllOperator)
    {
-      AssertTestFails(Assert::That(container, Has().All().GreaterThan(4)), "Expected: all greater than 4");
+      AssertTestFails(Assert::That(container, Has().All().GreaterThan(4)), std::string("Expected: all greater than 4") + ExpectedActual);
    }
 
    TestMethod(SHouldHandleInvalidExpressionAfterAllOperator)
@@ -41,7 +43,7 @@ struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBas
 
    TestMethod(ShouldHandleFailingAtLeastOperator)
    {
-      AssertTestFails(Assert::That(container, Has().AtLeast(2).LessThan(2)), "Expected: at least 2 less than 2");
+      AssertTestFails(Assert::That(container, Has().AtLeast(2).LessThan(2)), std::string("Expected: at least 2 less than 2") + ExpectedActual);
    }
 
    TestMethod(ShouldHandleExactlyOperator)
@@ -51,7 +53,7 @@ struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBas
 
    TestMethod(ShouldHandleFailingExactlyOperator)
    {
-      AssertTestFails(Assert::That(container, Has().Exactly(2).EqualTo(3)), "Expected: exactly 2 equal to 3");
+      AssertTestFails(Assert::That(container, Has().Exactly(2).EqualTo(3)), std::string("Expected: exactly 2 equal to 3") + ExpectedActual);
    }
 
    TestMethod(ShouldHandleAtMostOperator)
@@ -61,7 +63,7 @@ struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBas
 
    TestMethod(ShouldHandleFailingAtMostOperator)
    {
-      AssertTestFails(Assert::That(container, Has().AtMost(1).EqualTo(3).Or().EqualTo(5)), "Expected: at most 1 equal to 3 or equal to 5");
+      AssertTestFails(Assert::That(container, Has().AtMost(1).EqualTo(3).Or().EqualTo(5)), std::string("Expected: at most 1 equal to 3 or equal to 5") + ExpectedActual);
    }
 
    TestMethod(ShouldHandleNoneOperator)
@@ -71,8 +73,48 @@ struct SequenceContainerTestsBase : public BaseFixture<SequenceContainerTestsBas
 
    TestMethod(ShouldHandleFailingNoneOperator)
    {
-      AssertTestFails(Assert::That(container, Has().None().EqualTo(5)), "Expected: none equal to 5");
+      AssertTestFails(Assert::That(container, Has().None().EqualTo(5)), std::string("Expected: none equal to 5") + ExpectedActual);
    }
+
+  TestMethod(ShouldHandleContaining)
+  {
+    Assert::That(container, Contains(3));
+  }
+
+	TestMethod(ShouldDetectFailingContains)
+	{
+      AssertTestFails(Assert::That(container, Contains(99)), std::string("contains 99") + ExpectedActual);
+	}
+
+  TestMethod(ShouldHandleOfLength)
+  {
+    Assert::That(container, HasLength(5));
+  }
+
+  TestMethod(ShouldHandleFailingOfLength)
+  {
+     AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
+  }
+
+  TestMethod(ShouldHandleContaining_ExpressionTemplates)
+  {
+    Assert::That(container, Contains(3));
+  }
+
+	TestMethod(ShouldDetectFailingContains_ExpressionTemplates)
+	{
+      AssertTestFails(Assert::That(container, Contains(99)), std::string("contains 99") + ExpectedActual);
+	}
+
+  TestMethod(ShouldHandleOfLength_ExpressionTemplates)
+  {
+    Assert::That(container, HasLength(5));
+  }
+
+  TestMethod(ShouldHandleFailingOfLengthForVectors)
+  {
+     AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
+  }
 
    T container;
 };

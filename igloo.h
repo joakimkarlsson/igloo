@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <stack>
+#include <list>
 
 #include "stringize.h"
 #include "constraints/equalsconstraint.h"
