@@ -6,6 +6,7 @@
 #include <vector>
 #include <sstream>
 #include <stack>
+#include <list>
 
 #include "stringize.h"
 #include "constraints/equalsconstraint.h"
@@ -32,17 +33,28 @@ struct TestFixtureRegistrar##fixture \
 { \
    TestFixtureRegistrar##fixture() \
    { \
-     igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<fixture> >(#fixture); \
+     igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, fixture> >(#fixture); \
    } \
 } fixture##IglooRegistrar; \
-struct fixture : public igloo::TestFixture<fixture>
+struct fixture : public igloo::BaseFixture<fixture>
+
+#define DerivedFixture(fixture, basefixture) \
+struct fixture; \
+struct TestFixtureRegistrar##fixture \
+{ \
+   TestFixtureRegistrar##fixture() \
+   { \
+     igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<basefixture, fixture> >(#fixture); \
+   } \
+} fixture##IglooRegistrar; \
+struct fixture : public basefixture
          
 #define TestMethod(method) \
 struct TestMethodRegistrar##method \
 { \
   TestMethodRegistrar##method() \
   { \
-    TestFixtureRunner<IGLOO_FIXTURE_TYPE>::RegisterTestMethod(#method, &IGLOO_FIXTURE_TYPE::method); \
+    BaseFixture<IGLOO_FIXTURE_TYPE>::RegisterTestMethod(#method, &IGLOO_FIXTURE_TYPE::method); \
   } \
 } method##Registrar; \
 \
