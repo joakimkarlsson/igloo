@@ -5,64 +5,45 @@
 
 namespace igloo {
 
+   template <typename Container>
+   struct SequentialContainerStringizer
+   {
+      static std::string Stringize(const Container& cont)
+      {
+         std::ostringstream stm;
+         typedef Container::const_iterator Iterator;
+
+         stm << "[ ";
+         for(Iterator it = cont.begin(); it != cont.end();)
+         {
+            stm << igloo::Stringize(*it);
+
+            if(++it != cont.end()) 
+            {
+               stm << ", ";
+            }
+         }
+         stm << " ]";
+         return stm.str();
+      };
+   };
+
    template< typename T >
    std::string Stringize(const std::vector<T>& t)
    {
-      std::ostringstream stm;
-      typedef std::vector<T>::const_iterator Iterator;
-
-      stm << "[ ";
-      for(Iterator it = t.begin(); it != t.end();)
-      {
-         stm << Stringize(*it);
-
-         if(++it != t.end()) 
-         {
-            stm << ", ";
-         }
-      }
-      stm << " ]";
-      return stm.str();
+      return SequentialContainerStringizer<std::vector<T> >::Stringize(t);
    }
 
    template< typename T >
    std::string Stringize(const std::deque<T>& t)
    {
-      std::ostringstream stm;
-      typedef std::deque<T>::const_iterator Iterator;
-
-      stm << "[ ";
-      for(Iterator it = t.begin(); it != t.end();)
-      {
-         stm << Stringize(*it);
-
-         if(++it != t.end()) 
-         {
-            stm << ", ";
-         }
-      }
-      stm << " ]";
-      return stm.str();
+      return SequentialContainerStringizer<std::deque<T> >::Stringize(t);
    }
 
    template< typename T >
    std::string Stringize(const std::list<T>& t)
    {
-      std::ostringstream stm;
-      typedef std::list<T>::const_iterator Iterator;
-
-      stm << "[ ";
-      for(Iterator it = t.begin(); it != t.end();)
-      {
-         stm << Stringize(*it);
-
-         if(++it != t.end()) 
-         {
-            stm << ", ";
-         }
-      }
-      stm << " ]";
-      return stm.str();
+      return SequentialContainerStringizer<std::list<T> >::Stringize(t);
    }
 
    class Assert
