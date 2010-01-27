@@ -29,7 +29,7 @@ namespace igloo {
   };
   
   template <typename FixtureType>
-  struct TestFixture : public TestFixtureBase 
+  struct BaseFixture : public TestFixtureBase 
   {
     typedef FixtureType IGLOO_FIXTURE_TYPE;
   };  

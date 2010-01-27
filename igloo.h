@@ -35,7 +35,18 @@ struct TestFixtureRegistrar##fixture \
      igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<fixture> >(#fixture); \
    } \
 } fixture##IglooRegistrar; \
-struct fixture : public igloo::TestFixture<fixture>
+struct fixture : public igloo::BaseFixture<fixture>
+
+#define DerivedFixture(fixture, basefixture) \
+struct fixture; \
+struct TestFixtureRegistrar##fixture \
+{ \
+   TestFixtureRegistrar##fixture() \
+   { \
+     igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<basefixture> >(#fixture); \
+   } \
+} fixture##IglooRegistrar; \
+struct fixture : public basefixture
          
 #define TestMethod(method) \
 struct TestMethodRegistrar##method \
