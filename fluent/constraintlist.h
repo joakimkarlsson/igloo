@@ -48,7 +48,7 @@ namespace igloo {
   {
     static ResultList Concatenate(const LeftList& left, const RightList& right)
     {
-      return ResultList(left.m_head, ListConcat<LeftList::TailType, RightList, typename type_concat< typename LeftList::TailType, RightList>::t>::Concatenate(left.m_tail, right));
+      return ResultList(left.m_head, ListConcat<typename LeftList::TailType, RightList, typename type_concat< typename LeftList::TailType, RightList>::t>::Concatenate(left.m_tail, right));
     }
   };
   
