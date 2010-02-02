@@ -43,9 +43,9 @@ namespace
     }
   };
 
-  inline std::string Stringize(const WithoutStreamOperatorButWithStringizeOverload& t)
+  inline std::string Stringize(const WithoutStreamOperatorButWithStringizeOverload& value)
   {
-    return igloo::Stringize(t.m_id);
+    return igloo::Stringize(value.m_id);
   }
 }
 

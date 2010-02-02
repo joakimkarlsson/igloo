@@ -4,10 +4,6 @@
 namespace igloo {
   namespace detail {
 
-    // A tag type returned by operator == for the any struct in this namespace
-    // when T does not support ==.
-    struct tag {};
-
     // This type soaks up any implicit conversions and makes the following operator<<
     // less preferred than any other such operator found via ADL.
     struct any
@@ -16,6 +12,10 @@ namespace igloo {
       template <class T>
       any(T const&);
     };
+
+    // A tag type returned by operator<< for the any struct in this namespace
+    // when T does not support <<.
+    struct tag {};
 
     // Fallback operator<< for types T that don't support <<.
     tag operator<<(std::ostream&, any const&);
@@ -42,9 +42,9 @@ namespace igloo {
     };
     
     template<typename T, bool type_is_streamable>
-    struct Stringizer
+    struct DefaultStringizer
     {
-      static std::string Convert(const T& value)
+      static std::string ToString(const T& value)
       {
         std::ostringstream buf;
         buf << value;
@@ -53,30 +53,24 @@ namespace igloo {
     };
 
     template<typename T>
-    struct Stringizer<T, false>
+    struct DefaultStringizer<T, false>
     {
-      static std::string Convert(const T&)
+      static std::string ToString(const T&)
       {
         return "[unsupported type]";
       }
     };
   }
 
+  // Overload Stringize for your type if you want to customize its output format
+  // for assertion failures.
   template<typename T>
-  std::string Stringize(const T& t)
+  std::string Stringize(const T& value)
   {
-	typedef detail::Stringizer< T, detail::is_output_streamable<T>::value > Stringizer;
-    return Stringizer::Convert(t);
+    using namespace detail;
+
+    return DefaultStringizer< T, is_output_streamable<T>::value >::ToString(value);
   }
 }
-
-//template <typename T>
-//struct stringize_trait
-//{
-//  static std::string Stringize(const T& t)
-//  {
-//    return igloo::Stringize(t);
-//  }
-//};
 
 #endif
