@@ -25,28 +25,26 @@ namespace igloo {
     }
   };
   
-	template <typename ExpectedType>
-	struct ContainsConstraint : Expression< ContainsConstraint<ExpectedType> >
-	{
-		ContainsConstraint(const ExpectedType& expected) 
+  template <typename ExpectedType>
+  struct ContainsConstraint : Expression< ContainsConstraint<ExpectedType> >
+  {
+    ContainsConstraint(const ExpectedType& expected) 
     : m_expected(expected) {}
     
-		template <typename ActualType>
-		bool operator()(const ActualType& actual) const
-		{
+    template <typename ActualType>
+    bool operator()(const ActualType& actual) const
+    {
       return find_in_container_traits<ActualType>::find(actual, m_expected);
-		} 
+    } 
     
-		bool operator()(const std::string& actual) const
-		{
-			return actual.find(m_expected) != actual.npos; 
-		} 	
-		
-		ExpectedType m_expected;
-	};              
-	
-	
-	
+    bool operator()(const std::string& actual) const
+    {
+      return actual.find(m_expected) != actual.npos; 
+    }   
+    
+    ExpectedType m_expected;
+  };              
+
   template< typename ExpectedType >
   inline ContainsConstraint<ExpectedType> Contains(const ExpectedType& expected)
   {
@@ -58,14 +56,17 @@ namespace igloo {
     return ContainsConstraint<std::string>(expected);
   }
   
-	template< typename ExpectedType >
-  inline std::string Stringize(const ContainsConstraint<ExpectedType>& constraint)
+  template< typename ExpectedType >
+  struct Stringizer< ContainsConstraint< ExpectedType > >
   {
-    std::ostringstream builder;
-    builder << "contains " << Stringize(constraint.m_expected);
-    
-    return builder.str();
-  }
-}      
+    static std::string ToString(const ContainsConstraint<ExpectedType>& constraint)
+    {
+      std::ostringstream builder;
+      builder << "contains " << Stringize(constraint.m_expected);
+
+      return builder.str();
+    }
+  };
+}
 
 #endif

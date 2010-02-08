@@ -3,7 +3,7 @@ using namespace igloo;
 
 namespace
 {
-  // No overload for operator<<(std::ostream&) or igloo::Stringizer
+  // No overload for operator<<(std::ostream&) or specialization of igloo::Stringizer
   struct WithoutStreamOperator
   {
     WithoutStreamOperator(int id)
@@ -34,19 +34,26 @@ namespace
     return stream;
   }
 
-  // Has no operator<<(std::ostream&), but an overload for igloo::Stringize
-  struct WithoutStreamOperatorButWithStringizeOverload : public WithoutStreamOperator
+  // Has no operator<<(std::ostream&), but a specialization of igloo::Stringizer
+  struct WithoutStreamOperatorButWithStringizer : public WithoutStreamOperator
   {
-    WithoutStreamOperatorButWithStringizeOverload(int id)
+    WithoutStreamOperatorButWithStringizer(int id)
     : WithoutStreamOperator(id)
     {
     }
   };
+}
 
-  inline std::string Stringize(const WithoutStreamOperatorButWithStringizeOverload& value)
+namespace igloo {
+
+  template<>
+  struct Stringizer< WithoutStreamOperatorButWithStringizer >
   {
-    return igloo::Stringize(value.m_id);
-  }
+    static std::string ToString(const WithoutStreamOperatorButWithStringizer& value)
+    {
+      return igloo::Stringize(value.m_id);
+    }
+  };
 }
 
 TestFixture(StringizeTests)
@@ -67,8 +74,8 @@ TestFixture(StringizeTests)
 
   TestMethod(ShouldHandleTypesWithTraits)
   {
-    WithoutStreamOperatorButWithStringizeOverload a(12);
-    WithoutStreamOperatorButWithStringizeOverload b(13);
+    WithoutStreamOperatorButWithStringizer a(12);
+    WithoutStreamOperatorButWithStringizer b(13);
     AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
   }
 }; 
@@ -91,8 +98,8 @@ TestFixture(StringizeTestsExpressionTemplates)
 
   TestMethod(ShouldHandleTypesWithTraits)
   {
-    WithoutStreamOperatorButWithStringizeOverload a(12);
-    WithoutStreamOperatorButWithStringizeOverload b(13);
+    WithoutStreamOperatorButWithStringizer a(12);
+    WithoutStreamOperatorButWithStringizer b(13);
     AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
   }
 }; 

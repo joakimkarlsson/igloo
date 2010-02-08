@@ -4,6 +4,7 @@
 #include "expressions/expression.h"
 
 namespace igloo {
+
   template< typename ExpectedType >
   struct EqualsConstraint : Expression< EqualsConstraint<ExpectedType> >
   {
@@ -33,12 +34,16 @@ namespace igloo {
   }
 
   template< typename ExpectedType >
-  inline std::string Stringize(const EqualsConstraint<ExpectedType>& constraint)
+  struct Stringizer< EqualsConstraint< ExpectedType > >
   {
-    std::ostringstream builder;
-    builder << "equal to " << Stringize(constraint.m_expected);
+    static std::string ToString(const EqualsConstraint<ExpectedType>& constraint)
+    {
+      std::ostringstream builder;
+      builder << "equal to " << Stringize(constraint.m_expected);
 
-    return builder.str();
-  }
+      return builder.str();
+    }
+  };
 }
+
 #endif

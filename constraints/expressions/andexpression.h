@@ -25,13 +25,16 @@ namespace igloo {
   };
 
   template< typename LeftExpression, typename RightExpression >
-  inline std::string Stringize(const AndExpression<LeftExpression, RightExpression>& expression)
+  struct Stringizer< AndExpression<LeftExpression, RightExpression> >
   {
-    std::ostringstream builder;
-    builder << Stringize(expression.m_left) << " and " << Stringize(expression.m_right);
+    static std::string ToString(const AndExpression<LeftExpression, RightExpression>& expression)
+    {
+      std::ostringstream builder;
+      builder << Stringize(expression.m_left) << " and " << Stringize(expression.m_right);
 
-    return builder.str();
-  }
+      return builder.str();
+    }
+  };
 }
 
 #endif
