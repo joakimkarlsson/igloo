@@ -62,15 +62,27 @@ namespace igloo {
     };
   }
 
-  // Overload Stringize for your type if you want to customize its output format
-  // for assertion failures.
+  template<typename T>
+  struct Stringizer;
+
   template<typename T>
   std::string Stringize(const T& value)
   {
-    using namespace detail;
-
-    return DefaultStringizer< T, is_output_streamable<T>::value >::ToString(value);
+    return Stringizer<T>::ToString(value);
   }
+
+  // NOTE: Specialize igloo::Stringizer to customize assertion messages
+  template<typename T>
+  struct Stringizer
+  {
+    static std::string ToString(const T& value)
+    {
+      using namespace detail;
+
+      return DefaultStringizer< T, is_output_streamable<T>::value >::ToString(value);
+    }
+  };
+
 }
 
 #endif

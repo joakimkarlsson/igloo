@@ -5,47 +5,6 @@
 
 namespace igloo {
 
-   template <typename Container>
-   struct SequentialContainerStringizer
-   {
-      static std::string Stringize(const Container& cont)
-      {
-         std::ostringstream stm;
-         typedef typename Container::const_iterator Iterator;
-
-         stm << "[ ";
-         for(Iterator it = cont.begin(); it != cont.end();)
-         {
-            stm << igloo::Stringize(*it);
-
-            if(++it != cont.end()) 
-            {
-               stm << ", ";
-            }
-         }
-         stm << " ]";
-         return stm.str();
-      };
-   };
-
-   template< typename T >
-   std::string Stringize(const std::vector<T>& t)
-   {
-      return SequentialContainerStringizer<std::vector<T> >::Stringize(t);
-   }
-
-   template< typename T >
-   std::string Stringize(const std::deque<T>& t)
-   {
-      return SequentialContainerStringizer<std::deque<T> >::Stringize(t);
-   }
-
-   template< typename T >
-   std::string Stringize(const std::list<T>& t)
-   {
-      return SequentialContainerStringizer<std::list<T> >::Stringize(t);
-   }
-
    class Assert
    {
    public:
@@ -86,7 +45,7 @@ namespace igloo {
       template <typename ConstraintListType>
       static void That(const char* actual, ExpressionBuilder<ConstraintListType> expression)
       {
-         return That<std::string>(std::string(actual), expression);
+         return That(std::string(actual), expression);
       }
 
       template <typename ActualType, typename ExpressionType>
@@ -102,7 +61,7 @@ namespace igloo {
       template <typename ExpressionType>
       static void That(const char* actual, const ExpressionType& evaluate)
       {
-         return That<std::string>(std::string(actual), evaluate);
+         return That(std::string(actual), evaluate);
       }
 
       static void That(bool actual)

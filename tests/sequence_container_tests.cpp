@@ -1,4 +1,6 @@
 #include "igloo_self_test.h"
+#include "../stringizers.h"
+
 using namespace igloo;
 
 const char* ExpectedActual = "\nActual: [ 1, 2, 3, 5, 8 ]";

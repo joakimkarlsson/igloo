@@ -3,7 +3,7 @@ using namespace igloo;
 
 namespace
 {
-  // No overload for operator<<(std::ostream&) or igloo::Stringize
+  // No overload for operator<<(std::ostream&) or igloo::Stringizer
   struct WithoutStreamOperator
   {
     WithoutStreamOperator(int id)
@@ -13,7 +13,7 @@ namespace
 
     bool operator==(const WithoutStreamOperator& rhs) const
     {
-    return m_id == rhs.m_id;
+      return m_id == rhs.m_id;
     }
 
     int m_id;
