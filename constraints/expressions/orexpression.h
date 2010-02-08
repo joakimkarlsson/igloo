@@ -4,6 +4,7 @@
 #include "expression_fwd.h"
        
 namespace igloo {
+
 	template< typename LeftExpression, typename RightExpression >
 	struct OrExpression : Expression< OrExpression<LeftExpression, RightExpression> >
 	{
@@ -31,6 +32,6 @@ namespace igloo {
 
 	  return builder.str();
 	}
-}  
+}
 
 #endif

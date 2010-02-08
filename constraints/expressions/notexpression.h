@@ -4,6 +4,7 @@
 #include "expression_fwd.h"
 
 namespace igloo {
+
 	template< typename ExpressionType >
 	struct NotExpression : Expression< NotExpression<ExpressionType> >
 	{
@@ -29,6 +30,6 @@ namespace igloo {
 
 	  return builder.str();
 	}
-
 }
+
 #endif

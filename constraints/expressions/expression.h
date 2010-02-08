@@ -6,6 +6,7 @@
 #include "orexpression.h"
 
 namespace igloo {
+
   template<typename T>
   struct Expression
   {
@@ -26,6 +27,6 @@ namespace igloo {
       return OrExpression<T, Right>(static_cast<const T&>(*this), right);
     }
   };
-}  
+}
 
 #endif
