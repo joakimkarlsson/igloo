@@ -1,6 +1,8 @@
 #ifndef IGLOO_HASLENGTHCONSTRAINT_H
 #define IGLOO_HASLENGTHCONSTRAINT_H
 
+#include "igloo/constraints/expressions/expression.h"
+
 namespace igloo {
 
   template <typename ExpectedType>

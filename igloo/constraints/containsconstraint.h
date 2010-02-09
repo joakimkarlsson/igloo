@@ -3,6 +3,8 @@
 
 #include <algorithm>
 
+#include "igloo/constraints/expressions/expression.h"
+
 namespace igloo {
   
   template <typename ContainerType>

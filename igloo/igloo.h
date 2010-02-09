@@ -12,14 +12,7 @@
 #include <list>
 
 #include "igloo/core/stringize.h"
-#include "igloo/constraints/equalsconstraint.h"
-#include "igloo/constraints/isgreaterthanconstraint.h"
-#include "igloo/constraints/islessthanconstraint.h"       
-#include "igloo/constraints/containsconstraint.h"
-#include "igloo/constraints/haslengthconstraint.h"
-#include "igloo/constraints/startswithconstraint.h"
-#include "igloo/constraints/endswithconstraint.h"
-
+#include "igloo/constraints/constraints.h"
 #include "igloo/fluent/fluent.h"
 
 #include "igloo/core/assertionexception.h"
@@ -27,8 +20,6 @@
 #include "igloo/core/testfixturerunner.h"
 #include "igloo/core/testrunner.h"
 #include "igloo/core/assert.h"                
-
-
 
 #define TestFixture(fixture) \
 struct fixture; \

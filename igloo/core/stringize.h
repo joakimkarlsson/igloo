@@ -36,7 +36,6 @@ namespace igloo {
     template <class T>
     struct is_output_streamable
     {
-      // Should we use boost.typetraits to peel off cv-qualifiers, pointer and/or reference decoration from T?
       static const T& x;
       static const bool value = sizeof(check(std::cout << x)) == sizeof(yes);
     };

@@ -1,6 +1,8 @@
 #ifndef IGLOO_ENDSWITHCONSTRAINT_H
 #define IGLOO_ENDSWITHCONSTRAINT_H
 
+#include "igloo/constraints/expressions/expression.h"
+
 namespace igloo {
 
   template <typename ExpectedType>
