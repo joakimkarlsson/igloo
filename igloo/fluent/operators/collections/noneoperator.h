@@ -25,10 +25,14 @@ namespace igloo {
       }
    };
 
-   inline std::string Stringize(const NoneOperator&)
+   template<>
+   struct Stringizer<NoneOperator>
    {
-      return "none";
-   }
+      static std::string ToString(const NoneOperator&)
+      {
+         return "none";
+      }
+   };
 
 }
 

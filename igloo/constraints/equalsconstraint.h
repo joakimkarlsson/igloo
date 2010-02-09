@@ -39,7 +39,7 @@ namespace igloo {
     static std::string ToString(const EqualsConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-      builder << "equal to " << Stringize(constraint.m_expected);
+	  builder << "equal to " << igloo::Stringize(constraint.m_expected);
 
       return builder.str();
     }

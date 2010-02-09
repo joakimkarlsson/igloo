@@ -39,7 +39,7 @@ namespace igloo {
     static std::string ToString(const HasLengthConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-      builder << "of length " << Stringize(constraint.m_expected);
+	  builder << "of length " << igloo::Stringize(constraint.m_expected);
 
       return builder.str();
     }

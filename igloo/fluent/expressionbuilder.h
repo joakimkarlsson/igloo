@@ -217,7 +217,10 @@ namespace igloo {
   template <typename T>
   inline void StringizeConstraintList(const T& list, std::ostringstream& stm)
   {
-    stm << Stringize(list.m_head) << " ";
+    if (stm.tellp() > 0)
+	  stm << " ";
+
+    stm << igloo::Stringize(list.m_head);
     StringizeConstraintList(list.m_tail, stm);
   }
   
@@ -225,20 +228,17 @@ namespace igloo {
   {
   }
   
-  template <typename ConstraintListType>
-  inline std::string Stringize(const ExpressionBuilder<ConstraintListType>& builder)
+  template<typename ConstraintListType>
+  struct Stringizer< ExpressionBuilder<ConstraintListType> >
   {
-    std::ostringstream stm;
-    StringizeConstraintList(builder.m_constraint_list, stm);
-    std::string str = stm.str();
-    
-    if(str.length() >= 1)
+    static std::string ToString(const ExpressionBuilder<ConstraintListType>& builder)
     {
-      str.erase(str.end()-1, str.end());
+      std::ostringstream stm;
+      StringizeConstraintList(builder.m_constraint_list, stm);
+
+	  return stm.str();
     }
-    return str;
-  }
-  
+  };  
 }
 
 #endif

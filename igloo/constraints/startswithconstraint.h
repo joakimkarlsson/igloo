@@ -36,7 +36,7 @@ namespace igloo {
     static std::string ToString(const StartsWithConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-      builder << "starts with " << Stringize(constraint.m_expected);
+	  builder << "starts with " << igloo::Stringize(constraint.m_expected);
 
       return builder.str();
     }

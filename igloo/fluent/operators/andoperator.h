@@ -36,10 +36,13 @@ namespace igloo {
     }
   };
   
-  inline std::string Stringize(const AndOperator&)
-  {
-    return "and";
-  }
-  
+   template<>
+   struct Stringizer<AndOperator>
+   {
+      static std::string ToString(const AndOperator&)
+      {
+        return "and";
+      }
+   };
 }
 #endif

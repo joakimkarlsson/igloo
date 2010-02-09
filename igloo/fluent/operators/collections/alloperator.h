@@ -27,11 +27,14 @@ namespace igloo {
       }
    };
 
-   inline std::string Stringize(const AllOperator&)
+   template<>
+   struct Stringizer<AllOperator>
    {
-      return "all";
-   }
-
+      static std::string ToString(const AllOperator&)
+      {
+        return "all";
+      }
+   };
 }
 
 #endif

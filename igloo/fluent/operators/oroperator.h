@@ -36,10 +36,14 @@ namespace igloo {
     }
   };
   
-  inline std::string Stringize(const OrOperator&)
+  template<>
+  struct Stringizer<OrOperator>
   {
-    return "or";
-  }
-  
+    static std::string ToString(const OrOperator&)
+    {
+      return "or";
+    }
+  };
 }
+
 #endif

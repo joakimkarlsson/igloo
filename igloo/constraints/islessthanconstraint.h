@@ -39,7 +39,7 @@ namespace igloo {
     static std::string ToString(const IsLessThanConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-      builder << "less than " << Stringize(constraint.m_expected);
+	  builder << "less than " << igloo::Stringize(constraint.m_expected);
 
       return builder.str();
     }

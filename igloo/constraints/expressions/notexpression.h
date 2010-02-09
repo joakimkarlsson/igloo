@@ -28,7 +28,7 @@ namespace igloo {
     static std::string ToString(const NotExpression<ExpressionType>& expression)
     {
       std::ostringstream builder;
-      builder << "not " << Stringize(expression.m_expression);
+	  builder << "not " << igloo::Stringize(expression.m_expression);
 
       return builder.str();
     }

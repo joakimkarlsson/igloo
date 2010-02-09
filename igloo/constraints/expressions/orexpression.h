@@ -30,7 +30,7 @@ namespace igloo {
     static std::string ToString(const OrExpression<LeftExpression, RightExpression>& expression)
     {
       std::ostringstream builder;
-      builder << Stringize(expression.m_left) << " or " << Stringize(expression.m_right);
+	  builder << igloo::Stringize(expression.m_left) << " or " << igloo::Stringize(expression.m_right);
 
       return builder.str();
     }

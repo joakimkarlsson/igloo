@@ -32,13 +32,13 @@ namespace igloo {
 
             if(!result.top())
             {
-               std::string expected = Stringize(expression);
+               std::string expected = igloo::Stringize(expression);
                throw AssertionException(CreateErrorText(expected, actual));
             }      
          }
          catch (const InvalidExpressionException& e) 
          {
-            throw AssertionException("Malformed expression: \"" + Stringize(expression) + "\"\n" + e.Message());
+            throw AssertionException("Malformed expression: \"" + igloo::Stringize(expression) + "\"\n" + e.Message());
          }
       }
 
@@ -53,7 +53,7 @@ namespace igloo {
       {
          if (!evaluate(actual))
          {
-            std::string expected = Stringize(evaluate);
+            std::string expected = igloo::Stringize(evaluate);
             throw AssertionException(CreateErrorText(expected, actual));
          }
       }
@@ -88,7 +88,7 @@ namespace igloo {
          str << "Expected: ";
          str << expressionAsString;
          str << std::endl;
-         str << "Actual: " << Stringize(actual);
+		 str << "Actual: " << igloo::Stringize(actual);
          str << std::endl;
 
          return str.str();

@@ -28,13 +28,16 @@ namespace igloo {
       unsigned int m_expected;
    };
 
-   inline std::string Stringize(const AtMostOperator& op)
+   template<>
+   struct Stringizer<AtMostOperator>
    {
-      std::ostringstream stm;
-      stm << "at most " << op.m_expected;
-      return stm.str();
-   }
-
+      static std::string ToString(const AtMostOperator& op)
+      {
+         std::ostringstream stm;
+         stm << "at most " << op.m_expected;
+         return stm.str();
+      }
+   };
 }
 
 #endif

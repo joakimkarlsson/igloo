@@ -28,13 +28,16 @@ namespace igloo {
       unsigned int m_expected;
    };
 
-   inline std::string Stringize(const ExactlyOperator& op)
-   {
+  template<>
+  struct Stringizer< ExactlyOperator >
+  {
+    static std::string ToString(const ExactlyOperator& op)
+    {
       std::ostringstream stm;
       stm << "exactly " << op.m_expected;
       return stm.str();
-   }
-
+    }
+  };
 }
 
 #endif

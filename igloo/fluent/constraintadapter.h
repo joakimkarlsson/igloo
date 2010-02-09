@@ -20,12 +20,14 @@ namespace igloo {
     ConstraintType m_constraint;
   };
   
-  template <typename ConstraintType>
-  inline std::string Stringize(const ConstraintAdapter<ConstraintType>& constraintAdapter)
+  template<typename ConstraintType>
+  struct Stringizer< ConstraintAdapter<ConstraintType> >
   {
-    return Stringize(constraintAdapter.m_constraint);
-  }
-  
+    static std::string ToString(const ConstraintAdapter<ConstraintType>& constraintAdapter)
+    {
+      return igloo::Stringize(constraintAdapter.m_constraint);
+    }
+  };  
 }
 
 #endif
