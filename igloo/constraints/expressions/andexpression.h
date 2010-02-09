@@ -1,7 +1,7 @@
 #ifndef IGLOO_ANDEXPRESSION_H
 #define IGLOO_ANDEXPRESSION_H
 
-#include "expression_fwd.h"
+#include "igloo/constraints/expressions/expression_fwd.h"
 
 namespace igloo {
 

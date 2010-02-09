@@ -1,8 +1,6 @@
 #ifndef IGLOO_NONEOPERATOR_H
 #define IGLOO_NONEOPERATOR_H
 
-#include "collectionoperator.h"
-
 namespace igloo {
 
    struct NoneOperator : public CollectionOperator

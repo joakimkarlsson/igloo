@@ -1,8 +1,6 @@
 #ifndef IGLOO_ISLESSTHANCONSTRAINT_H
 #define IGLOO_ISLESSTHANCONSTRAINT_H
 
-#include "expressions/expression.h"
-
 namespace igloo {
 
   template< typename ExpectedType >

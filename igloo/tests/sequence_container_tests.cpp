@@ -1,5 +1,5 @@
-#include "igloo_self_test.h"
-#include "../stringizers.h"
+#include "igloo/tests/igloo_self_test.h"
+#include "igloo/core/stringizers.h"
 
 using namespace igloo;
 

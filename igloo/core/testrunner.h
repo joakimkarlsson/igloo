@@ -2,7 +2,7 @@
 #define IGLOO_TESTRUNNER_H
 
 #include <list>
-#include "testresult.h"
+#include "igloo/core/testresult.h"
 
 namespace igloo {
   class TestRunner

@@ -1,9 +1,9 @@
 #ifndef IGLOO_TESTFIXTURE_H
 #define IGLOO_TESTFIXTURE_H
 
-#include "assertionexception.h"
-#include "assert.h"
-#include "testresult.h"
+#include "igloo/core/assertionexception.h"
+#include "igloo/core/assert.h"
+#include "igloo/core/testresult.h"
 
 namespace igloo {
 

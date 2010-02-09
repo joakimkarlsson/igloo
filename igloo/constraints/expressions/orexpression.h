@@ -1,7 +1,7 @@
 #ifndef IGLOO_OREXPRESSION_H
 #define IGLOO_OREXPRESSION_H
 
-#include "expression_fwd.h"
+#include "igloo/constraints/expressions/expression_fwd.h"
        
 namespace igloo {
 
