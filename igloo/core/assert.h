@@ -74,10 +74,7 @@ namespace igloo {
 
       static void Failure(const std::string& message)
       {
-         std::string adorned = "Forced failure: ";
-         adorned += message;
-
-         throw AssertionException(adorned);
+         throw AssertionException(message);
       }
 
    private:

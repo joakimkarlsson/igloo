@@ -51,7 +51,7 @@ TestFixture(Assertions)
 	
 	TestMethod(ShouldThrowExplicitFailureMessage)
 	{
-		AssertTestFails(Assert::Failure("foo"), "Forced failure: foo");
+		AssertTestFails(Assert::Failure("foo"), "foo");
 	}
 };
 
