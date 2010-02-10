@@ -3,7 +3,7 @@
 
 #include <algorithm>
 
-#include "igloo/constraints/expressions/expression.h"
+#include <igloo/constraints/expressions/expression.h>
 
 namespace igloo {
   

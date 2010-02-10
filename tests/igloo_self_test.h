@@ -1,7 +1,7 @@
 #ifndef IGLOO_SELF_TEST_H
 #define IGLOO_SELF_TEST_H
 
-#include "igloo/igloo.h"
+#include <igloo/igloo.h>
 
 #define AssertTestFails(assertion, expected_error_text) \
   std::string IGLOO_INTERNAL_expected_error = "Test did not fail"; \

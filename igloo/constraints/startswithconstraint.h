@@ -1,7 +1,7 @@
 #ifndef IGLOO_STARTSWITHCONSTRAINT_H
 #define IGLOO_STARTSWITHCONSTRAINT_H
 
-#include "igloo/constraints/expressions/expression.h"
+#include <igloo/constraints/expressions/expression.h>
 
 namespace igloo {
 

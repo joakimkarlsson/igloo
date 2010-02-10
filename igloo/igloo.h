@@ -11,15 +11,15 @@
 #include <stack>
 #include <list>
 
-#include "igloo/core/stringize.h"
-#include "igloo/constraints/constraints.h"
-#include "igloo/fluent/fluent.h"
+#include <igloo/core/stringize.h>
+#include <igloo/constraints/constraints.h>
+#include <igloo/fluent/fluent.h>
 
-#include "igloo/core/assertionexception.h"
-#include "igloo/core/testfixture.h" 
-#include "igloo/core/testfixturerunner.h"
-#include "igloo/core/testrunner.h"
-#include "igloo/core/assert.h"                
+#include <igloo/core/assertionexception.h>
+#include <igloo/core/testfixture.h> 
+#include <igloo/core/testfixturerunner.h>
+#include <igloo/core/testrunner.h>
+#include <igloo/core/assert.h>                
 
 #define TestFixture(fixture) \
 struct fixture; \
