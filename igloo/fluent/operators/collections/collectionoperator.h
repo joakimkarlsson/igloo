@@ -21,7 +21,7 @@ namespace igloo {
          return innerResult.top();
       }
 
-      void PerformOperation(ResultStack& result)
+      void PerformOperation(ResultStack&)
       {   
       }
 

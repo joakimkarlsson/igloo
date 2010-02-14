@@ -9,6 +9,8 @@ namespace igloo {
 
   struct TestFixtureBase
   {
+    virtual ~TestFixtureBase() {}
+    
     virtual void SetUp()
     {
     }

@@ -5,6 +5,8 @@ namespace igloo {
   
   struct ConstraintOperator
   {
+    virtual ~ConstraintOperator() {}
+    
     virtual void PerformOperation(ResultStack& result) = 0;
     virtual int Precedence() = 0;
     
