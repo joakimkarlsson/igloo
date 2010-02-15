@@ -77,6 +77,7 @@ namespace igloo {
       catch (const AssertionException& e)
       {
         results.push_back(TestResult(fixtureName, testName, false, e.GetMessage()));
+        fixture.TearDown();
         return false;
       }
       
