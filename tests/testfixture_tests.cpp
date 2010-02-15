@@ -8,9 +8,6 @@ namespace {
     {
     }
         
-    void SetUp()
-    {}
-    
     void TearDown()
     {
       tearDownIsCalled++;
@@ -30,9 +27,15 @@ TestFixture(TestFixtureTests)
   TestMethod(TearDownIsCalledWhenTestMethodFails)
   {
     FakeFixture t;
-    std::list<TestResult> results;
-    FakeFixture::Run(t, "Irrelevant", results);
+    RunFixture(t);
     
     Assert::That(t.tearDownIsCalled, Equals(1));
+  }
+  
+  template< typename FixtureType >
+  void RunFixture(FixtureType& fixture)
+  {
+    std::list<TestResult> results;
+    FixtureType::Run(fixture, "Irrelevant", results);
   }
 };
