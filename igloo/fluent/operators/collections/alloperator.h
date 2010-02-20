@@ -16,17 +16,7 @@ namespace igloo {
       template <typename ConstraintListType, typename ActualType>
       void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
       {
-         EvaluateOperatorsWithLessOrEqualPrecedence(operators, result);
-
-         unsigned int passed_elements = 0;
-         typename ActualType::const_iterator it;
-         for(it = actual.begin(); it != actual.end(); it++)
-         {
-            if(EvaluateElementAgainstRestOfExpression(list, *it))
-            {
-              passed_elements++;
-            }
-         }
+        unsigned int passed_elements = CollectionConstraintEvaluator<ConstraintListType, ActualType>::Evaluate(*this, list, result, operators, actual);
 
          result.push(passed_elements == actual.size());
       }

@@ -28,9 +28,8 @@ namespace igloo {
     virtual ~ConstraintOperator() {}
     
     virtual void PerformOperation(ResultStack& result) = 0;
-    virtual int Precedence() = 0;
+    virtual int Precedence() const = 0;
     
-  protected:
     template <typename ConstraintListType, typename ActualType>
     static bool EvaluateElementAgainstRestOfExpression(ConstraintListType& list, const ActualType& actual)
     {
@@ -48,18 +47,18 @@ namespace igloo {
        return innerResult.top();
     }
 
-    void EvaluateOperatorsWithLessOrEqualPrecedence(OperatorStack& operators, ResultStack& result)
+    static void EvaluateOperatorsWithLessOrEqualPrecedence(const ConstraintOperator& op, OperatorStack& operators, ResultStack& result)
     {
       while(!operators.empty())
       {
-        ConstraintOperator* op = operators.top();
+        ConstraintOperator* op_from_stack = operators.top();
         
-        if(op->Precedence() > Precedence())
+        if(op_from_stack->Precedence() > op.Precedence())
         {
           break;
         }
         
-        op->PerformOperation(result);        
+        op_from_stack->PerformOperation(result);
         operators.pop();
       }      
     }

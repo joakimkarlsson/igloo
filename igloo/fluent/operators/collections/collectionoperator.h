@@ -14,7 +14,7 @@ namespace igloo {
       {   
       }
 
-      int Precedence()
+      int Precedence() const
       {
          return 1;
       }

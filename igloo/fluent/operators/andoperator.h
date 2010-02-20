@@ -14,7 +14,7 @@ namespace igloo {
     template <typename ConstraintListType, typename ActualType>
     void Evaluate(ConstraintListType& list, ResultStack& result, OperatorStack& operators, const ActualType& actual)
     {
-      EvaluateOperatorsWithLessOrEqualPrecedence(operators, result);
+      EvaluateOperatorsWithLessOrEqualPrecedence(*this, operators, result);
       
       operators.push(this);
       
@@ -36,7 +36,7 @@ namespace igloo {
       result.push(left && right);
     }
     
-    int Precedence()
+    int Precedence() const
     {
       return 3;
     }
