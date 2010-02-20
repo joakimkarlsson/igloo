@@ -9,6 +9,20 @@
 
 namespace igloo {
   
+  struct InvalidExpressionException
+  {
+    InvalidExpressionException(const std::string& message) : m_message(message)
+    {
+    }
+
+    const std::string& Message() const
+    {
+      return m_message;
+    }
+
+    std::string m_message;
+  };
+
   struct ConstraintOperator
   {
     virtual ~ConstraintOperator() {}
@@ -17,6 +31,23 @@ namespace igloo {
     virtual int Precedence() = 0;
     
   protected:
+    template <typename ConstraintListType, typename ActualType>
+    static bool EvaluateElementAgainstRestOfExpression(ConstraintListType& list, const ActualType& actual)
+    {
+       ResultStack innerResult;
+       OperatorStack innerOperators;
+
+       EvaluateConstraintList(list.m_tail, innerResult, innerOperators, actual);
+       EvaluateAllOperatorsOnStack(innerOperators, innerResult);
+
+       if(innerResult.empty())
+       {
+          throw InvalidExpressionException("The expression after an all operator does not yield any result");
+       }
+
+       return innerResult.top();
+    }
+
     void EvaluateOperatorsWithLessOrEqualPrecedence(OperatorStack& operators, ResultStack& result)
     {
       while(!operators.empty())
@@ -42,20 +73,6 @@ namespace igloo {
         operators.pop();
       } 
     }
-  };
-    
-  struct InvalidExpressionException
-  {
-    InvalidExpressionException(const std::string& message) : m_message(message)
-    {
-    }
-    
-    const std::string& Message() const
-    {
-      return m_message;
-    }
-    
-    std::string m_message;
   };
   
 }

@@ -18,18 +18,17 @@ namespace igloo {
       {
          EvaluateOperatorsWithLessOrEqualPrecedence(operators, result);
 
-         bool evaluation_result = true;
+         unsigned int passed_elements = 0;
          typename ActualType::const_iterator it;
          for(it = actual.begin(); it != actual.end(); it++)
          {
-            if(!EvaluateElementAgainstRestOfExpression(list, *it))
+            if(EvaluateElementAgainstRestOfExpression(list, *it))
             {
-               evaluation_result = false;
-               break;
+              passed_elements++;
             }
          }
 
-         result.push(evaluation_result); 
+         result.push(passed_elements == actual.size());
       }
    };
 
