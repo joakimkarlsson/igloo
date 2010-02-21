@@ -87,7 +87,6 @@ namespace igloo {
       return DefaultStringizer< T, is_output_streamable<T>::value >::ToString(value);
     }
   };
-
 }
 
 #endif
