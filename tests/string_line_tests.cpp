@@ -18,4 +18,9 @@ TestFixture(StringLineTests)
     Assert::That("First line", Has().AtLeast(1).EqualTo("First line"));
   }
 
+  TestMethod(CanHandleSeveralLines)
+  {
+    std::string lines = "First line\nSecond line";
+    Assert::That(lines, Has().Exactly(2).EndingWith("line"));
+  }
 };
