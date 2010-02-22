@@ -20,10 +20,10 @@ TestFixture(Strings)
     Assert::That("abcdef", Contains("a"));
   }  
 
-	TestMethod(ShouldDetectFailingContains)
-	{
-		AssertTestFails(Assert::That("abcdef", Contains("hello")), "contains hello");
-	}
+  TestMethod(ShouldDetectFailingContains)
+  {
+    AssertTestFails(Assert::That("abcdef", Contains("hello")), "contains hello");
+  }
 
   TestMethod(ShouldHandleStringStartingWithConstraint)
   {
