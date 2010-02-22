@@ -7,9 +7,6 @@
 #ifndef IGLOO_IGLOO_H
 #define IGLOO_IGLOO_H
 
-// Cuts build time by 40% on my Visual C++
-#define _HAS_TR1 0
-
 #include <iostream>
 #include <map>
 #include <vector>

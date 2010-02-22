@@ -25,22 +25,21 @@ namespace igloo {
             OperatorStack operators;
             expression.Evaluate(result, operators, actual);
 
-            while(!operators.empty())
+            while (!operators.empty())
             {
                ConstraintOperator* op = operators.top();
                op->PerformOperation(result);
                operators.pop();
             }
 
-            if(result.empty())
+            if (result.empty())
             {
                throw InvalidExpressionException("The expression did not yield any result");
             }
 
-            if(!result.top())
+            if (!result.top())
             {
-               std::string expected = igloo::Stringize(expression);
-               throw AssertionException(CreateErrorText(expected, actual));
+               throw AssertionException(CreateErrorText(expression, actual));
             }      
          }
          catch (const InvalidExpressionException& e) 
@@ -56,19 +55,18 @@ namespace igloo {
       }
 
       template <typename ActualType, typename ExpressionType>
-      static void That(const ActualType& actual, const ExpressionType& evaluate)
+      static void That(const ActualType& actual, const ExpressionType& expression)
       {
-         if (!evaluate(actual))
+         if (!expression(actual))
          {
-            std::string expected = igloo::Stringize(evaluate);
-            throw AssertionException(CreateErrorText(expected, actual));
+            throw AssertionException(CreateErrorText(expression, actual));
          }
       }
 
       template <typename ExpressionType>
-      static void That(const char* actual, const ExpressionType& evaluate)
+      static void That(const char* actual, const ExpressionType& expression)
       {
-         return That(std::string(actual), evaluate);
+         return That(std::string(actual), expression);
       }
 
       static void That(bool actual)
@@ -85,15 +83,12 @@ namespace igloo {
       }
 
    private:
-      template <typename T>
-      static std::string CreateErrorText(const std::string& expressionAsString, const T& actual)
+      template <class ExpectedType, class ActualType>
+      static std::string CreateErrorText(const ExpectedType& expected, const ActualType& actual)
       {
          std::ostringstream str;
-         str << "Expected: ";
-         str << expressionAsString;
-         str << std::endl;
-		 str << "Actual: " << igloo::Stringize(actual);
-         str << std::endl;
+         str << "Expected: " << igloo::Stringize(expected) << std::endl;
+         str << "Actual: " << igloo::Stringize(actual) << std::endl;
 
          return str.str();
       }
