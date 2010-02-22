@@ -51,10 +51,7 @@ struct CollectionConstraintEvaluator<ConstraintListType, std::string>
 		std::string::size_type end_of_line = FindNewline(actual, start_of_line);
 		while(end_of_line != std::string::npos)
 		{
-			std::string line = actual.substr(start_of_line, end_of_line
-					- start_of_line);
-			if(ConstraintOperator::EvaluateElementAgainstRestOfExpression(list,
-					line))
+			if(EvaluateLine(list, actual, start_of_line, end_of_line))
 			{
 				passed_elements++;
 			}
@@ -65,9 +62,7 @@ struct CollectionConstraintEvaluator<ConstraintListType, std::string>
 
 		if(start_of_line < actual.size())
 		{
-			std::string line = actual.substr(start_of_line);
-			if(ConstraintOperator::EvaluateElementAgainstRestOfExpression(list,
-					line))
+			if(EvaluateLine(list, actual, start_of_line))
 			{
 				passed_elements++;
 			}
@@ -77,6 +72,15 @@ struct CollectionConstraintEvaluator<ConstraintListType, std::string>
 	}
 
 private:
+	static bool EvaluateLine(ConstraintListType& expression, const std::string& actual, std::string::size_type start_of_line,
+	    std::string::size_type end_of_line = std::string::npos)
+	{
+    std::string line = actual.substr(start_of_line, end_of_line
+         - start_of_line);
+     return ConstraintOperator::EvaluateElementAgainstRestOfExpression(expression, line);
+	}
+
+
 	static std::string::size_type FindNewline(const std::string& actual,
 			std::string::size_type start_pos)
 	{
