@@ -36,32 +36,37 @@ namespace igloo {
     }
   };
   
-  template <typename FixtureType>
+  template <typename FixtureToCall>
   struct BaseFixture : public TestFixtureBase 
   {
-    typedef FixtureType IGLOO_FIXTURE_TYPE;
+    typedef FixtureToCall IGLOO_FIXTURE_TYPE;
 
-    static void RegisterTestMethod(const std::string& name, void (FixtureType::*method)())
+    static void RegisterTestMethod(const std::string& name, void (FixtureToCall::*method)())
     {
       GetTestMethods().insert(std::make_pair(name, method));
     }
 
-    static void Run(FixtureType& testFixture, const std::string& fixtureName, std::list<TestResult>& results)
+    template <typename FixtureToInstantiate>
+    static void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {    
       const TestMethods& testMethods = GetTestMethods();
-      CallTests(testFixture, testMethods, fixtureName, results);
+      CallTests<FixtureToInstantiate>(testMethods, fixtureName, results);
     }
 
   private:
-    typedef void (FixtureType::*TestMethodPtr)();
+    typedef void (FixtureToCall::*TestMethodPtr)();
     typedef std::map<std::string, TestMethodPtr> TestMethods;
     
-    static void CallTests(FixtureType& fixture, const TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
+    template <typename FixtureToInstantiate>
+    static void CallTests(const TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
     {
+      FixtureToInstantiate f;
+
       typename TestMethods::const_iterator it;
       for (it = testMethods.begin(); it != testMethods.end(); it++)
       {
-        if(CallTest(fixture, fixtureName, (*it).first, (*it).second, results))
+        FixtureToInstantiate newFixture;
+        if(CallTest(newFixture, fixtureName, (*it).first, (*it).second, results))
         {
           std::cout << ".";
         }
@@ -71,8 +76,8 @@ namespace igloo {
         }
       }
     }
-    
-    static bool CallTest(FixtureType& fixture, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
+
+    static bool CallTest(FixtureToCall& fixture, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
     {
       try
       {

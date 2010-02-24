@@ -30,15 +30,18 @@ namespace igloo {
     typedef FixtureType FixtureToCall;
     typedef FixtureType FixtureToInstantiate;
   };
-  
+
   template <typename BaseFixtureType, typename FixtureType>
   class TestFixtureRunner : public TestFixtureRunnerBase
   {
   public:   
     void Run(const std::string& fixtureName, std::list<TestResult>& results)
     {
-      typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToInstantiate testFixture;
-      BaseFixture<typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToCall>::Run(testFixture, fixtureName, results);
+      typedef typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToCall FTC;
+      typedef typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToInstantiate FTI;
+      typedef BaseFixture<FTC> BF;
+
+      BF::template Run<FTI>(fixtureName, results);
     }
   };
 }

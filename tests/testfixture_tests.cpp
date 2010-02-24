@@ -10,7 +10,7 @@ using namespace igloo;
 namespace {
   struct FakeFixture : public BaseFixture<FakeFixture>
   {
-    FakeFixture() : tearDownIsCalled(0)
+    FakeFixture()
     {
     }
         
@@ -24,24 +24,46 @@ namespace {
       Assert::Failure("This fails!");
     }
     
-    int tearDownIsCalled;    
+    static int tearDownIsCalled;
   };
 }
+
+int FakeFixture::tearDownIsCalled = 0;
 
 TestFixture(TestFixtureTests)
 {
   TestMethod(TearDownIsCalledWhenTestMethodFails)
   {
-    FakeFixture t;
-    RunFixture(t);
-    
-    Assert::That(t.tearDownIsCalled, Equals(1));
+    FakeFixture::tearDownIsCalled = 0;
+    RunFixture<FakeFixture>();
+    Assert::That(FakeFixture::tearDownIsCalled, Equals(1));
   }
   
   template< typename FixtureType >
-  void RunFixture(FixtureType& fixture)
+  void RunFixture()
   {
     std::list<TestResult> results;
-    FixtureType::Run(fixture, "Irrelevant", results);
+    FixtureType::template Run<FixtureType>("Irrelevant", results);
   }
+};
+
+TestFixture(AFreshTestFixtureIsCreatedForEachMethod)
+{
+  AFreshTestFixtureIsCreatedForEachMethod() : member("unaltered")
+  {
+  }
+
+  TestMethod(ThisMethodShouldHaveItsOwnContext)
+  {
+    Assert::That(member, Equals("unaltered"));
+    member = "altered";
+  }
+
+  TestMethod(ThisMethodShouldAlsoHaveItsOwnContext)
+  {
+    Assert::That(member, Equals("unaltered"));
+    member = "altered";
+  }
+
+  std::string member;
 };
