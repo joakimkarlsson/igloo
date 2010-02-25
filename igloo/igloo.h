@@ -25,5 +25,6 @@
 #include <igloo/core/assert.h>                
 #include <igloo/core/registration.h>
 
+typedef void IGLOO_CURRENT_CONTEXT;
 #endif
 

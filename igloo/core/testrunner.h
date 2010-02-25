@@ -14,7 +14,8 @@ namespace igloo {
   class TestRunner
   {
   public:
-    typedef std::map<std::string, TestFixtureRunnerBase* > TestFixtureRunners;
+    typedef std::pair<std::string, TestFixtureRunnerBase*> NamedFixtureRunner;
+    typedef std::vector<NamedFixtureRunner> TestFixtureRunners;
     
     static int RunAllTests()
     {
@@ -61,7 +62,23 @@ namespace igloo {
     template <typename FixtureRunnerType>
     static void RegisterTestFixture(const std::string& name)
     {
-      TestRunner::FixtureRunners()[name] = new FixtureRunnerType();
+      if(!TestFixtureIsRegistered(name))
+      {
+        TestRunner::FixtureRunners().push_back(std::make_pair(name, new FixtureRunnerType()));
+      }
+    }
+    
+    static bool TestFixtureIsRegistered(const std::string& name)
+    {
+      for (TestFixtureRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
+      {
+        if((*it).first == name)
+        {
+          return true;
+        }
+      }      
+      
+      return false;
     }
     
     static TestRunner::TestFixtureRunners& FixtureRunners()
