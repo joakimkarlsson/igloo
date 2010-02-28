@@ -89,26 +89,24 @@ struct OuterContextSelector<InnerContext, void>
 };
 
 #define Context(context) \
-template <typename T##context> struct context {}; \
-struct ContextRegistrar##context \
+struct context; \
+struct ContextRegistrar_##context \
 { \
-ContextRegistrar##context() \
-{ \
-igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, context<void> > >(#context); \
-} \
-} context##IglooRegistrar; \
-template<> \
-struct context<void> : public OuterContextSelector<context<void>, IGLOO_CURRENT_CONTEXT>::SelectedContext
+  ContextRegistrar_##context() \
+  { \
+    igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, context> >(#context); \
+  } \
+} context##_IglooRegistrar; \
+struct context : public ContextBridge<context, IGLOO_CURRENT_CONTEXT>
 
-#define Spec(spec, context) \
-struct SpecRegistrar##spec \
+#define Spec(spec) \
+struct SpecRegistrar_##spec \
 { \
-SpecRegistrar##spec() \
-{ \
-BaseFixture<context<void> >::RegisterTestMethod(#spec, &context<void>::spec); \
-} \
-} spec##Registrar; \
-\
+  SpecRegistrar_##spec() \
+  { \
+    BaseFixture<IGLOO_CURRENT_CONTEXT>::RegisterTestMethod(#spec, &IGLOO_CURRENT_CONTEXT::spec); \
+  } \
+} SpecRegistrar_##spec; \
 virtual void spec()
 
 #endif
