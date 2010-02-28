@@ -3,39 +3,49 @@ using namespace igloo;
 
 struct Fuzzbox
 {
-  void SetMode(int mode)
+  enum Mode
   {
-    std::cout << "Fuzzbox::SetMode " << mode << std::endl;
+    Clean,
+    Distorted
+  };
+  
+  void SetMode(Mode mode)
+  {
     mode_ = mode;
   }
   
-  int mode_;
+  Mode GetMode()
+  {
+    return mode_;
+  }
+  
+private:
+  Mode mode_;
 };
 
 Context(IHaveAFuzzbox)
 {
   void SetUp()
   {
-    std::cout << "IHaveAFuzzbox::SetUp" << std::endl;
+    fuzzbox.SetMode(Fuzzbox::Clean);
   }
   
-  Context(FuzzboxIsInCleanMode)
+  Context(FuzzboxIsInDistortedMode)
   {
     void SetUp()
     {
-      std::cout << "FuzzboxIsInCleanMode::SetUp" << std::endl;
-      Parent().fuzzbox.SetMode(32);
+      Parent().fuzzbox.SetMode(Fuzzbox::Distorted);
     }
     
-    Spec(WhenIFretTheStringsTheSoundIsClean)
+    Spec(WhenIFretTheStringsTheSoundIsDistorted)
     {
-      std::cout << "WhenIFretTheStringsTheSoundIsClean " << Parent().fuzzbox.mode_ << std::endl;
+      Assert::That(Parent().fuzzbox.GetMode(), Equals(Fuzzbox::Distorted));
     }
   };
   
   Spec(ANewFuzzBoxIsInCleanMode)
   {
-    std::cout << "ANewFuzzBoxIsInCleanMode " << fuzzbox.mode_ << std::endl;
+    Assert::That(fuzzbox.GetMode(), Equals(Fuzzbox::Clean));
   }
   
   Fuzzbox fuzzbox;
