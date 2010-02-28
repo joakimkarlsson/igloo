@@ -12,23 +12,70 @@ struct Fuzzbox
   int mode_;
 };
 
-Context(IHaveAFuzzbox)
+//Context(IHaveAFuzzbox)
+struct IHaveAFuzzbox;
+struct ContextRegistrarIHaveAFuzzbox
 {
-  Context(FuzzboxIsInCleanMode)
+  ContextRegistrarIHaveAFuzzbox()
   {
+    igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, IHaveAFuzzbox> >("IHaveAFuzzbox");
+  }
+} IHaveAFuzzboxIglooRegistrar;
+struct IHaveAFuzzbox : public ContextBridge<IHaveAFuzzbox, IGLOO_CURRENT_CONTEXT>
+{
+  void SetUp()
+  {
+    std::cout << "IHaveAFuzzbox::SetUp" << std::endl;
+  }
+  
+  //Context(FuzzboxIsInCleanMode)
+  struct FuzzboxIsInCleanMode; 
+  struct ContextRegistrarFuzzboxIsInCleanMode 
+  { 
+    ContextRegistrarFuzzboxIsInCleanMode() 
+    { 
+      igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, FuzzboxIsInCleanMode> >("FuzzboxIsInCleanMode"); 
+    } 
+  } FuzzboxIsInCleanModeIglooRegistrar; 
+  
+  struct FuzzboxIsInCleanMode : public ContextBridge<FuzzboxIsInCleanMode, IGLOO_CURRENT_CONTEXT>
+  {
+    FuzzboxIsInCleanMode()
+    {
+      std::cout << "FuzzBoxIsInCleanMode. Context " << typeid(IGLOO_CURRENT_CONTEXT).name() << std::endl;
+    }
+    
     void SetUp()
     {
       std::cout << "FuzzboxIsInCleanMode::SetUp" << std::endl;
-      fuzzbox.SetMode(32);
+      Parent().fuzzbox.SetMode(32);
     }
     
-    Spec(WhenIFretTheStringsTheSoundIsClean, FuzzboxIsInCleanMode)
+    struct SpecRegistrarWhenIFretTheStringsTheSoundIsClean 
+    { 
+      SpecRegistrarWhenIFretTheStringsTheSoundIsClean() 
+      { 
+        BaseFixture<IGLOO_CURRENT_CONTEXT>::RegisterTestMethod("WhenIFretTheStringsTheSoundIsClean", &IGLOO_CURRENT_CONTEXT::WhenIFretTheStringsTheSoundIsClean); 
+      } 
+    } SpecRegistrarWhenIFretTheStringsTheSoundIsCleanRegistrar; 
+
+    virtual void WhenIFretTheStringsTheSoundIsClean()    
     {
-      std::cout << "WhenIFretTheStringsTheSoundIsClean " << fuzzbox.mode_ << std::endl;
+      std::cout << "WhenIFretTheStringsTheSoundIsClean " << Parent().fuzzbox.mode_ << std::endl;
     }
   };
   
-  Spec(ANewFuzzBoxIsInCleanMode, IHaveAFuzzbox)
+  //Spec(ANewFuzzBoxIsInCleanMode, IHaveAFuzzbox)
+  struct SpecRegistrarANewFuzzBoxIsInCleanMode 
+  { 
+    SpecRegistrarANewFuzzBoxIsInCleanMode() 
+    { 
+      std::cout << "Registering method for context: " << typeid(IGLOO_CURRENT_CONTEXT).name() << std::endl;
+      BaseFixture<IGLOO_CURRENT_CONTEXT>::RegisterTestMethod("ANewFuzzBoxIsInCleanMode", &IGLOO_CURRENT_CONTEXT::ANewFuzzBoxIsInCleanMode); 
+    } 
+  } SpecRegistrarANewFuzzBoxIsInCleanMode; 
+  
+  virtual void ANewFuzzBoxIsInCleanMode()      
   {
     std::cout << "ANewFuzzBoxIsInCleanMode " << fuzzbox.mode_ << std::endl;
   }

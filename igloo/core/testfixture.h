@@ -17,6 +17,12 @@ namespace igloo {
   {
     virtual ~TestFixtureBase() {}
     
+    virtual void IglooFrameworkSetUp()
+    {}
+    
+    virtual void IglooFrameworkTearDown()
+    {}
+    
     virtual void SetUp()
     {
     }
@@ -81,9 +87,11 @@ namespace igloo {
     {
       try
       {
+        fixture.IglooFrameworkSetUp();
         fixture.SetUp();
         (fixture.*method)();
         fixture.TearDown();
+        fixture.IglooFrameworkTearDown();
       }
       catch (const AssertionException& e)
       {

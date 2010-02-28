@@ -40,10 +40,40 @@ BaseFixture<IGLOO_FIXTURE_TYPE>::RegisterTestMethod(#method, &IGLOO_FIXTURE_TYPE
 \
 virtual void method()
 
+template <typename T>
+T* CreateIglooContext()
+{
+  return new T();
+}
+
 template <typename InnerContext, typename OuterContext>
-struct ContextBridge : public OuterContext
+struct ContextBridge : public igloo::TestFixtureBase
 {
   typedef InnerContext IGLOO_CURRENT_CONTEXT;
+  typedef InnerContext IGLOO_OUTER_CONTEXT;
+  
+  virtual OuterContext& Parent()
+  {
+    if(m_outerContext.get() == 0)
+    {
+      m_outerContext = std::auto_ptr<OuterContext>(CreateIglooContext<OuterContext>());
+    }
+    return *(m_outerContext.get());
+  }
+  
+  virtual void IglooFrameworkSetUp()
+  {
+    Parent().IglooFrameworkSetUp();
+    SetUp();
+  }
+
+  virtual void IglooFrameworkTearDown()
+  {
+    TearDown();
+    Parent().IglooFrameworkTearDown();
+  }
+  
+  std::auto_ptr<OuterContext> m_outerContext;
 };
 
 template <typename InnerContext, typename OuterContext>
@@ -59,7 +89,7 @@ struct OuterContextSelector<InnerContext, void>
 };
 
 #define Context(context) \
-template <typename T##context> struct context; \
+template <typename T##context> struct context {}; \
 struct ContextRegistrar##context \
 { \
 ContextRegistrar##context() \
@@ -67,8 +97,8 @@ ContextRegistrar##context() \
 igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, context<void> > >(#context); \
 } \
 } context##IglooRegistrar; \
-template <typename T##context> \
-struct context : public OuterContextSelector<context<void>, IGLOO_CURRENT_CONTEXT>::SelectedContext
+template<> \
+struct context<void> : public OuterContextSelector<context<void>, IGLOO_CURRENT_CONTEXT>::SelectedContext
 
 #define Spec(spec, context) \
 struct SpecRegistrar##spec \
