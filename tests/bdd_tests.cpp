@@ -30,6 +30,11 @@ Context(IHaveAFuzzbox)
     fuzzbox.SetMode(Fuzzbox::Clean);
   }
   
+  Spec(ANewFuzzBoxIsInCleanMode)
+  {
+    Assert::That(fuzzbox.GetMode(), Equals(Fuzzbox::Clean));
+  }  
+  
   Context(FuzzboxIsInDistortedMode)
   {
     void SetUp()
@@ -42,11 +47,6 @@ Context(IHaveAFuzzbox)
       Assert::That(Parent().fuzzbox.GetMode(), Equals(Fuzzbox::Distorted));
     }
   };
-  
-  Spec(ANewFuzzBoxIsInCleanMode)
-  {
-    Assert::That(fuzzbox.GetMode(), Equals(Fuzzbox::Clean));
-  }
   
   Fuzzbox fuzzbox;
 };
