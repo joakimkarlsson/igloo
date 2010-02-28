@@ -47,7 +47,7 @@ T* CreateIglooContext()
 }
 
 template <typename InnerContext, typename OuterContext>
-struct ContextBridge : public igloo::TestFixtureBase
+struct ContextProvider : public igloo::TestFixtureBase
 {
   typedef InnerContext IGLOO_CURRENT_CONTEXT;
   typedef InnerContext IGLOO_OUTER_CONTEXT;
@@ -76,18 +76,6 @@ struct ContextBridge : public igloo::TestFixtureBase
   std::auto_ptr<OuterContext> m_outerContext;
 };
 
-template <typename InnerContext, typename OuterContext>
-struct OuterContextSelector
-{
-  typedef ContextBridge<InnerContext, OuterContext> SelectedContext;
-};
-
-template <typename InnerContext>
-struct OuterContextSelector<InnerContext, void>
-{
-  typedef ContextBridge<InnerContext, igloo::TestFixtureBase > SelectedContext;
-};
-
 #define Context(context) \
 struct context; \
 struct ContextRegistrar_##context \
@@ -97,7 +85,7 @@ struct ContextRegistrar_##context \
     igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<void, context> >(#context); \
   } \
 } context##_IglooRegistrar; \
-struct context : public ContextBridge<context, IGLOO_CURRENT_CONTEXT>
+struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
 
 #define Spec(spec) \
 struct SpecRegistrar_##spec \
