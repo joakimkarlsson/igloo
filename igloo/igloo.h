@@ -22,7 +22,8 @@
 #include <igloo/core/testfixture.h> 
 #include <igloo/core/testfixturerunner.h>
 #include <igloo/core/testrunner.h>
-#include <igloo/core/assert.h>                
+#include <igloo/core/assert.h>
+#include <igloo/core/contextprovider.h>
 #include <igloo/core/registration.h>
 
 typedef igloo::TestFixtureBase IGLOO_CURRENT_CONTEXT;
