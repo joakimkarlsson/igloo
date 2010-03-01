@@ -1,66 +1,66 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
-TestFixture(StringLineTests)
+Context(StringLineTests)
 {
-  TestMethod(CanAssertThatAtLeastOneLineInAStreamMatches)
+  Spec(CanAssertThatAtLeastOneLineInAStreamMatches)
   {
     Assert::That("First line\n", Has().AtLeast(1).EqualTo("First line"));
   }
 
-  TestMethod(CanDetectWhenAssertionFails)
+  Spec(CanDetectWhenAssertionFails)
   {
     AssertTestFails(Assert::That("First line\n", Has().AtLeast(1).EqualTo("Second line")), "Expected: at least 1 equal to Second line");
   }
 
-  TestMethod(CanHandleLineMissingNewline)
+  Spec(CanHandleLineMissingNewline)
   {
     Assert::That("First line", Has().AtLeast(1).EqualTo("First line"));
   }
 
-  TestMethod(CanHandleSeveralLines)
+  Spec(CanHandleSeveralLines)
   {
     std::string lines = "First line\nSecond line";
     Assert::That(lines, Has().Exactly(2).EndingWith("line"));
   }
 
-  TestMethod(CanHandleWindowsLineEndings)
+  Spec(CanHandleWindowsLineEndings)
   {
     std::string lines = "First line\r\nSecond line\r\nThird line";
     Assert::That(lines, Has().Exactly(3).EndingWith("line"));
   }
 
-  TestMethod(CanMatchBeginningOfLinesWithWindowsLineEndings)
+  Spec(CanMatchBeginningOfLinesWithWindowsLineEndings)
   {
     std::string lines = "First line\r\nSecond line\r\nThird line";
     Assert::That(lines, Has().Exactly(1).StartingWith("Second"));
   }
 
-  TestMethod(CanHandleEmptyLinesWhenUsingWindowsLineEndings)
+  Spec(CanHandleEmptyLinesWhenUsingWindowsLineEndings)
   {
     std::string lines = "\r\nSecond line\r\n\r\n";
     Assert::That(lines, Has().Exactly(2).OfLength(0));
   }
 
-  TestMethod(CanHandleLastLineMissingNewlineForWindowsLineEndings)
+  Spec(CanHandleLastLineMissingNewlineForWindowsLineEndings)
   {
     std::string lines = "First line\r\nSecond line";
     Assert::That(lines, Has().Exactly(2).EndingWith("line"));
   }
 
-  TestMethod(CanHandleAllEmptyLines)
+  Spec(CanHandleAllEmptyLines)
   {
     Assert::That("\n\n\n\n\n\n", Has().Exactly(6).OfLength(0));
   }
 
-  TestMethod(CanHandleAllEmptyLinesWithWindowsLineEndings)
+  Spec(CanHandleAllEmptyLinesWithWindowsLineEndings)
   {
     Assert::That("\r\n\r\n\r\n", Has().Exactly(3).OfLength(0));
   }
 };
 
-TestFixture(StringLineParserTests)
+Context(StringLineParserTests)
 {
-  TestMethod(CanParseEmptyString)
+  Spec(CanParseEmptyString)
   {
     std::vector<std::string> res;
 
@@ -69,7 +69,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, HasLength(0));
   }
 
-  TestMethod(CanParseSingleLine)
+  Spec(CanParseSingleLine)
   {
     std::vector<std::string> res;
 
@@ -79,7 +79,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("Simple line"));
   }
 
-  TestMethod(CanParseTwoLines)
+  Spec(CanParseTwoLines)
   {
     std::vector<std::string> res;
 
@@ -90,7 +90,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("Two lines"));
   }
 
-  TestMethod(CanParseThreeLines)
+  Spec(CanParseThreeLines)
   {
     std::vector<std::string> res;
 
@@ -102,7 +102,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("Three lines"));
   }
 
-  TestMethod(CanHandleStringEndingWithNewline)
+  Spec(CanHandleStringEndingWithNewline)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("One line\n", res);
@@ -110,7 +110,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("One line"));
   }
 
-  TestMethod(CanHandleSingleLineWithWindowsLineEnding)
+  Spec(CanHandleSingleLineWithWindowsLineEnding)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("One line\r\n", res);
@@ -118,7 +118,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("One line"));
   }
 
-  TestMethod(CanHandleTwoLinesWithWindowsLineEndings)
+  Spec(CanHandleTwoLinesWithWindowsLineEndings)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("One line\r\nTwo lines", res);
@@ -127,14 +127,14 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("Two lines"));
   }
 
-  TestMethod(CanHandleEmptyLineWithNewline)
+  Spec(CanHandleEmptyLineWithNewline)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("\n", res);
     Assert::That(res, Is().OfLength(1).And().Exactly(1).OfLength(0));
   }
 
-  TestMethod(CanHandleTwoEmptyLines)
+  Spec(CanHandleTwoEmptyLines)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("\n\n", res);
@@ -142,7 +142,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(2).OfLength(0));
   }
 
-  TestMethod(CanHandleTwoEmptyLinesWithWindowsLineEndings)
+  Spec(CanHandleTwoEmptyLinesWithWindowsLineEndings)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("\r\n\r\n", res);
@@ -150,7 +150,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(2).OfLength(0));
   }
 
-  TestMethod(CanHandleCarriageReturnOnly)
+  Spec(CanHandleCarriageReturnOnly)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("One line\rTwo lines", res);
@@ -159,7 +159,7 @@ TestFixture(StringLineParserTests)
     Assert::That(res, Has().Exactly(1).EqualTo("Two lines"));
   }
 
-  TestMethod(CanHandleCarriageReturnOnlyAtEndOfString)
+  Spec(CanHandleCarriageReturnOnlyAtEndOfString)
   {
     std::vector<std::string> res;
     StringLineParser::Parse("One line\r\nTwo lines\r", res);

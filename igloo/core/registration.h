@@ -87,6 +87,17 @@ struct ContextRegistrar_##context \
 } context##_IglooRegistrar; \
 struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
 
+#define SubContext(context, baseContext) \
+struct context; \
+struct ContextRegistrar_##context \
+{ \
+ContextRegistrar_##context() \
+{ \
+igloo::TestRunner::RegisterTestFixture<igloo::TestFixtureRunner<baseContext, context> >(#context); \
+} \
+} context##_IglooRegistrar; \
+struct context : public baseContext
+
 #define Spec(spec) \
 struct SpecRegistrar_##spec \
 { \

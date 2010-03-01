@@ -7,63 +7,106 @@
 #include "igloo_self_test.h"
 using namespace igloo;
 
-namespace {
-  struct FakeFixture : public BaseFixture<FakeFixture>
-  {
-    FakeFixture()
-    {
-    }
-        
-    void TearDown()
-    {
-      tearDownIsCalled++;
-    }
-    
-    TestMethod(MethodThatFails)
-    {
-      Assert::Failure("This fails!");
-    }
-    
-    static int tearDownIsCalled;
-  };
-}
-
-int FakeFixture::tearDownIsCalled = 0;
-
-TestFixture(TestFixtureTests)
+Context(AFreshContext)
 {
-  TestMethod(TearDownIsCalledWhenTestMethodFails)
-  {
-    FakeFixture::tearDownIsCalled = 0;
-    RunFixture<FakeFixture>();
-    Assert::That(FakeFixture::tearDownIsCalled, Equals(1));
-  }
-  
-  template< typename FixtureType >
-  void RunFixture()
-  {
-    std::list<TestResult> results;
-    FixtureType::template Run<FixtureType>("Irrelevant", results);
-  }
-};
-
-TestFixture(AFreshTestFixtureIsCreatedForEachMethod)
-{
-  AFreshTestFixtureIsCreatedForEachMethod() : member("unaltered")
+  AFreshContext() : member("unaltered")
   {
   }
 
-  TestMethod(ThisMethodShouldHaveItsOwnContext)
+  Spec(WhenAMethodIsCalledItShouldHaveItsOwnContext)
   {
     Assert::That(member, Equals("unaltered"));
     member = "altered";
   }
 
-  TestMethod(ThisMethodShouldAlsoHaveItsOwnContext)
+  Spec(WhenASecondMethodIsCalledItShouldAlsoHaveItsOwnContext)
   {
     Assert::That(member, Equals("unaltered"));
     member = "altered";
   }
 
   std::string member;
+};
+
+Context(AContextWithSetupAndTearDown)
+{   
+  Spec(WhenASpecIsExecutedSetUpAndTearDownIsCalled)
+  {
+    ContextToTest contextToTest;
+    BaseFixture<ContextToTest>::CallTest(contextToTest, "ContextToTest", "ASpec", &ContextToTest::ASpec, results);
+    
+    Assert::That(contextToTest.log, Equals("SetUp called TearDown called "));
+  }
+  
+  Spec(WhenASpecInAnInnerContextIsCalledOuterSetUpAndTearDownShouldBeCalled)
+  {
+    ContextToTest::InnerContext innerContext;
+    BaseFixture<ContextToTest::InnerContext>::CallTest(innerContext, "InnerContext", "ASpec", &ContextToTest::InnerContext::ASpec, results);
+    
+    Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
+  }
+  
+  Spec(SetUpAndTearDownAreCalledForFailingSpecs)
+  {
+    ContextToTest contextToTest;
+    BaseFixture<ContextToTest>::CallTest(contextToTest, "ContextToTest", "AFailingSpec", &ContextToTest::AFailingSpec, results);
+    
+    Assert::That(contextToTest.log, Equals("SetUp called TearDown called "));    
+  }
+  
+  Spec(SetUpAndTearDownAreCalledForFailingSpecInNestedContext)
+  {
+    ContextToTest::InnerContext innerContext;
+    BaseFixture<ContextToTest::InnerContext>::CallTest(innerContext, "InnerContext", "AFailingSpec", &ContextToTest::InnerContext::AFailingSpec, results);
+    
+    Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
+  } 
+  
+  struct ContextToTest : public ContextProvider<ContextToTest, TestFixtureBase>
+  {
+    void SetUp()
+    {
+      log = "SetUp called ";
+    }
+    
+    void TearDown()
+    {
+      log += "TearDown called ";
+    }
+    
+    Spec(ASpec)
+    {
+    }
+    
+    Spec(AFailingSpec)
+    {
+      Assert::Failure("This should fail");
+    }
+    
+    struct InnerContext : public ContextProvider<InnerContext, ContextToTest>
+    {
+      void SetUp()
+      {
+        Parent().log += "Inner SetUp called ";
+      }
+      
+      void TearDown()
+      {
+        Parent().log += "Inner TearDown called ";
+      }
+      
+      Spec(ASpec)
+      {
+      }
+      
+      Spec(AFailingSpec)
+      {
+        Assert::Failure("This should fail");
+      }      
+    };
+    
+    std::string log;
+  };  
+  
+  std::list<TestResult> results;
 };

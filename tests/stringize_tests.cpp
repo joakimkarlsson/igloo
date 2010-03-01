@@ -62,23 +62,23 @@ namespace igloo {
   };
 }
 
-TestFixture(StringizeTests)
+Context(StringizeTests)
 {
-  TestMethod(ShouldHandleTypesWithStreamOperators)
+  Spec(ShouldHandleTypesWithStreamOperators)
   {
     WithStreamOperator a(12);
     WithStreamOperator b(13);
     AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to 13\nActual: 12");
   }
 
-  TestMethod(ShouldHandleTypesWithoutStreamOperators)
+  Spec(ShouldHandleTypesWithoutStreamOperators)
   {
     WithoutStreamOperator a(12);
     WithoutStreamOperator b(13);
     AssertTestFails(Assert::That(a, Is().EqualTo(b)), "Expected: equal to [unsupported type]\nActual: [unsupported type]");
   }
 
-  TestMethod(ShouldHandleTypesWithTraits)
+  Spec(ShouldHandleTypesWithTraits)
   {
     WithoutStreamOperatorButWithStringizer a(12);
     WithoutStreamOperatorButWithStringizer b(13);
@@ -86,23 +86,23 @@ TestFixture(StringizeTests)
   }
 }; 
 
-TestFixture(StringizeTestsExpressionTemplates)
+Context(StringizeTestsExpressionTemplates)
 {
-  TestMethod(ShouldHandleTypesWithStreamOperators)
+  Spec(ShouldHandleTypesWithStreamOperators)
   {
     WithStreamOperator a(12);
     WithStreamOperator b(13);
     AssertTestFails(Assert::That(a, Equals(b)), "Expected: equal to 13\nActual: 12");
   }
 
-  TestMethod(ShouldHandleTypesWithoutStreamOperators)
+  Spec(ShouldHandleTypesWithoutStreamOperators)
   {
     WithoutStreamOperator a(12);
     WithoutStreamOperator b(13);
     AssertTestFails(Assert::That(a, Equals(b)), "Expected: equal to [unsupported type]\nActual: [unsupported type]");
   }
 
-  TestMethod(ShouldHandleTypesWithTraits)
+  Spec(ShouldHandleTypesWithTraits)
   {
     WithoutStreamOperatorButWithStringizer a(12);
     WithoutStreamOperatorButWithStringizer b(13);

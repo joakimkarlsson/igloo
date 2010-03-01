@@ -59,7 +59,6 @@ namespace igloo {
       CallTests<FixtureToInstantiate>(testMethods, fixtureName, results);
     }
 
-  private:
     typedef void (FixtureToCall::*TestMethodPtr)();
     typedef std::map<std::string, TestMethodPtr> TestMethods;
     
@@ -85,23 +84,33 @@ namespace igloo {
 
     static bool CallTest(FixtureToCall& fixture, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
     {
+      bool result = true;
+      
       try
       {
         fixture.IglooFrameworkSetUp();
-        fixture.SetUp();
         (fixture.*method)();
-        fixture.TearDown();
-        fixture.IglooFrameworkTearDown();
-      }
+       }
       catch (const AssertionException& e)
       {
         results.push_back(TestResult(fixtureName, testName, false, e.GetMessage()));
-        fixture.TearDown();
-        return false;
+        result == false;
       }
       
-      results.push_back(TestResult(fixtureName, testName, true, "Test succeeded"));
-      return true;
+      try 
+      {
+        fixture.IglooFrameworkTearDown();
+      }
+      catch (const AssertionException&) 
+      {
+      }
+      
+      if(result)
+      {
+        results.push_back(TestResult(fixtureName, testName, true, "Test succeeded"));
+      }
+      
+      return result;
     }
 
     static TestMethods& GetTestMethods()

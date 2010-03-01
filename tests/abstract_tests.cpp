@@ -8,7 +8,7 @@
 
 using namespace igloo;
 
-struct Common : public BaseFixture<Common>
+struct Common : public ContextProvider<Common, TestFixtureBase>
 {
   virtual ~Common() {}
   virtual void SpecificSetUp() = 0;
@@ -18,7 +18,7 @@ struct Common : public BaseFixture<Common>
     SpecificSetUp();
   }
   
-  TestMethod(TestIt)
+  Spec(TestIt)
   {
     Assert::That(val, Is().LessThan(4));
   }
@@ -26,7 +26,7 @@ struct Common : public BaseFixture<Common>
   int val;
 };
 
-DerivedFixture(Specific1, Common)
+SubContext(Specific1, Common)
 {
   virtual ~Specific1() {}
   void SpecificSetUp()
@@ -35,7 +35,7 @@ DerivedFixture(Specific1, Common)
   }
 };
 
-DerivedFixture(Specific2, Common)
+SubContext(Specific2, Common)
 {
   virtual ~Specific2() {}
   void SpecificSetUp()

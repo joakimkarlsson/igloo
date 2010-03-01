@@ -8,7 +8,7 @@
 
 using namespace igloo;
 
-TestFixture(MapTests)
+Context(MapTests)
 {
   std::map<std::string, int> ages;
   
@@ -20,18 +20,18 @@ TestFixture(MapTests)
     ages["moa"] = 4;
   }
   
-  TestMethod(ContainingShouldDetermineIfKeyExists)
+  Spec(ContainingShouldDetermineIfKeyExists)
   {
     Assert::That(ages, Is().Containing("joakim"));
   }
   
-  TestMethod(ShouldGiveAProperMessageWhenContainingFails)
+  Spec(ShouldGiveAProperMessageWhenContainingFails)
   {
     AssertTestFails(Assert::That(ages, Is().Not().Containing("hanna")), "Expected: not contains hanna"); 
   }
 };
 
-TestFixture(MapTests_ExpressionTemplates)
+Context(MapTests_ExpressionTemplates)
 {
   std::map<std::string, int> ages;
   
@@ -43,12 +43,12 @@ TestFixture(MapTests_ExpressionTemplates)
     ages["moa"] = 4;
   }
   
-  TestMethod(ContainingShouldDetermineIfKeyExists)
+  Spec(ContainingShouldDetermineIfKeyExists)
   {
     Assert::That(ages, Contains("joakim"));
   }
   
-  TestMethod(ShouldGiveAProperMessageWhenContainingFails)
+  Spec(ShouldGiveAProperMessageWhenContainingFails)
   {
     AssertTestFails(Assert::That(ages, !Contains("hanna")), "Expected: not contains hanna"); 
   }
