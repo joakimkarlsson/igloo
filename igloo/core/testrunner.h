@@ -14,14 +14,14 @@ namespace igloo {
   class TestRunner
   {
   public:
-    typedef std::pair<std::string, TestFixtureRunnerBase*> NamedFixtureRunner;
-    typedef std::vector<NamedFixtureRunner> TestFixtureRunners;
+    typedef std::pair<std::string, BaseContextRunner*> NamedFixtureRunner;
+    typedef std::vector<NamedFixtureRunner> ContextRunners;
     
     static int RunAllTests()
     {
       std::list<TestResult> results;
       
-      for (TestFixtureRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
+      for (ContextRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
       {
         (*it).second->Run((*it).first, results);
         delete (*it).second;
@@ -70,7 +70,7 @@ namespace igloo {
     
     static bool TestFixtureIsRegistered(const std::string& name)
     {
-      for (TestFixtureRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
+      for (ContextRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
       {
         if((*it).first == name)
         {
@@ -81,9 +81,9 @@ namespace igloo {
       return false;
     }
     
-    static TestRunner::TestFixtureRunners& FixtureRunners()
+    static TestRunner::ContextRunners& FixtureRunners()
     {
-      static TestRunner::TestFixtureRunners _fixtureRunners;
+      static TestRunner::ContextRunners _fixtureRunners;
       return _fixtureRunners;
     }
   };

@@ -11,37 +11,37 @@
 
 namespace igloo {
   
-  struct TestFixtureRunnerBase
+  struct BaseContextRunner
   {
-    virtual ~TestFixtureRunnerBase() {}
-    virtual void Run(const std::string& fixtureName, std::list<TestResult>& results) = 0;    
+    virtual ~BaseContextRunner() {}
+    virtual void Run(const std::string& contextName, std::list<TestResult>& results) = 0;    
   };
   
-  template <typename BaseFixtureType, typename FixtureType>
-  struct FixtureRunnerInfo
+  template <typename ContextRegistryType, typename ContextType>
+  struct ContextSelector
   {
-    typedef BaseFixtureType FixtureToCall;
-    typedef FixtureType FixtureToInstantiate;
+    typedef ContextRegistryType ContextToExecute;
+    typedef ContextType ContextToCreate;
   };
   
-  template <typename FixtureType>
-  struct FixtureRunnerInfo<void, FixtureType>
+  template <typename ContextType>
+  struct ContextSelector<void, ContextType>
   {
-    typedef FixtureType FixtureToCall;
-    typedef FixtureType FixtureToInstantiate;
+    typedef ContextType ContextToExecute;
+    typedef ContextType ContextToCreate;
   };
 
-  template <typename BaseFixtureType, typename FixtureType>
-  class TestFixtureRunner : public TestFixtureRunnerBase
+  template <typename ContextRegistryType, typename ContextType>
+  class ContextRunner : public BaseContextRunner
   {
   public:   
-    void Run(const std::string& fixtureName, std::list<TestResult>& results)
+    void Run(const std::string& contextName, std::list<TestResult>& results)
     {
-      typedef typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToCall FTC;
-      typedef typename FixtureRunnerInfo<BaseFixtureType, FixtureType>::FixtureToInstantiate FTI;
-      typedef BaseFixture<FTC> BF;
+      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute FTC;
+      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate FTI;
+      typedef ContextRegistry<FTC> BF;
 
-      BF::template Run<FTI>(fixtureName, results);
+      BF::template Run<FTI>(contextName, results);
     }
   };
 }

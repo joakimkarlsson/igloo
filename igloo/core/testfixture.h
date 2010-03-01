@@ -43,7 +43,7 @@ namespace igloo {
   };
   
   template <typename FixtureToCall>
-  struct BaseFixture : public TestFixtureBase 
+  struct ContextRegistry  
   {
     typedef FixtureToCall IGLOO_FIXTURE_TYPE;
 
