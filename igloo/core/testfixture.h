@@ -4,8 +4,8 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef IGLOO_TESTFIXTURE_H
-#define IGLOO_TESTFIXTURE_H
+#ifndef IGLOO_CONTEXT_H
+#define IGLOO_CONTEXT_H
 
 #include <igloo/core/assertionexception.h>
 #include <igloo/core/assert.h>
@@ -119,4 +119,4 @@ namespace igloo {
   };  
 }
 
-#endif // IGLOO_TESTFIXTURE_H
+#endif
