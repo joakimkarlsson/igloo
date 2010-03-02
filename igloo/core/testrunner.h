@@ -83,8 +83,8 @@ namespace igloo {
     
     static TestRunner::ContextRunners& RegisteredRunners()
     {
-      static TestRunner::ContextRunners _fixtureRunners;
-      return _fixtureRunners;
+      static TestRunner::ContextRunners contextRunners;
+      return contextRunners;
     }
   };
 }
