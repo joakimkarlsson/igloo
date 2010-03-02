@@ -34,7 +34,7 @@ struct SpecRegistrar_##spec \
 { \
   SpecRegistrar_##spec() \
   { \
-    ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterTestMethod(#spec, &IGLOO_CURRENT_CONTEXT::spec); \
+    ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#spec, &IGLOO_CURRENT_CONTEXT::spec); \
   } \
 } SpecRegistrar_##spec; \
 virtual void spec()

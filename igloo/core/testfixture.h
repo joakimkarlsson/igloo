@@ -45,15 +45,15 @@ namespace igloo {
   template <typename ContextToCall>
   struct ContextRegistry  
   {
-    static void RegisterTestMethod(const std::string& name, void (ContextToCall::*method)())
+    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)())
     {
-      GetTestMethods().insert(std::make_pair(name, method));
+      GetSpecs().insert(std::make_pair(name, spec));
     }
 
     template <typename ContextToCreate>
     static void Run(const std::string& contextName, std::list<TestResult>& results)
     {    
-      const TestMethods& testMethods = GetTestMethods();
+      const TestMethods& testMethods = GetSpecs();
       CallTests<ContextToCreate>(testMethods, contextName, results);
     }
 
@@ -111,7 +111,7 @@ namespace igloo {
       return result;
     }
 
-    static TestMethods& GetTestMethods()
+    static TestMethods& GetSpecs()
     {
       static TestMethods testMethods;
       return testMethods;
