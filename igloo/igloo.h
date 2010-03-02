@@ -20,7 +20,7 @@
 
 #include <igloo/core/assertionexception.h>
 #include <igloo/core/context.h> 
-#include <igloo/core/testfixturerunner.h>
+#include <igloo/core/contextrunner.h>
 #include <igloo/core/testrunner.h>
 #include <igloo/core/assert.h>
 #include <igloo/core/contextprovider.h>
