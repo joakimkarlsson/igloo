@@ -37,11 +37,11 @@ namespace igloo {
   public:   
     void Run(const std::string& contextName, std::list<TestResult>& results)
     {
-      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute FTC;
-      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate FTI;
-      typedef ContextRegistry<FTC> BF;
+      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute CTE;
+      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate CTC;
+      typedef ContextRegistry<CTE> CR;
 
-      BF::template Run<FTI>(contextName, results);
+      CR::template Run<CTC>(contextName, results);
     }
   };
 }

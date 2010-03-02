@@ -8,7 +8,7 @@
 
 using namespace igloo;
 
-struct Common : public ContextProvider<Common, TestFixtureBase>
+struct Common : public ContextProvider<Common, ContextBase>
 {
   virtual ~Common() {}
   virtual void SpecificSetUp() = 0;

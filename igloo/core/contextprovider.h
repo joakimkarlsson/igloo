@@ -8,7 +8,7 @@
 #define IGLOO_CONTEXTPROVIDER_H_
 
 template <typename InnerContext, typename OuterContext>
-struct ContextProvider : public igloo::TestFixtureBase
+struct ContextProvider : public igloo::ContextBase
 {
   typedef InnerContext IGLOO_CURRENT_CONTEXT;
   typedef InnerContext IGLOO_OUTER_CONTEXT;

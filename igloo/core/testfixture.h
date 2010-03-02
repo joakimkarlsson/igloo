@@ -13,9 +13,9 @@
 
 namespace igloo {
 
-  struct TestFixtureBase
+  struct ContextBase 
   {
-    virtual ~TestFixtureBase() {}
+    virtual ~ContextBase() {}
     
     virtual void IglooFrameworkSetUp()
     {}
@@ -42,36 +42,34 @@ namespace igloo {
     }
   };
   
-  template <typename FixtureToCall>
+  template <typename ContextToCall>
   struct ContextRegistry  
   {
-    typedef FixtureToCall IGLOO_FIXTURE_TYPE;
-
-    static void RegisterTestMethod(const std::string& name, void (FixtureToCall::*method)())
+    static void RegisterTestMethod(const std::string& name, void (ContextToCall::*method)())
     {
       GetTestMethods().insert(std::make_pair(name, method));
     }
 
-    template <typename FixtureToInstantiate>
-    static void Run(const std::string& fixtureName, std::list<TestResult>& results)
+    template <typename ContextToCreate>
+    static void Run(const std::string& contextName, std::list<TestResult>& results)
     {    
       const TestMethods& testMethods = GetTestMethods();
-      CallTests<FixtureToInstantiate>(testMethods, fixtureName, results);
+      CallTests<ContextToCreate>(testMethods, contextName, results);
     }
 
-    typedef void (FixtureToCall::*TestMethodPtr)();
+    typedef void (ContextToCall::*TestMethodPtr)();
     typedef std::map<std::string, TestMethodPtr> TestMethods;
     
-    template <typename FixtureToInstantiate>
-    static void CallTests(const TestMethods& testMethods, const std::string& fixtureName, std::list<TestResult>& results)
+    template <typename ContextToCreate>
+    static void CallTests(const TestMethods& testMethods, const std::string& contextName, std::list<TestResult>& results)
     {
-      FixtureToInstantiate f;
+      ContextToCreate c;
 
       typename TestMethods::const_iterator it;
       for (it = testMethods.begin(); it != testMethods.end(); it++)
       {
-        FixtureToInstantiate newFixture;
-        if(CallTest(newFixture, fixtureName, (*it).first, (*it).second, results))
+        ContextToCreate context;
+        if(CallTest(context, contextName, (*it).first, (*it).second, results))
         {
           std::cout << ".";
         }
@@ -82,24 +80,24 @@ namespace igloo {
       }
     }
 
-    static bool CallTest(FixtureToCall& fixture, const std::string& fixtureName, const std::string& testName, TestMethodPtr method, std::list<TestResult>& results)
+    static bool CallTest(ContextToCall& context, const std::string& contextName, const std::string& specName, TestMethodPtr method, std::list<TestResult>& results)
     {
       bool result = true;
       
       try
       {
-        fixture.IglooFrameworkSetUp();
-        (fixture.*method)();
+        context.IglooFrameworkSetUp();
+        (context.*method)();
        }
       catch (const AssertionException& e)
       {
-        results.push_back(TestResult(fixtureName, testName, false, e.GetMessage()));
+        results.push_back(TestResult(contextName, specName, false, e.GetMessage()));
         result == false;
       }
       
       try 
       {
-        fixture.IglooFrameworkTearDown();
+        context.IglooFrameworkTearDown();
       }
       catch (const AssertionException&) 
       {
@@ -107,7 +105,7 @@ namespace igloo {
       
       if(result)
       {
-        results.push_back(TestResult(fixtureName, testName, true, "Test succeeded"));
+        results.push_back(TestResult(contextName, specName, true, "Test succeeded"));
       }
       
       return result;

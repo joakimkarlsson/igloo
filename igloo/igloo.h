@@ -26,6 +26,6 @@
 #include <igloo/core/contextprovider.h>
 #include <igloo/core/registration.h>
 
-typedef igloo::TestFixtureBase IGLOO_CURRENT_CONTEXT;
+typedef igloo::ContextBase IGLOO_CURRENT_CONTEXT;
 #endif
 

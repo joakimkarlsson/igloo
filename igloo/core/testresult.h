@@ -11,19 +11,19 @@ namespace igloo {
   class TestResult
   {
   public:
-     TestResult(const std::string& fixtureName, const std::string& methodName, bool success, const std::string& errorMessage)
-      : m_fixtureName(fixtureName), m_methodName(methodName), m_success(success), m_errorMessage(errorMessage)
+     TestResult(const std::string& contextName, const std::string& specName, bool success, const std::string& errorMessage)
+      : m_contextName(contextName), m_specName(specName), m_success(success), m_errorMessage(errorMessage)
     {
     }
 
-    const std::string& GetFixtureName() const
+    const std::string& GetContextName() const
     {
-      return m_fixtureName;
+      return m_contextName;
     }
 
-    const std::string& GetMethodName() const
+    const std::string& GetSpecName() const
     {
-      return m_methodName;
+      return m_specName;
     }
 
     bool GetSuccess() const
@@ -37,8 +37,8 @@ namespace igloo {
     }
 
   private:
-    std::string m_fixtureName;
-    std::string m_methodName;
+    std::string m_contextName;
+    std::string m_specName;
     bool m_success;
     std::string m_errorMessage;
   };

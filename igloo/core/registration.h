@@ -13,7 +13,7 @@ struct ContextRegistrar_##context \
 { \
   ContextRegistrar_##context() \
   { \
-    igloo::TestRunner::RegisterTestFixture<igloo::ContextRunner<void, context> >(#context); \
+    igloo::TestRunner::RegisterContext<igloo::ContextRunner<void, context> >(#context); \
   } \
 } context##_IglooRegistrar; \
 struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
@@ -24,7 +24,7 @@ struct ContextRegistrar_##context \
 { \
 ContextRegistrar_##context() \
 { \
-igloo::TestRunner::RegisterTestFixture<igloo::ContextRunner<baseContext, context> >(#context); \
+igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContext, context> >(#context); \
 } \
 } context##_IglooRegistrar; \
 struct context : public baseContext

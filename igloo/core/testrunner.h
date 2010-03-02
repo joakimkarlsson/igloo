@@ -14,8 +14,8 @@ namespace igloo {
   class TestRunner
   {
   public:
-    typedef std::pair<std::string, BaseContextRunner*> NamedFixtureRunner;
-    typedef std::vector<NamedFixtureRunner> ContextRunners;
+    typedef std::pair<std::string, BaseContextRunner*> NamedContextRunner;
+    typedef std::vector<NamedContextRunner> ContextRunners;
     
     static int RunAllTests()
     {
@@ -51,7 +51,7 @@ namespace igloo {
           
           const TestResult& result = *it;
           
-          std::cout << result.GetFixtureName() << "::" << result.GetMethodName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
+          std::cout << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
         }
       }
       
@@ -60,7 +60,7 @@ namespace igloo {
     }
     
     template <typename FixtureRunnerType>
-    static void RegisterTestFixture(const std::string& name)
+    static void RegisterContext(const std::string& name)
     {
       if(!TestFixtureIsRegistered(name))
       {
