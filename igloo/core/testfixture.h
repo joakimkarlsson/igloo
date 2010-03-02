@@ -53,23 +53,23 @@ namespace igloo {
     template <typename ContextToCreate>
     static void Run(const std::string& contextName, std::list<TestResult>& results)
     {    
-      const TestMethods& testMethods = GetSpecs();
-      CallTests<ContextToCreate>(testMethods, contextName, results);
+      const Specs& specs = GetSpecs();
+      CallSpecs<ContextToCreate>(specs, contextName, results);
     }
 
-    typedef void (ContextToCall::*TestMethodPtr)();
-    typedef std::map<std::string, TestMethodPtr> TestMethods;
+    typedef void (ContextToCall::*SpecPtr)();
+    typedef std::map<std::string, SpecPtr> Specs;
     
     template <typename ContextToCreate>
-    static void CallTests(const TestMethods& testMethods, const std::string& contextName, std::list<TestResult>& results)
+    static void CallSpecs(const Specs& specs, const std::string& contextName, std::list<TestResult>& results)
     {
       ContextToCreate c;
 
-      typename TestMethods::const_iterator it;
-      for (it = testMethods.begin(); it != testMethods.end(); it++)
+      typename Specs::const_iterator it;
+      for (it = specs.begin(); it != specs.end(); it++)
       {
         ContextToCreate context;
-        if(CallTest(context, contextName, (*it).first, (*it).second, results))
+        if(CallSpec(context, contextName, (*it).first, (*it).second, results))
         {
           std::cout << ".";
         }
@@ -80,14 +80,14 @@ namespace igloo {
       }
     }
 
-    static bool CallTest(ContextToCall& context, const std::string& contextName, const std::string& specName, TestMethodPtr method, std::list<TestResult>& results)
+    static bool CallSpec(ContextToCall& context, const std::string& contextName, const std::string& specName, SpecPtr spec, std::list<TestResult>& results)
     {
       bool result = true;
       
       try
       {
         context.IglooFrameworkSetUp();
-        (context.*method)();
+        (context.*spec)();
        }
       catch (const AssertionException& e)
       {
@@ -111,10 +111,10 @@ namespace igloo {
       return result;
     }
 
-    static TestMethods& GetSpecs()
+    static Specs& GetSpecs()
     {
-      static TestMethods testMethods;
-      return testMethods;
+      static Specs specs;
+      return specs;
     }
   };  
 }
