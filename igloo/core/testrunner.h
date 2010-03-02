@@ -21,13 +21,13 @@ namespace igloo {
     {
       std::list<TestResult> results;
       
-      for (ContextRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
+      for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
       {
         (*it).second->Run((*it).first, results);
         delete (*it).second;
       }
       
-      FixtureRunners().clear();
+      RegisteredRunners().clear();
       
       std::cout << std::endl;
       
@@ -59,18 +59,18 @@ namespace igloo {
       return failed;
     }
     
-    template <typename FixtureRunnerType>
+    template <typename ContextRunnerType>
     static void RegisterContext(const std::string& name)
     {
-      if(!TestFixtureIsRegistered(name))
+      if(!ContextIsRegistered(name))
       {
-        TestRunner::FixtureRunners().push_back(std::make_pair(name, new FixtureRunnerType()));
+        TestRunner::RegisteredRunners().push_back(std::make_pair(name, new ContextRunnerType()));
       }
     }
     
-    static bool TestFixtureIsRegistered(const std::string& name)
+    static bool ContextIsRegistered(const std::string& name)
     {
-      for (ContextRunners::iterator it = FixtureRunners().begin(); it != FixtureRunners().end(); it++)
+      for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
       {
         if((*it).first == name)
         {
@@ -81,7 +81,7 @@ namespace igloo {
       return false;
     }
     
-    static TestRunner::ContextRunners& FixtureRunners()
+    static TestRunner::ContextRunners& RegisteredRunners()
     {
       static TestRunner::ContextRunners _fixtureRunners;
       return _fixtureRunners;
