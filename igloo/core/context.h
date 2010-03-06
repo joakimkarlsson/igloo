@@ -92,7 +92,7 @@ namespace igloo {
       catch (const AssertionException& e)
       {
         results.push_back(TestResult(contextName, specName, false, e.GetMessage()));
-        result == false;
+        result = false;
       }
       
       try 

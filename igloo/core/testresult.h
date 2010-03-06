@@ -35,6 +35,20 @@ namespace igloo {
     {
       return m_errorMessage;
     }
+    
+    bool operator==(const TestResult& rhs) const
+    {
+      return m_contextName == rhs.m_contextName &&
+      m_specName == rhs.m_specName &&
+      m_success == rhs.m_success &&
+      m_errorMessage == rhs.m_errorMessage;    
+    }
+    
+    friend std::ostream& operator<<(std::ostream& stream, const TestResult& res)
+    {
+      stream << "TestResult ( m_contextName=" << res.m_contextName << ", m_specName=" << res.m_specName << ", m_success=" << res.m_success
+      << ", m_errorMessage=" << res.m_errorMessage << " )";
+    } 
 
   private:
     std::string m_contextName;
@@ -42,6 +56,8 @@ namespace igloo {
     bool m_success;
     std::string m_errorMessage;
   };
+  
+ 
 }
 
 #endif /* IGLOO_TESTRESULT_H */

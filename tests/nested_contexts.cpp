@@ -62,6 +62,15 @@ Context(AContextWithSetupAndTearDown)
     Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
   } 
   
+  Spec(AFailingSpecShouldBeRegisteredAsFailed)
+  {
+    ContextToTest::InnerContext innerContext;
+    ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "InnerContext", "AFailingSpec", &ContextToTest::InnerContext::AFailingSpec, results);
+
+    Assert::That(results, HasLength(1));
+    Assert::That(results, Has().Exactly(1).EqualTo(TestResult("InnerContext", "AFailingSpec", false, "This should fail")));
+  }
+  
   struct ContextToTest : public ContextProvider<ContextToTest, ContextBase>
   {
     void SetUp()
