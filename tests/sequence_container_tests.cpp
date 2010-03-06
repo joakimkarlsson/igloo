@@ -43,7 +43,7 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
 
    Spec(ShouldHandleNoExpressionAfterAllOperator)
    {
-      AssertTestFails(Assert::That(container, Has().All()), "The expression after an all operator does not yield any result");
+      AssertTestFails(Assert::That(container, Has().All()), "The expression after \"all\" operator does not yield any result");
    }
 
    Spec(ShouldHandleAtLeastOperator)

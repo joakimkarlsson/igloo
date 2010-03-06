@@ -41,7 +41,7 @@ namespace igloo {
 
        if(innerResult.empty())
        {
-          throw InvalidExpressionException("The expression after an all operator does not yield any result");
+         throw InvalidExpressionException("The expression after \"" + igloo::Stringize(list.m_head) + "\" operator does not yield any result");
        }
 
        return innerResult.top();
