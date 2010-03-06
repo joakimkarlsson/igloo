@@ -99,8 +99,10 @@ namespace igloo {
       {
         context.IglooFrameworkTearDown();
       }
-      catch (const AssertionException&) 
+      catch (const AssertionException& e) 
       {
+        results.push_back(TestResult(contextName, specName, false, e.GetMessage()));
+        result = false;
       }
       
       if(result)
