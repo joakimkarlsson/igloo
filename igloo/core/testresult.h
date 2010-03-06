@@ -48,6 +48,7 @@ namespace igloo {
     {
       stream << "TestResult ( m_contextName=" << res.m_contextName << ", m_specName=" << res.m_specName << ", m_success=" << res.m_success
       << ", m_errorMessage=" << res.m_errorMessage << " )";
+      return stream;
     } 
 
   private:
