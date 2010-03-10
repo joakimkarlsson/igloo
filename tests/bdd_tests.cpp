@@ -39,12 +39,12 @@ Context(IHaveAFuzzbox)
   {
     void SetUp()
     {
-      Parent().fuzzbox.SetMode(Fuzzbox::Distorted);
+      fuzzbox.SetMode(Fuzzbox::Distorted);
     }
     
     Spec(WhenIFretTheStringsTheSoundIsDistorted)
     {
-      Assert::That(Parent().fuzzbox.GetMode(), Equals(Fuzzbox::Distorted));
+      Assert::That(fuzzbox.GetMode(), Equals(Fuzzbox::Distorted));
     }
   };
   

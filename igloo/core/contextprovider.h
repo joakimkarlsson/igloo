@@ -7,41 +7,32 @@
 #ifndef IGLOO_CONTEXTPROVIDER_H_
 #define IGLOO_CONTEXTPROVIDER_H_
 
+// Default current context to empty base class
+typedef igloo::ContextBase IGLOO_CURRENT_CONTEXT;
+
 template <typename InnerContext, typename OuterContext>
-struct ContextProvider : public igloo::ContextBase
+struct ContextProvider 
+	: public OuterContext
 {
   typedef InnerContext IGLOO_CURRENT_CONTEXT;
-  typedef InnerContext IGLOO_OUTER_CONTEXT;
-  
-  virtual OuterContext& Parent()
-  {
-    if(m_outerContext.get() == 0)
-    {
-      m_outerContext = std::auto_ptr<OuterContext>(CreateIglooContext<OuterContext>());
-    }
-    return *(m_outerContext.get());
-  }
   
   virtual void IglooFrameworkSetUp()
   {
-    Parent().IglooFrameworkSetUp();
-    SetUp();
+	OuterContext::IglooFrameworkSetUp();
+	Call(&InnerContext::SetUp);
   }
   
   virtual void IglooFrameworkTearDown()
   {
-    TearDown();
-    Parent().IglooFrameworkTearDown();
+	Call(&InnerContext::TearDown);
+    OuterContext::IglooFrameworkTearDown();
   }
-  
+
 private:
-  template <typename ContextType>
-  ContextType* CreateIglooContext()
-  {
-    return new ContextType();
-  }
-  
-  std::auto_ptr<OuterContext> m_outerContext;
+	void Call(void (InnerContext::*Method)())
+	{
+		(static_cast<InnerContext*>(this)->*Method)();
+	}
 };
 
 #endif
