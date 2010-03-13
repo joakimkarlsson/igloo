@@ -30,16 +30,6 @@ namespace igloo {
     virtual void TearDown()
     {
     }
-       
-    ExpressionBuilder<Nil> Is()
-    {
-      return ExpressionBuilder<Nil>(Nil());
-    }
-
-    ExpressionBuilder<Nil> Has()
-    {
-       return ExpressionBuilder<Nil>(Nil());
-    }
   };
   
   template <typename ContextToCall>

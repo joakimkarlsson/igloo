@@ -15,4 +15,4 @@
 #include <igloo/constraints/islessthanconstraint.h>
 #include <igloo/constraints/startswithconstraint.h>
 
-#endif IGLOO_CONSTRAINTS_H
+#endif
