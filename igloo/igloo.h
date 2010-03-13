@@ -26,5 +26,6 @@
 #include <igloo/core/contextprovider.h>
 #include <igloo/core/registration.h>
 
+typedef igloo::ContextBase IGLOO_CURRENT_CONTEXT;
 #endif
 

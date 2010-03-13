@@ -29,7 +29,7 @@ Context(AFreshContext)
 };
 
 Context(AContextWithSetupAndTearDown)
-{
+{   
   Spec(WhenASpecIsExecutedSetUpAndTearDownIsCalled)
   {
     ContextToTest contextToTest;
@@ -43,7 +43,7 @@ Context(AContextWithSetupAndTearDown)
     ContextToTest::InnerContext innerContext;
     ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "InnerContext", "ASpec", &ContextToTest::InnerContext::ASpec, results);
     
-    Assert::That(innerContext.log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
+    Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
   }
   
   Spec(SetUpAndTearDownAreCalledForFailingSpecs)
@@ -59,11 +59,10 @@ Context(AContextWithSetupAndTearDown)
     ContextToTest::InnerContext innerContext;
     ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "InnerContext", "AFailingSpec", &ContextToTest::InnerContext::AFailingSpec, results);
     
-    Assert::That(innerContext.log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
+    Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
   } 
   
-  template<class T>
-  struct ContextToTest_ : public ContextProvider<ContextToTest_<void>, ContextBase>
+  struct ContextToTest : public ContextProvider<ContextToTest, ContextBase>
   {
     void SetUp()
     {
@@ -84,17 +83,16 @@ Context(AContextWithSetupAndTearDown)
       Assert::Failure("This should fail");
     }
     
-	template<class T>
-    struct InnerContext_ : public ContextProvider<InnerContext_<void>, ContextToTest_<void> >
+    struct InnerContext : public ContextProvider<InnerContext, ContextToTest>
     {
       void SetUp()
       {
-        log += "Inner SetUp called ";
+        Parent().log += "Inner SetUp called ";
       }
       
       void TearDown()
       {
-        log += "Inner TearDown called ";
+        Parent().log += "Inner TearDown called ";
       }
       
       Spec(ASpec)
@@ -106,13 +104,9 @@ Context(AContextWithSetupAndTearDown)
         Assert::Failure("This should fail");
       }      
     };
-
-	typedef InnerContext_<void> InnerContext;
-
+    
     std::string log;
-  };
-
-  typedef ContextToTest_<void> ContextToTest;
+  };  
   
   std::list<TestResult> results;
 };

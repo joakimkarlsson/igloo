@@ -8,15 +8,15 @@
 #define IGLOO_REGISTRATION_H
 
 #define Context(context) \
-template<typename T> struct context; \
+struct context; \
 struct ContextRegistrar_##context \
 { \
   ContextRegistrar_##context() \
   { \
-    igloo::TestRunner::RegisterContext<igloo::ContextRunner<void, context<void> > >(#context); \
+    igloo::TestRunner::RegisterContext<igloo::ContextRunner<void, context> >(#context); \
   } \
 } context##_IglooRegistrar; \
-template<typename T> struct context : public ContextProvider<context<T>, IGLOO_CURRENT_CONTEXT>
+struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
 
 #define SubContext(context, baseContext) \
 struct context; \
@@ -39,11 +39,37 @@ struct SpecRegistrar_##spec \
 } SpecRegistrar_##spec; \
 virtual void spec()
 
-// "Classic" aliases
-#define TestFixture(context) Context(context)
 
-#define DerivedFixture(context, baseContext) SubContext(context, baseContext)
+#define TestFixture(context) \
+struct context; \
+struct ContextRegistrar_##context \
+{ \
+ContextRegistrar_##context() \
+{ \
+igloo::TestRunner::RegisterContext<igloo::ContextRunner<void, context> >(#context); \
+} \
+} context##_IglooRegistrar; \
+struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
 
-#define TestMethod(spec) Spec(spec)
+#define DerivedFixture(context, baseContext) \
+struct context; \
+struct ContextRegistrar_##context \
+{ \
+ContextRegistrar_##context() \
+{ \
+igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContext, context> >(#context); \
+} \
+} context##_IglooRegistrar; \
+struct context : public baseContext
+
+#define TestMethod(spec) \
+struct SpecRegistrar_##spec \
+{ \
+SpecRegistrar_##spec() \
+{ \
+ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#spec, &IGLOO_CURRENT_CONTEXT::spec); \
+} \
+} SpecRegistrar_##spec; \
+virtual void spec()
 
 #endif

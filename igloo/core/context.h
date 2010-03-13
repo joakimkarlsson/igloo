@@ -16,20 +16,18 @@ namespace igloo {
   struct ContextBase 
   {
     virtual ~ContextBase() {}
-
-	virtual void IglooFrameworkSetUp()
+    
+    virtual void IglooFrameworkSetUp()
+    {}
+    
+    virtual void IglooFrameworkTearDown()
+    {}
+    
+    virtual void SetUp()
     {
     }
-  
-  virtual void IglooFrameworkTearDown()
-  {
-  }
 
-  void SetUp()
-    {
-    }
-
-    void TearDown()
+    virtual void TearDown()
     {
     }
        
