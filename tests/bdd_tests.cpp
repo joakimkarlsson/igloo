@@ -1,54 +1,76 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
-struct Fuzzbox
-{
-  enum Mode
+namespace igloo_example {
+  struct Fuzzbox
+  { 
+    bool on_;
+    
+    Fuzzbox() : on_(false) 
+    {
+    }
+    
+    void Switch()
+    {
+      on_ = !on_;
+    }
+    
+  };
+  
+  typedef enum
   {
     Clean,
     Distorted
+  } Sounds;
+  
+  struct Guitar
+  {
+    Fuzzbox* fuzzbox_;
+    
+    void AddEffect(Fuzzbox& fuzzbox)
+    {
+      fuzzbox_ = &fuzzbox;
+    }
+    
+    Sounds Sound()
+    {
+      return fuzzbox_->on_ ? Distorted : Clean;
+    }
   };
   
-  void SetMode(Mode mode)
-  {
-    mode_ = mode;
-  }
-  
-  Mode GetMode()
-  {
-    return mode_;
-  }
-  
-private:
-  Mode mode_;
-};
-
-Context(IHaveAFuzzbox)
-{
-  void SetUp()
-  {
-    fuzzbox.SetMode(Fuzzbox::Clean);
-  }
-  
-  Spec(ANewFuzzBoxIsInCleanMode)
-  {
-    Assert::That(fuzzbox.GetMode(), Equals(Fuzzbox::Clean));
-  }  
-  
-  Context(FuzzboxIsInDistortedMode)
+  Context(AGuitarWithAFuzzbox)
   {
     void SetUp()
     {
-      Parent().fuzzbox.SetMode(Fuzzbox::Distorted);
+      guitar.AddEffect(fuzzbox);
     }
     
-    Spec(WhenIFretTheStringsTheSoundIsDistorted)
+    Spec(FuzzboxStartsInCleanMode)
     {
-      Assert::That(Parent().fuzzbox.GetMode(), Equals(Fuzzbox::Distorted));
-    }
+      Assert::That(guitar.Sound(), Equals(Clean));
+    }  
+    
+    Context(FuzzboxIsInDistortedMode)
+    {
+      void SetUp()
+      {
+        Parent().fuzzbox.Switch();
+      }
+      
+      Spec(WhenIFretTheStringsTheSoundIsDistorted)
+      {
+        Assert::That(Parent().guitar.Sound(), Equals(Distorted));
+      }
+      
+      Spec(WhenISwitchTheFuzzboxTheSoundIsClean)
+      {
+        Parent().fuzzbox.Switch();
+        Assert::That(Parent().guitar.Sound(), Equals(Clean));
+      }
+    };
+    
+    Fuzzbox fuzzbox;
+    Guitar guitar;
   };
   
-  Fuzzbox fuzzbox;
-};
-
-
+}
