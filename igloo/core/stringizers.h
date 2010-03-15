@@ -54,17 +54,6 @@ namespace igloo
         std::list<T> >
     {
     };
-
-  template<>
-    struct Stringizer<std::stringstream>
-    {
-      static std::string
-      ToString(const std::stringstream& stm)
-      {
-        return "WTF!?";
-      }
-    };
-
 }
 
 #endif
