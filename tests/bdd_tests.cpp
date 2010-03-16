@@ -1,76 +1,78 @@
+
+//          Copyright Joakim Karlsson & Kim Gräsman 2010.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
+
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
 namespace igloo_example {
-  struct Fuzzbox
-  { 
-    bool on_;
-    
-    Fuzzbox() : on_(false) 
-    {
-    }
-    
-    void Switch()
-    {
-      on_ = !on_;
-    }
-    
+ 
+  struct Position
+  {
   };
   
-  typedef enum
+  inline bool operator==(const Position&, const Position&)
   {
-    Clean,
-    Distorted
-  } Sounds;
+    return true;
+  }
   
-  struct Guitar
+  
+  struct Player
   {
-    Fuzzbox* fuzzbox_;
-    
-    void AddEffect(Fuzzbox& fuzzbox)
-    {
-      fuzzbox_ = &fuzzbox;
-    }
-    
-    Sounds Sound()
-    {
-      return fuzzbox_->on_ ? Distorted : Clean;
-    }
   };
   
-  Context(AGuitarWithAFuzzbox)
+  inline bool operator==(const Player&, const Player&)
+  {
+    return true;
+  }
+  
+  Player PlayerOne;  
+  struct Game
+  {
+    typedef std::vector<Position> PositionCollection;
+    
+    const PositionCollection& Positions() const
+    {
+      return positions_;
+    }
+    
+    void Select(const Player&)
+    {
+    }
+    
+    const Player& NextPlayer()
+    {
+      return PlayerOne;
+    }
+    
+    PositionCollection positions_;
+  };
+  
+  Position EmptyPosition;
+
+  
+Context(ANewlyStartedGame)
+{
+  Spec(ShouldHaveAnEmptyBoard)
+  {
+    Assert::That(game.Positions(), Has().All().EqualTo(EmptyPosition));
+  }
+  
+  Context(PlayerOneIsSelectedToStart)
   {
     void SetUp()
     {
-      guitar.AddEffect(fuzzbox);
+      Parent().game.Select(PlayerOne);
     }
     
-    Spec(FuzzboxStartsInCleanMode)
+    Spec(ItShouldBePlayerOnesTurn)
     {
-      Assert::That(guitar.Sound(), Equals(Clean));
-    }  
-    
-    Context(FuzzboxIsInDistortedMode)
-    {
-      void SetUp()
-      {
-        Parent().fuzzbox.Switch();
-      }
-      
-      Spec(WhenIFretTheStringsTheSoundIsDistorted)
-      {
-        Assert::That(Parent().guitar.Sound(), Equals(Distorted));
-      }
-      
-      Spec(WhenISwitchTheFuzzboxTheSoundIsClean)
-      {
-        Parent().fuzzbox.Switch();
-        Assert::That(Parent().guitar.Sound(), Equals(Clean));
-      }
-    };
-    
-    Fuzzbox fuzzbox;
-    Guitar guitar;
-  };
+      Assert::That(Parent().game.NextPlayer(), Equals(PlayerOne));
+    }
+  };  
   
+  Game game;
+};
 }
