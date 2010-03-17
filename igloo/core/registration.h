@@ -7,69 +7,42 @@
 #ifndef IGLOO_REGISTRATION_H
 #define IGLOO_REGISTRATION_H
 
-#define Context(context) \
-struct context; \
-struct ContextRegistrar_##context \
-{ \
-  ContextRegistrar_##context() \
+#define IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName) \
+  struct contextName; \
+  struct ContextRegistrar_##contextName \
   { \
-    igloo::TestRunner::RegisterContext<igloo::ContextRunner<void, context> >(#context); \
-  } \
-} context##_IglooRegistrar; \
-struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
+    ContextRegistrar_##contextName() \
+    { \
+      igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContextName, contextName> >(#contextName); \
+    } \
+  } contextName##_IglooRegistrar;
 
-#define SubContext(context, baseContext) \
-struct context; \
-struct ContextRegistrar_##context \
-{ \
-ContextRegistrar_##context() \
-{ \
-igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContext, context> >(#context); \
-} \
-} context##_IglooRegistrar; \
-struct context : public baseContext
+#define Context(contextName) \
+  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void); \
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT>
 
-#define Spec(spec) \
-struct SpecRegistrar_##spec \
-{ \
-  SpecRegistrar_##spec() \
+#define SubContext(contextName, baseContextName) \
+  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName); \
+  struct contextName : public baseContextName
+
+#define Spec(specName) \
+  struct SpecRegistrar_##specName \
   { \
-    ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#spec, &IGLOO_CURRENT_CONTEXT::spec); \
-  } \
-} SpecRegistrar_##spec; \
-virtual void spec()
+    SpecRegistrar_##specName() \
+    { \
+	  ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#specName, &IGLOO_CURRENT_CONTEXT::specName); \
+    } \
+  } SpecRegistrar_##specName; \
+  virtual void specName()
 
+// "Classic" aliases
+#define TestFixture(fixtureName) \
+  Context(fixtureName)
 
-#define TestFixture(context) \
-struct context; \
-struct ContextRegistrar_##context \
-{ \
-ContextRegistrar_##context() \
-{ \
-igloo::TestRunner::RegisterContext<igloo::ContextRunner<void, context> >(#context); \
-} \
-} context##_IglooRegistrar; \
-struct context : public ContextProvider<context, IGLOO_CURRENT_CONTEXT>
+#define DerivedFixture(fixtureName, baseFixtureName) \
+  SubContext(fixtureName, baseFixtureName)
 
-#define DerivedFixture(context, baseContext) \
-struct context; \
-struct ContextRegistrar_##context \
-{ \
-ContextRegistrar_##context() \
-{ \
-igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContext, context> >(#context); \
-} \
-} context##_IglooRegistrar; \
-struct context : public baseContext
-
-#define TestMethod(spec) \
-struct SpecRegistrar_##spec \
-{ \
-SpecRegistrar_##spec() \
-{ \
-ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#spec, &IGLOO_CURRENT_CONTEXT::spec); \
-} \
-} SpecRegistrar_##spec; \
-virtual void spec()
+#define TestMethod(methodName) \
+  Spec(methodName)
 
 #endif
