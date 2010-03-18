@@ -11,12 +11,7 @@ using namespace igloo;
 struct Common : public ContextProvider<Common, ContextBase>
 {
   virtual ~Common() {}
-  virtual void SpecificSetUp() = 0;
-  
-  void SetUp()
-  {
-    SpecificSetUp();
-  }
+  virtual void SetUp() = 0;
   
   Spec(TestIt)
   {
@@ -29,7 +24,8 @@ struct Common : public ContextProvider<Common, ContextBase>
 SubContext(Specific1, Common)
 {
   virtual ~Specific1() {}
-  void SpecificSetUp()
+  
+  void SetUp()
   {
     val = 3;
   }
@@ -38,7 +34,8 @@ SubContext(Specific1, Common)
 SubContext(Specific2, Common)
 {
   virtual ~Specific2() {}
-  void SpecificSetUp()
+  
+  void SetUp()
   {
     val = 2;
   }
