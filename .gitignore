@@ -15,3 +15,7 @@ Release
 
 #Ignore TextMate project files
 *.tmproj
+
+#Ignore GCC build artefacts
+*.o
+igloo-tests.exe
