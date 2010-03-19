@@ -8,7 +8,7 @@ EXECUTABLE=igloo-tests.exe
 all: test
 
 test: $(EXECUTABLE)
-	$(EXECUTABLE)
+	./$(EXECUTABLE)
 
 clean:
 	rm *.o *.exe
