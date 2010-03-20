@@ -17,15 +17,15 @@
     } \
   } contextName##_IglooRegistrar;
 
-#define Context(contextName) \
+#define IGLOO_CONTEXT_REGISTRATION(contextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void); \
   struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT>
 
-#define SubContext(contextName, baseContextName) \
+#define IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName); \
   struct contextName : public baseContextName
 
-#define Spec(specName) \
+#define IGLOO_SPEC_REGISTRATION(specName) \
   struct SpecRegistrar_##specName \
   { \
     SpecRegistrar_##specName() \
@@ -35,14 +35,24 @@
   } SpecRegistrar_##specName; \
   virtual void specName()
 
+// Default aliases
+#define Context(contextName) \
+IGLOO_CONTEXT_REGISTRATION(contextName)
+
+#define SubContext(contextName, baseContextName) \
+IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
+
+#define Spec(specName) \
+IGLOO_SPEC_REGISTRATION(specName)  
+
 // "Classic" aliases
 #define TestFixture(fixtureName) \
-  Context(fixtureName)
+  IGLOO_CONTEXT_REGISTRATION(fixtureName)
 
 #define DerivedFixture(fixtureName, baseFixtureName) \
-  SubContext(fixtureName, baseFixtureName)
+  IGLOO_SUBCONTEXT_REGISTRATION(fixtureName, baseFixtureName)
 
 #define TestMethod(methodName) \
-  Spec(methodName)
+  IGLOO_SPEC_REGISTRATION(methodName)
 
 #endif
