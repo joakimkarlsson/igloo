@@ -23,8 +23,8 @@ namespace igloo {
       
       for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
       {
-        (*it).second->Run((*it).first, results);
-        delete (*it).second;
+        std::auto_ptr<BaseContextRunner> contextRunner((*it).second);
+        contextRunner->Run((*it).first, results);
       }
       
       RegisteredRunners().clear();
@@ -64,7 +64,10 @@ namespace igloo {
     {
       if(!ContextIsRegistered(name))
       {
-        TestRunner::RegisteredRunners().push_back(std::make_pair(name, new ContextRunnerType()));
+        std::auto_ptr<ContextRunnerType> contextRunner(new ContextRunnerType);
+        contextRunner->InstantiateContext();
+
+        TestRunner::RegisteredRunners().push_back(std::make_pair(name, contextRunner.release()));
       }
     }
     

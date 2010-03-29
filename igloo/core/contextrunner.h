@@ -14,7 +14,7 @@ namespace igloo {
   struct BaseContextRunner
   {
     virtual ~BaseContextRunner() {}
-    virtual void Run(const std::string& contextName, std::list<TestResult>& results) = 0;    
+    virtual void Run(const std::string& contextName, std::list<TestResult>& results) const = 0;    
   };
   
   template <typename ContextRegistryType, typename ContextType>
@@ -35,10 +35,16 @@ namespace igloo {
   class ContextRunner : public BaseContextRunner
   {
   public:   
-    void Run(const std::string& contextName, std::list<TestResult>& results)
+    typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute CTE;
+    typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate CTC;
+
+    void InstantiateContext() const
     {
-      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute CTE;
-      typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate CTC;
+      CTC ctc;
+    }
+    
+    void Run(const std::string& contextName, std::list<TestResult>& results) const
+    {
       typedef ContextRegistry<CTE> CR;
 
       CR::template Run<CTC>(contextName, results);
