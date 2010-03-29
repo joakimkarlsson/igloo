@@ -64,16 +64,29 @@ namespace igloo {
     {
       if(!ContextIsRegistered(name))
       {
-        std::auto_ptr<ContextRunnerType> contextRunner(new ContextRunnerType);
-        contextRunner->InstantiateContext();
+        ContextRunnerType* contextRunner = 0;
 
-        TestRunner::RegisteredRunners().push_back(std::make_pair(name, contextRunner.release()));
+        try
+        {
+          // Must add runner first...
+          contextRunner = new ContextRunnerType;
+          TestRunner::RegisteredRunners().push_back(std::make_pair(name, contextRunner));
+
+          // ... and then instantiate context, because context ctor calls this method again,
+          // possibly for the same context, depending on inheritance chain.
+          contextRunner->InstantiateContext();
+        }
+        catch (...)
+        {
+          delete contextRunner;
+          throw;
+        }
       }
     }
     
     static bool ContextIsRegistered(const std::string& name)
     {
-      for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
+      for (ContextRunners::const_iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); ++it)
       {
         if((*it).first == name)
         {
