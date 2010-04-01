@@ -13,6 +13,7 @@
 #include <sstream>
 #include <stack>
 #include <list>
+#include <memory>
 
 #include <igloo/core/stringize.h>
 #include <igloo/constraints/constraints.h>
@@ -27,5 +28,6 @@
 #include <igloo/core/registration.h>
 
 typedef igloo::ContextBase IGLOO_CURRENT_CONTEXT;
+
 #endif
 

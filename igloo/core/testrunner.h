@@ -7,7 +7,6 @@
 #ifndef IGLOO_TESTRUNNER_H
 #define IGLOO_TESTRUNNER_H
 
-#include <list>
 #include <igloo/core/testresult.h>
 
 namespace igloo {
@@ -92,7 +91,7 @@ namespace igloo {
         {
           return true;
         }
-      }      
+      }
       
       return false;
     }

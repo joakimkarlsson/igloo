@@ -7,8 +7,6 @@
 #ifndef IGLOO_CONTEXTRUNNER_H
 #define IGLOO_CONTEXTRUNNER_H
 
-#include <list>
-
 namespace igloo {
   
   struct BaseContextRunner

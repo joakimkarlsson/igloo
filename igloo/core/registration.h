@@ -37,13 +37,13 @@
 
 // Default aliases
 #define Context(contextName) \
-IGLOO_CONTEXT_REGISTRATION(contextName)
+  IGLOO_CONTEXT_REGISTRATION(contextName)
 
 #define SubContext(contextName, baseContextName) \
-IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
+  IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
 
 #define Spec(specName) \
-IGLOO_SPEC_REGISTRATION(specName)  
+  IGLOO_SPEC_REGISTRATION(specName)  
 
 // "Classic" aliases
 #define TestFixture(fixtureName) \
