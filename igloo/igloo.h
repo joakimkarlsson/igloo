@@ -24,6 +24,7 @@
 #include <igloo/core/contextrunner.h>
 #include <igloo/core/testrunner.h>
 #include <igloo/core/assert.h>
+#include <igloo/core/assertmacro.h>
 #include <igloo/core/contextprovider.h>
 #include <igloo/core/registration.h>
 
