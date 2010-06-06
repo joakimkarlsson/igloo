@@ -10,16 +10,6 @@
 #include <igloo/core/assert.h>
 
 #define AssertThat(p1,p2)\
-   try\
-   {\
-      Assert::That((p1), (p2));\
-   }\
-   catch (AssertionException& e)\
-   {\
-      std::ostringstream str;\
-      str << __FILE__ << "(" << __LINE__ << ") : Test Failure!" << std::endl;\
-      str << e.GetMessage();\
-      throw AssertionException(str.str());\
-   }
+  Assert::That((p1), (p2), __FILE__, __LINE__);\
 
 #endif	// IGLOO_ASSERTMACRO_H

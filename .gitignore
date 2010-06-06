@@ -16,6 +16,9 @@ Release
 #Ignore TextMate project files
 *.tmproj
 
+#Ignore VIM temporary files
+*.swp
+
 #Ignore GCC build artefacts
 *.o
 igloo-tests.exe

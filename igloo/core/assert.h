@@ -19,6 +19,15 @@ namespace igloo {
       template <typename ActualType, typename ConstraintListType>
       static void That(const ActualType& actual, ExpressionBuilder<ConstraintListType> expression)
       {
+        const char* no_file = "";
+        int line_number = 0;
+
+        Assert::That(actual, expression, no_file, line_number);
+      }
+      
+      template <typename ActualType, typename ConstraintListType>
+      static void That(const ActualType& actual, ExpressionBuilder<ConstraintListType> expression, const char* file_name, int line_number)
+      {
          try 
          {
             ResultStack result;
@@ -39,7 +48,7 @@ namespace igloo {
 
             if (!result.top())
             {
-               throw AssertionException(CreateErrorText(expression, actual));
+               throw AssertionException(CreateErrorText(file_name, line_number, expression, actual));
             }      
          }
          catch (const InvalidExpressionException& e) 
@@ -57,9 +66,17 @@ namespace igloo {
       template <typename ActualType, typename ExpressionType>
       static void That(const ActualType& actual, const ExpressionType& expression)
       {
+        const char* no_file = "";
+        int no_line = 0;
+        That(actual, expression, no_file, no_line);
+      }
+
+      template <typename ActualType, typename ExpressionType>
+      static void That(const ActualType& actual, const ExpressionType& expression, const char* file_name, int line_number)
+      {
          if (!expression(actual))
          {
-            throw AssertionException(CreateErrorText(expression, actual));
+            throw AssertionException(CreateErrorText(file_name, line_number, expression, actual));
          }
       }
 
@@ -84,9 +101,15 @@ namespace igloo {
 
    private:
       template <class ExpectedType, class ActualType>
-      static std::string CreateErrorText(const ExpectedType& expected, const ActualType& actual)
+      static std::string CreateErrorText(const std::string& file_name, int line_number, const ExpectedType& expected, const ActualType& actual)
       {
          std::ostringstream str;
+
+         if(file_name.length() > 0)
+         {
+           str << file_name << "(" << line_number << "): Assertion failed" << std::endl;
+         }
+
          str << "Expected: " << igloo::Stringize(expected) << std::endl;
          str << "Actual: " << igloo::Stringize(actual) << std::endl;
 
