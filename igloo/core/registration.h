@@ -35,24 +35,4 @@
   } SpecRegistrar_##specName; \
   virtual void specName()
 
-// Default aliases
-#define Context(contextName) \
-  IGLOO_CONTEXT_REGISTRATION(contextName)
-
-#define SubContext(contextName, baseContextName) \
-  IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
-
-#define Spec(specName) \
-  IGLOO_SPEC_REGISTRATION(specName)  
-
-// "Classic" aliases
-#define TestFixture(fixtureName) \
-  IGLOO_CONTEXT_REGISTRATION(fixtureName)
-
-#define DerivedFixture(fixtureName, baseFixtureName) \
-  IGLOO_SUBCONTEXT_REGISTRATION(fixtureName, baseFixtureName)
-
-#define TestMethod(methodName) \
-  IGLOO_SPEC_REGISTRATION(methodName)
-
 #endif
