@@ -137,6 +137,20 @@ namespace igloo {
       return BuilderType(Concatenate(m_constraint_list, node));
     }      
     
+    template <typename ExpectedType>
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<IsOfTypeConstraint<ExpectedType> >, Nil> >::t>
+      OfType()
+    {
+      typedef ConstraintAdapter<IsOfTypeConstraint<ExpectedType> > ConstraintAdapterType;
+      typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > BuilderType;
+      
+      IsOfTypeConstraint<ExpectedType> c;
+      ConstraintAdapterType constraint(c);
+      ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
+      
+      return BuilderType(Concatenate(m_constraint_list, node));      
+    }
+    
     
     typedef ConstraintList<AndOperator, Nil> AndOperatorNode;
     typedef ConstraintList<OrOperator, Nil> OrOperatorNode;
