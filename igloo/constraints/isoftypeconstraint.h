@@ -8,6 +8,7 @@
 #define IGLOO_ISOFTYPECONSTRAINT_H
 
 #include <igloo/constraints/expressions/expression.h>
+#include <typeinfo>
 
 namespace igloo {
   
