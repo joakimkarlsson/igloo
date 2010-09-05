@@ -15,9 +15,6 @@ namespace igloo {
   template< typename ExpectedType >
   struct IsOfTypeConstraint : Expression< IsOfTypeConstraint<ExpectedType> >
   {   
-    
-    IsOfTypeConstraint() {}
-    
     template<typename ActualType>
     bool operator()(const ActualType& actual) const
     {
