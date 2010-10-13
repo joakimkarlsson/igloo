@@ -14,6 +14,8 @@ namespace igloo {
   template <typename ExceptionType, typename TypeUnderTest, typename MethodUnderTest>
   ExceptionType Thrown(TypeUnderTest& objectUnderTest, MethodUnderTest method)
   {
+    bool unknown_exception_caught = false;
+    
     try 
     {
       (objectUnderTest.*method)();
@@ -22,8 +24,13 @@ namespace igloo {
     {
       return e;
     }
+    catch(...)
+    {
+      unknown_exception_caught = true;
+    }
     
-    Assert::Failure("Exception not thrown");
+    std::string error_msg = unknown_exception_caught ? "An exception of the wrong type was thrown" : "No exception thrown";
+    Assert::Failure(error_msg);
     throw;
   }
   

@@ -12,9 +12,14 @@ using namespace igloo;
 class ClassWithExceptions
 {
 public:
-  int Method()
+  int LogicError()
   {
-    throw std::logic_error("ouch!");
+    throw std::logic_error("not logical!");
+  }
+  
+  double RangeError()
+  {
+    throw std::range_error("range error!");
   }
 };
 
@@ -24,8 +29,14 @@ Context(MethodsWithExceptions)
   
   Spec(CanDetectExceptions)
   {  
-    Assert::That(Thrown<std::logic_error>(objectUnderTest, &ClassWithExceptions::Method).what(), Is().EqualTo("ouch!"));
+    Assert::That(Thrown<std::logic_error>(objectUnderTest, &ClassWithExceptions::LogicError).what(), Is().EqualTo("not logical!"));
   }  
+  
+  Spec(CanDetectWrongException)
+  {
+    AssertTestFails(Assert::That(Thrown<std::logic_error>(objectUnderTest, &ClassWithExceptions::RangeError).what(), Is().EqualTo("not logical!")),
+               "An exception of the wrong type was thrown");
+  }
 };
 
 
