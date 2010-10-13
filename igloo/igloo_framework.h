@@ -27,6 +27,7 @@
 #include <igloo/core/assertmacro.h>
 #include <igloo/core/contextprovider.h>
 #include <igloo/core/registration.h>
+#include <igloo/core/exceptions.h>
 
 typedef igloo::ContextBase IGLOO_CURRENT_CONTEXT;
 

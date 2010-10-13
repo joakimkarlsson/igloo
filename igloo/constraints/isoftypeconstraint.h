@@ -31,7 +31,7 @@ namespace igloo {
   template< typename ExpectedType >
   struct Stringizer< IsOfTypeConstraint< ExpectedType > >
   {
-    static std::string ToString(const IsOfTypeConstraint<ExpectedType>& constraint)
+    static std::string ToString(const IsOfTypeConstraint<ExpectedType>&)
     {
       std::ostringstream builder;
       builder << "is of type " << igloo::Stringize(typeid(ExpectedType).name());

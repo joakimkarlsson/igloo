@@ -18,11 +18,11 @@
   } contextName##_IglooRegistrar;
 
 #define IGLOO_CONTEXT_REGISTRATION(contextName) \
-  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void); \
+  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void) \
   struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT>
 
 #define IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName) \
-  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName); \
+  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName) \
   struct contextName : public baseContextName
 
 #define IGLOO_SPEC_REGISTRATION(specName) \
