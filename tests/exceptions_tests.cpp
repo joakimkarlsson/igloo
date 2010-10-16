@@ -11,24 +11,29 @@ using namespace igloo;
 
 #define AssertThrows(EXCEPTION_TYPE, METHOD) \
 { \
-bool wrong_exception = false; \
-try \
-{ \
-METHOD; \
-Assert::Failure("No exception was thrown"); \
-} \
-catch (const EXCEPTION_TYPE& e) \
-{ \
-ExceptionStorage<EXCEPTION_TYPE>::last_exception = std::auto_ptr<EXCEPTION_TYPE>(new EXCEPTION_TYPE(e)); \
-} \
-catch(...) \
-{ \
-wrong_exception = true; \
-} \
-if(wrong_exception) \
-{ \
-Assert::Failure("Wrong exception was thrown"); \
-} \
+  bool wrong_exception = false; \
+  bool no_exception = false; \
+  try \
+  { \
+    METHOD; \
+    no_exception = true; \
+  } \
+  catch (const EXCEPTION_TYPE& e) \
+  { \
+    ExceptionStorage<EXCEPTION_TYPE>::last_exception = std::auto_ptr<EXCEPTION_TYPE>(new EXCEPTION_TYPE(e)); \
+  } \
+  catch(...) \
+  { \
+    wrong_exception = true; \
+  } \
+  if(no_exception) \
+  { \
+    Assert::Failure("No exception was thrown"); \
+  } \
+  if(wrong_exception) \
+  { \
+    Assert::Failure("Wrong exception was thrown"); \
+  } \
 }
 
 template <typename ExceptionType>
@@ -64,6 +69,10 @@ public:
   {
     throw std::range_error("range error!");
   }
+  
+  void NoError()
+  {
+  }
 };
 
 Context(MethodsWithExceptions)
@@ -94,6 +103,11 @@ Context(MethodsWithExceptions)
 
     AssertThrows(std::range_error, objectUnderTest.RangeError());
     Assert::That(LastException<std::range_error>().what(), Contains("range error!"));
+  }
+  
+  Spec(CanDetectWhenNoExceptionIsThrown)
+  {
+    AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.NoError()), "No exception");
   }
 };
 
