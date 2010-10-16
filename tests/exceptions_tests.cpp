@@ -9,6 +9,49 @@
 
 using namespace igloo;
 
+#define AssertThrows(EXCEPTION_TYPE, METHOD) \
+{ \
+bool wrong_exception = false; \
+try \
+{ \
+METHOD; \
+Assert::Failure("No exception was thrown"); \
+} \
+catch (const EXCEPTION_TYPE& e) \
+{ \
+ExceptionStorage<EXCEPTION_TYPE>::last_exception = std::auto_ptr<EXCEPTION_TYPE>(new EXCEPTION_TYPE(e)); \
+} \
+catch(...) \
+{ \
+wrong_exception = true; \
+} \
+if(wrong_exception) \
+{ \
+Assert::Failure("Wrong exception was thrown"); \
+} \
+}
+
+template <typename ExceptionType>
+class ExceptionStorage
+{
+public:
+  static std::auto_ptr<ExceptionType> last_exception;
+};
+
+template <typename ExceptionType>
+std::auto_ptr<ExceptionType> ExceptionStorage<ExceptionType>::last_exception(NULL);
+
+template <typename ExceptionType>
+inline ExceptionType& LastException()
+{
+  if(ExceptionStorage<ExceptionType>::last_exception.get() == NULL)
+  {
+    Assert::Failure("No exception was stored");
+  }
+  
+  return *(ExceptionStorage<ExceptionType>::last_exception.get());
+}
+
 class ClassWithExceptions
 {
 public:
@@ -27,15 +70,30 @@ Context(MethodsWithExceptions)
 {
   ClassWithExceptions objectUnderTest;  
   
-  Spec(CanDetectExceptions)
-  {  
-    Assert::That(Thrown<std::logic_error>(objectUnderTest, &ClassWithExceptions::LogicError).what(), Is().EqualTo("not logical!"));
-  }  
   
-  Spec(CanDetectWrongException)
+  Spec(CanDetectExceptions)
+  { 
+    AssertThrows(std::exception, objectUnderTest.LogicError());
+  }
+  
+  Spec(CanAssertOnLastException)
   {
-    AssertTestFails(Assert::That(Thrown<std::logic_error>(objectUnderTest, &ClassWithExceptions::RangeError).what(), Is().EqualTo("not logical!")),
-               "An exception of the wrong type was thrown");
+    AssertThrows(std::logic_error, objectUnderTest.LogicError());
+    Assert::That(LastException<std::logic_error>().what(), Contains("not logical!"));
+  }
+  
+  Spec(CanDetectWhenWrongExceptionIsThrown)
+  {    
+    AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.RangeError()), "Wrong exception");
+  }
+
+  Spec(CanHaveSeveralExceptionAssertionsInSameSpec)
+  {
+    AssertThrows(std::logic_error, objectUnderTest.LogicError());
+    Assert::That(LastException<std::logic_error>().what(), Contains("not logical!"));
+
+    AssertThrows(std::range_error, objectUnderTest.RangeError());
+    Assert::That(LastException<std::range_error>().what(), Contains("range error!"));
   }
 };
 
