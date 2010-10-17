@@ -86,15 +86,20 @@ Context(NoCrossTestContamination)
 {
   ClassWithExceptions objectUnderTest;
   
-  Spec(ThisSpecStoresAnException)
+  Spec(A_ThisSpecStoresAnException)
   {
     AssertThrows(std::logic_error, objectUnderTest.LogicError());
   }
   
-  Spec(ThatThisSpecShouldNotSee)
+  Spec(B_ThatThisSpecShouldNotSee)
   {
     AssertThrows(AssertionException, LastException<std::logic_error>());
     Assert::That(LastException<AssertionException>().GetMessage(), Contains("No exception was stored"));
+  }
+  
+  Spec(C_ThisSpecStoresAnExceptionToo)
+  {
+    AssertThrows(std::logic_error, objectUnderTest.LogicError());
   }
 };
 
