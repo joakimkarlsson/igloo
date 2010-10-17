@@ -9,7 +9,11 @@
 
 using namespace igloo;
 
+#define CONCAT2(a, b) a##b
+#define CONCAT(a, b) CONCAT2(a, b)
+
 #define AssertThrows(EXCEPTION_TYPE, METHOD) \
+ExceptionStorage<EXCEPTION_TYPE> CONCAT(storage_, __LINE__); CONCAT(storage_, __LINE__).dummy(); \
 { \
   bool wrong_exception = false; \
   bool no_exception = false; \
@@ -41,6 +45,13 @@ class ExceptionStorage
 {
 public:
   static std::auto_ptr<ExceptionType> last_exception;
+  
+  void dummy() {}
+  
+  ~ExceptionStorage()
+  {
+    last_exception.reset(NULL);
+  }
 };
 
 template <typename ExceptionType>
@@ -105,9 +116,35 @@ Context(MethodsWithExceptions)
     Assert::That(LastException<std::range_error>().what(), Contains("range error!"));
   }
   
+  Spec(CanHaveSeveralExceptionAssertionForTheSameExceptionInSameSpec)
+  {
+    AssertThrows(std::logic_error, objectUnderTest.LogicError());
+    Assert::That(LastException<std::logic_error>().what(), Contains("not logical!"));
+
+    AssertThrows(std::logic_error, objectUnderTest.LogicError());
+    Assert::That(LastException<std::logic_error>().what(), Contains("not logical!"));
+  }  
+  
   Spec(CanDetectWhenNoExceptionIsThrown)
   {
     AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.NoError()), "No exception");
+  }
+  
+};
+
+Context(NoCrossTestContamination)
+{
+  ClassWithExceptions objectUnderTest;
+  
+  Spec(ThisSpecStoresAnException)
+  {
+    AssertThrows(std::logic_error, objectUnderTest.LogicError());
+  }
+  
+  Spec(ThatThisSpecShouldNotSee)
+  {
+    AssertThrows(AssertionException, LastException<std::logic_error>());
+    Assert::That(LastException<AssertionException>().GetMessage(), Contains("No exception was stored"));
   }
 };
 
