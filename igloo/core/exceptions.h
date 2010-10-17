@@ -41,11 +41,11 @@ namespace igloo {
   }  
 }
 
-#define CONCAT2(a, b) a##b
-#define CONCAT(a, b) CONCAT2(a, b)
+#define IGLOO_CONCAT2(a, b) a##b
+#define IGLOO_CONCAT(a, b) IGLOO_CONCAT2(a, b)
 
 #define AssertThrows(EXCEPTION_TYPE, METHOD) \
-ExceptionStorage<EXCEPTION_TYPE> CONCAT(storage_, __LINE__); CONCAT(storage_, __LINE__).compiler_thinks_i_am_unused(); \
+ExceptionStorage<EXCEPTION_TYPE> IGLOO_CONCAT(storage_, __LINE__); IGLOO_CONCAT(storage_, __LINE__).compiler_thinks_i_am_unused(); \
 { \
   bool wrong_exception = false; \
   bool no_exception = false; \
