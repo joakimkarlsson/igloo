@@ -80,27 +80,16 @@ Context(MethodsWithExceptions)
   {
     AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.NoError()), "Expected std::logic_error");
   } 
-};
 
-Context(NoCrossTestContamination)
-{
-  ClassWithExceptions objectUnderTest;
-  
-  Spec(A_ThisSpecStoresAnException)
+  Spec(ExceptionsAreDestoryedWhenWeExitScope)
   {
-    AssertThrows(std::logic_error, objectUnderTest.LogicError());
-  }
-  
-  Spec(B_ThatThisSpecShouldNotSee)
-  {
+    {
+      AssertThrows(std::logic_error, objectUnderTest.LogicError());
+    }
     AssertThrows(AssertionException, LastException<std::logic_error>());
     Assert::That(LastException<AssertionException>().GetMessage(), Contains("No exception was stored"));
-  }
-  
-  Spec(C_ThisSpecStoresAnExceptionToo)
-  {
-    AssertThrows(std::logic_error, objectUnderTest.LogicError());
-  }
+  }  
 };
+
 
 
