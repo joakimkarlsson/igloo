@@ -47,6 +47,11 @@ Context(MethodsWithExceptions)
   {    
     AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.RangeError()), "Wrong exception");
   }
+  
+  Spec(CanPrintExpectedExceptionTypeWhenWrongExceptionIsThrown)
+  {
+    AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.RangeError()), "Expected std::logic_error");
+  }
 
   Spec(CanHaveSeveralExceptionAssertionsInSameSpec)
   {
@@ -70,7 +75,11 @@ Context(MethodsWithExceptions)
   {
     AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.NoError()), "No exception");
   }
-  
+
+  Spec(CanPrintExpectedExceptionWhenNoExceptionIsThrown)
+  {
+    AssertTestFails(AssertThrows(std::logic_error, objectUnderTest.NoError()), "Expected std::logic_error");
+  } 
 };
 
 Context(NoCrossTestContamination)

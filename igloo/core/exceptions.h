@@ -64,11 +64,15 @@ ExceptionStorage<EXCEPTION_TYPE> IGLOO_CONCAT(storage_, __LINE__); IGLOO_CONCAT(
   } \
   if(no_exception) \
   { \
-    Assert::Failure("No exception was thrown"); \
+    std::ostringstream stm; \
+    stm << "Expected " << #EXCEPTION_TYPE << ". No exception was thrown."; \
+    Assert::Failure(stm.str()); \
   } \
   if(wrong_exception) \
   { \
-    Assert::Failure("Wrong exception was thrown"); \
+    std::ostringstream stm; \
+    stm << "Expected " << #EXCEPTION_TYPE << ". Wrong exception was thrown."; \
+    Assert::Failure(stm.str()); \
   } \
 }
 
