@@ -28,5 +28,17 @@ Context(BooleanOperators)
   {
     AssertTestFails(Assert::That(false, IsTrue()), "Expected: true");
   }
+
+  Spec(ShouldHandleFluentIsTrue)
+  {
+    Assert::That(true, Is().True());
+    AssertTestFails(Assert::That(false, Is().True()), "Expected: true");
+  }
+
+  Spec(ShouldHandleFluentIsFalse)
+  {
+    Assert::That(false, Is().False());
+    AssertTestFails(Assert::That(true, Is().False()), "Expected: false");
+  }
 };
 

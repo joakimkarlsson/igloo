@@ -41,6 +41,18 @@ namespace igloo {
       return BuilderType(Concatenate(m_constraint_list, node));
     }
     
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<bool> >, Nil> >::t> 
+      False()
+    {
+      return EqualTo<bool>(false);
+    }
+
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<bool> >, Nil> >::t> 
+      True()
+    {
+      return EqualTo<bool>(true);
+    }
+
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<std::string> >, Nil> >::t> 
       EqualTo(const char* expected)
     {
