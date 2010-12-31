@@ -39,6 +39,25 @@ namespace igloo {
     return EqualsConstraint<std::string>(expected);
   }
 
+  inline EqualsConstraint<bool> IsFalse()
+  {
+    return EqualsConstraint<bool>(false);
+  }
+
+  inline EqualsConstraint<bool> IsTrue()
+  {
+    return EqualsConstraint<bool>(true);
+  }
+
+  template <>
+  struct Stringizer< EqualsConstraint< bool > >
+  {
+    static std::string ToString(const EqualsConstraint<bool>& constraint)
+    {
+      return constraint.m_expected ? "true" : "false";
+    }
+  };
+
   template< typename ExpectedType >
   struct Stringizer< EqualsConstraint< ExpectedType > >
   {
