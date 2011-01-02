@@ -133,11 +133,21 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
     Assert::That(is_empty, IsEmpty());
   }
 
+  Spec(ShouldHandleFailingIsEmpty)
+  {
+    AssertTestFails(Assert::That(container, IsEmpty()), "of length 0");
+  }
+
   Spec(ShouldHandleFluentIsEmpty)
   {
     T is_empty;
 
     Assert::That(is_empty, Is().Empty());
+  }
+
+  Spec(ShouldHandleFailingFluentIsEmpty)
+  {
+    AssertTestFails(Assert::That(container, Is().Empty()), "of length 0");
   }
 
    T container;
