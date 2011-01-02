@@ -149,6 +149,17 @@ namespace igloo {
       return BuilderType(Concatenate(m_constraint_list, node));
     }          
     
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<HasLengthConstraint<int> >, Nil> >::t> 
+      Empty()
+    {
+      typedef ConstraintAdapter<HasLengthConstraint<int> > ConstraintAdapterType;
+      
+      typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > BuilderType;
+      ConstraintAdapterType constraint(0);
+      ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
+      return BuilderType(Concatenate(m_constraint_list, node));
+    }          
+
     typedef ConstraintList<AndOperator, Nil> AndOperatorNode;
     typedef ConstraintList<OrOperator, Nil> OrOperatorNode;
     typedef ConstraintList<NotOperator, Nil> NotOperatorNode;

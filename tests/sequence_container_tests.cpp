@@ -133,6 +133,13 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
     Assert::That(is_empty, IsEmpty());
   }
 
+  Spec(ShouldHandleFluentIsEmpty)
+  {
+    T is_empty;
+
+    Assert::That(is_empty, Is().Empty());
+  }
+
    T container;
 };
 
