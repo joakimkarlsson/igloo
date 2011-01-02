@@ -126,6 +126,13 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
      AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
   }
 
+  Spec(ShouldHandleIsEmpty)
+  {
+    T is_empty;
+
+    Assert::That(is_empty, IsEmpty());
+  }
+
    T container;
 };
 
