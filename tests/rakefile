@@ -1,0 +1,21 @@
+require 'rake/clean'
+CLEAN.include(["*.o", "*.exe*"])
+
+OUTPUT = "igloo-tests.exe"
+
+task :default => [:test]
+
+task :test => [:build] do
+  sh "./#{OUTPUT}" do |ok, output|
+    sh "growlnotify -m '#{ ok ? "success!" : "#{output.exitstatus} test(s) failed"}' -p #{ ok ? 0 : 2}"
+  end
+end
+
+task :build do
+  sh "g++ -Wall -I.. *.cpp -o #{OUTPUT}" do |ok, res|
+    unless ok
+      sh "growlnotify -m 'Build failed' -p 2"
+      fail
+    end
+  end
+end
