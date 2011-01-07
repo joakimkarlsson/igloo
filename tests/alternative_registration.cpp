@@ -9,9 +9,50 @@ using namespace igloo;
 
 Describe(An_entity)
 {
+  bool its_true; 
+
+  An_entity() : its_true(true) {}
+
   It(should_do_something)
   {
-    Assert::That(true, IsTrue());
+    Assert::That(its_true, IsTrue());
   }
+
+  Describe(A_more_detailed_description)
+  {
+    A_more_detailed_description() 
+    {
+      Parent().its_true = false;
+    }
+    
+    It(should_do_something)
+    {
+      Assert::That(Parent().its_true, IsFalse());
+    }
+  };
 };
 
+When(A_scenario_occurs)
+{
+  bool some_state;
+
+  A_scenario_occurs() : some_state(true) {}
+
+  It(Should_be_in_a_state)
+  {
+    Assert::That(some_state, IsTrue());
+  }
+
+  When(A_more_detailed_variant_occurs)
+  {
+    A_more_detailed_variant_occurs() 
+    {
+      Parent().some_state = false;
+    }
+
+    It(Should_be_in_a_state)
+    {
+      Assert::That(Parent().some_state, IsFalse());
+    }
+  };
+};

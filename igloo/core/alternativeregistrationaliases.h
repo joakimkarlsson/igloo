@@ -13,17 +13,11 @@
 #define Describe(contextName) \
 IGLOO_CONTEXT_REGISTRATION(contextName)
 
-#define DescribeAs(contextName, baseContextName) \
-IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
-
 #define It(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
 
 // Behavior aliases
 #define When(contextName) \
 IGLOO_CONTEXT_REGISTRATION(contextName)
-
-#define AndWhen(contextName, baseContextName) \
-IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
 
 #endif
