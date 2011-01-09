@@ -8,7 +8,7 @@
 
 using namespace igloo;
 
-struct Common : public ContextProvider<Common, ContextBase>
+ParentContext(Common)
 {
   virtual ~Common() {}
   virtual void SetUp() = 0;

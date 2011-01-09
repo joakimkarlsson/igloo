@@ -16,6 +16,7 @@ IGLOO_CONTEXT_REGISTRATION(contextName)
 #define It(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
 
+
 // Behavior aliases
 #define When(contextName) \
 IGLOO_CONTEXT_REGISTRATION(contextName)

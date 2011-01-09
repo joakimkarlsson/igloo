@@ -13,6 +13,9 @@
 #define Context(contextName) \
 IGLOO_CONTEXT_REGISTRATION(contextName)
 
+#define ParentContext(contextName) \
+  IGLOO_PARENT_CONTEXT_REGISTRATION(contextName)
+
 #define SubContext(contextName, baseContextName) \
 IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
 
