@@ -40,5 +40,10 @@ Context(BooleanOperators)
     Assert::That(false, Is().False());
     AssertTestFails(Assert::That(true, Is().False()), "Expected: false");
   }
+
+  Spec(ShouldTreatAssertWithoutConstraintAsBooleanConstrains)
+  {
+    Assert::That(true);
+  }
 };
 

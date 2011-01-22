@@ -38,7 +38,7 @@ When(A_scenario_occurs)
 
   A_scenario_occurs() : some_state(true) {}
 
-  It(Should_be_in_a_state)
+  Then(Should_be_in_a_state)
   {
     Assert::That(some_state, IsTrue());
   }
@@ -50,7 +50,7 @@ When(A_scenario_occurs)
       Parent().some_state = false;
     }
 
-    It(Should_be_in_a_state)
+    Then(Should_be_in_a_state)
     {
       Assert::That(Parent().some_state, IsFalse());
     }

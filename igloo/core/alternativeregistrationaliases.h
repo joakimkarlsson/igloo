@@ -21,4 +21,7 @@ IGLOO_SPEC_REGISTRATION(specName)
 #define When(contextName) \
 IGLOO_CONTEXT_REGISTRATION(contextName)
 
+#define Then(specName) \
+IGLOO_SPEC_REGISTRATION(specName)  
+
 #endif
