@@ -8,6 +8,7 @@
 #define IGLOO_TESTRUNNER_H
 
 #include <igloo/core/testresult.h>
+#include <igloo/core/testresults.h>
 
 namespace igloo {
   class TestRunner
@@ -18,7 +19,7 @@ namespace igloo {
     
     static int RunAllTests()
     {
-      std::list<TestResult> results;
+      TestResults results;
       
       for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
       {
@@ -33,7 +34,7 @@ namespace igloo {
       return CheckResults(results);
     }
     
-    static int CheckResults(const std::list<TestResult>& results)
+    static int CheckResults(const TestResults& results)
     {
       int run = 0, succeeded = 0, failed = 0;
       

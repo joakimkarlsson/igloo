@@ -26,7 +26,7 @@ Context(AContextWithAFailingSpec)
     }
   } failing_context;
   
-  std::list<TestResult> results;
+  TestResults results;
 };
 
 
@@ -54,5 +54,5 @@ Context(AContextWithAFailingTearDown)
     
   } failing_context;
   
-  std::list<TestResult> results;
+  TestResults results;
 };

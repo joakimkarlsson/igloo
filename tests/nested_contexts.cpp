@@ -108,5 +108,5 @@ Context(AContextWithSetupAndTearDown)
     std::string log;
   };  
   
-  std::list<TestResult> results;
+  TestResults results;
 };

@@ -41,7 +41,7 @@ namespace igloo {
     }
 
     template <typename ContextToCreate>
-    static void Run(const std::string& contextName, std::list<TestResult>& results)
+    static void Run(const std::string& contextName, TestResults& results)
     {    
       const Specs& specs = GetSpecs();
       CallSpecs<ContextToCreate>(specs, contextName, results);
@@ -51,7 +51,7 @@ namespace igloo {
     typedef std::map<std::string, SpecPtr> Specs;
     
     template <typename ContextToCreate>
-    static void CallSpecs(const Specs& specs, const std::string& contextName, std::list<TestResult>& results)
+    static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results)
     {
       ContextToCreate c;
 
@@ -70,7 +70,7 @@ namespace igloo {
       }
     }
 
-    static bool CallSpec(ContextToCall& context, const std::string& contextName, const std::string& specName, SpecPtr spec, std::list<TestResult>& results)
+    static bool CallSpec(ContextToCall& context, const std::string& contextName, const std::string& specName, SpecPtr spec, TestResults& results)
     {
       bool result = true;
       

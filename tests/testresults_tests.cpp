@@ -32,7 +32,7 @@ Context(An_empty_test_run)
   {
     void SetUp()
     {
-      Results().AddResult(TestResult("The context name", "The spec name", false, "The error message"));
+      Results().push_back(TestResult("The context name", "The spec name", false, "The error message"));
     }
 
     Spec(Number_of_tests_should_be_1)
@@ -64,7 +64,7 @@ Context(An_empty_test_run)
     {
       void SetUp()
       {
-        Results().AddResult(TestResult("The context name", "Another spec name", true, "Test succeeded"));
+        Results().push_back(TestResult("The context name", "Another spec name", true, "Test succeeded"));
       }
 
       Spec(Number_of_tests_should_be_2)
