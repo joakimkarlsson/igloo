@@ -48,7 +48,7 @@ class TestResults
   private:
     std::list<TestResult> testResults_;
 
-    bool SpecSucceeded(const TestResult& spec)
+    static bool SpecSucceeded(const TestResult& spec)
     {
       return spec.GetSuccess();
     }
