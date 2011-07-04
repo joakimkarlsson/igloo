@@ -7,7 +7,7 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
-class TestResults
+class TestResults 
 {
   public:
     TestResults() : testCount_(0), testsFailedCount_(0)
@@ -21,7 +21,7 @@ class TestResults
 
     int NumberOfSucceededTests() const
     {
-      return 0;
+      return testCount_ - testsFailedCount_;
     }
 
     int NumberOfFailedTests() const
@@ -29,15 +29,34 @@ class TestResults
       return testsFailedCount_;
     }
 
-    void AddResult(const TestResult& )
+    void AddResult(const TestResult result)
     {
+      testResults_.push_back(result);
       testCount_++;
-      testsFailedCount_++;
+
+      if(!result.GetSuccess())
+      {
+        testsFailedCount_++;
+      }
     }
+
+    typedef std::list<TestResult>::const_iterator const_iterator;
+
+    const_iterator begin() const
+    {
+      return testResults_.begin();
+    }
+
+    const_iterator end() const
+    {
+      return testResults_.end();
+    }
+
 
   private:
     int testCount_;
     int testsFailedCount_;
+    std::list<TestResult> testResults_;
 };
 
 Context(An_empty_test_run)
@@ -63,7 +82,7 @@ Context(An_empty_test_run)
   {
     void SetUp()
     {
-      Results().AddResult(TestResult("The context name", "The test name", false, "The error message"));
+      Results().AddResult(TestResult("The context name", "The spec name", false, "The error message"));
     }
 
     Spec(Number_of_tests_should_be_1)
@@ -81,9 +100,48 @@ Context(An_empty_test_run)
       Assert::That(Results().NumberOfSucceededTests(), Is().EqualTo(0));
     }
 
+    Spec(The_correct_testresult_should_be_recorded)
+    {
+      Assert::That(Results(), Has().Exactly(1).EqualTo(TestResult("The context name", "The spec name", false, "The error message")));
+    }
+
     TestResults& Results()
     {
       return Parent().results;
     }
+
+    Context(One_failed_and_one_succeeded_tests)
+    {
+      void SetUp()
+      {
+        Results().AddResult(TestResult("The context name", "Another spec name", true, "Test succeeded"));
+      }
+
+      Spec(Number_of_tests_should_be_2)
+      {
+        Assert::That(Results().NumberOfTestsRun(), Is().EqualTo(2));
+      }
+      
+      Spec(Number_of_failed_tests_should_be_1)
+      {
+        Assert::That(Results().NumberOfFailedTests(), Is().EqualTo(1));
+      }
+
+      Spec(Number_of_succeeded_tests_should_be_1)
+      {
+        Assert::That(Results().NumberOfSucceededTests(), Is().EqualTo(1));
+      }
+
+      Spec(The_correct_testresults_should_be_recorded)
+      {
+        Assert::That(Results(), Has().Exactly(1).EqualTo(TestResult("The context name", "The spec name", false, "The error message")));
+        Assert::That(Results(), Has().Exactly(1).EqualTo(TestResult("The context name", "Another spec name", true, "Test succeeded")));
+      }
+
+      TestResults& Results()
+      {
+        return Parent().Results();
+      }
+    };
   };
 };
