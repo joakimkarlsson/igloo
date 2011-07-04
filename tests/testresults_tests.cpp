@@ -7,10 +7,6 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
-bool SpecSucceeded(const TestResult& spec)
-{
-  return spec.GetSuccess();
-}
 
 class TestResults 
 {
@@ -51,6 +47,11 @@ class TestResults
 
   private:
     std::list<TestResult> testResults_;
+
+    bool SpecSucceeded(const TestResult& spec)
+    {
+      return spec.GetSuccess();
+    }
 };
 
 Context(An_empty_test_run)
