@@ -7,37 +7,33 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
+bool SpecSucceeded(const TestResult& spec)
+{
+  return spec.GetSuccess();
+}
+
 class TestResults 
 {
   public:
-    TestResults() : testCount_(0), testsFailedCount_(0)
-    {
-    }
 
     int NumberOfTestsRun() const
     {
-      return testCount_;
+      return testResults_.size();
     }
 
     int NumberOfSucceededTests() const
     {
-      return testCount_ - testsFailedCount_;
+      return std::count_if(begin(), end(), SpecSucceeded);
     }
 
     int NumberOfFailedTests() const
     {
-      return testsFailedCount_;
+      return NumberOfTestsRun() - NumberOfSucceededTests();
     }
 
     void AddResult(const TestResult result)
     {
       testResults_.push_back(result);
-      testCount_++;
-
-      if(!result.GetSuccess())
-      {
-        testsFailedCount_++;
-      }
     }
 
     typedef std::list<TestResult>::const_iterator const_iterator;
@@ -54,8 +50,6 @@ class TestResults
 
 
   private:
-    int testCount_;
-    int testsFailedCount_;
     std::list<TestResult> testResults_;
 };
 
