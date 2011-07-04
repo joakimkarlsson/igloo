@@ -8,51 +8,6 @@
 using namespace igloo;
 
 
-class TestResults 
-{
-  public:
-
-    int NumberOfTestsRun() const
-    {
-      return testResults_.size();
-    }
-
-    int NumberOfSucceededTests() const
-    {
-      return std::count_if(begin(), end(), SpecSucceeded);
-    }
-
-    int NumberOfFailedTests() const
-    {
-      return NumberOfTestsRun() - NumberOfSucceededTests();
-    }
-
-    void AddResult(const TestResult result)
-    {
-      testResults_.push_back(result);
-    }
-
-    typedef std::list<TestResult>::const_iterator const_iterator;
-
-    const_iterator begin() const
-    {
-      return testResults_.begin();
-    }
-
-    const_iterator end() const
-    {
-      return testResults_.end();
-    }
-
-
-  private:
-    std::list<TestResult> testResults_;
-
-    static bool SpecSucceeded(const TestResult& spec)
-    {
-      return spec.GetSuccess();
-    }
-};
 
 Context(An_empty_test_run)
 {
