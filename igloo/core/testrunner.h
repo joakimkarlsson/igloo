@@ -15,6 +15,10 @@ namespace igloo {
   class DefaultTestResultsOutput
   {
     public:
+      DefaultTestResultsOutput(std::ostream& outputStream) : outputStream_(outputStream)
+      {
+      }
+
       void PrintResult(const TestResults& results)
       {
         for (TestResults::const_iterator it = results.begin(); it != results.end(); it++)
@@ -22,12 +26,15 @@ namespace igloo {
           const TestResult& result = *it;
           if (!result.GetSuccess())
           {
-            std::cout << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
+            outputStream_ << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
           }
         }
         
-        std::cout << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+        outputStream_ << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
       }
+
+    private:
+      std::ostream& outputStream_;
   };
 
   class TestRunner
@@ -50,7 +57,7 @@ namespace igloo {
       
       std::cout << std::endl;
       
-      DefaultTestResultsOutput().PrintResult(results);
+      DefaultTestResultsOutput(std::cout).PrintResult(results);
       return results.NumberOfFailedTests();
     }
     
