@@ -51,6 +51,7 @@ namespace igloo {
         return testResults_.size();
       }
 
+      friend std::ostream& operator<<(std::ostream& stm, const TestResults& results);
 
     private:
       std::list<TestResult> testResults_;
@@ -60,6 +61,21 @@ namespace igloo {
         return spec.GetSuccess();
       }
   };
+
+
+  inline std::ostream& operator<<(std::ostream& stm, const TestResults& results)
+  {
+    stm << "[ ";
+    TestResults::const_iterator it;
+    for(it = results.begin(); it != results.end(); it++)
+    {
+      stm << "< " << *it << " >";
+    }
+
+    stm << " ]";
+
+    return stm;
+  }
 }
 
 #endif

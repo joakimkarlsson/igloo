@@ -7,7 +7,25 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
+struct HasSpecWithName
+{
+  HasSpecWithName(const std::string& expectedName) : expectedName_(expectedName)
+  {
+  }
 
+  bool Matches(const TestResult& actual) const
+  {
+    return actual.GetSpecName() == expectedName_;
+  }
+
+  std::string expectedName_;
+};
+
+std::ostream& operator<<(std::ostream& stm, const HasSpecWithName& matcher)
+{
+  stm << "TestResult for spec named " << matcher.expectedName_;
+  return stm;
+}
 
 Context(An_empty_test_run)
 {
@@ -84,8 +102,8 @@ Context(An_empty_test_run)
 
       Spec(The_correct_testresults_should_be_recorded)
       {
-        Assert::That(Results(), Has().Exactly(1).EqualTo(TestResult("The context name", "The spec name", false, "The error message")));
-        Assert::That(Results(), Has().Exactly(1).EqualTo(TestResult("The context name", "Another spec name", true, "Test succeeded")));
+        Assert::That(Results(), Has().Exactly(1).Fulfilling(HasSpecWithName("The spec name")));
+        Assert::That(Results(), Has().Exactly(1).Fulfilling(HasSpecWithName("Another spec name")));
       }
 
       TestResults& Results()

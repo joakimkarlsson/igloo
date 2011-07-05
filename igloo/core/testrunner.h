@@ -36,27 +36,17 @@ namespace igloo {
     
     static int CheckResults(const TestResults& results)
     {
-      int run = 0, succeeded = 0, failed = 0;
-      
-      for (std::list<TestResult>::const_iterator it = results.begin(); it != results.end(); it++)
+      for (TestResults::const_iterator it = results.begin(); it != results.end(); it++)
       {
-        run++;
-        if ((*it).GetSuccess())
+        const TestResult& result = *it;
+        if (!result.GetSuccess())
         {
-          succeeded++;
-        }
-        else
-        {
-          failed++;
-          
-          const TestResult& result = *it;
-          
           std::cout << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
         }
       }
       
-      std::cout << "Test run complete. " << run << " tests run, " << succeeded << " succeeded, " << failed << " failed." << std::endl;
-      return failed;
+      std::cout << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+      return results.NumberOfFailedTests();
     }
     
     template <typename ContextRunnerType>
