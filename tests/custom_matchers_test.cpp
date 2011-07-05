@@ -9,7 +9,7 @@
 
 using namespace igloo;
 
-Context(CustomMatchers)
+Context(CustomMatcherWithoutStreamOperatorOverloaded)
 {
   struct IsEvenNumber
   {
@@ -24,37 +24,37 @@ Context(CustomMatchers)
     Assert::That(2, Fulfills(IsEvenNumber()));
   }
 
+  Spec(CustomMatcherWithFluent)
+  {
+    Assert::That(2, Is().Fulfilling(IsEvenNumber()));
+  }
+
   Spec(OutputsCorrectMessageWhenFails)
   {
     AssertTestFails(Assert::That(3, Fulfills(IsEvenNumber())), "Expected: [unsupported type]\nActual: 3");
   }
 };
 
-  struct IsEvenNumber
+struct IsEvenNumber
+{
+  bool Matches(const int actual) const
   {
-    bool Matches(const int actual) const
-    {
-      return (actual % 2) == 0; 
-    }
+    return (actual % 2) == 0; 
+  }
 
-    friend std::ostream& operator<<(std::ostream& stm, const IsEvenNumber& );
-
-  };
+  friend std::ostream& operator<<(std::ostream& stm, const IsEvenNumber& );
+};
 
 std::ostream& operator<<(std::ostream& stm, const IsEvenNumber& )
-    {
-      stm << "An even number";
-      return stm;
-    }
+{
+  stm << "An even number";
+  return stm;
+}
 
 Context(CustomMatcherWithStreamOperator)
 {
-
-
-
   Spec(ErrorMessageUsesCustomStreamOperatorIfAvailable)
   {
     AssertTestFails(Assert::That(3, Fulfills(IsEvenNumber())), "Expected: An even number\nActual: 3");
   }
-
 };

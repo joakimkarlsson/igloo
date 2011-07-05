@@ -40,6 +40,19 @@ namespace igloo {
       
       return BuilderType(Concatenate(m_constraint_list, node));
     }
+
+    template <typename MatcherType>
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<FulfillsConstraint<MatcherType> >, Nil> >::t> 
+      Fulfilling(const MatcherType& matcher)
+    {
+      typedef ConstraintAdapter<FulfillsConstraint<MatcherType> > ConstraintAdapterType;      
+      typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > BuilderType;
+      
+      ConstraintAdapterType constraint(matcher);
+      ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
+      
+      return BuilderType(Concatenate(m_constraint_list, node));
+    }
     
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsConstraint<bool> >, Nil> >::t> 
       False()
