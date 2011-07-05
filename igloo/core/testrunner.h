@@ -11,6 +11,25 @@
 #include <igloo/core/testresults.h>
 
 namespace igloo {
+
+  class DefaultTestResultsOutput
+  {
+    public:
+      void PrintResult(const TestResults& results)
+      {
+        for (TestResults::const_iterator it = results.begin(); it != results.end(); it++)
+        {
+          const TestResult& result = *it;
+          if (!result.GetSuccess())
+          {
+            std::cout << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
+          }
+        }
+        
+        std::cout << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+      }
+  };
+
   class TestRunner
   {
   public:
@@ -31,21 +50,7 @@ namespace igloo {
       
       std::cout << std::endl;
       
-      return CheckResults(results);
-    }
-    
-    static int CheckResults(const TestResults& results)
-    {
-      for (TestResults::const_iterator it = results.begin(); it != results.end(); it++)
-      {
-        const TestResult& result = *it;
-        if (!result.GetSuccess())
-        {
-          std::cout << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
-        }
-      }
-      
-      std::cout << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+      DefaultTestResultsOutput().PrintResult(results);
       return results.NumberOfFailedTests();
     }
     
