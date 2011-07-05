@@ -14,6 +14,7 @@
 #include <stack>
 #include <list>
 #include <memory>
+#include <algorithm>
 
 #include <igloo/core/stringize.h>
 #include <igloo/constraints/constraints.h>
