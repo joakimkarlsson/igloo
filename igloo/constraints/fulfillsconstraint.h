@@ -34,6 +34,18 @@ namespace igloo {
     return FulfillsConstraint<MatcherType>(matcher);
   }
 
+  template< typename MatcherType >
+  struct Stringizer< FulfillsConstraint< MatcherType > >
+  {
+    static std::string ToString(const FulfillsConstraint<MatcherType>& constraint)
+    {
+      std::ostringstream builder;
+      builder << igloo::Stringize(constraint.m_matcher);
+
+      return builder.str();
+    }
+  };
+
 }
 
 #endif
