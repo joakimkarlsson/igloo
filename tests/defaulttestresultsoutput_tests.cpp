@@ -32,12 +32,17 @@ Context(DefaultTestResultsOutput_EmptyTestRun)
     void SetUp()
     {
       testResults().push_back(TestResult("A context name", "A spec name", false, "The error message"));
+      Parent().output->PrintResult(Parent().results);
     }
 
     Spec(DisplaysOneFailedTestOnSummary)
     {
-      Parent().output->PrintResult(Parent().results);
       Assert::That(resulting_output(), Has().Exactly(1).StartingWith("Test run complete. 1 tests run, 0 succeeded, 1 failed."));
+    }
+
+    Spec(DisplaysErrorTextForFailedTestCorrectly)
+    {
+      Assert::That(resulting_output(), Is().StartingWith("A context name::A spec name failed:\nThe error message"));
     }
 
     TestResults& testResults() 
