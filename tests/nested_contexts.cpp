@@ -33,7 +33,9 @@ Context(AContextWithSetupAndTearDown)
   Spec(WhenASpecIsExecutedSetUpAndTearDownIsCalled)
   {
     ContextToTest contextToTest;
-    ContextRegistry<ContextToTest>::CallSpec(contextToTest, "ContextToTest", "ASpec", &ContextToTest::ASpec, results);
+    contextToTest.SetName("ContextToTest");
+
+    ContextRegistry<ContextToTest>::CallSpec(contextToTest, "ASpec", &ContextToTest::ASpec, results);
     
     Assert::That(contextToTest.log, Equals("SetUp called TearDown called "));
   }
@@ -41,7 +43,9 @@ Context(AContextWithSetupAndTearDown)
   Spec(WhenASpecInAnInnerContextIsCalledOuterSetUpAndTearDownShouldBeCalled)
   {
     ContextToTest::InnerContext innerContext;
-    ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "InnerContext", "ASpec", &ContextToTest::InnerContext::ASpec, results);
+    innerContext.SetName("InnerContext");
+
+    ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "ASpec", &ContextToTest::InnerContext::ASpec, results);
     
     Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
   }
@@ -49,7 +53,9 @@ Context(AContextWithSetupAndTearDown)
   Spec(SetUpAndTearDownAreCalledForFailingSpecs)
   {
     ContextToTest contextToTest;
-    ContextRegistry<ContextToTest>::CallSpec(contextToTest, "ContextToTest", "AFailingSpec", &ContextToTest::AFailingSpec, results);
+    contextToTest.SetName("ContextToTest");
+
+    ContextRegistry<ContextToTest>::CallSpec(contextToTest, "AFailingSpec", &ContextToTest::AFailingSpec, results);
     
     Assert::That(contextToTest.log, Equals("SetUp called TearDown called "));    
   }
@@ -57,7 +63,9 @@ Context(AContextWithSetupAndTearDown)
   Spec(SetUpAndTearDownAreCalledForFailingSpecInNestedContext)
   {
     ContextToTest::InnerContext innerContext;
-    ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "InnerContext", "AFailingSpec", &ContextToTest::InnerContext::AFailingSpec, results);
+    innerContext.SetName("InnerContext");
+
+    ContextRegistry<ContextToTest::InnerContext>::CallSpec(innerContext, "AFailingSpec", &ContextToTest::InnerContext::AFailingSpec, results);
     
     Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
   } 

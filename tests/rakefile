@@ -12,7 +12,7 @@ task :test => [:build] do
 end
 
 task :build do
-  sh "g++ -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels -Wshadow -pedantic-errors -I.. *.cpp -o #{OUTPUT}" do |ok, res|
+  sh "g++ -Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels -Wshadow -pedantic-errors -I.. *.cpp -o #{OUTPUT}" do |ok, res|
     unless ok
       sh "growlnotify -m 'Build failed' -p 2"
       fail

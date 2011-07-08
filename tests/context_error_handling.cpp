@@ -10,9 +10,14 @@ using namespace igloo;
 Context(AContextWithAFailingSpec)
 {
   
+  void SetUp()
+  {
+    failing_context.SetName("FailingContext");
+  }
+
   Spec(FailingSpecShouldBeRegisteredAsFailed)
   {
-    ContextRegistry<FailingContext>::CallSpec(failing_context, "FailingContext", "AFailingSpec", &FailingContext::AFailingSpec, results);
+    ContextRegistry<FailingContext>::CallSpec(failing_context, "AFailingSpec", &FailingContext::AFailingSpec, results);
     
     Assert::That(results, HasLength(1));
     Assert::That(results, Has().Exactly(1).EqualTo(TestResult("FailingContext", "AFailingSpec", false, "This should fail")));    
@@ -33,9 +38,14 @@ Context(AContextWithAFailingSpec)
 Context(AContextWithAFailingTearDown)
 {
   
+  void SetUp()
+  {
+    failing_context.SetName("FailingContext");
+  }
+
   Spec(SpecShouldBeRegisteredAsFailed)
   {
-    ContextRegistry<FailingContext>::CallSpec(failing_context, "FailingContext", "TrivialSpec", &FailingContext::TrivialSpec, results);
+    ContextRegistry<FailingContext>::CallSpec(failing_context, "TrivialSpec", &FailingContext::TrivialSpec, results);
     
     Assert::That(results, HasLength(1));
     Assert::That(results, Has().Exactly(1).EqualTo(TestResult("FailingContext", "TrivialSpec", false, "This should fail")));    

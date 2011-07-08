@@ -15,21 +15,34 @@ namespace igloo {
 
   struct ContextBase 
   {
-    virtual ~ContextBase() {}
-    
-    virtual void IglooFrameworkSetUp()
-    {}
-    
-    virtual void IglooFrameworkTearDown()
-    {}
-    
-    virtual void SetUp()
-    {
-    }
+      virtual ~ContextBase() {}
+      
+      virtual void IglooFrameworkSetUp()
+      {}
+      
+      virtual void IglooFrameworkTearDown()
+      {}
+      
+      virtual void SetUp()
+      {
+      }
 
-    virtual void TearDown()
-    {
-    }
+      virtual void TearDown()
+      {
+      }
+
+      void SetName(const std::string& name)
+      {
+        m_name = name;
+      }
+
+      std::string Name() const
+      {
+        return m_name;
+      }
+
+    private:
+      std::string m_name;
   };
   
   template <typename ContextToCall>
@@ -59,7 +72,9 @@ namespace igloo {
       for (it = specs.begin(); it != specs.end(); it++)
       {
         ContextToCreate context;
-        if(CallSpec(context, contextName, (*it).first, (*it).second, results))
+        context.SetName(contextName);
+        
+        if(CallSpec(context, (*it).first, (*it).second, results))
         {
           std::cout << ".";
         }
@@ -70,7 +85,7 @@ namespace igloo {
       }
     }
 
-    static bool CallSpec(ContextToCall& context, const std::string& contextName, const std::string& specName, SpecPtr spec, TestResults& results)
+    static bool CallSpec(ContextToCall& context, const std::string& specName, SpecPtr spec, TestResults& results)
     {
       bool result = true;
       
@@ -81,7 +96,7 @@ namespace igloo {
        }
       catch (const AssertionException& e)
       {
-        results.push_back(TestResult(contextName, specName, false, e.GetMessage()));
+        results.push_back(TestResult(context.Name(), specName, false, e.GetMessage()));
         result = false;
       }
       
@@ -91,13 +106,13 @@ namespace igloo {
       }
       catch (const AssertionException& e) 
       {
-        results.push_back(TestResult(contextName, specName, false, e.GetMessage()));
+        results.push_back(TestResult(context.Name(), specName, false, e.GetMessage()));
         result = false;
       }
       
       if(result)
       {
-        results.push_back(TestResult(contextName, specName, true, "Test succeeded"));
+        results.push_back(TestResult(context.Name(), specName, true, "Test succeeded"));
       }
       
       return result;
