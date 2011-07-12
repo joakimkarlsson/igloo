@@ -35,7 +35,27 @@ namespace igloo {
     {
       return m_errorMessage;
     }
+
+    bool HasLineNumber() const
+    {
+      return false;
+    }
+
+    unsigned int LineNumber() const
+    {
+      return 0;
+    }
     
+    bool HasFilename() const
+    {
+      return false;
+    }
+
+    const std::string& Filename() const
+    {
+      return m_filename;
+    }
+
     bool operator==(const TestResult& rhs) const
     {
       return m_contextName == rhs.m_contextName &&
@@ -51,6 +71,7 @@ namespace igloo {
     std::string m_specName;
     bool m_success;
     std::string m_errorMessage;
+    std::string m_filename;
   };
 
   inline std::ostream& operator<<(std::ostream& stream, const TestResult& res)
