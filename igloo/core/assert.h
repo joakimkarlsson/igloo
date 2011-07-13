@@ -101,14 +101,9 @@ namespace igloo {
 
    private:
       template <class ExpectedType, class ActualType>
-      static std::string CreateErrorText(const std::string& file_name, int line_number, const ExpectedType& expected, const ActualType& actual)
+      static std::string CreateErrorText(const std::string& , int , const ExpectedType& expected, const ActualType& actual)
       {
          std::ostringstream str;
-
-         if(file_name.length() > 0)
-         {
-           str << file_name << "(" << line_number << "): Assertion failed" << std::endl;
-         }
 
          str << "Expected: " << igloo::Stringize(expected) << std::endl;
          str << "Actual: " << igloo::Stringize(actual) << std::endl;

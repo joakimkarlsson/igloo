@@ -26,7 +26,16 @@ namespace igloo {
           const TestResult& result = *it;
           if (!result.GetSuccess())
           {
-            outputStream_ << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl << result.GetErrorMessage() << std::endl;
+            outputStream_ << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl;
+
+            if(result.HasLineNumber() && result.HasFilename())
+            {
+              outputStream_ <<  result.Filename() << "(" << result.LineNumber() << "): Assertion failed." << std::endl << result.GetErrorMessage() << std::endl;
+            }
+            else
+            {
+              outputStream_ << result.GetErrorMessage() << std::endl;
+            }
           }
         }
         
