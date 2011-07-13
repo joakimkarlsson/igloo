@@ -48,12 +48,12 @@ namespace igloo {
 
     unsigned int LineNumber() const
     {
-      return 0;
+      return m_line;
     }
     
     bool HasFilename() const
     {
-      return false;
+      return m_filename.length() > 0;
     }
 
     const std::string& Filename() const

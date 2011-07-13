@@ -51,7 +51,14 @@ Context(An_assertion_with_file_and_linenumber_information)
     TestResult result = factory.CreateFromException(exception);
 
     Assert::That(result.HasLineNumber());
-
+    Assert::That(result.LineNumber(), Equals(432u));
   }
 
+  Spec(Created_TestResult_should_contain_information_about_what_file_the_error_originated_from)
+  {
+    TestResult result = factory.CreateFromException(exception);
+
+    Assert::That(result.HasFilename());
+    Assert::That(result.Filename(), Equals("myfile.cpp"));
+  }
 };
