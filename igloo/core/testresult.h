@@ -11,8 +11,13 @@ namespace igloo {
   class TestResult
   {
   public:
+    TestResult(const std::string& contextName, const std::string& specName, bool success, const std::string& errorMessage, const std::string& filename, unsigned int line)
+      : m_contextName(contextName), m_specName(specName), m_success(success), m_errorMessage(errorMessage), m_filename(filename), m_line(line)
+    {
+    }
+
     TestResult(const std::string& contextName, const std::string& specName, bool success, const std::string& errorMessage)
-      : m_contextName(contextName), m_specName(specName), m_success(success), m_errorMessage(errorMessage)
+      : m_contextName(contextName), m_specName(specName), m_success(success), m_errorMessage(errorMessage), m_filename(""), m_line(0)
     {
     }
 
@@ -38,7 +43,7 @@ namespace igloo {
 
     bool HasLineNumber() const
     {
-      return false;
+      return m_line != 0;
     }
 
     unsigned int LineNumber() const
@@ -72,6 +77,7 @@ namespace igloo {
     bool m_success;
     std::string m_errorMessage;
     std::string m_filename;
+    unsigned int m_line;
   };
 
   inline std::ostream& operator<<(std::ostream& stream, const TestResult& res)

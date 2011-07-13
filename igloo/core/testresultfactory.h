@@ -18,7 +18,7 @@ namespace igloo {
 
       TestResult CreateFromException(const AssertionException& exception)
       {
-        return TestResult(m_contextName, m_specName, false, exception.GetMessage());
+        return TestResult(m_contextName, m_specName, false, exception.GetMessage(), exception.GetFilename(), exception.GetLineNumber());
       }
 
     private:

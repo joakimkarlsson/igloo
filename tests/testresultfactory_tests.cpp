@@ -35,3 +35,23 @@ Context(An_assertion_without_file_and_linenumber_information)
   }
 
 };
+
+Context(An_assertion_with_file_and_linenumber_information)
+{
+  AssertionException exception;
+  TestResultFactory factory;
+
+  An_assertion_with_file_and_linenumber_information()
+    : exception("An error message", "myfile.cpp", 432)
+      ,factory("A context name", "A spec")
+  {}
+
+  Spec(Created_TestResult_should_have_a_linenumber)
+  {
+    TestResult result = factory.CreateFromException(exception);
+
+    Assert::That(result.HasLineNumber());
+
+  }
+
+};
