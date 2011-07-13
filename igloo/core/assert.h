@@ -48,7 +48,7 @@ namespace igloo {
 
             if (!result.top())
             {
-               throw AssertionException(CreateErrorText(file_name, line_number, expression, actual), file_name, line_number);
+               throw AssertionException(CreateErrorText(expression, actual), file_name, line_number);
             }      
          }
          catch (const InvalidExpressionException& e) 
@@ -76,7 +76,7 @@ namespace igloo {
       {
          if (!expression(actual))
          {
-            throw AssertionException(CreateErrorText(file_name, line_number, expression, actual), file_name, line_number);
+            throw AssertionException(CreateErrorText(expression, actual), file_name, line_number);
          }
       }
 
@@ -101,7 +101,7 @@ namespace igloo {
 
    private:
       template <class ExpectedType, class ActualType>
-      static std::string CreateErrorText(const std::string& , int , const ExpectedType& expected, const ActualType& actual)
+      static std::string CreateErrorText(const ExpectedType& expected, const ActualType& actual)
       {
          std::ostringstream str;
 

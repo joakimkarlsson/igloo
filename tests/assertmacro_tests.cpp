@@ -64,7 +64,6 @@ Context(A_context_with_failing_specs)
     ContextRegistry<FailingContext>::CallSpec(failing_context, "Assert_with_file_and_line_info", &FailingContext::Assert_with_file_and_line_info, results);
 
     Assert::That(results, Has().Exactly(1).Fulfilling(HasLineNumber()).And().Fulfilling(HasFileInformation()));
-
   }
 };
 
