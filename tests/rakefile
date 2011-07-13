@@ -19,3 +19,12 @@ task :build do
     end
   end
 end
+
+task :build_debug do
+  sh "g++ -Wfatal-errors -ggdb -Wundef -Wendif-labels -Wshadow -pedantic-errors -I.. *.cpp -o #{OUTPUT}" do |ok, res|
+    unless ok
+      sh "growlnotify -m 'Build failed' -p 2"
+      fail
+    end
+  end
+end

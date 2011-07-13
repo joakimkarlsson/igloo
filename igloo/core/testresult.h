@@ -87,6 +87,8 @@ namespace igloo {
       << ", m_specName=" << res.m_specName
       << ", m_success=" << res.m_success
       << ", m_errorMessage=" << res.m_errorMessage
+      << ", m_filename=" << res.m_filename
+      << ", m_line=" << res.m_line
       << " )";
 
     return stream;

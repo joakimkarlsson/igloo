@@ -96,7 +96,7 @@ namespace igloo {
        }
       catch (const AssertionException& e)
       {
-        results.push_back(TestResult(context.Name(), specName, false, e.GetMessage()));
+        results.push_back(TestResultFactory(context.Name(), specName).CreateFromException(e));
         result = false;
       }
       
@@ -106,7 +106,7 @@ namespace igloo {
       }
       catch (const AssertionException& e) 
       {
-        results.push_back(TestResult(context.Name(), specName, false, e.GetMessage()));
+        results.push_back(TestResultFactory(context.Name(), specName).CreateFromException(e));
         result = false;
       }
       

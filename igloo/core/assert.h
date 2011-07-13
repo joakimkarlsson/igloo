@@ -48,7 +48,7 @@ namespace igloo {
 
             if (!result.top())
             {
-               throw AssertionException(CreateErrorText(file_name, line_number, expression, actual));
+               throw AssertionException(CreateErrorText(file_name, line_number, expression, actual), file_name, line_number);
             }      
          }
          catch (const InvalidExpressionException& e) 
@@ -76,7 +76,7 @@ namespace igloo {
       {
          if (!expression(actual))
          {
-            throw AssertionException(CreateErrorText(file_name, line_number, expression, actual));
+            throw AssertionException(CreateErrorText(file_name, line_number, expression, actual), file_name, line_number);
          }
       }
 
