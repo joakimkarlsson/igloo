@@ -16,9 +16,14 @@ namespace igloo {
         : m_contextName(contextName), m_specName(specName)
       {}
 
-      TestResult CreateFromException(const AssertionException& exception)
+      TestResult CreateFromException(const AssertionException& exception) const
       {
         return TestResult(m_contextName, m_specName, false, exception.GetMessage(), exception.GetFilename(), exception.GetLineNumber());
+      }
+
+      TestResult CreateSuccessful() const
+      {
+        return TestResult(m_contextName, m_specName, true, "Test successful");
       }
 
     private:

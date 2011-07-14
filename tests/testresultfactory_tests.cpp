@@ -62,3 +62,14 @@ Context(An_assertion_with_file_and_linenumber_information)
     Assert::That(result.Filename(), Equals("myfile.cpp"));
   }
 };
+
+Context(A_successful_spec)
+{
+  Spec(Should_contain_context_name_and_spec_name)
+  {
+    TestResult result = TestResultFactory("A context name", "A spec name").CreateSuccessful();
+
+    AssertThat(result.GetContextName(), Equals("A context name"));
+    AssertThat(result.GetSpecName(), Equals("A spec name"));
+  }
+};

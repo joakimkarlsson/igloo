@@ -112,7 +112,7 @@ namespace igloo {
       
       if(result)
       {
-        results.AddResult(TestResult(context.Name(), specName, true, "Test succeeded"));
+        results.AddResult(TestResultFactory(context.Name(), specName).CreateSuccessful());
       }
       
       return result;
