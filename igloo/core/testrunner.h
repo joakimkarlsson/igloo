@@ -21,9 +21,9 @@ namespace igloo {
 
       void PrintResult(const TestResults& results)
       {
-        for (TestResults::const_iterator it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
+        for (TestResults::FailedTestsType::const_iterator it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {
-          const TestResult& result = *it;
+          const FailedTestResult& result = *it;
           outputStream_ << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl;
 
           if(result.HasLineNumber() && result.HasFilename())

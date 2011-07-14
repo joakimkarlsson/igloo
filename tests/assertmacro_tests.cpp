@@ -9,7 +9,7 @@ using namespace igloo;
 
 struct HasLineNumber
 {
-  bool Matches(const TestResult& result) const
+  bool Matches(const FailedTestResult& result) const
   {
     return result.HasLineNumber();
   }
@@ -17,13 +17,13 @@ struct HasLineNumber
 
 std::ostream& operator<<(std::ostream& stm, const HasLineNumber& )
 {
-  stm << "TestResult has line number information";
+  stm << "FailedTestResult has line number information";
   return stm;
 }
 
 struct HasFileInformation
 {
-  bool Matches(const TestResult& result) const
+  bool Matches(const FailedTestResult& result) const
   {
     return result.HasFilename();
   }
@@ -31,7 +31,7 @@ struct HasFileInformation
 
 std::ostream& operator<<(std::ostream& stm, const HasFileInformation& )
 {
-  stm << "TestResult has filename information";
+  stm << "FailedTestResult has filename information";
   return stm;
 }
 

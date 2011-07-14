@@ -13,7 +13,12 @@ struct HasSpecWithName
   {
   }
 
-  bool Matches(const TestResult& actual) const
+  bool Matches(const FailedTestResult& actual) const
+  {
+    return actual.GetSpecName() == expectedName_;
+  }
+
+  bool Matches(const SucceededTestResult& actual) const
   {
     return actual.GetSpecName() == expectedName_;
   }
@@ -50,7 +55,7 @@ Context(An_empty_test_run)
   {
     void SetUp()
     {
-      Results().AddResult(TestResult("The context name", "A failing spec", false, "The error message"));
+      Results().AddResult(FailedTestResult("The context name", "A failing spec", "The error message"));
     }
 
     Spec(Number_of_tests_should_be_1)
@@ -70,7 +75,7 @@ Context(An_empty_test_run)
 
     Spec(The_correct_testresult_should_be_recorded)
     {
-      Assert::That(Results().FailedTests(), Has().Exactly(1).EqualTo(TestResult("The context name", "A failing spec", false, "The error message")));
+      Assert::That(Results().FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("The context name", "A failing spec", "The error message")));
     }
 
     TestResults& Results()
@@ -82,7 +87,7 @@ Context(An_empty_test_run)
     {
       void SetUp()
       {
-        Results().AddResult(TestResult("The context name", "A succeeding spec", true, "Test succeeded"));
+        Results().AddResult(SucceededTestResult("The context name", "A succeeding spec"));
       }
 
       Spec(Number_of_tests_should_be_2)

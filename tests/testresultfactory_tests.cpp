@@ -20,7 +20,7 @@ Context(An_assertion_without_file_and_linenumber_information)
 
   Spec(Created_TestResult_should_have_no_linenumber)
   {
-    TestResult result = factory.CreateFromException(exception);
+    FailedTestResult result = factory.CreateFromException(exception);
 
     Assert::That(result.HasLineNumber(), IsFalse());
     Assert::That(result.LineNumber(), Equals(0u));
@@ -28,7 +28,7 @@ Context(An_assertion_without_file_and_linenumber_information)
 
   Spec(Created_TestResult_should_have_no_file_information)
   {
-    TestResult result = factory.CreateFromException(exception);
+    FailedTestResult result = factory.CreateFromException(exception);
 
     Assert::That(result.HasFilename(), IsFalse());
     Assert::That(result.Filename(), IsEmpty()); 
@@ -48,7 +48,7 @@ Context(An_assertion_with_file_and_linenumber_information)
 
   Spec(Created_TestResult_should_have_a_linenumber)
   {
-    TestResult result = factory.CreateFromException(exception);
+    FailedTestResult result = factory.CreateFromException(exception);
 
     Assert::That(result.HasLineNumber());
     Assert::That(result.LineNumber(), Equals(432u));
@@ -56,7 +56,7 @@ Context(An_assertion_with_file_and_linenumber_information)
 
   Spec(Created_TestResult_should_contain_information_about_what_file_the_error_originated_from)
   {
-    TestResult result = factory.CreateFromException(exception);
+    FailedTestResult result = factory.CreateFromException(exception);
 
     Assert::That(result.HasFilename());
     Assert::That(result.Filename(), Equals("myfile.cpp"));
@@ -67,7 +67,7 @@ Context(A_successful_spec)
 {
   Spec(Should_contain_context_name_and_spec_name)
   {
-    TestResult result = TestResultFactory("A context name", "A spec name").CreateSuccessful();
+    SucceededTestResult result = TestResultFactory("A context name", "A spec name").CreateSuccessful();
 
     AssertThat(result.GetContextName(), Equals("A context name"));
     AssertThat(result.GetSpecName(), Equals("A spec name"));
