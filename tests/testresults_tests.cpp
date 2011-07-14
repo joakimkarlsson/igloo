@@ -50,7 +50,7 @@ Context(An_empty_test_run)
   {
     void SetUp()
     {
-      Results().push_back(TestResult("The context name", "The spec name", false, "The error message"));
+      Results().AddResult(TestResult("The context name", "A failing spec", false, "The error message"));
     }
 
     Spec(Number_of_tests_should_be_1)
@@ -70,7 +70,7 @@ Context(An_empty_test_run)
 
     Spec(The_correct_testresult_should_be_recorded)
     {
-      Assert::That(Results(), Has().Exactly(1).EqualTo(TestResult("The context name", "The spec name", false, "The error message")));
+      Assert::That(Results().FailedTests(), Has().Exactly(1).EqualTo(TestResult("The context name", "A failing spec", false, "The error message")));
     }
 
     TestResults& Results()
@@ -82,7 +82,7 @@ Context(An_empty_test_run)
     {
       void SetUp()
       {
-        Results().push_back(TestResult("The context name", "Another spec name", true, "Test succeeded"));
+        Results().AddResult(TestResult("The context name", "A succeeding spec", true, "Test succeeded"));
       }
 
       Spec(Number_of_tests_should_be_2)
@@ -102,8 +102,8 @@ Context(An_empty_test_run)
 
       Spec(The_correct_testresults_should_be_recorded)
       {
-        Assert::That(Results(), Has().Exactly(1).Fulfilling(HasSpecWithName("The spec name")));
-        Assert::That(Results(), Has().Exactly(1).Fulfilling(HasSpecWithName("Another spec name")));
+        Assert::That(Results().FailedTests(), Has().Exactly(1).Fulfilling(HasSpecWithName("A failing spec")));
+        Assert::That(Results().SucceededTests(), Has().Exactly(1).Fulfilling(HasSpecWithName("A succeeding spec")));
       }
 
       TestResults& Results()

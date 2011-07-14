@@ -31,7 +31,7 @@ Context(DefaultTestResultsOutput_EmptyTestRun)
   {
     void SetUp()
     {
-      testResults().push_back(TestResult("A context name", "A spec name", false, "The error message"));
+      testResults().AddResult(TestResult("A context name", "A spec name", false, "The error message"));
       Parent().output->PrintResult(Parent().results);
     }
 
@@ -60,7 +60,7 @@ Context(DefaultTestResultsOutput_EmptyTestRun)
   {
     void SetUp()
     {
-      testResults().push_back(TestResult("A context name", "A spec name", false, "The error message", "filewithfailure.cpp", 342));
+      testResults().AddResult(TestResult("A context name", "A spec name", false, "The error message", "filewithfailure.cpp", 342));
       Parent().output->PrintResult(Parent().results);
     }
 

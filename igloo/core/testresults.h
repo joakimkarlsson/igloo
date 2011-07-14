@@ -28,9 +28,18 @@ namespace igloo {
         return NumberOfTestsRun() - NumberOfSucceededTests();
       }
 
-      void push_back(const TestResult result)
+      void AddResult(const TestResult result)
       {
         testResults_.push_back(result);
+
+        if(result.GetSuccess())
+        {
+          succeededTests_.push_back(result);
+        }
+        else
+        {
+          failedTests_.push_back(result);
+        }
       }
 
       typedef std::list<TestResult>::const_iterator const_iterator;
@@ -51,10 +60,22 @@ namespace igloo {
         return testResults_.size();
       }
 
+      const std::list<TestResult>& FailedTests() const
+      {
+        return failedTests_;
+      }
+
+      const std::list<TestResult>& SucceededTests() const
+      {
+        return succeededTests_;
+      }
+
       friend std::ostream& operator<<(std::ostream& stm, const TestResults& results);
 
     private:
       std::list<TestResult> testResults_;
+      std::list<TestResult> failedTests_;
+      std::list<TestResult> succeededTests_;
 
       static bool SpecSucceeded(const TestResult& spec)
       {
