@@ -1,0 +1,28 @@
+
+Visual Studio Formatted output:
+*Done: Moved current formatting to DefaultTestResultOutputter
+Move DefaultTestResultOutputter to its own file.
+Create VisualStudioResultOutputter
+Create interface common for all ResultOutputters
+
+Cleanup needed to be done:
+Move ContextRegistry from context.h to its own file.
+Change year in license header notice.
+
+Create test listeners:
+Possibility to register listener.
+Listener gets callback when test run starts.
+Listener gets callback when test run ends.
+Listener gets callback when context run starts
+Listener gets callback when context run ends
+Listener gets callback when spec run starts
+Listener gets callback when spec run succeeds
+Listener gets callback when spec run fails
+
+Create Context Level SetUp/TearDown:
+TBD
+
+Create Global Environment hooks:
+TBD
+
+vim: ft=todolist 
