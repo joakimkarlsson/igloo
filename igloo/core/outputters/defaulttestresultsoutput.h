@@ -16,7 +16,7 @@ namespace igloo {
     {
     }
 
-      void PrintResult(const TestResults& results)
+      void PrintResult(const TestResults& results) const
       {
         for (TestResults::FailedTestsType::const_iterator it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {

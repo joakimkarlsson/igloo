@@ -20,6 +20,16 @@ namespace igloo {
 
       static int RunAllTests()
       {
+        TestRunner runner(DefaultTestResultsOutput(std::cout));
+        return runner.Run();
+      }
+
+      TestRunner(const DefaultTestResultsOutput& output) 
+        : output_(output)
+      {}
+
+      int Run() const
+      {
         TestResults results;
 
         for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
@@ -32,7 +42,7 @@ namespace igloo {
 
         std::cout << std::endl;
 
-        DefaultTestResultsOutput(std::cout).PrintResult(results);
+        output_.PrintResult(results);
         return results.NumberOfFailedTests();
       }
 
@@ -79,6 +89,9 @@ namespace igloo {
         static TestRunner::ContextRunners contextRunners;
         return contextRunners;
       }
+
+    private:
+      const DefaultTestResultsOutput& output_;
   };
 }
 

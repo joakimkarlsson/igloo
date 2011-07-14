@@ -1,7 +1,7 @@
 
 Visual Studio Formatted output:
 *Done: Moved current formatting to DefaultTestResultOutputter
-Move DefaultTestResultOutputter to its own file.
+*Done: Move DefaultTestResultOutputter to its own file.
 Create VisualStudioResultOutputter
 Create interface common for all ResultOutputters
 
