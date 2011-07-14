@@ -55,7 +55,7 @@ Context(A_context_with_failing_specs)
     TestResults results;
     ContextRegistry<FailingContext>::CallSpec(failing_context, "Assert_without_file_and_line_info", &FailingContext::Assert_without_file_and_line_info, results);
 
-    Assert::That(results, Has().Exactly(1).Not().Fulfilling(HasLineNumber()).And().Not().Fulfilling(HasFileInformation()));
+    Assert::That(results.FailedTests(), Has().Exactly(1).Not().Fulfilling(HasLineNumber()).And().Not().Fulfilling(HasFileInformation()));
   }
 
   Spec(TestResult_contains_line_and_file_info_when_provided_in_assert)
@@ -63,7 +63,7 @@ Context(A_context_with_failing_specs)
     TestResults results;
     ContextRegistry<FailingContext>::CallSpec(failing_context, "Assert_with_file_and_line_info", &FailingContext::Assert_with_file_and_line_info, results);
 
-    Assert::That(results, Has().Exactly(1).Fulfilling(HasLineNumber()).And().Fulfilling(HasFileInformation()));
+    Assert::That(results.FailedTests(), Has().Exactly(1).Fulfilling(HasLineNumber()).And().Fulfilling(HasFileInformation()));
   }
 };
 

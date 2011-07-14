@@ -15,23 +15,21 @@ namespace igloo {
 
       int NumberOfTestsRun() const
       {
-        return testResults_.size();
+        return NumberOfSucceededTests() + NumberOfFailedTests();
       }
 
       int NumberOfSucceededTests() const
       {
-        return std::count_if(begin(), end(), SpecSucceeded);
+        return succeededTests_.size();
       }
 
       int NumberOfFailedTests() const
       {
-        return NumberOfTestsRun() - NumberOfSucceededTests();
+        return failedTests_.size();
       }
 
       void AddResult(const TestResult result)
       {
-        testResults_.push_back(result);
-
         if(result.GetSuccess())
         {
           succeededTests_.push_back(result);
@@ -43,22 +41,6 @@ namespace igloo {
       }
 
       typedef std::list<TestResult>::const_iterator const_iterator;
-      typedef std::list<TestResult>::size_type size_type;
-
-      const_iterator begin() const
-      {
-        return testResults_.begin();
-      }
-
-      const_iterator end() const
-      {
-        return testResults_.end();
-      }
-
-      size_type size() const
-      {
-        return testResults_.size();
-      }
 
       const std::list<TestResult>& FailedTests() const
       {
@@ -73,7 +55,6 @@ namespace igloo {
       friend std::ostream& operator<<(std::ostream& stm, const TestResults& results);
 
     private:
-      std::list<TestResult> testResults_;
       std::list<TestResult> failedTests_;
       std::list<TestResult> succeededTests_;
 
@@ -88,7 +69,12 @@ namespace igloo {
   {
     stm << "[ ";
     TestResults::const_iterator it;
-    for(it = results.begin(); it != results.end(); it++)
+    for(it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
+    {
+      stm << "< " << *it << " >";
+    }
+
+    for(it = results.SucceededTests().begin(); it != results.SucceededTests().end(); it++)
     {
       stm << "< " << *it << " >";
     }

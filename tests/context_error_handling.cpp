@@ -19,8 +19,8 @@ Context(AContextWithAFailingSpec)
   {
     ContextRegistry<FailingContext>::CallSpec(failing_context, "AFailingSpec", &FailingContext::AFailingSpec, results);
     
-    Assert::That(results, HasLength(1));
-    Assert::That(results, Has().Exactly(1).EqualTo(TestResult("FailingContext", "AFailingSpec", false, "This should fail")));    
+    Assert::That(results.FailedTests(), HasLength(1));
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(TestResult("FailingContext", "AFailingSpec", false, "This should fail")));    
   }
   
   struct FailingContext : public ContextProvider<FailingContext, ContextBase>
@@ -47,8 +47,8 @@ Context(AContextWithAFailingTearDown)
   {
     ContextRegistry<FailingContext>::CallSpec(failing_context, "TrivialSpec", &FailingContext::TrivialSpec, results);
     
-    Assert::That(results, HasLength(1));
-    Assert::That(results, Has().Exactly(1).EqualTo(TestResult("FailingContext", "TrivialSpec", false, "This should fail")));    
+    Assert::That(results.FailedTests(), HasLength(1));
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(TestResult("FailingContext", "TrivialSpec", false, "This should fail")));    
   }
   
   struct FailingContext : public ContextProvider<FailingContext, ContextBase>
