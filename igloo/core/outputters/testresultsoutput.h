@@ -12,7 +12,7 @@ namespace igloo {
   class TestResultsOutput
   {
     public:
-      virtual void PrintResult(const TestResults& results) = 0;
+      virtual void PrintResult(const TestResults& results, std::ostream& output = std::cout) const = 0;
   };
 }
 

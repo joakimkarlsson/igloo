@@ -12,25 +12,21 @@ namespace igloo {
   class VisualStudioResultsOutput : public TestResultsOutput
   {
     public:
-      VisualStudioResultsOutput(std::ostream& output)
-        : output_(output)
-      {}
-
-      void PrintResult(const TestResults& results)
+      void PrintResult(const TestResults& results, std::ostream& output = std::cout) const
       {
         TestResults::FailedTestsType::const_iterator it;
 
         for(it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {
-          output_ << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ":" << std::endl << (*it).GetErrorMessage() << std::endl;
+          output << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ":" << std::endl << (*it).GetErrorMessage() << std::endl;
         }
 
-        output_ << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+        output << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
       }
 
     private:
 
-      std::string FormatOriginString(const FailedTestResult& result)
+      std::string FormatOriginString(const FailedTestResult& result) const
       {
         if(result.HasLineNumber() && result.HasFilename())
         {
@@ -42,8 +38,6 @@ namespace igloo {
         // Default to toolname if no location information is available
         return "Igloo";
       }
-
-      std::ostream& output_;
   };
 }
 #endif

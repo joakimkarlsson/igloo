@@ -12,32 +12,26 @@ namespace igloo {
   class DefaultTestResultsOutput : public TestResultsOutput
   {
     public:
-      DefaultTestResultsOutput(std::ostream& outputStream) : outputStream_(outputStream)
-    {
-    }
 
-      void PrintResult(const TestResults& results) 
+      void PrintResult(const TestResults& results, std::ostream& output = std::cout) const
       {
         for (TestResults::FailedTestsType::const_iterator it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {
           const FailedTestResult& result = *it;
-          outputStream_ << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl;
+          output << result.GetContextName() << "::" << result.GetSpecName() << " failed:" << std::endl;
 
           if(result.HasLineNumber() && result.HasFilename())
           {
-            outputStream_ <<  result.Filename() << "(" << result.LineNumber() << "): Assertion failed." << std::endl << result.GetErrorMessage() << std::endl;
+            output <<  result.Filename() << "(" << result.LineNumber() << "): Assertion failed." << std::endl << result.GetErrorMessage() << std::endl;
           }
           else
           {
-            outputStream_ << result.GetErrorMessage() << std::endl;
+            output << result.GetErrorMessage() << std::endl;
           }
         }
 
-        outputStream_ << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+        output << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
       }
-
-    private:
-      std::ostream& outputStream_;
   };
 }
 

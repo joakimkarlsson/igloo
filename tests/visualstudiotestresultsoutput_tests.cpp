@@ -17,8 +17,8 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
   
   void SetUp()
   {
-    output = std::auto_ptr<VisualStudioResultsOutput>(new VisualStudioResultsOutput(resulting_stream));
-    output->PrintResult(results);
+    output = std::auto_ptr<VisualStudioResultsOutput>(new VisualStudioResultsOutput());
+    output->PrintResult(results, resulting_stream);
   }
 
   Spec(it_should_display_a_summary_line_with_no_tests_run)
@@ -31,7 +31,7 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
     void SetUp()
     {
       testResults().AddResult(FailedTestResult("A context name", "A failing spec", "The error message"));
-      Parent().output->PrintResult(Parent().results);
+      Parent().output->PrintResult(Parent().results, Parent().resulting_stream);
     }
 
     Spec(it_displays_one_failing_test_in_summary)
@@ -60,7 +60,7 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
     void SetUp()
     {
       testResults().AddResult(FailedTestResult("A context name", "A failing spec", "The error message", "filename.cpp", 23));
-      Parent().output->PrintResult(Parent().results);
+      Parent().output->PrintResult(Parent().results, Parent().resulting_stream);
     }
 
     Spec(it_displays_one_failing_test_in_summary)
