@@ -2,8 +2,9 @@
 Visual Studio Formatted output:
 *Done: Moved current formatting to DefaultTestResultOutputter
 *Done: Move DefaultTestResultOutputter to its own file.
-Create VisualStudioResultOutputter
-Create interface common for all ResultOutputters
+*Done: Create VisualStudioResultOutputter
+*Done: Create interface common for all ResultOutputters
+Documentation
 
 Cleanup needed to be done:
 Move ContextRegistry from context.h to its own file.
