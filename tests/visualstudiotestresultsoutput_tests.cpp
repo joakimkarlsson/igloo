@@ -41,7 +41,7 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
 
     Spec(it_displays_error_text_for_failed_spec_with_no_location_information)
     {
-      AssertThat(resulting_output(), Is().Containing("Igloo : assertion failed error I001: A context name::A failing spec: The error message"));
+      AssertThat(resulting_output(), Is().Containing("Igloo : assertion failed error I001: A context name::A failing spec:\nThe error message"));
     }
 
     TestResults& testResults() 
@@ -70,7 +70,7 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
 
     Spec(it_displays_error_text_for_failed_spec_with_location_information)
     {
-      AssertThat(resulting_output(), Has().Exactly(1).StartingWith("filename.cpp(23) : assertion failed error I001: A context name::A failing spec: The error message"));
+      AssertThat(resulting_output(), Is().Containing("filename.cpp(23) : assertion failed error I001: A context name::A failing spec:\nThe error message\n"));
     }
 
     TestResults& testResults() 

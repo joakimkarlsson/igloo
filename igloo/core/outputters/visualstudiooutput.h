@@ -9,7 +9,7 @@
 
 namespace igloo {
 
-  class VisualStudioResultsOutput
+  class VisualStudioResultsOutput : public TestResultsOutput
   {
     public:
       VisualStudioResultsOutput(std::ostream& output)
@@ -22,7 +22,7 @@ namespace igloo {
 
         for(it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {
-          output_ << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ": " << (*it).GetErrorMessage() << std::endl;
+          output_ << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ":" << std::endl << (*it).GetErrorMessage() << std::endl;
         }
 
         output_ << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;

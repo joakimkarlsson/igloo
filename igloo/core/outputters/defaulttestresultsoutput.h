@@ -9,14 +9,14 @@
 
 namespace igloo {
 
-  class DefaultTestResultsOutput
+  class DefaultTestResultsOutput : public TestResultsOutput
   {
     public:
       DefaultTestResultsOutput(std::ostream& outputStream) : outputStream_(outputStream)
     {
     }
 
-      void PrintResult(const TestResults& results) const
+      void PrintResult(const TestResults& results) 
       {
         for (TestResults::FailedTestsType::const_iterator it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {

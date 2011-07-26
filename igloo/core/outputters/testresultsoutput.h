@@ -4,11 +4,16 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef IGLOO_OUTPUTTERS_H
-#define IGLOO_OUTPUTTERS_H
+#ifndef IGLOO_TESTRESULTSOUTPUT_H
+#define IGLOO_TESTRESULTSOUTPUT_H
 
-#include <igloo/core/outputters/testresultsoutput.h>
-#include <igloo/core/outputters/defaulttestresultsoutput.h>
-#include <igloo/core/outputters/visualstudiooutput.h>
+namespace igloo {
 
-#endif
+  class TestResultsOutput
+  {
+    public:
+      virtual void PrintResult(const TestResults& results) = 0;
+  };
+}
+
+#endif 
