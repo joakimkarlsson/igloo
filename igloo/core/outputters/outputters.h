@@ -8,5 +8,6 @@
 #define IGLOO_OUTPUTTERS_H
 
 #include <igloo/core/outputters/defaulttestresultsoutput.h>
+#include <igloo/core/outputters/visualstudiooutput.h>
 
 #endif

@@ -9,43 +9,6 @@
 
 using namespace igloo;
 
-class VisualStudioResultsOutput
-{
-  public:
-    VisualStudioResultsOutput(std::ostream& output)
-      : output_(output)
-    {}
-
-    void PrintResult(const TestResults& results)
-    {
-      TestResults::FailedTestsType::const_iterator it;
-
-      for(it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
-      {
-        output_ << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ": " << (*it).GetErrorMessage() << std::endl;
-      }
-
-      output_ << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
-    }
-
-  private:
-
-    std::string FormatOriginString(const FailedTestResult& result)
-    {
-      if(result.HasLineNumber() && result.HasFilename())
-      {
-        std::ostringstream builder;
-        builder << result.Filename() << "(" << result.LineNumber() << ")";
-        return builder.str();
-      }
-      
-      // Default to toolname if no location information is available
-      return "Igloo";
-    }
-
-    std::ostream& output_;
-};
-
 Context(VisualStudioResultsOutput_EmptyTestRun)
 {
   std::auto_ptr<VisualStudioResultsOutput> output;
