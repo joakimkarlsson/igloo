@@ -22,13 +22,27 @@ class VisualStudioResultsOutput
 
       for(it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
       {
-        output_ << "Igloo : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ": " << (*it).GetErrorMessage() << std::endl;
+        output_ << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ": " << (*it).GetErrorMessage() << std::endl;
       }
 
       output_ << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
     }
 
   private:
+
+    std::string FormatOriginString(const FailedTestResult& result)
+    {
+      if(result.HasLineNumber() && result.HasFilename())
+      {
+        std::ostringstream builder;
+        builder << result.Filename() << "(" << result.LineNumber() << ")";
+        return builder.str();
+      }
+      
+      // Default to toolname if no location information is available
+      return "Igloo";
+    }
+
     std::ostream& output_;
 };
 
@@ -89,6 +103,11 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
     Spec(it_displays_one_failing_test_in_summary)
     {
       AssertThat(resulting_output(), Has().Exactly(1).StartingWith("Test run complete. 1 tests run, 0 succeeded, 1 failed"));
+    }
+
+    Spec(it_displays_error_text_for_failed_spec_with_location_information)
+    {
+      AssertThat(resulting_output(), Has().Exactly(1).StartingWith("filename.cpp(23) : assertion failed error I001: A context name::A failing spec: The error message"));
     }
 
     TestResults& testResults() 
