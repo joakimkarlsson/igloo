@@ -9,6 +9,8 @@ Cleanup needed to be done:
 Move ContextRegistry from context.h to its own file.
 Change year in license header notice.
 
+Outer context is not recreated properly between runs:
+
 Create test listeners:
 Possibility to register listener.
 Listener gets callback when test run starts.
