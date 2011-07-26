@@ -77,4 +77,28 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
       return Parent().resulting_stream.str();
     }
   };
+
+  Context(VisualStudioResultOutput_one_failed_test_with_information_about_location_of_assertion)
+  {
+    void SetUp()
+    {
+      testResults().AddResult(FailedTestResult("A context name", "A failing spec", "The error message", "filename.cpp", 23));
+      Parent().output->PrintResult(Parent().results);
+    }
+
+    Spec(it_displays_one_failing_test_in_summary)
+    {
+      AssertThat(resulting_output(), Has().Exactly(1).StartingWith("Test run complete. 1 tests run, 0 succeeded, 1 failed"));
+    }
+
+    TestResults& testResults() 
+    {
+      return Parent().results;
+    }
+    
+    std::string resulting_output() 
+    {
+      return Parent().resulting_stream.str();
+    }
+  };
 };
