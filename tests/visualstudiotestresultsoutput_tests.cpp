@@ -18,11 +18,12 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
   void SetUp()
   {
     output = std::auto_ptr<VisualStudioResultsOutput>(new VisualStudioResultsOutput());
-    output->PrintResult(results, resulting_stream);
   }
 
   Spec(it_should_display_a_summary_line_with_no_tests_run)
   {
+    output->PrintResult(results, resulting_stream);
+
     Assert::That(resulting_stream.str(), Is().StartingWith("Test run complete. 0 tests run, 0 succeeded, 0 failed."));
   }
 
@@ -41,7 +42,7 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
 
     Spec(it_displays_error_text_for_failed_spec_with_no_location_information)
     {
-      AssertThat(resulting_output(), Is().Containing("Igloo : assertion failed error I001: A context name::A failing spec:\nThe error message"));
+      AssertThat(resulting_output(), Is().Containing("Igloo : assertion failed error: A context name::A failing spec:\nThe error message"));
     }
 
     TestResults& testResults() 
@@ -70,7 +71,7 @@ Context(VisualStudioResultsOutput_EmptyTestRun)
 
     Spec(it_displays_error_text_for_failed_spec_with_location_information)
     {
-      AssertThat(resulting_output(), Is().Containing("filename.cpp(23) : assertion failed error I001: A context name::A failing spec:\nThe error message\n"));
+      AssertThat(resulting_output(), Is().Containing("filename.cpp(23) : assertion failed error: A context name::A failing spec:\nThe error message\n"));
     }
 
     TestResults& testResults() 

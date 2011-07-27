@@ -18,7 +18,7 @@ namespace igloo {
 
         for(it = results.FailedTests().begin(); it != results.FailedTests().end(); it++)
         {
-          output << FormatOriginString(*it) << " : assertion failed error I001: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ":" << std::endl << (*it).GetErrorMessage() << std::endl;
+          output << FormatOriginString(*it) << " : assertion failed error: " << (*it).GetContextName() << "::" << (*it).GetSpecName() << ":" << std::endl << (*it).GetErrorMessage() << std::endl;
         }
 
         output << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
