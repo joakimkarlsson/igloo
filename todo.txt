@@ -7,8 +7,8 @@ Visual Studio Formatted output:
   Documentation
 
 Cleanup needed to be done:
-  Move ContextRegistry from context.h to its own file.
-  Change year in license header notice.
+  (Done) Move ContextRegistry from context.h to its own file.
+  (Done) Change year in license header notice.
 
 Create test listeners:
   Possibility to register listener.
