@@ -19,20 +19,7 @@
 #include <igloo/core/stringize.h>
 #include <igloo/constraints/constraints.h>
 #include <igloo/fluent/fluent.h>
-
-#include <igloo/core/testresult.h>
-#include <igloo/core/testresultfactory.h>
-#include <igloo/core/testresults.h>
-#include <igloo/core/outputters/outputters.h>
-#include <igloo/core/assertionexception.h>
-#include <igloo/core/context.h> 
-#include <igloo/core/contextrunner.h>
-#include <igloo/core/testrunner.h>
-#include <igloo/core/assert.h>
-#include <igloo/core/assertmacro.h>
-#include <igloo/core/contextprovider.h>
-#include <igloo/core/registration.h>
-#include <igloo/core/exceptions.h>
+#include <igloo/core/core.h>
 
 typedef igloo::ContextBase IGLOO_CURRENT_CONTEXT;
 
