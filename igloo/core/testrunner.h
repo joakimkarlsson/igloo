@@ -36,7 +36,7 @@ namespace igloo {
         for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
         {
           std::auto_ptr<BaseContextRunner> contextRunner((*it).second);
-          contextRunner->Run((*it).first, results);
+          contextRunner->Run(results);
         }
 
         RegisteredRunners().clear();
@@ -57,7 +57,7 @@ namespace igloo {
             try
             {
               // Must add runner first...
-              contextRunner = new ContextRunnerType;
+              contextRunner = new ContextRunnerType(name);
               TestRunner::RegisteredRunners().push_back(std::make_pair(name, contextRunner));
 
               // ... and then instantiate context, because context ctor calls this method again,

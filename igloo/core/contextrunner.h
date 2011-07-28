@@ -11,8 +11,17 @@ namespace igloo {
   
   struct BaseContextRunner
   {
+    BaseContextRunner(const std::string& contextName) : contextName_(contextName) {}
     virtual ~BaseContextRunner() {}
-    virtual void Run(const std::string& contextName, TestResults& results) const = 0;    
+    virtual void Run(TestResults& results) const = 0;    
+
+    const std::string& ContextName() const
+    {
+      return contextName_;
+    }
+
+    private:
+      std::string contextName_;
   };
   
   template <typename ContextRegistryType, typename ContextType>
@@ -36,16 +45,18 @@ namespace igloo {
     typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute CTE;
     typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate CTC;
 
+    ContextRunner(const std::string& contextName) : BaseContextRunner(contextName) {}
+
     void InstantiateContext() const
     {
       CTC ctc;
     }
     
-    void Run(const std::string& contextName, TestResults& results) const
+    void Run(TestResults& results) const
     {
       typedef ContextRegistry<CTE> CR;
 
-      CR::template Run<CTC>(contextName, results);
+      CR::template Run<CTC>(ContextName(), results);
     }
   };
 }
