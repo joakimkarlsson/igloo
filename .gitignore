@@ -22,3 +22,7 @@ Release
 #Ignore GCC build artefacts
 *.o
 igloo-tests.exe
+*.dSYM
+
+#Ignore tags
+tags

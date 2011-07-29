@@ -10,6 +10,7 @@
 #include <igloo/core/testresult.h>
 #include <igloo/core/testresultfactory.h>
 #include <igloo/core/testresults.h>
+#include <igloo/core/testlistener.h>
 #include <igloo/core/outputters/outputters.h>
 #include <igloo/core/assertionexception.h>
 #include <igloo/core/context.h> 

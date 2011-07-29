@@ -28,17 +28,17 @@ namespace igloo {
         : output_(output)
       {}
 
-      int Run() const
+      int Run(const ContextRunners& runners)
       {
         TestResults results;
 
-        for (ContextRunners::iterator it = TestRunner::RegisteredRunners().begin(); it != TestRunner::RegisteredRunners().end(); it++)
+        TellListenersTestRunStarting();
+
+        for (ContextRunners::const_iterator it = runners.begin(); it != runners.end(); it++)
         {
           BaseContextRunner* contextRunner = *it;
           contextRunner->Run(results);
         }
-
-        CleanUpRunners();
 
         std::cout << std::endl;
 
@@ -46,13 +46,16 @@ namespace igloo {
         return results.NumberOfFailedTests();
       }
 
-      void CleanUpRunners() const
+      int Run()
       {
-        while(!RegisteredRunners().empty())
-        {
-          delete RegisteredRunners().front();
-          RegisteredRunners().pop_front();
-        }
+        int numberOfFailedTests = Run(RegisteredRunners());
+        CleanUpRunners();
+        return numberOfFailedTests;
+      }
+
+      void AddListener(TestListener* listener)
+      {
+        listeners_.push_back(listener);
       }
 
       template <typename ContextRunnerType>
@@ -80,6 +83,24 @@ namespace igloo {
           }
         }
 
+    private:
+      void TellListenersTestRunStarting() const
+      {
+        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
+        {
+          (*it)->TestRunStarting();
+        }
+      }
+        
+      static void CleanUpRunners()
+      {
+        while(!RegisteredRunners().empty())
+        {
+          delete RegisteredRunners().front();
+          RegisteredRunners().pop_front();
+        }
+      }
+
       static bool ContextIsRegistered(const std::string& name)
       {
         for (ContextRunners::const_iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); ++it)
@@ -101,6 +122,8 @@ namespace igloo {
 
     private:
       const TestResultsOutput& output_;
+      typedef std::list<TestListener*> TestListeners;
+      TestListeners listeners_;
   };
 }
 
