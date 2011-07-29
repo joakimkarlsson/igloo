@@ -15,8 +15,7 @@ namespace igloo {
   class TestRunner
   {
     public:
-      typedef std::pair<std::string, BaseContextRunner*> NamedContextRunner;
-      typedef std::vector<NamedContextRunner> ContextRunners;
+      typedef std::list<BaseContextRunner*> ContextRunners;
 
       static int RunAllTests()
       {
@@ -33,18 +32,27 @@ namespace igloo {
       {
         TestResults results;
 
-        for (ContextRunners::iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); it++)
+        for (ContextRunners::iterator it = TestRunner::RegisteredRunners().begin(); it != TestRunner::RegisteredRunners().end(); it++)
         {
-          std::auto_ptr<BaseContextRunner> contextRunner((*it).second);
+          BaseContextRunner* contextRunner = *it;
           contextRunner->Run(results);
         }
 
-        RegisteredRunners().clear();
+        CleanUpRunners();
 
         std::cout << std::endl;
 
         output_.PrintResult(results);
         return results.NumberOfFailedTests();
+      }
+
+      void CleanUpRunners() const
+      {
+        while(!RegisteredRunners().empty())
+        {
+          delete RegisteredRunners().front();
+          RegisteredRunners().pop_front();
+        }
       }
 
       template <typename ContextRunnerType>
@@ -58,7 +66,7 @@ namespace igloo {
             {
               // Must add runner first...
               contextRunner = new ContextRunnerType(name);
-              TestRunner::RegisteredRunners().push_back(std::make_pair(name, contextRunner));
+              TestRunner::RegisteredRunners().push_back(contextRunner);
 
               // ... and then instantiate context, because context ctor calls this method again,
               // possibly for the same context, depending on inheritance chain.
@@ -76,7 +84,7 @@ namespace igloo {
       {
         for (ContextRunners::const_iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); ++it)
         {
-          if((*it).first == name)
+          if((*it)->ContextName() == name)
           {
             return true;
           }

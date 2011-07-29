@@ -28,3 +28,7 @@ task :build_debug do
     end
   end
 end
+
+task :debug => [:build_debug] do
+  sh "gdb #{OUTPUT}"
+end
