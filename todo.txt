@@ -11,9 +11,9 @@ Cleanup needed to be done:
   (Done) Change year in license header notice.
 
 Create test listeners:
-  Possibility to register listener.
-  Listener gets callback when test run starts.
-  Listener gets callback when test run ends.
+  (Done) Possibility to register listener.
+  (Done) Listener gets callback when test run starts.
+  (Done) Listener gets callback when test run ends.
   Listener gets callback when context run starts
   Listener gets callback when context run ends
   Listener gets callback when spec run starts

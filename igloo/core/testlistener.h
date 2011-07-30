@@ -13,6 +13,7 @@ namespace igloo {
   {
     public:
       virtual void TestRunStarting() = 0;
+      virtual void TestRunEnded(const TestResults& results) = 0;
   };
 }
 

@@ -42,6 +42,8 @@ namespace igloo {
 
         std::cout << std::endl;
 
+        TellListenersTestRunEnding(results);
+
         output_.PrintResult(results);
         return results.NumberOfFailedTests();
       }
@@ -92,6 +94,14 @@ namespace igloo {
         }
       }
         
+      void TellListenersTestRunEnding(const TestResults& results) const
+      {
+        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
+        {
+          (*it)->TestRunEnded(results);
+        }
+      }
+
       static void CleanUpRunners()
       {
         while(!RegisteredRunners().empty())
