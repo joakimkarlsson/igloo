@@ -31,6 +31,13 @@ class FakeTestListener : public TestListener
       callLog += stm.str();
     }
 
+    void ContextRunStarting(const std::string& contextName)
+    {
+      std::stringstream stm;
+      stm << "ContextRunStarting called for context '" << contextName << "'" << std::endl;
+      callLog += stm.str();
+    }
+
     std::string callLog;
 };
 
@@ -38,7 +45,7 @@ class FakeContextRunner : public BaseContextRunner
 {
   public:
     FakeContextRunner() : BaseContextRunner("ContextName") {}
-    virtual void Run(TestResults& results) const
+    virtual void RunContext(TestResults& results, TestListener&) const
     {
       TestResultFactory factory(ContextName(), "SpecName");
       results.AddResult(factory.CreateSuccessful());
@@ -73,5 +80,12 @@ Context(registering_a_test_listener)
     runner->Run(contextRunners);
 
     AssertThat(listener.callLog, Has().Exactly(1).EqualTo("TestRunEnded called with 1 tests run"));
+  }
+
+  Spec(a_callback_is_made_when_context_run_starts)
+  {
+    runner->Run(contextRunners);
+
+    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called for context 'ContextName'"));
   }
 };

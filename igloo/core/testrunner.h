@@ -12,7 +12,44 @@
 
 namespace igloo {
 
-  class TestRunner
+  class TestListenerAggregator : public TestListener
+  {
+    public:
+      void AddListener(TestListener* listener)
+      {
+        listeners_.push_back(listener);
+      }
+
+      void TestRunStarting() 
+      {
+        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
+        {
+          (*it)->TestRunStarting();
+        }
+      }
+
+      void TestRunEnded(const TestResults& results)
+      {
+        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
+        {
+          (*it)->TestRunEnded(results);
+        }
+      }
+
+      void ContextRunStarting(const std::string& contextName)
+      {
+        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
+        {
+          (*it)->ContextRunStarting(contextName);
+        }
+      }
+
+      private:
+      typedef std::list<TestListener*> TestListeners;
+      TestListeners listeners_;
+  };
+
+  class TestRunner 
   {
     public:
       typedef std::list<BaseContextRunner*> ContextRunners;
@@ -32,17 +69,17 @@ namespace igloo {
       {
         TestResults results;
 
-        TellListenersTestRunStarting();
+        listenerAggregator_.TestRunStarting();
 
         for (ContextRunners::const_iterator it = runners.begin(); it != runners.end(); it++)
         {
           BaseContextRunner* contextRunner = *it;
-          contextRunner->Run(results);
+          contextRunner->Run(results, listenerAggregator_);
         }
 
         std::cout << std::endl;
 
-        TellListenersTestRunEnding(results);
+        listenerAggregator_.TestRunEnded(results);
 
         output_.PrintResult(results);
         return results.NumberOfFailedTests();
@@ -55,10 +92,6 @@ namespace igloo {
         return numberOfFailedTests;
       }
 
-      void AddListener(TestListener* listener)
-      {
-        listeners_.push_back(listener);
-      }
 
       template <typename ContextRunnerType>
         static void RegisterContext(const std::string& name)
@@ -85,23 +118,12 @@ namespace igloo {
           }
         }
 
-    private:
-      void TellListenersTestRunStarting() const
+      void AddListener(TestListener* listener)
       {
-        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
-        {
-          (*it)->TestRunStarting();
-        }
-      }
-        
-      void TellListenersTestRunEnding(const TestResults& results) const
-      {
-        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
-        {
-          (*it)->TestRunEnded(results);
-        }
+        listenerAggregator_.AddListener(listener);
       }
 
+    private:
       static void CleanUpRunners()
       {
         while(!RegisteredRunners().empty())
@@ -132,8 +154,8 @@ namespace igloo {
 
     private:
       const TestResultsOutput& output_;
-      typedef std::list<TestListener*> TestListeners;
-      TestListeners listeners_;
+      TestListenerAggregator listenerAggregator_;
+
   };
 }
 
