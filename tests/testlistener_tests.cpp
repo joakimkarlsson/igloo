@@ -38,6 +38,13 @@ class FakeTestListener : public TestListener
       callLog += stm.str();
     }
 
+    void ContextRunEnded(const std::string& contextName)
+    {
+      std::stringstream stm;
+      stm << "ContextRunEnded called for context '" << contextName << "'" << std::endl;
+      callLog += stm.str();
+    }
+
     std::string callLog;
 };
 
@@ -87,5 +94,12 @@ Context(registering_a_test_listener)
     runner->Run(contextRunners);
 
     AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called for context 'ContextName'"));
+  }
+
+  Spec(a_callback_is_made_when_context_run_ends)
+  {
+    runner->Run(contextRunners);
+
+    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called for context 'ContextName'"));
   }
 };

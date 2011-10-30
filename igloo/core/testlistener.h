@@ -15,6 +15,7 @@ namespace igloo {
       virtual void TestRunStarting() = 0;
       virtual void TestRunEnded(const TestResults& results) = 0;
       virtual void ContextRunStarting(const std::string& contextName) = 0;
+      virtual void ContextRunEnded(const std::string& contextName) = 0;
   };
 }
 

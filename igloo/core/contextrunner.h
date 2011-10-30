@@ -18,6 +18,8 @@ namespace igloo {
       testListener.ContextRunStarting(ContextName());
 
       RunContext(results, testListener);
+      
+      testListener.ContextRunEnded(ContextName());
     }
 
     const std::string& ContextName() const

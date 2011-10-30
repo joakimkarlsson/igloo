@@ -44,6 +44,15 @@ namespace igloo {
         }
       }
 
+      void ContextRunEnded(const std::string& contextName)
+      {
+        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
+        {
+          (*it)->ContextRunEnded(contextName);
+        }
+      }
+      
+
       private:
       typedef std::list<TestListener*> TestListeners;
       TestListeners listeners_;
