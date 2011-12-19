@@ -8,7 +8,7 @@
 #define IGLOO_CONTEXTPROVIDER_H_
 
 template <typename InnerContext, typename OuterContext>
-struct ContextProvider : public igloo::ContextBase
+struct ContextProvider : public igloo::ContextBase<InnerContext>
 {
   typedef InnerContext IGLOO_CURRENT_CONTEXT;
   typedef InnerContext IGLOO_OUTER_CONTEXT;
@@ -25,15 +25,16 @@ struct ContextProvider : public igloo::ContextBase
   virtual void IglooFrameworkSetUp()
   {
     Parent().IglooFrameworkSetUp();
-    SetUp();
+    this->SetUp();
   }
   
   virtual void IglooFrameworkTearDown()
   {
-    TearDown();
+    this->TearDown();
     Parent().IglooFrameworkTearDown();
   }
   
+
 private:
   template <typename ContextType>
   ContextType* CreateIglooContext()

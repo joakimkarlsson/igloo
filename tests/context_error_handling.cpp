@@ -23,7 +23,7 @@ Context(AContextWithAFailingSpec)
     Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("FailingContext", "AFailingSpec", "This should fail")));    
   }
   
-  struct FailingContext : public ContextProvider<FailingContext, ContextBase>
+  struct FailingContext : public ContextProvider<FailingContext, ContextBase<void> >
   {
     Spec(AFailingSpec)
     {
@@ -51,7 +51,7 @@ Context(AContextWithAFailingTearDown)
     Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("FailingContext", "TrivialSpec", "This should fail")));    
   }
   
-  struct FailingContext : public ContextProvider<FailingContext, ContextBase>
+  struct FailingContext : public ContextProvider<FailingContext, ContextBase<void> >
   {
     void TearDown()
     {

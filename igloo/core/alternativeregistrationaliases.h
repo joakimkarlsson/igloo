@@ -16,6 +16,8 @@ IGLOO_CONTEXT_REGISTRATION(contextName)
 #define It(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
 
+#define DescriptionAttribute(attributeName, attributeValue) \
+IGLOO_CONTEXT_METADATA_REGISTRATION(attributeName, attributeValue)
 
 // Behavior aliases
 #define When(contextName) \
@@ -23,5 +25,8 @@ IGLOO_CONTEXT_REGISTRATION(contextName)
 
 #define Then(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
+
+#define ScenarioAttribute(attributeName, attributeValue) \
+IGLOO_CONTEXT_METADATA_REGISTRATION(attributeName, attributeValue)
 
 #endif

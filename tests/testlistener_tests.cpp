@@ -31,17 +31,19 @@ class FakeTestListener : public TestListener
       callLog += stm.str();
     }
 
-    void ContextRunStarting(const std::string& contextName)
+    void ContextRunStarting(const std::string& contextName, const MetaData& metadata)
     {
       std::stringstream stm;
       stm << "ContextRunStarting called for context '" << contextName << "'" << std::endl;
+      stm << "ContextRunStarting called with metadata '" << metadata.GetMetaData("metadata name") << "'" << std::endl;
       callLog += stm.str();
     }
 
-    void ContextRunEnded(const std::string& contextName)
+    void ContextRunEnded(const std::string& contextName, const MetaData& metadata)
     {
       std::stringstream stm;
       stm << "ContextRunEnded called for context '" << contextName << "'" << std::endl;
+      stm << "ContextRunEnded called with metadata '" << metadata.GetMetaData("metadata name") << "'" << std::endl;
       callLog += stm.str();
     }
 
@@ -51,12 +53,21 @@ class FakeTestListener : public TestListener
 class FakeContextRunner : public BaseContextRunner
 {
   public:
-    FakeContextRunner() : BaseContextRunner("ContextName") {}
-    virtual void RunContext(TestResults& results, TestListener&) const
+    FakeContextRunner() : BaseContextRunner("ContextName"), metadata("fake metadata") {}
+    virtual void RunContext(TestResults& results) const
     {
       TestResultFactory factory(ContextName(), "SpecName");
       results.AddResult(factory.CreateSuccessful());
     }
+
+    virtual const std::string& GetMetaData(const std::string&) const
+    {
+      return metadata;
+    }
+
+  private:
+    std::string metadata;
+
 };
 
 Context(registering_a_test_listener)
@@ -101,5 +112,19 @@ Context(registering_a_test_listener)
     runner->Run(contextRunners);
 
     AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called for context 'ContextName'"));
+  }
+
+  Spec(metadata_can_be_accessed_from_callback_when_context_run_is_starting)
+  {
+    runner->Run(contextRunners);
+
+    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called with metadata 'fake metadata'"));
+  }
+
+  Spec(metadata_can_be_accessed_from_callback_when_context_run_is_ending)
+  {
+    runner->Run(contextRunners);
+
+    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called with metadata 'fake metadata'"));
   }
 };

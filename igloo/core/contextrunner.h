@@ -8,18 +8,19 @@
 #define IGLOO_CONTEXTRUNNER_H
 
 namespace igloo {
+
   
-  struct BaseContextRunner
+  struct BaseContextRunner : public MetaData
   {
     BaseContextRunner(const std::string& contextName) : contextName_(contextName) {}
     virtual ~BaseContextRunner() {}
     void Run(TestResults& results, TestListener& testListener) const
     {
-      testListener.ContextRunStarting(ContextName());
+      testListener.ContextRunStarting(ContextName(), *this);
 
-      RunContext(results, testListener);
+      RunContext(results);
       
-      testListener.ContextRunEnded(ContextName());
+      testListener.ContextRunEnded(ContextName(), *this);
     }
 
     const std::string& ContextName() const
@@ -28,7 +29,7 @@ namespace igloo {
     }
 
     protected:
-    virtual void RunContext(TestResults& results, TestListener& testListener) const = 0;
+    virtual void RunContext(TestResults& results) const = 0;
 
     private:
       std::string contextName_;
@@ -62,13 +63,16 @@ namespace igloo {
       CTC ctc;
     }
     
-    void RunContext(TestResults& results, TestListener& testListener) const
+    void RunContext(TestResults& results) const
     {
-      testListener.ContextRunStarting(ContextName());
-
       typedef ContextRegistry<CTE> CR;
 
       CR::template Run<CTC>(ContextName(), results);
+    }
+
+    const std::string& GetMetaData(const std::string& name) const
+    {
+      return ContextMetaData<CTE>::Get(name);
     }
   };
 }

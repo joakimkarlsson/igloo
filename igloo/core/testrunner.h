@@ -36,19 +36,19 @@ namespace igloo {
         }
       }
 
-      void ContextRunStarting(const std::string& contextName)
+      void ContextRunStarting(const std::string& contextName, const MetaData& metadata)
       {
         for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
         {
-          (*it)->ContextRunStarting(contextName);
+          (*it)->ContextRunStarting(contextName, metadata);
         }
       }
 
-      void ContextRunEnded(const std::string& contextName)
+      void ContextRunEnded(const std::string& contextName, const MetaData& metadata)
       {
         for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
         {
-          (*it)->ContextRunEnded(contextName);
+          (*it)->ContextRunEnded(contextName, metadata);
         }
       }
       

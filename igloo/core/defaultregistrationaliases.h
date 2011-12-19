@@ -22,6 +22,9 @@ IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
 #define Spec(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
 
+#define ContextAttribute(attributeName, attributeValue) \
+IGLOO_CONTEXT_METADATA_REGISTRATION(attributeName, attributeValue)
+
 // "Classic" aliases
 #define TestFixture(fixtureName) \
 IGLOO_CONTEXT_REGISTRATION(fixtureName)
@@ -31,5 +34,8 @@ IGLOO_SUBCONTEXT_REGISTRATION(fixtureName, baseFixtureName)
 
 #define TestMethod(methodName) \
 IGLOO_SPEC_REGISTRATION(methodName)
+
+#define TestAttribute(attributeName, attributeValue) \
+IGLOO_CONTEXT_METADATA_REGISTRATION(attributeName, attributeValue)
 
 #endif

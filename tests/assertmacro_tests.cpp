@@ -37,7 +37,7 @@ std::ostream& operator<<(std::ostream& stm, const HasFileInformation& )
 
 Context(A_context_with_failing_specs)
 {
-  struct FailingContext : public ContextProvider<FailingContext, ContextBase>
+  struct FailingContext : public ContextProvider<FailingContext, ContextBase<void> >
   {
     Spec(Assert_without_file_and_line_info)
     {
