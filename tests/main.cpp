@@ -23,12 +23,12 @@ class ProgressWritingTestListener : public TestListener
 
   void ContextRunStarting(const ContextBase& context)
   {
-    std::cout << "Starting test for context " << context.Name() << " with category " << context.GetMetaData("category") << std::endl;
+    std::cout << "Starting test for context " << context.Name() << " with category " << context.GetAttribute("category") << std::endl;
   }
 
   void ContextRunEnded(const ContextBase& context)
   {
-    std::cout << "Ending test for context " << context.Name() << " with category " << context.GetMetaData("category") << std::endl;
+    std::cout << "Ending test for context " << context.Name() << " with category " << context.GetAttribute("category") << std::endl;
   }
 
   void SpecRunStarting(const ContextBase& context, const std::string& specName)

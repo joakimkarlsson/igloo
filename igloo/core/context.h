@@ -15,24 +15,24 @@
 namespace igloo {
 
   template <typename ContextType>
-    struct ContextMetaData
+    struct ContextAttributeStorage
     {
       static void Set(const std::string name, std::string value)
       {
-        metaDataContainer()[name] = value;
+        attributeContainer()[name] = value;
       }
 
       static const std::string& Get(const std::string& name)
       {
-        return metaDataContainer()[name];
+        return attributeContainer()[name];
       }
 
       private:
 
-      static std::map<std::string, std::string>& metaDataContainer()
+      static std::map<std::string, std::string>& attributeContainer()
       {
-        static std::map<std::string, std::string> metaDataContainer;
-        return metaDataContainer;
+        static std::map<std::string, std::string> attributeContainer;
+        return attributeContainer;
       }
     };
 
@@ -64,24 +64,24 @@ namespace igloo {
       return m_name;
     }
 
-    virtual void SetMetaData(const std::string& name, const char* value) const = 0;
-    virtual const std::string& GetMetaData(const std::string& name) const = 0;
+    virtual void SetAttribute(const std::string& name, const char* value) const = 0;
+    virtual const std::string& GetAttribute(const std::string& name) const = 0;
 
     private:
     std::string m_name;
   };
 
   template <typename ContextType>
-    struct ContextWithMetaData : ContextBase 
+    struct ContextWithAttribute : ContextBase 
   {
-    void SetMetaData(const std::string& name, const char* value) const
+    void SetAttribute(const std::string& name, const char* value) const
     {
-      ContextMetaData<ContextType>::Set(name, value);
+      ContextAttributeStorage<ContextType>::Set(name, value);
     }
 
-    const std::string& GetMetaData(const std::string& name) const
+    const std::string& GetAttribute(const std::string& name) const
     {
-      return ContextMetaData<ContextType>::Get(name);
+      return ContextAttributeStorage<ContextType>::Get(name);
     }
   };
 }

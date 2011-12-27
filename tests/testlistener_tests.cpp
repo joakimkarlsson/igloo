@@ -35,7 +35,7 @@ class FakeTestListener : public TestListener
     {
       std::stringstream stm;
       stm << "ContextRunStarting called for context '" << context.Name() << "'" << std::endl;
-      stm << "ContextRunStarting called with metadata '" << context.GetMetaData("metadata name") << "'" << std::endl;
+      stm << "ContextRunStarting called with attribute '" << context.GetAttribute("attribute name") << "'" << std::endl;
       callLog += stm.str();
     }
 
@@ -43,7 +43,7 @@ class FakeTestListener : public TestListener
     {
       std::stringstream stm;
       stm << "ContextRunEnded called for context '" << context.Name() << "'" << std::endl;
-      stm << "ContextRunEnded called with metadata '" << context.GetMetaData("metadata name") << "'" << std::endl;
+      stm << "ContextRunEnded called with attribute '" << context.GetAttribute("attribute name") << "'" << std::endl;
       callLog += stm.str();
     }
 
@@ -74,21 +74,12 @@ class FakeTestListener : public TestListener
 class FakeContextRunner : public BaseContextRunner
 {
   public:
-    FakeContextRunner() : BaseContextRunner("ContextName"), metadata("fake metadata") {}
+    FakeContextRunner() : BaseContextRunner("ContextName") {}
     virtual void RunContext(TestResults& results, TestListener&) const
     {
       TestResultFactory factory(ContextName(), "SpecName");
       results.AddResult(factory.CreateSuccessful());
     }
-
-    virtual const std::string& GetMetaData(const std::string&) const
-    {
-      return metadata;
-    }
-
-  private:
-    std::string metadata;
-
 };
 
 Context(registering_a_test_listener)
@@ -124,9 +115,9 @@ Context(registering_a_test_listener)
 
 Context(a_registered_context)
 {
-  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithMetaData<void> >
+  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void> >
   {
-    ContextAttribute("metadata name", "metadata value")
+    ContextAttribute("attribute name", "attribute value")
 
     Spec(SucceedingSpec)
     {
@@ -156,9 +147,9 @@ Context(a_registered_context)
     AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called for context 'ContextToRun'"));
   }
 
-  Spec(ContextRunStarting_is_called_with_metadata)
+  Spec(ContextRunStarting_is_called_with_attribute)
   {
-    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called with metadata 'metadata value'"));
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called with attribute 'attribute value'"));
   }
 
   Spec(ContextRunEnded_is_called)
@@ -166,9 +157,9 @@ Context(a_registered_context)
     AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called for context 'ContextToRun'"));
   }
 
-  Spec(ContextRunEnded_is_called_with_metadata)
+  Spec(ContextRunEnded_is_called_with_attribute)
   {
-    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called with metadata 'metadata value'"));
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called with attribute 'attribute value'"));
   }
 
   Spec(SpecRunStarting_is_called)

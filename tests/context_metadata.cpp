@@ -8,25 +8,25 @@
 using namespace igloo;
 
 
-Context(A_context_with_metadata)
+Context(A_context_with_attribute)
 {
-  struct ContextHavingMetaData : public ContextProvider<ContextHavingMetaData, ContextWithMetaData<void> >
+  struct ContextHavingAttribute : public ContextProvider<ContextHavingAttribute, ContextWithAttribute<void> >
   {
-    ContextAttribute("name of metadata", "value of metadata")
+    ContextAttribute("name of attribute", "value of attribute")
 
-  } context_having_metadata;
+  } context_having_attribute;
 
-  Spec(MetaData_can_be_retrieved)
+  Spec(attribute_can_be_retrieved)
   {
-    const std::string& string_metadata = context_having_metadata.GetMetaData("name of metadata");
+    const std::string& attribute = context_having_attribute.GetAttribute("name of attribute");
 
-    AssertThat(string_metadata, Is().EqualTo("value of metadata"));
+    AssertThat(attribute, Is().EqualTo("value of attribute"));
   }
 
-  Spec(empty_string_is_returned_if_metadata_doesnt_exists)
+  Spec(empty_string_is_returned_if_attribute_doesnt_exists)
   {
-    const std::string& metadata = context_having_metadata.GetMetaData("non-existing metadata");
+    const std::string& attribute = context_having_attribute.GetAttribute("non-existing attribute");
 
-    AssertThat(metadata, Is().Empty());
+    AssertThat(attribute, Is().Empty());
   }
 };

@@ -9,7 +9,7 @@
 
 namespace igloo {
   template <typename InnerContext, typename OuterContext>
-    struct ContextProvider : public igloo::ContextWithMetaData<InnerContext>
+    struct ContextProvider : public igloo::ContextWithAttribute<InnerContext>
   {
     typedef InnerContext IGLOO_CURRENT_CONTEXT;
     typedef InnerContext IGLOO_OUTER_CONTEXT;

@@ -38,13 +38,13 @@
   } SpecRegistrar_##specName; \
   virtual void specName()
 
-#define IGLOO_CONTEXT_METADATA_REGISTRATION(name, value) \
-    struct MetaDataRegistrar_##IGLOO_CURRENT_CONTEXT \
+#define IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(name, value) \
+    struct AttributeRegistrar_##IGLOO_CURRENT_CONTEXT \
     {\
-      MetaDataRegistrar_##IGLOO_CURRENT_CONTEXT()\
+      AttributeRegistrar_##IGLOO_CURRENT_CONTEXT()\
       {\
-        ContextMetaData<IGLOO_CURRENT_CONTEXT>::Set(name, value);\
+        ContextAttributeStorage<IGLOO_CURRENT_CONTEXT>::Set(name, value);\
       }\
-    } MetaDataRegistrar_##IGLOO_CURRENT_CONTEXT;
+    } AttributeRegistrar_##IGLOO_CURRENT_CONTEXT;
 
 #endif

@@ -66,11 +66,6 @@ namespace igloo {
       typedef ContextRegistry<CTE> CR;
       CR::template Run<CTC>(ContextName(), results, testListener, progressOutput);
     }
-
-    const std::string& GetMetaData(const std::string& name) const
-    {
-      return ContextMetaData<CTE>::Get(name);
-    }
   };
 }
 
