@@ -9,13 +9,18 @@
 
 namespace igloo {
 
+  class ContextBase;
+
   class TestListener
   {
     public:
       virtual void TestRunStarting() = 0;
       virtual void TestRunEnded(const TestResults& results) = 0;
-      virtual void ContextRunStarting(const std::string& contextName, const MetaData& metadata) = 0;
-      virtual void ContextRunEnded(const std::string& contextName, const MetaData& metadata) = 0;
+      virtual void ContextRunStarting(const ContextBase& context) = 0;
+      virtual void ContextRunEnded(const ContextBase& context) = 0;
+      virtual void SpecRunStarting(const ContextBase& context, const std::string& specName) = 0;
+      virtual void SpecSucceeded(const ContextBase& context, const std::string& specName) = 0;
+      virtual void SpecFailed(const ContextBase& context, const std::string& specName) = 0;
   };
 }
 

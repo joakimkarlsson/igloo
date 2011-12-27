@@ -12,52 +12,6 @@
 
 namespace igloo {
 
-  class TestListenerAggregator : public TestListener
-  {
-    public:
-      void AddListener(TestListener* listener)
-      {
-        listeners_.push_back(listener);
-      }
-
-      void TestRunStarting() 
-      {
-        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
-        {
-          (*it)->TestRunStarting();
-        }
-      }
-
-      void TestRunEnded(const TestResults& results)
-      {
-        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
-        {
-          (*it)->TestRunEnded(results);
-        }
-      }
-
-      void ContextRunStarting(const std::string& contextName, const MetaData& metadata)
-      {
-        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
-        {
-          (*it)->ContextRunStarting(contextName, metadata);
-        }
-      }
-
-      void ContextRunEnded(const std::string& contextName, const MetaData& metadata)
-      {
-        for(TestListeners::const_iterator it = listeners_.begin(); it != listeners_.end(); it++)
-        {
-          (*it)->ContextRunEnded(contextName, metadata);
-        }
-      }
-      
-
-      private:
-      typedef std::list<TestListener*> TestListeners;
-      TestListeners listeners_;
-  };
-
   class TestRunner 
   {
     public:

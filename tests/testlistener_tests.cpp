@@ -31,19 +31,40 @@ class FakeTestListener : public TestListener
       callLog += stm.str();
     }
 
-    void ContextRunStarting(const std::string& contextName, const MetaData& metadata)
+    void ContextRunStarting(const ContextBase& context)
     {
       std::stringstream stm;
-      stm << "ContextRunStarting called for context '" << contextName << "'" << std::endl;
-      stm << "ContextRunStarting called with metadata '" << metadata.GetMetaData("metadata name") << "'" << std::endl;
+      stm << "ContextRunStarting called for context '" << context.Name() << "'" << std::endl;
+      stm << "ContextRunStarting called with metadata '" << context.GetMetaData("metadata name") << "'" << std::endl;
       callLog += stm.str();
     }
 
-    void ContextRunEnded(const std::string& contextName, const MetaData& metadata)
+    void ContextRunEnded(const ContextBase& context)
     {
       std::stringstream stm;
-      stm << "ContextRunEnded called for context '" << contextName << "'" << std::endl;
-      stm << "ContextRunEnded called with metadata '" << metadata.GetMetaData("metadata name") << "'" << std::endl;
+      stm << "ContextRunEnded called for context '" << context.Name() << "'" << std::endl;
+      stm << "ContextRunEnded called with metadata '" << context.GetMetaData("metadata name") << "'" << std::endl;
+      callLog += stm.str();
+    }
+
+    void SpecRunStarting(const ContextBase& context, const std::string& name)
+    {
+      std::stringstream stm;
+      stm << "SpecRunStarting called for context '" << context.Name() << "' and spec '" << name << "'" << std::endl;
+      callLog += stm.str();
+    }
+
+    void SpecSucceeded(const ContextBase& context, const std::string& name)
+    {
+      std::stringstream stm;
+      stm << "SpecSucceeded called for context '" << context.Name() << "' and spec '" << name << "'" << std::endl;
+      callLog += stm.str();
+    }
+
+    void SpecFailed(const ContextBase& context, const std::string& name)
+    {
+      std::stringstream stm;
+      stm << "SpecFailed called for context '" << context.Name() << "' and spec '" << name << "'" << std::endl;
       callLog += stm.str();
     }
 
@@ -54,7 +75,7 @@ class FakeContextRunner : public BaseContextRunner
 {
   public:
     FakeContextRunner() : BaseContextRunner("ContextName"), metadata("fake metadata") {}
-    virtual void RunContext(TestResults& results) const
+    virtual void RunContext(TestResults& results, TestListener&) const
     {
       TestResultFactory factory(ContextName(), "SpecName");
       results.AddResult(factory.CreateSuccessful());
@@ -99,32 +120,73 @@ Context(registering_a_test_listener)
 
     AssertThat(listener.callLog, Has().Exactly(1).EqualTo("TestRunEnded called with 1 tests run"));
   }
+};
 
-  Spec(a_callback_is_made_when_context_run_starts)
+Context(a_registered_context)
+{
+  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithMetaData<void> >
   {
-    runner->Run(contextRunners);
+    ContextAttribute("metadata name", "metadata value")
 
-    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called for context 'ContextName'"));
+    Spec(SucceedingSpec)
+    {
+      Assert::That(true);
+    }
+
+    Spec(FailingSpec)
+    {
+      Assert::That(false);
+    }
+  };
+
+  void SetUp()
+  {
+    NullProgressOutput progressOutput;
+    ContextRegistry<ContextToRun>::RegisterSpec("SucceedingSpec", &ContextToRun::SucceedingSpec);
+    ContextRegistry<ContextToRun>::Run<ContextToRun>("ContextToRun", testResults, testListener, progressOutput);
   }
 
-  Spec(a_callback_is_made_when_context_run_ends)
+  void TearDown()
   {
-    runner->Run(contextRunners);
-
-    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called for context 'ContextName'"));
+    ContextRegistry<ContextToRun>::ClearRegisteredSpecs();
   }
 
-  Spec(metadata_can_be_accessed_from_callback_when_context_run_is_starting)
+  Spec(ContextRunStarting_is_called)
   {
-    runner->Run(contextRunners);
-
-    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called with metadata 'fake metadata'"));
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called for context 'ContextToRun'"));
   }
 
-  Spec(metadata_can_be_accessed_from_callback_when_context_run_is_ending)
+  Spec(ContextRunStarting_is_called_with_metadata)
   {
-    runner->Run(contextRunners);
-
-    AssertThat(listener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called with metadata 'fake metadata'"));
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunStarting called with metadata 'metadata value'"));
   }
+
+  Spec(ContextRunEnded_is_called)
+  {
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called for context 'ContextToRun'"));
+  }
+
+  Spec(ContextRunEnded_is_called_with_metadata)
+  {
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("ContextRunEnded called with metadata 'metadata value'"));
+  }
+
+  Spec(SpecRunStarting_is_called)
+  {
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("SpecRunStarting called for context 'ContextToRun' and spec 'SucceedingSpec'"));
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("SpecRunStarting called for context 'ContextToRun' and spec 'FailingSpec'"));
+  }
+
+  Spec(SpecSucceeded_is_called)
+  {
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("SpecSucceeded called for context 'ContextToRun' and spec 'SucceedingSpec'"));
+  }
+
+  Spec(SpecFailed_is_called)
+  {
+    AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("SpecFailed called for context 'ContextToRun' and spec 'FailingSpec'"));
+  }
+
+  FakeTestListener testListener;
+  TestResults testResults;
 };

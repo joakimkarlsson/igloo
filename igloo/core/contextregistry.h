@@ -17,36 +17,53 @@ namespace igloo {
       GetSpecs().insert(std::make_pair(name, spec));
     }
 
+    static void ClearRegisteredSpecs()
+    {
+      GetSpecs().clear();
+    }
+
     template <typename ContextToCreate>
-    static void Run(const std::string& contextName, TestResults& results)
+    static void Run(const std::string& contextName, TestResults& results, TestListener& testListener, const ProgressOutput& progressOutput)
     {    
       const Specs& specs = GetSpecs();
-      CallSpecs<ContextToCreate>(specs, contextName, results);
+      CallSpecs<ContextToCreate>(specs, contextName, results, testListener, progressOutput);
     }
 
     typedef void (ContextToCall::*SpecPtr)();
     typedef std::map<std::string, SpecPtr> Specs;
     
     template <typename ContextToCreate>
-    static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results)
+    static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener, const ProgressOutput& progressOutput)
     {
       ContextToCreate c;
+      c.SetName(contextName);
+
+      testListener.ContextRunStarting(c);
 
       typename Specs::const_iterator it;
       for (it = specs.begin(); it != specs.end(); it++)
       {
+        const std::string& specName = (*it).first;
+        SpecPtr spec = (*it).second;
+
         ContextToCreate context;
         context.SetName(contextName);
+
+        testListener.SpecRunStarting(context, specName);
         
-        if(CallSpec(context, (*it).first, (*it).second, results))
+        if(CallSpec(context, specName, spec, results))
         {
-          std::cout << ".";
+          progressOutput.PrintSuccess();
+          testListener.SpecSucceeded(context, specName); 
         }
         else
         {
-          std::cout << "F";
+          progressOutput.PrintFailure();
+          testListener.SpecFailed(context, specName);
         }
       }
+
+      testListener.ContextRunEnded(c);
     }
 
     static bool CallSpec(ContextToCall& context, const std::string& specName, SpecPtr spec, TestResults& results)

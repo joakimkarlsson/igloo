@@ -36,49 +36,54 @@ namespace igloo {
       }
     };
 
-    template <typename ContextType>
-    struct ContextBase 
+  struct ContextBase
+  {
+    virtual ~ContextBase() {}
+
+    virtual void IglooFrameworkSetUp()
+    {}
+
+    virtual void IglooFrameworkTearDown()
+    {}
+
+    virtual void SetUp()
     {
-      virtual ~ContextBase() {}
+    }
 
-      virtual void IglooFrameworkSetUp()
-      {}
+    virtual void TearDown()
+    {
+    }
 
-      virtual void IglooFrameworkTearDown()
-      {}
+    void SetName(const std::string& name)
+    {
+      m_name = name;
+    }
 
-      virtual void SetUp()
-      {
-      }
+    std::string Name() const
+    {
+      return m_name;
+    }
 
-      virtual void TearDown()
-      {
-      }
+    virtual void SetMetaData(const std::string& name, const char* value) const = 0;
+    virtual const std::string& GetMetaData(const std::string& name) const = 0;
 
-      void SetName(const std::string& name)
-      {
-        m_name = name;
-      }
+    private:
+    std::string m_name;
+  };
 
-      std::string Name() const
-      {
-        return m_name;
-      }
+  template <typename ContextType>
+    struct ContextWithMetaData : ContextBase 
+  {
+    void SetMetaData(const std::string& name, const char* value) const
+    {
+      ContextMetaData<ContextType>::Set(name, value);
+    }
 
-      void SetMetaData(const std::string& name, const char* value) const
-      {
-        ContextMetaData<ContextType>::Set(name, value);
-      }
-
-      const std::string& GetMetaData(const std::string& name) const
-      {
-        return ContextMetaData<ContextType>::Get(name);
-      }
-
-      private:
-      std::string m_name;
-    };
-
+    const std::string& GetMetaData(const std::string& name) const
+    {
+      return ContextMetaData<ContextType>::Get(name);
+    }
+  };
 }
 
 #endif

@@ -21,6 +21,6 @@
 #include <igloo/fluent/fluent.h>
 #include <igloo/core/core.h>
 
-typedef igloo::ContextBase<void> IGLOO_CURRENT_CONTEXT;
+typedef igloo::ContextWithMetaData<void> IGLOO_CURRENT_CONTEXT;
 
 #endif

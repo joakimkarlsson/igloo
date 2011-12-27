@@ -4,9 +4,13 @@ Visual Studio Formatted output:
   (Done) Move DefaultTestResultOutputter to its own file.
   (Done) Create VisualStudioResultOutputter
   (Done) Create interface common for all ResultOutputters
-  Documentation
+  (Done) Documentation
 
 Cleanup needed to be done:
+  Annoying extra newline in progress for igloo's internal tests
+  (Done) ContextProvider is in the global namespace. Move it in to igloo.
+  (Done) Extract output of dots for progress to its own class.
+  (Done) TestListenerAggregator should be moved to its own file.
   (Done) Move ContextRegistry from context.h to its own file.
   (Done) Change year in license header notice.
 
@@ -14,11 +18,11 @@ Create test listeners:
   (Done) Possibility to register listener.
   (Done) Listener gets callback when test run starts.
   (Done) Listener gets callback when test run ends.
-  Listener gets callback when context run starts
-  Listener gets callback when context run ends
-  Listener gets callback when spec run starts
-  Listener gets callback when spec run succeeds
-  Listener gets callback when spec run fails
+  (Done) Listener gets callback when context run starts
+  (Done) Listener gets callback when context run ends
+  (Done) Listener gets callback when spec run starts
+  (Done) Listener gets callback when spec run succeeds
+  (Done) Listener gets callback when spec run fails
 
 Create Context Level SetUp/TearDown:
 

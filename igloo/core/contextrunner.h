@@ -16,11 +16,7 @@ namespace igloo {
     virtual ~BaseContextRunner() {}
     void Run(TestResults& results, TestListener& testListener) const
     {
-      testListener.ContextRunStarting(ContextName(), *this);
-
-      RunContext(results);
-      
-      testListener.ContextRunEnded(ContextName(), *this);
+      RunContext(results, testListener);
     }
 
     const std::string& ContextName() const
@@ -29,7 +25,7 @@ namespace igloo {
     }
 
     protected:
-    virtual void RunContext(TestResults& results) const = 0;
+    virtual void RunContext(TestResults& results, TestListener& testListener) const = 0;
 
     private:
       std::string contextName_;
@@ -63,11 +59,12 @@ namespace igloo {
       CTC ctc;
     }
     
-    void RunContext(TestResults& results) const
+    void RunContext(TestResults& results, TestListener& testListener) const
     {
-      typedef ContextRegistry<CTE> CR;
+      DefaultProgressOutput progressOutput;
 
-      CR::template Run<CTC>(ContextName(), results);
+      typedef ContextRegistry<CTE> CR;
+      CR::template Run<CTC>(ContextName(), results, testListener, progressOutput);
     }
 
     const std::string& GetMetaData(const std::string& name) const
