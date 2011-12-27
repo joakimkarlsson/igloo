@@ -21,14 +21,28 @@ class ProgressWritingTestListener : public TestListener
     std::cout << "Test run ended." << std::endl;
   }
 
-  void ContextRunStarting(const std::string& contextName, const MetaData& metadata)
+  void ContextRunStarting(const ContextBase& context)
   {
-    std::cout << "Starting test for context " << contextName << " with category " << metadata.GetMetaData("category") << std::endl;
+    std::cout << "Starting test for context " << context.Name() << " with category " << context.GetMetaData("category") << std::endl;
   }
-  
-  void ContextRunEnded(const std::string& contextName, const MetaData& metadata)
+
+  void ContextRunEnded(const ContextBase& context)
   {
-    std::cout << "Ending test for context " << contextName << " with category " << metadata.GetMetaData("category") << std::endl;
+    std::cout << "Ending test for context " << context.Name() << " with category " << context.GetMetaData("category") << std::endl;
+  }
+
+  void SpecRunStarting(const ContextBase& context, const std::string& specName)
+  {
+    std::cout << "Spec run starting for " << context.Name() << " and spec " << specName << std::endl;
+  }
+
+  void SpecSucceeded(const ContextBase& context, const std::string& specName)
+  {
+    std::cout << "Spec succeeded for " << context.Name() << " and spec " << specName << std::endl;
+  }
+  void SpecFailed(const ContextBase& context, const std::string& specName)
+  {
+    std::cout << "Spec failed for " << context.Name() << " and spec " << specName << std::endl;
   }
 };
 
