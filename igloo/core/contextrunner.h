@@ -10,7 +10,7 @@
 namespace igloo {
 
   
-  struct BaseContextRunner : public MetaData
+  struct BaseContextRunner 
   {
     BaseContextRunner(const std::string& contextName) : contextName_(contextName) {}
     virtual ~BaseContextRunner() {}
