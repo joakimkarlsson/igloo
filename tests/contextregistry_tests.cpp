@@ -47,4 +47,9 @@ Context(a_context_runner)
   {
     AssertThat(ContextWithContextSetUpAndTearDown::callLog(), StartsWith("SetUpContext called."));
   }
+
+  Spec(context_tear_down_should_be_called_last)
+  {
+    AssertThat(ContextWithContextSetUpAndTearDown::callLog(), EndsWith("TearDownContext called.\n"));
+  }
 };

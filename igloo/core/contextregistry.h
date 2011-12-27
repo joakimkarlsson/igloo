@@ -65,6 +65,8 @@ namespace igloo {
         }
       }
 
+      ContextToCreate::TearDownContext();
+
       testListener.ContextRunEnded(c);
     }
 
