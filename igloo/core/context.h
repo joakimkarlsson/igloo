@@ -54,6 +54,14 @@ namespace igloo {
     {
     }
 
+    static void SetUpContext()
+    {
+    }
+
+    static void TearDownContext()
+    {
+    }
+
     void SetName(const std::string& name)
     {
       m_name = name;

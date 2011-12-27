@@ -22,6 +22,18 @@ namespace igloo {
       virtual void SpecSucceeded(const ContextBase& context, const std::string& specName) = 0;
       virtual void SpecFailed(const ContextBase& context, const std::string& specName) = 0;
   };
+
+  class NullTestListener : public TestListener
+  {
+    public:
+      virtual void TestRunStarting() {}
+      virtual void TestRunEnded(const TestResults&) {}
+      virtual void ContextRunStarting(const ContextBase&) {}
+      virtual void ContextRunEnded(const ContextBase&) {}
+      virtual void SpecRunStarting(const ContextBase&, const std::string&) {}
+      virtual void SpecSucceeded(const ContextBase&, const std::string&) {}
+      virtual void SpecFailed(const ContextBase&, const std::string&) {}
+  };
 }
 
 #endif

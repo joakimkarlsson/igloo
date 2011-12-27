@@ -35,6 +35,8 @@ namespace igloo {
     template <typename ContextToCreate>
     static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener, const ProgressOutput& progressOutput)
     {
+      ContextToCreate::SetUpContext();
+
       ContextToCreate c;
       c.SetName(contextName);
 
