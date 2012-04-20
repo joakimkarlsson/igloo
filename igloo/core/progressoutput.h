@@ -11,18 +11,18 @@ namespace igloo {
 
   struct ProgressOutput
   {
-    virtual void PrintSuccess() const = 0;
-    virtual void PrintFailure() const = 0;
+    virtual void PrintSuccess(const ContextBase& context, const std::string& specName) const = 0;
+    virtual void PrintFailure(const ContextBase& context, const std::string& specName) const = 0;
   };
 
   struct DefaultProgressOutput : public ProgressOutput
   {
-    virtual void PrintSuccess() const 
+    virtual void PrintSuccess(const ContextBase&, const std::string&) const 
     {
       std::cout << ".";
     }
 
-    virtual void PrintFailure() const
+    virtual void PrintFailure(const ContextBase&, const std::string&) const
     {
       std::cout << "F";
     }
@@ -30,10 +30,10 @@ namespace igloo {
 
   struct NullProgressOutput : public ProgressOutput
   {
-    virtual void PrintSuccess() const 
+    virtual void PrintSuccess(const ContextBase&, const std::string&) const 
     {}
 
-    virtual void PrintFailure() const
+    virtual void PrintFailure(const ContextBase&, const std::string&) const
     {}
   };
 

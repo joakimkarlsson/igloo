@@ -7,6 +7,7 @@
 #ifndef IGLOO_CORE_H
 #define IGLOO_CORE_H
 
+#include <igloo/core/contextbase.h>
 #include <igloo/core/progressoutput.h>
 #include <igloo/core/testresult.h>
 #include <igloo/core/testresultfactory.h>

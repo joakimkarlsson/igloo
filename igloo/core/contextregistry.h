@@ -55,12 +55,12 @@ namespace igloo {
         
         if(CallSpec(context, specName, spec, results))
         {
-          progressOutput.PrintSuccess();
+          progressOutput.PrintSuccess(context, specName);
           testListener.SpecSucceeded(context, specName); 
         }
         else
         {
-          progressOutput.PrintFailure();
+          progressOutput.PrintFailure(context, specName);
           testListener.SpecFailed(context, specName);
         }
       }
