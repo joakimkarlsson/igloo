@@ -28,6 +28,19 @@ namespace igloo {
     }
   };
 
+  struct VerboseProgressOutput : public ProgressOutput
+  {
+    virtual void PrintSuccess(const ContextBase& context, const std::string& specName) const 
+    {
+      std::cout << "Given " << context.Name() << ", then " << specName << " is fulfilled" << std::endl;
+    }
+
+    virtual void PrintFailure(const ContextBase& context, const std::string& specName) const
+    {
+      std::cout << "Given " << context.Name() << ", then " << specName << " is not fulfilled" << std::endl;
+    }
+  };
+
   struct NullProgressOutput : public ProgressOutput
   {
     virtual void PrintSuccess(const ContextBase&, const std::string&) const 

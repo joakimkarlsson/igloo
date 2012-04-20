@@ -61,7 +61,7 @@ namespace igloo {
     
     void RunContext(TestResults& results, TestListener& testListener) const
     {
-      DefaultProgressOutput progressOutput;
+      VerboseProgressOutput progressOutput;
 
       typedef ContextRegistry<CTE> CR;
       CR::template Run<CTC>(ContextName(), results, testListener, progressOutput);
