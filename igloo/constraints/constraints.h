@@ -15,5 +15,6 @@
 #include <igloo/constraints/islessthanconstraint.h>
 #include <igloo/constraints/startswithconstraint.h>
 #include <igloo/constraints/fulfillsconstraint.h>
+#include <igloo/constraints/equalswithdeltaconstraint.h>
 
 #endif

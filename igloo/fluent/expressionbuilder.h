@@ -41,6 +41,19 @@ namespace igloo {
       return BuilderType(Concatenate(m_constraint_list, node));
     }
 
+    template <typename ExpectedType, typename DeltaType>
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsWithDeltaConstraint<ExpectedType, DeltaType> >, Nil> >::t> 
+      EqualToWithDelta(const ExpectedType& expected, const DeltaType& delta)
+    {
+      typedef ConstraintAdapter<EqualsWithDeltaConstraint<ExpectedType, DeltaType> > ConstraintAdapterType;      
+      typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > BuilderType;
+      
+      ConstraintAdapterType constraint(EqualsWithDeltaConstraint<ExpectedType, DeltaType>(expected, delta));
+      ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
+      
+      return BuilderType(Concatenate(m_constraint_list, node));
+    }
+
     template <typename MatcherType>
     ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<FulfillsConstraint<MatcherType> >, Nil> >::t> 
       Fulfilling(const MatcherType& matcher)

@@ -109,4 +109,20 @@ Context(OperatorTests)
   {
     Assert::That(2, EqualsWithDelta(1.9, 0.1));
   }
+
+  Spec(Fluent_equals_with_delta_should_fail_for_actual_larger_than_delta)
+  {
+    AssertTestFails(Assert::That(3.9, Is().EqualToWithDelta(3, 0.5)), "Expected: equal to 3 (+/- 0.5)");
+  }
+
+  Spec(Fluent_EqualsWithDeltaOperator_should_fail_for_actual_less_than_delta)
+  {
+    AssertTestFails(Assert::That(2.49, Is().EqualToWithDelta(3, 0.5)), "Expected: equal to 3 (+/- 0.5)");
+  }
+
+  Spec(Fluent_EqualsWithDeltaOperator_should_succeed)
+  {
+    Assert::That(2, Is().EqualToWithDelta(1.9, 0.1));
+  }
+
 };
