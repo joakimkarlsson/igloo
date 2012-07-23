@@ -20,12 +20,13 @@ namespace igloo {
       static int RunAllTests()
       {
         DefaultTestResultsOutput output;
-        TestRunner runner(output);
+        DefaultProgressOutput progressOutput_;
+        TestRunner runner(output, progressOutput_);
         return runner.Run();
       }
 
-      TestRunner(const TestResultsOutput& output) 
-        : output_(output)
+      TestRunner(const TestResultsOutput& output, ProgressOutput& progressOutput) 
+        : output_(output), progressOutput_(progressOutput)
       {}
 
       int Run(const ContextRunners& runners)
@@ -37,7 +38,7 @@ namespace igloo {
         for (ContextRunners::const_iterator it = runners.begin(); it != runners.end(); it++)
         {
           BaseContextRunner* contextRunner = *it;
-          contextRunner->Run(results, listenerAggregator_);
+          contextRunner->Run(results, listenerAggregator_, progressOutput_);
         }
 
         std::cout << std::endl;
@@ -117,6 +118,7 @@ namespace igloo {
 
     private:
       const TestResultsOutput& output_;
+      ProgressOutput& progressOutput_;
       TestListenerAggregator listenerAggregator_;
 
   };

@@ -75,7 +75,7 @@ class FakeContextRunner : public BaseContextRunner
 {
   public:
     FakeContextRunner() : BaseContextRunner("ContextName") {}
-    virtual void RunContext(TestResults& results, TestListener&) const
+    virtual void RunContext(TestResults& results, TestListener&, ProgressOutput&) const
     {
       TestResultFactory factory(ContextName(), "SpecName");
       results.AddResult(factory.CreateSuccessful());
@@ -85,6 +85,7 @@ class FakeContextRunner : public BaseContextRunner
 Context(registering_a_test_listener)
 {
   NullTestResultsOutput nullOutput;
+  NullProgressOutput nullProgressOutput;
   std::auto_ptr<TestRunner> runner;
   TestRunner::ContextRunners contextRunners;
   FakeTestListener listener;
@@ -92,7 +93,7 @@ Context(registering_a_test_listener)
 
   void SetUp()
   {
-    runner = std::auto_ptr<TestRunner>(new TestRunner(nullOutput));
+    runner = std::auto_ptr<TestRunner>(new TestRunner(nullOutput, nullProgressOutput));
     runner->AddListener(&listener);
 
     contextRunners.push_back(&contextRunner);
