@@ -94,4 +94,19 @@ Context(OperatorTests)
   {
     AssertTestFails(Assert::That(4, Is().Not()), "The expression contains a not operator without any operand");
   }
+
+  Spec(EqualsWithDeltaOperator_should_fail_for_actual_larger_than_delta)
+  {
+    AssertTestFails(Assert::That(3.9, EqualsWithDelta(3, 0.5)), "Expected: equal to 3 (+/- 0.5)");
+  }
+
+  Spec(EqualsWithDeltaOperator_should_fail_for_actual_less_than_delta)
+  {
+    AssertTestFails(Assert::That(2.49, EqualsWithDelta(3, 0.5)), "Expected: equal to 3 (+/- 0.5)");
+  }
+
+  Spec(EqualsWithDeltaOperator_should_succeed)
+  {
+    Assert::That(2, EqualsWithDelta(1.9, 0.1));
+  }
 };
