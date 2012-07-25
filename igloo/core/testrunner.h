@@ -21,9 +21,14 @@ namespace igloo {
       {
         DefaultTestResultsOutput output;
         DefaultProgressOutput progressOutput_;
+        //VerboseProgressOutput progressOutput_;
         TestRunner runner(output, progressOutput_);
         return runner.Run();
       }
+
+      TestRunner(const TestResultsOutput& output)
+        : output_(output), progressOutput_(defaultProgressOutput_)
+      {}
 
       TestRunner(const TestResultsOutput& output, ProgressOutput& progressOutput) 
         : output_(output), progressOutput_(progressOutput)
@@ -120,6 +125,8 @@ namespace igloo {
       const TestResultsOutput& output_;
       ProgressOutput& progressOutput_;
       TestListenerAggregator listenerAggregator_;
+
+      DefaultProgressOutput defaultProgressOutput_;
 
   };
 }
