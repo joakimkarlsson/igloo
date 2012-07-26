@@ -9,6 +9,7 @@
 
 #include <igloo/core/testresult.h>
 #include <igloo/core/testresults.h>
+#include <igloo/core/testlisteners/minimalprogresstestlistener.h>
 
 namespace igloo {
 
@@ -23,6 +24,10 @@ namespace igloo {
         DefaultProgressOutput progressOutput_;
         //VerboseProgressOutput progressOutput_;
         TestRunner runner(output, progressOutput_);
+
+//        MinimalProgressTestListener progressOutput;
+//        runner.AddListener(&progressOutput);
+
         return runner.Run();
       }
 

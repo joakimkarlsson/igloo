@@ -25,5 +25,6 @@
 #include <igloo/core/contextprovider.h>
 #include <igloo/core/registration.h>
 #include <igloo/core/exceptions.h>
+#include <igloo/core/testlisteners/testlisteners.h>
 
 #endif
