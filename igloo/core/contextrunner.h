@@ -14,9 +14,9 @@ namespace igloo {
   {
     BaseContextRunner(const std::string& contextName) : contextName_(contextName) {}
     virtual ~BaseContextRunner() {}
-    void Run(TestResults& results, TestListener& testListener, ProgressOutput& progressOutput) const
+    void Run(TestResults& results, TestListener& testListener) const
     {
-      RunContext(results, testListener, progressOutput);
+      RunContext(results, testListener);
     }
 
     const std::string& ContextName() const
@@ -25,7 +25,7 @@ namespace igloo {
     }
 
     protected:
-    virtual void RunContext(TestResults& results, TestListener& testListener, ProgressOutput& progressOutput) const = 0;
+    virtual void RunContext(TestResults& results, TestListener& testListener) const = 0;
 
     private:
       std::string contextName_;
@@ -59,10 +59,10 @@ namespace igloo {
       CTC ctc;
     }
     
-    void RunContext(TestResults& results, TestListener& testListener, ProgressOutput& progressOutput) const
+    void RunContext(TestResults& results, TestListener& testListener) const
     {
       typedef ContextRegistry<CTE> CR;
-      CR::template Run<CTC>(ContextName(), results, testListener, progressOutput);
+      CR::template Run<CTC>(ContextName(), results, testListener);
     }
   };
 }

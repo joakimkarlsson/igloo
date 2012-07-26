@@ -39,8 +39,7 @@ Context(a_context_runner)
 
     NullTestListener testListener;
     TestResults testResults;
-    NullProgressOutput progressOutput;
-    ContextRegistry<ContextWithContextSetUpAndTearDown>::Run<ContextWithContextSetUpAndTearDown>("ContextWithContextSetUpAndTearDown", testResults, testListener, progressOutput);
+    ContextRegistry<ContextWithContextSetUpAndTearDown>::Run<ContextWithContextSetUpAndTearDown>("ContextWithContextSetUpAndTearDown", testResults, testListener);
   }
 
   Spec(context_setup_should_be_called_first)

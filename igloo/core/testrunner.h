@@ -21,22 +21,17 @@ namespace igloo {
       static int RunAllTests()
       {
         DefaultTestResultsOutput output;
-        DefaultProgressOutput progressOutput_;
-        //VerboseProgressOutput progressOutput_;
-        TestRunner runner(output, progressOutput_);
+        TestRunner runner(output);
 
-//        MinimalProgressTestListener progressOutput;
-//        runner.AddListener(&progressOutput);
+        MinimalProgressTestListener progressOutput;
+        runner.AddListener(&progressOutput);
 
         return runner.Run();
       }
 
-      TestRunner(const TestResultsOutput& output)
-        : output_(output), progressOutput_(defaultProgressOutput_)
-      {}
 
-      TestRunner(const TestResultsOutput& output, ProgressOutput& progressOutput) 
-        : output_(output), progressOutput_(progressOutput)
+      TestRunner(const TestResultsOutput& output) 
+        : output_(output)
       {}
 
       int Run(const ContextRunners& runners)
@@ -48,10 +43,8 @@ namespace igloo {
         for (ContextRunners::const_iterator it = runners.begin(); it != runners.end(); it++)
         {
           BaseContextRunner* contextRunner = *it;
-          contextRunner->Run(results, listenerAggregator_, progressOutput_);
+          contextRunner->Run(results, listenerAggregator_);
         }
-
-        std::cout << std::endl;
 
         listenerAggregator_.TestRunEnded(results);
 
@@ -128,11 +121,7 @@ namespace igloo {
 
     private:
       const TestResultsOutput& output_;
-      ProgressOutput& progressOutput_;
       TestListenerAggregator listenerAggregator_;
-
-      DefaultProgressOutput defaultProgressOutput_;
-
   };
 }
 

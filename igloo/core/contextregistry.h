@@ -23,17 +23,17 @@ namespace igloo {
     }
 
     template <typename ContextToCreate>
-    static void Run(const std::string& contextName, TestResults& results, TestListener& testListener, const ProgressOutput& progressOutput)
+    static void Run(const std::string& contextName, TestResults& results, TestListener& testListener)
     {    
       const Specs& specs = GetSpecs();
-      CallSpecs<ContextToCreate>(specs, contextName, results, testListener, progressOutput);
+      CallSpecs<ContextToCreate>(specs, contextName, results, testListener);
     }
 
     typedef void (ContextToCall::*SpecPtr)();
     typedef std::map<std::string, SpecPtr> Specs;
     
     template <typename ContextToCreate>
-    static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener, const ProgressOutput& progressOutput)
+    static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener)
     {
       ContextToCreate::SetUpContext();
 
@@ -55,12 +55,10 @@ namespace igloo {
         
         if(CallSpec(context, specName, spec, results))
         {
-          progressOutput.PrintSuccess(context, specName);
           testListener.SpecSucceeded(context, specName); 
         }
         else
         {
-          progressOutput.PrintFailure(context, specName);
           testListener.SpecFailed(context, specName);
         }
       }
