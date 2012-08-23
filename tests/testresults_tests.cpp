@@ -66,6 +66,11 @@ Context(An_empty_test_run)
     Spec(Number_of_failed_tests_should_be_1)
     {
       Assert::That(Results().NumberOfFailedTests(), Is().EqualTo(1));
+    }    
+    
+    Spec(List_of_tests_should_be_of_size_1)
+    {
+      Assert::That(Results().Tests().size(), Is().EqualTo(1));
     }
 
     Spec(Number_of_succeeded_tests_should_be_0)
@@ -93,6 +98,11 @@ Context(An_empty_test_run)
       Spec(Number_of_tests_should_be_2)
       {
         Assert::That(Results().NumberOfTestsRun(), Is().EqualTo(2));
+      }
+
+      Spec(List_of_tests_should_be_of_size_2)
+      {
+        Assert::That(Results().Tests().size(), Is().EqualTo(2));
       }
       
       Spec(Number_of_failed_tests_should_be_1)

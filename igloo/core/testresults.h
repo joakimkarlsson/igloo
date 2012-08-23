@@ -40,6 +40,7 @@ namespace igloo {
 
       typedef std::list<FailedTestResult> FailedTestsType;
       typedef std::list<SucceededTestResult> SucceededTestsType;
+      typedef std::list<TestResult> TestsType;
 
       const FailedTestsType& FailedTests() const
       {
@@ -49,6 +50,13 @@ namespace igloo {
       const SucceededTestsType& SucceededTests() const
       {
         return succeededTests_;
+      }
+
+      const TestsType Tests() const {
+        TestsType tests;
+        tests.insert(tests.begin(), succeededTests_.begin(), succeededTests_.end());
+        tests.insert(tests.end(), failedTests_.begin(), failedTests_.end());
+        return tests;
       }
 
       friend std::ostream& operator<<(std::ostream& stm, const TestResults& results);

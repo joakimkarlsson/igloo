@@ -8,10 +8,10 @@
 
 namespace igloo {
 
-  class SucceededTestResult
+  class TestResult
   {
     public:
-    SucceededTestResult(const std::string& contextName, const std::string& specName)
+    TestResult(const std::string& contextName, const std::string& specName)
       : m_contextName(contextName), m_specName(specName)
     {
     }
@@ -26,49 +26,52 @@ namespace igloo {
       return m_specName;
     }
 
-    bool operator==(const SucceededTestResult& rhs) const
+    bool operator==(const TestResult& rhs) const
     {
       return m_contextName == rhs.m_contextName &&
       m_specName == rhs.m_specName;
     }
-    friend std::ostream& operator<<(std::ostream& stream, const SucceededTestResult& res);
+    
+    friend std::ostream& operator<<(std::ostream& stream, const TestResult& res)
+    {
+      stream
+        << "( m_contextName=" << res.m_contextName
+        << ", m_specName=" << res.m_specName
+        << " )";
+
+      return stream;
+    }
+
+
+    //virtual std::ostream& operator<<(std::ostream& stream, const TestResult& res);
 
   private:
     std::string m_contextName;
     std::string m_specName;
   };
 
-  inline std::ostream& operator<<(std::ostream& stream, const SucceededTestResult& res)
-  {
-    stream
-      << "SucceededTestResult ( m_contextName=" << res.m_contextName
-      << ", m_specName=" << res.m_specName
-      << " )";
+  class SucceededTestResult : public TestResult {
+   public:
+    SucceededTestResult(const std::string& contextName, const std::string& specName) : TestResult( contextName, specName)
+    {
+    }
 
-    return stream;
-  }
+    friend std::ostream& operator<<(std::ostream& stream, const SucceededTestResult& res)
+    {
+      stream << "SucceededTestResult";
+      stream << dynamic_cast<const TestResult&>(res);
 
-  class FailedTestResult
+      return stream;
+    }
+
+  };
+
+  class FailedTestResult : public TestResult
   {
   public:
-    FailedTestResult(const std::string& contextName, const std::string& specName, const std::string& errorMessage, const std::string& filename, unsigned int line)
-      : m_contextName(contextName), m_specName(specName), m_errorMessage(errorMessage), m_filename(filename), m_line(line)
+    FailedTestResult(const std::string& contextName, const std::string& specName, const std::string& errorMessage, const std::string& filename="", unsigned int line=0)
+        : TestResult(contextName, specName), m_errorMessage(errorMessage), m_filename(filename), m_line(line)
     {
-    }
-
-    FailedTestResult(const std::string& contextName, const std::string& specName, const std::string& errorMessage)
-      : m_contextName(contextName), m_specName(specName), m_errorMessage(errorMessage), m_filename(""), m_line(0)
-    {
-    }
-
-    const std::string& GetContextName() const
-    {
-      return m_contextName;
-    }
-
-    const std::string& GetSpecName() const
-    {
-      return m_specName;
     }
 
     const std::string& GetErrorMessage() const
@@ -98,35 +101,29 @@ namespace igloo {
 
     bool operator==(const FailedTestResult& rhs) const
     {
-      return m_contextName == rhs.m_contextName &&
-      m_specName == rhs.m_specName &&
+      return TestResult::operator==(rhs) &&
       m_errorMessage == rhs.m_errorMessage &&
       m_filename == rhs.m_filename &&
       m_line == rhs.m_line;
     }
     
-    friend std::ostream& operator<<(std::ostream& stream, const FailedTestResult& res);
+    friend std::ostream& operator<<(std::ostream& stream, const FailedTestResult& res)
+    {
+      stream << "FailedTestResult";
+      stream << dynamic_cast<const TestResult&>(res);
+      stream << ", m_errorMessage=" << res.m_errorMessage
+        << ", m_filename=" << res.m_filename
+        << ", m_line=" << res.m_line
+        << " )";
+
+      return stream;
+    }
 
   private:
-    std::string m_contextName;
-    std::string m_specName;
     std::string m_errorMessage;
     std::string m_filename;
     unsigned int m_line;
   };
-
-  inline std::ostream& operator<<(std::ostream& stream, const FailedTestResult& res)
-  {
-    stream
-      << "FailedTestResult ( m_contextName=" << res.m_contextName
-      << ", m_specName=" << res.m_specName
-      << ", m_errorMessage=" << res.m_errorMessage
-      << ", m_filename=" << res.m_filename
-      << ", m_line=" << res.m_line
-      << " )";
-
-    return stream;
-  }
 
 }
 
