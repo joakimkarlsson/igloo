@@ -16,6 +16,8 @@ namespace igloo {
     {
     }
 
+		virtual ~TestResult() {}
+
     const std::string& GetContextName() const
     {
       return m_contextName;

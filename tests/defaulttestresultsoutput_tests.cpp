@@ -17,12 +17,12 @@ Context(DefaultTestResultsOutput_EmptyTestRun)
 
   void SetUp()
   {
-    output = std::auto_ptr<DefaultTestResultsOutput>(new DefaultTestResultsOutput());
+    output = std::auto_ptr<DefaultTestResultsOutput>(new DefaultTestResultsOutput(resulting_stream));
   }
 
   Spec(OutputsASummaryLineWithNoTests)
   {
-    output->PrintResult(results, resulting_stream);
+    output->PrintResult(results);
 
     Assert::That(resulting_stream.str(), Is().StartingWith("Test run complete. 0 tests run, 0 succeeded, 0 failed."));
   }
@@ -32,7 +32,7 @@ Context(DefaultTestResultsOutput_EmptyTestRun)
     void SetUp()
     {
       testResults().AddResult(FailedTestResult("A context name", "A spec name", "The error message"));
-      Parent().output->PrintResult(Parent().results, Parent().resulting_stream);
+      Parent().output->PrintResult(Parent().results);
     }
 
     Spec(DisplaysOneFailedTestOnSummary)
@@ -61,7 +61,7 @@ Context(DefaultTestResultsOutput_EmptyTestRun)
     void SetUp()
     {
       testResults().AddResult(FailedTestResult("A context name", "A spec name", "The error message", "filewithfailure.cpp", 342));
-      Parent().output->PrintResult(Parent().results, Parent().resulting_stream);
+      Parent().output->PrintResult(Parent().results);
     }
 
     Spec(DisplaysOneFailedTestOnSummary)
