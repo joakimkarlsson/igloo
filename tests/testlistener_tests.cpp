@@ -11,7 +11,7 @@ using namespace igloo;
 class NullTestResultsOutput : public TestResultsOutput
 {
     public:
-      void PrintResult(const TestResults&, std::ostream&) const 
+      void PrintResult(const TestResults&) const 
       {
       }
 };

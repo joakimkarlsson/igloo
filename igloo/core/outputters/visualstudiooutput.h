@@ -12,7 +12,9 @@ namespace igloo {
   class VisualStudioResultsOutput : public TestResultsOutput
   {
     public:
-      void PrintResult(const TestResults& results, std::ostream& output = std::cout) const
+      VisualStudioResultsOutput(std::ostream& outstream = std::cout) : TestResultsOutput(outstream) {}
+
+      void PrintResult(const TestResults& results) const
       {
         TestResults::FailedTestsType::const_iterator it;
 

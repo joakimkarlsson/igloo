@@ -11,8 +11,11 @@ namespace igloo {
 
   class TestResultsOutput
   {
+    protected:
+      std::ostream& output;
     public:
-      virtual void PrintResult(const TestResults& results, std::ostream& output = std::cout) const = 0;
+      TestResultsOutput(std::ostream& outstream = std::cout) : output(outstream) {}
+      virtual void PrintResult(const TestResults& results) const = 0;
   };
 }
 
