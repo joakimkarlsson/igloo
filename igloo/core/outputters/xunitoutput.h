@@ -14,9 +14,8 @@ namespace igloo {
 
       void PrintResult(const TestResults& results) const
       {
-        xml::writer xw(this->output);
-
-        xml::element testsuite("testsuite", xw);
+        XmlWriter xw(this->output);
+        XmlElement testsuite("testsuite", xw);
 
         testsuite.attr("name", "Igloo");
         testsuite.attr("tests", results.NumberOfTestsRun());
@@ -27,27 +26,27 @@ namespace igloo {
                                                           it++)
         {
           const FailedTestResult& result = *it;
-          xml::element testcase("testcase", xw);
+          XmlElement testcase("testcase", xw);
           testcase.attr("classname", result.GetContextName());
           testcase.attr("name", result.GetSpecName());
           testcase.attr("time", 0);
-          xml::element failure("failure", xw);
-          std::ostringstream builder;
-          if(result.HasLineNumber() && result.HasFilename())
-          {
-            builder << result.Filename() << "(" << result.LineNumber() << "): assertion failed error: ";
-          }
-          
-          builder << result.GetErrorMessage();
-          failure.attr("message", builder.str());
+            XmlElement failure("failure", xw);
+            std::ostringstream builder;
+            if(result.HasLineNumber() && result.HasFilename())
+            {
+              builder << result.Filename() << "(" << result.LineNumber() << "): assertion failed error: ";
+            }
+
+            builder << result.GetErrorMessage();
+             failure.attr("message", builder.str());
         }
 
         for (TestResults::SucceededTestsType::const_iterator it = results.SucceededTests().begin(); 
                                                           it != results.SucceededTests().end(); 
                                                           it++)
         {
-          const SucceededTestResult& result = *it;
-          xml::element testcase("testcase", xw);
+           const SucceededTestResult& result = *it;
+          XmlElement testcase("testcase", xw);
           testcase.attr("classname", result.GetContextName());
           testcase.attr("name", result.GetSpecName());
           testcase.attr("time", 0);
