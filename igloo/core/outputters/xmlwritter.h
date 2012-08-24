@@ -14,24 +14,14 @@ namespace igloo {
   {
   public:
       // XmlWriter must be bound to an ostream
-      XmlWriter(std::ostream& _os) : os(_os), need_header(true) {
-        header();
+      XmlWriter(std::ostream& _os) : os(_os) {
+        os << "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
       }
       ~XmlWriter(void) { assert(elements.empty()); }
 
   private:
       std::ostream& os;               // output stream
-      bool need_header;               // have we written an XML header yet?
       std::stack<XmlElement*> elements;  // stack of open element tags
-
-      // write XML header, if necessary
-      XmlWriter& header() {
-          if (need_header) {
-              os << "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-              need_header = false;
-          }
-          return *this;
-      }
 
       // write a single character to the output stream
       XmlWriter& putc(char c) {
@@ -58,7 +48,7 @@ namespace igloo {
       XmlElement(const char* _name, XmlWriter& _wr) : name(_name), wr(_wr) {
           assert(name != 0);
           check_parent();
-          wr.header().putc('<').puts(name);
+          wr.putc('<').puts(name);
           tagopen = true;
           wr.elements.push(this);
       }
