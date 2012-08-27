@@ -73,7 +73,7 @@ namespace igloo {
   template <typename ResultList>
   struct ListConcat<Nil, Nil, ResultList>
   {
-    static ResultList Concatenate(const Nil& left, const Nil& right)
+    static ResultList Concatenate(const Nil&, const Nil&)
     {
       return Nil();
     }

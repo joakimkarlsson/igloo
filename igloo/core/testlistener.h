@@ -9,7 +9,7 @@
 
 namespace igloo {
 
-  class ContextBase;
+  struct ContextBase;
 
   class TestListener
   {
