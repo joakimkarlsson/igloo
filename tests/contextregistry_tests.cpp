@@ -52,3 +52,31 @@ Context(a_context_runner)
     AssertThat(ContextWithContextSetUpAndTearDown::callLog(), EndsWith("TearDownContext called.\n"));
   }
 };
+
+Context(a_context_that_throws_an_unknown_exception_during_test_run)
+{
+  struct ContextThatFailsDuringSetUp : public ContextProvider<ContextThatFailsDuringSetUp, ContextWithAttribute<void> >
+  {
+    void SetUp()
+    {
+      throw "unknown error";
+    }
+
+    Spec(a_spec)
+    {
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringSetUp");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringSetUp>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringSetUp::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringSetUp", "a_spec", "Caught unknown exception")));
+  }
+
+  TestResults results;
+};
