@@ -3,14 +3,17 @@
 
 #include <typeinfo>
 
-#include <igloo/core/outputters/xmlwritter.h>
+#include <igloo/core/outputters/xmlwriter.h>
 
 namespace igloo {
   class XUnitResultsOutput : public TestResultsOutput
   {
     public:
 
-      XUnitResultsOutput(std::ostream& outstream = std::cout) : TestResultsOutput(outstream) {}
+      XUnitResultsOutput(std::ostream& outstream = std::cout) 
+		  : TestResultsOutput(outstream)
+	  {
+	  }
 
       void PrintResult(const TestResults& results) const
       {
@@ -21,8 +24,8 @@ namespace igloo {
         testsuite.attr("tests", results.NumberOfTestsRun());
         testsuite.attr("errors", 0);
         testsuite.attr("failures", results.NumberOfFailedTests());
-        for (TestResults::FailedTestsType::const_iterator it = results.FailedTests().begin(); 
-                                                          it != results.FailedTests().end(); 
+        for (TestResults::FailedTestsType::const_iterator it = results.FailedTests().begin();
+                                                          it != results.FailedTests().end();
                                                           it++)
         {
           const FailedTestResult& result = *it;
@@ -34,7 +37,9 @@ namespace igloo {
             std::ostringstream builder;
             if(result.HasLineNumber() && result.HasFilename())
             {
-              builder << result.Filename() << "(" << result.LineNumber() << "): assertion failed error: ";
+              builder 	<< result.Filename() << "(" 
+				  		<< result.LineNumber() << "): "
+						<<	"assertion failed error: ";
             }
 
             builder << result.GetErrorMessage();
@@ -42,7 +47,7 @@ namespace igloo {
         }
 
         for (TestResults::SucceededTestsType::const_iterator it = results.SucceededTests().begin(); 
-                                                          it != results.SucceededTests().end(); 
+                                                          	it != results.SucceededTests().end(); 
                                                           it++)
         {
            const SucceededTestResult& result = *it;
@@ -54,8 +59,4 @@ namespace igloo {
       }
   };
 }
-
-
-
 #endif
-

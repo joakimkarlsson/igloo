@@ -1,3 +1,27 @@
+/*
+Copyright (C) 2010, Ferruccio Barletta (ferruccio.barletta@gmail.com)
+
+Permission is hereby granted, free of charge, to any person
+obtaining a copy of this software and associated documentation
+files (the "Software"), to deal in the Software without
+restriction, including without limitation the rights to use,
+copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the
+Software is furnished to do so, subject to the following
+conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+OTHER DEALINGS IN THE SOFTWARE.
+*/
 #ifndef IGLOO_XMLWRITER_HPP
 #define IGLOO_XMLWRITER_HPP
 
@@ -14,7 +38,7 @@ namespace igloo {
   {
   public:
       // XmlWriter must be bound to an ostream
-      XmlWriter(std::ostream& _os) : os(_os) {
+      XmlWriter(std::ostream& os_) : os(os_) {
         os << "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
       }
       ~XmlWriter(void) { assert(elements.empty()); }
@@ -45,7 +69,7 @@ namespace igloo {
   {
   public:
       // create a new element tag, bound to an XmlWriter
-      XmlElement(const char* _name, XmlWriter& _wr) : name(_name), wr(_wr) {
+      XmlElement(const char* name_, XmlWriter& wr_) : name(name_), wr(wr_) {
           assert(name != 0);
           check_parent();
           wr.putc('<').puts(name);
@@ -76,7 +100,9 @@ namespace igloo {
       }
 
       // attr() overload for std::string type
-      XmlElement& attr(const char* attr_name, const std::string& value) { return attr(attr_name, value.c_str()); }
+      XmlElement& attr(const char* attr_name, const std::string& value) { 
+		  return attr(attr_name, value.c_str());
+	  }
 
       // attr() function template for all streamable types
       template <class T>
@@ -96,7 +122,9 @@ namespace igloo {
       }
 
       // contents() overload for std::string type
-      XmlElement& contents(const std::string& str) { return contents(str.c_str()); }
+      XmlElement& contents(const std::string& str) {
+		  return contents(str.c_str());
+	  }
 
       // contents() function template for all streamable types
       template <class T>
@@ -118,8 +146,9 @@ namespace igloo {
       }
 
       // cdata() overload for std::string type
-      XmlElement& cdata(const std::string& str) { return cdata(str.c_str()); }
-
+      XmlElement& cdata(const std::string& str) {
+		  return cdata(str.c_str());
+	  }
   private:
       const char* name;   // name of current element
       XmlWriter& wr;         // bound XML writer
