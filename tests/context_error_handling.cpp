@@ -13,22 +13,50 @@ Context(AContextWithAFailingSpec)
   void SetUp()
   {
     failing_context.SetName("FailingContext");
+    FailingContext::callLog() = "";
+
+    ContextRegistry<FailingContext>::CallSpec(failing_context, "AFailingSpec", &FailingContext::AFailingSpec, results);
   }
 
   Spec(FailingSpecShouldBeRegisteredAsFailed)
   {
-    ContextRegistry<FailingContext>::CallSpec(failing_context, "AFailingSpec", &FailingContext::AFailingSpec, results);
     
     Assert::That(results.FailedTests(), HasLength(1));
     Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("FailingContext", "AFailingSpec", "This should fail")));    
   }
+
+  Spec(SetUp_and_TearDown_should_be_called)
+  {
+    Assert::That(FailingContext::callLog(), Is().StartingWith("SetUp called.").And().EndingWith("TearDown called."));
+  }
   
   struct FailingContext : public ContextProvider<FailingContext, ContextWithAttribute<void> >
   {
+    void SetUp()
+    {
+      std::stringstream stm;
+      stm << "SetUp called.";
+      callLog() += stm.str();
+    }
+
+    void TearDown()
+    {
+      std::stringstream stm;
+      stm << "TearDown called.";
+      callLog() += stm.str();
+    }
+
     Spec(AFailingSpec)
     {
       Assert::Failure("This should fail");
     }
+
+    static std::string& callLog()
+    {
+      static std::string callLog;
+      return callLog;
+    }
+
   } failing_context;
   
   TestResults results;

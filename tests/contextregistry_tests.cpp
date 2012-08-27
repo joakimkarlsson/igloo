@@ -52,4 +52,3 @@ Context(a_context_runner)
     AssertThat(ContextWithContextSetUpAndTearDown::callLog(), EndsWith("TearDownContext called.\n"));
   }
 };
-
