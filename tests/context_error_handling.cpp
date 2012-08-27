@@ -34,7 +34,6 @@ Context(AContextWithAFailingSpec)
   TestResults results;
 };
 
-
 Context(AContextWithAFailingTearDown)
 {
   
@@ -64,5 +63,85 @@ Context(AContextWithAFailingTearDown)
     
   } failing_context;
   
+  TestResults results;
+};
+
+Context(a_context_that_throws_an_unknown_exception_during_set_up)
+{
+  struct ContextThatFailsDuringSetUp : public ContextProvider<ContextThatFailsDuringSetUp, ContextWithAttribute<void> >
+  {
+    void SetUp()
+    {
+      throw "unknown error";
+    }
+
+    Spec(a_spec)
+    {
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringSetUp");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringSetUp>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringSetUp::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringSetUp", "a_spec", "Caught unknown exception")));
+  }
+
+  TestResults results;
+};
+
+Context(a_context_that_throws_an_unknown_exception_during_test_run)
+{
+  struct ContextThatFailsDuringTestRun : public ContextProvider<ContextThatFailsDuringTestRun, ContextWithAttribute<void> >
+  {
+    Spec(a_spec)
+    {
+      throw "unknown error";
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringTestRun");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringTestRun>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringTestRun::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringTestRun", "a_spec", "Caught unknown exception")));
+  }
+
+  TestResults results;
+};
+
+Context(a_context_that_throws_an_unknown_exception_during_tear_down)
+{
+  struct ContextThatFailsDuringTeardown : public ContextProvider<ContextThatFailsDuringTeardown, ContextWithAttribute<void> >
+  {
+    void TearDown()
+    {
+      throw "unknown error";
+    }
+
+    Spec(a_spec)
+    {
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringTeardown");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringTeardown>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringTeardown::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringTeardown", "a_spec", "Caught unknown exception")));
+  }
+
   TestResults results;
 };

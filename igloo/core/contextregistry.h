@@ -97,6 +97,11 @@ namespace igloo {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateFromException(e));
         result = false;
       }
+      catch (...)
+      {
+        results.AddResult(FailedTestResult(context.Name(), specName, "Caught unknown exception"));
+        result = false;
+      }
       
       if(result)
       {
