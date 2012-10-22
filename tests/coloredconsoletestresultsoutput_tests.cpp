@@ -49,10 +49,10 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
 		Assert::That(resulting_output(), Has().Exactly(1).StartingWith("1 failed"));
 	}
 
-//    Spec(DisplaysErrorTextForFailedTestCorrectly)
-//    {
-//      Assert::That(resulting_output(), Is().StartingWith("A context name::A spec name failed:\nThe error message"));
-//    }
+    Spec(DisplaysErrorTextForFailedTestCorrectly)
+    {
+      Assert::That(resulting_output(), Is().StartingWith("A context name::A spec name failed:\nThe error message"));
+    }
 
     TestResults& testResults() 
     {
