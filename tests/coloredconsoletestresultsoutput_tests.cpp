@@ -23,7 +23,7 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
   {
     output->PrintResult(results);
 
-    Assert::That(resulting_stream.str(), Is().StartingWith("Test run complete. 0 tests run, 0 succeeded, 0 failed."));
+    Assert::That(resulting_stream.str(), Is().StartingWith("Test run complete. 0 tests run:\n0 succeeded\n0 failed"));
   }
 
   Context(ColoredConsoleTestResultsOutput_OneFailedTest_with_no_info_about_location_of_error)

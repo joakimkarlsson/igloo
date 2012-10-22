@@ -32,7 +32,7 @@ namespace igloo {
           }
         }
 
-        output << "Test run complete. " << results.NumberOfTestsRun() << " tests run, " << results.NumberOfSucceededTests() << " succeeded, " << results.NumberOfFailedTests() << " failed." << std::endl;
+        output << "Test run complete. " << results.NumberOfTestsRun() << " tests run:\n" << results.NumberOfSucceededTests() << " succeeded\n" << results.NumberOfFailedTests() << " failed" << std::endl;
       }
   };
 }
