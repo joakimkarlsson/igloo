@@ -23,7 +23,7 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
   {
     output->PrintResult(results);
 
-    Assert::That(resulting_stream.str(), Is().StartingWith("Test run complete. 0 tests run:\n0 succeeded\n0 failed"));
+    Assert::That(resulting_stream.str(), Is().StartingWith(std::string(PASSED_OUTPUT_COLOR) + std::string("Test run complete. 0 tests run:\n0 succeeded\n0 failed") + std::string(DEFAULT_OUTPUT_COLOR)));
   }
 
   Context(ColoredConsoleTestResultsOutput_OneFailedTest_with_no_info_about_location_of_error)
@@ -36,7 +36,7 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
 
     Spec(DisplaysOneTestsRunOnSummary)
     {
-    	Assert::That(resulting_output(), Has().Exactly(1).StartingWith("Test run complete. 1 tests run:"));
+    	Assert::That(resulting_output(), Has().Exactly(1).StartingWith(std::string(FAILED_OUTPUT_COLOR) + std::string("Test run complete. 1 tests run:")));
     }
 
     Spec(DisplaysZeroSuccessfulTestsOnSummary)
@@ -46,12 +46,12 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
 
     Spec(DisplaysOneFailedTestOnSummary)
 	{
-		Assert::That(resulting_output(), Has().Exactly(1).StartingWith("1 failed"));
+		Assert::That(resulting_output(), Has().Exactly(1).StartingWith(std::string("1 failed") + std::string(DEFAULT_OUTPUT_COLOR)));
 	}
 
     Spec(DisplaysErrorTextForFailedTestCorrectly)
     {
-      Assert::That(resulting_output(), Is().StartingWith("A context name::A spec name failed:\nThe error message"));
+      Assert::That(resulting_output(), Is().StartingWith(std::string(FAILED_OUTPUT_COLOR) + std::string("A context name::A spec name failed:\nThe error message") + std::string(DEFAULT_OUTPUT_COLOR)));
     }
 
     TestResults& testResults() 
@@ -75,7 +75,7 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
 
     Spec(DisplaysOneTestsRunOnSummary)
 	{
-		Assert::That(resulting_output(), Has().Exactly(1).StartingWith("Test run complete. 1 tests run:"));
+    	Assert::That(resulting_output(), Has().Exactly(1).StartingWith(std::string(FAILED_OUTPUT_COLOR) + std::string("Test run complete. 1 tests run:")));
 	}
 
 	Spec(DisplaysZeroSuccessfulTestsOnSummary)
@@ -85,12 +85,12 @@ Context(ColoredConsoleTestResultsOutput_EmptyTestRun)
 
 	Spec(DisplaysOneFailedTestOnSummary)
 	{
-		Assert::That(resulting_output(), Has().Exactly(1).StartingWith("1 failed"));
+		Assert::That(resulting_output(), Has().Exactly(1).StartingWith(std::string("1 failed") + std::string(DEFAULT_OUTPUT_COLOR)));
 	}
 
     Spec(DisplaysErrorTextForFailedTestCorrectly)
     {
-      Assert::That(resulting_output(), Is().StartingWith("A context name::A spec name failed:\nfilewithfailure.cpp(342): Assertion failed.\nThe error message"));
+      Assert::That(resulting_output(), Is().StartingWith(std::string(FAILED_OUTPUT_COLOR) + std::string("A context name::A spec name failed:\nfilewithfailure.cpp(342): Assertion failed.\nThe error message") + std::string(DEFAULT_OUTPUT_COLOR)));
     }
 
     TestResults& testResults()
