@@ -9,6 +9,7 @@
 
 #include <igloo/core/outputters/testresultsoutput.h>
 #include <igloo/core/outputters/defaulttestresultsoutput.h>
+#include <igloo/core/outputters/coloredconsoletestresultsoutput.h>
 #include <igloo/core/outputters/visualstudiooutput.h>
 #include <igloo/core/outputters/xunitoutput.h>
 
