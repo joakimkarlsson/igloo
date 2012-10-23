@@ -26,3 +26,8 @@ igloo-tests.exe
 
 #Ignore tags
 tags
+
+#Eclipse exclusions
+.cproject
+.project
+.settings/
