@@ -16,5 +16,5 @@
 #include <igloo/constraints/startswithconstraint.h>
 #include <igloo/constraints/fulfillsconstraint.h>
 #include <igloo/constraints/equalswithdeltaconstraint.h>
-
+#include <igloo/constraints/equalscontainerconstraint.h>
 #endif

@@ -150,6 +150,22 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
     AssertTestFails(Assert::That(container, Is().Empty()), "of length 0");
   }
 
+  Spec(ShouldHandlerEqualsContainer)
+  {
+    std::list<int> expected;
+    expected.assign(container.begin(), container.end());
+
+    AssertThat(container, EqualsContainer(expected));
+  }
+
+  Spec(ShouldHandleEqualsContainer_Fluent)
+  {
+    std::list<int> expected;
+    expected.assign(container.begin(), container.end());
+
+    AssertThat(container, Is().EqualToContainer(expected));
+  }
+
    T container;
 };
 
