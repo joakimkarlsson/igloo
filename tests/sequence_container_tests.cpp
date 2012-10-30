@@ -14,87 +14,87 @@ const char* ExpectedActual = "\nActual: [ 1, 2, 3, 5, 8 ]";
 template <typename T>
 struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTestsBase<T>, IGLOO_CURRENT_CONTEXT>
 {
-   typedef SequenceContainerTestsBase<T> IGLOO_CURRENT_CONTEXT;
-  
-   void SetUp()
-   {
-      container.clear();
-      container.push_back(1);
-      container.push_back(2);
-      container.push_back(3);
-      container.push_back(5);
-      container.push_back(8);
-   }
+  typedef SequenceContainerTestsBase<T> IGLOO_CURRENT_CONTEXT;
 
-   Spec(ShouldHandleAllOperator)
-   {
-       Assert::That(container, Has().All().GreaterThan(1).Or().LessThan(4));
-   }
+  void SetUp()
+  {
+    container.clear();
+    container.push_back(1);
+    container.push_back(2);
+    container.push_back(3);
+    container.push_back(5);
+    container.push_back(8);
+  }
 
-   Spec(ShouldHandleFailingAllOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().All().GreaterThan(4)), std::string("Expected: all greater than 4") + ExpectedActual);
-   }
+  Spec(ShouldHandleAllOperator)
+  {
+    Assert::That(container, Has().All().GreaterThan(1).Or().LessThan(4));
+  }
 
-   Spec(SHouldHandleInvalidExpressionAfterAllOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().All().Not()), "The expression contains a not operator without any operand");
-   }
+  Spec(ShouldHandleFailingAllOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().All().GreaterThan(4)), std::string("Expected: all greater than 4") + ExpectedActual);
+  }
 
-   Spec(ShouldHandleNoExpressionAfterAllOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().All()), "The expression after \"all\" operator does not yield any result");
-   }
+  Spec(SHouldHandleInvalidExpressionAfterAllOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().All().Not()), "The expression contains a not operator without any operand");
+  }
 
-   Spec(ShouldHandleAtLeastOperator)
-   {
-      Assert::That(container, Has().AtLeast(1).LessThan(5));
-   }
+  Spec(ShouldHandleNoExpressionAfterAllOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().All()), "The expression after \"all\" operator does not yield any result");
+  }
 
-   Spec(ShouldHandleFailingAtLeastOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().AtLeast(2).LessThan(2)), std::string("Expected: at least 2 less than 2") + ExpectedActual);
-   }
+  Spec(ShouldHandleAtLeastOperator)
+  {
+    Assert::That(container, Has().AtLeast(1).LessThan(5));
+  }
 
-   Spec(ShouldHandleExactlyOperator)
-   {
-      Assert::That(container, Has().Exactly(1).EqualTo(3));
-   }
+  Spec(ShouldHandleFailingAtLeastOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().AtLeast(2).LessThan(2)), std::string("Expected: at least 2 less than 2") + ExpectedActual);
+  }
 
-   Spec(ShouldHandleFailingExactlyOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().Exactly(2).EqualTo(3)), std::string("Expected: exactly 2 equal to 3") + ExpectedActual);
-   }
+  Spec(ShouldHandleExactlyOperator)
+  {
+    Assert::That(container, Has().Exactly(1).EqualTo(3));
+  }
 
-   Spec(ShouldHandleAtMostOperator)
-   {
-      Assert::That(container, Has().AtMost(1).EqualTo(5));
-   }
+  Spec(ShouldHandleFailingExactlyOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().Exactly(2).EqualTo(3)), std::string("Expected: exactly 2 equal to 3") + ExpectedActual);
+  }
 
-   Spec(ShouldHandleFailingAtMostOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().AtMost(1).EqualTo(3).Or().EqualTo(5)), std::string("Expected: at most 1 equal to 3 or equal to 5") + ExpectedActual);
-   }
+  Spec(ShouldHandleAtMostOperator)
+  {
+    Assert::That(container, Has().AtMost(1).EqualTo(5));
+  }
 
-   Spec(ShouldHandleNoneOperator)
-   {
-      Assert::That(container, Has().None().EqualTo(666));
-   }
+  Spec(ShouldHandleFailingAtMostOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().AtMost(1).EqualTo(3).Or().EqualTo(5)), std::string("Expected: at most 1 equal to 3 or equal to 5") + ExpectedActual);
+  }
 
-   Spec(ShouldHandleFailingNoneOperator)
-   {
-      AssertTestFails(Assert::That(container, Has().None().EqualTo(5)), std::string("Expected: none equal to 5") + ExpectedActual);
-   }
+  Spec(ShouldHandleNoneOperator)
+  {
+    Assert::That(container, Has().None().EqualTo(666));
+  }
+
+  Spec(ShouldHandleFailingNoneOperator)
+  {
+    AssertTestFails(Assert::That(container, Has().None().EqualTo(5)), std::string("Expected: none equal to 5") + ExpectedActual);
+  }
 
   Spec(ShouldHandleContaining)
   {
     Assert::That(container, Contains(3));
   }
 
-	Spec(ShouldDetectFailingContains)
-	{
-      AssertTestFails(Assert::That(container, Contains(99)), std::string("contains 99") + ExpectedActual);
-	}
+  Spec(ShouldDetectFailingContains)
+  {
+    AssertTestFails(Assert::That(container, Contains(99)), std::string("contains 99") + ExpectedActual);
+  }
 
   Spec(ShouldHandleOfLength)
   {
@@ -103,7 +103,7 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
 
   Spec(ShouldHandleFailingOfLength)
   {
-     AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
+    AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
   }
 
   Spec(ShouldHandleContaining_ExpressionTemplates)
@@ -111,10 +111,10 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
     Assert::That(container, Contains(3));
   }
 
-	Spec(ShouldDetectFailingContains_ExpressionTemplates)
-	{
-      AssertTestFails(Assert::That(container, Contains(99)), std::string("contains 99") + ExpectedActual);
-	}
+  Spec(ShouldDetectFailingContains_ExpressionTemplates)
+  {
+    AssertTestFails(Assert::That(container, Contains(99)), std::string("contains 99") + ExpectedActual);
+  }
 
   Spec(ShouldHandleOfLength_ExpressionTemplates)
   {
@@ -123,7 +123,7 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
 
   Spec(ShouldHandleFailingOfLengthForVectors)
   {
-     AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
+    AssertTestFails(Assert::That(container, HasLength(7)), std::string("of length 7") + ExpectedActual);
   }
 
   Spec(ShouldHandleIsEmpty)
@@ -166,7 +166,23 @@ struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTest
     AssertThat(container, Is().EqualToContainer(expected));
   }
 
-   T container;
+  Spec(ShouldHandleFailingEqualsContainer)
+  {
+    const int e[] = {4, 2, 4};
+    std::list<int> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    AssertTestFails(Assert::That(container, EqualsContainer(expected)), "Expected: [ 4, 2, 4 ]");
+  }
+
+  Spec(ShouldHandleFailingEqualsContainer_Fluent)
+  {
+    const int e[] = {4, 2, 4};
+    std::list<int> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    AssertTestFails(Assert::That(container, Is().EqualToContainer(expected)), "Expected: [ 4, 2, 4 ]");
+  }
+
+  T container;
 };
 
 SubContext(VectorTests, SequenceContainerTestsBase<std::vector<int> >)

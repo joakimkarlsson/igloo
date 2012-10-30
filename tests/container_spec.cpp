@@ -26,12 +26,20 @@ Context(a_container_with_custom_objects)
   };
 
 
-  Spec(it_should_be_able_to_compare_containers)
+  Spec(it_should_be_able_to_compare_containers_of_custom_types)
   {
     const my_type e[] = {my_type(1), my_type(3)};
     const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
 
     AssertThat(my_container_, EqualsContainer(expected));
+  }
+
+  Spec(it_should_handle_failing_comparisons)
+  {
+    const my_type e[] = {my_type(1), my_type(2)};
+    const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    AssertTestFails(Assert::That(my_container_, EqualsContainer(expected)), "Expected: [ (my_type: my_val_=1 ), (my_type: my_val_=2 ) ]");
   }
 
   void SetUp()

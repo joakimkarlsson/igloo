@@ -8,10 +8,6 @@
 #define IGLOO_EQUALSCONTAINERCONSTRAINT_H
 
 namespace igloo {
-  namespace equal_container_core {
-    template <typename T,unsigned S>
-      inline unsigned arraysize(const T (&)[S]) { return S; }
-  }
 
   template< typename ExpectedType >
     struct EqualsContainerConstraint : Expression< EqualsContainerConstraint<ExpectedType> >
@@ -52,16 +48,7 @@ namespace igloo {
       static std::string ToString(const EqualsContainerConstraint<ExpectedType>& constraint)
       {
         std::ostringstream builder;
-        builder << "equal to [";
-
-        typename ExpectedType::const_iterator it;
-        for(it = constraint.expected_.begin(); it != constraint.expected_.end(); it++)
-        {
-          builder << "\"" << igloo::Stringize((*it)) << "\" ";
-        }
-
-        builder << "]";
-
+        builder << igloo::Stringize(constraint.expected_);
         return builder.str();
       }
     };
