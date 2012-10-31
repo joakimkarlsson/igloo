@@ -21,7 +21,6 @@ Context(a_container_with_custom_objects)
     friend bool operator!=(const my_type&, const my_type&);
     friend std::ostream& operator<<(std::ostream&, const my_type&);
 
-    private:
     int my_val_;
   };
 
@@ -40,6 +39,20 @@ Context(a_container_with_custom_objects)
     const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
 
     AssertTestFails(Assert::That(my_container_, EqualsContainer(expected)), "Expected: [ (my_type: my_val_=1 ), (my_type: my_val_=2 ) ]");
+  }
+
+  Spec(it_should_handle_comparison_with_a_predicate_function)
+  {
+    const my_type e[] = {my_type(1), my_type(3)};
+    const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    Assert::That(my_container_, EqualsContainer(expected, are_my_types_equal));
+    Assert::That(my_container_, Is().EqualToContainer(expected, are_my_types_equal));
+  }
+
+  static bool are_my_types_equal(const my_type& lhs, const my_type& rhs)
+  {
+    return lhs.my_val_ == rhs.my_val_;
   }
 
   void SetUp()

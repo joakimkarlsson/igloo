@@ -9,11 +9,19 @@
 
 namespace igloo {
 
-  template< typename ExpectedType >
-    struct EqualsContainerConstraint : Expression< EqualsContainerConstraint<ExpectedType> >
+  namespace constraint_internal {
+    template<typename T>
+    inline bool default_comparer(const T& lhs, const T& rhs)
+    {
+      return lhs == rhs;
+    }
+  }
+
+  template< typename ExpectedType, typename BinaryPredicate>
+    struct EqualsContainerConstraint : Expression< EqualsContainerConstraint<ExpectedType, BinaryPredicate> >
   {
-    EqualsContainerConstraint(const ExpectedType& expected)
-      : expected_(expected)
+    EqualsContainerConstraint(const ExpectedType& expected, const BinaryPredicate predicate)
+      : expected_(expected), predicate_(predicate)
     {}
 
     template<typename ActualType>
@@ -24,7 +32,7 @@ namespace igloo {
 
         for(actual_it = actual.begin(), expected_it = expected_.begin(); actual_it != actual.end() && expected_it != expected_.end(); actual_it++, expected_it++)
         {
-          if((*actual_it) != (*expected_it))
+          if(!predicate_(*actual_it, *expected_it))
           {
             return false;
           }
@@ -34,18 +42,25 @@ namespace igloo {
       }
 
     const ExpectedType expected_;
+    const BinaryPredicate predicate_;
   };
 
-  template< typename ExpectedType >
-    inline EqualsContainerConstraint<ExpectedType> EqualsContainer(const ExpectedType& expected)
+  template< typename ExpectedType>
+    inline EqualsContainerConstraint<ExpectedType, bool (*)(const typename ExpectedType::value_type&, const typename ExpectedType::value_type&)> EqualsContainer(const ExpectedType& expected)
     {
-      return EqualsContainerConstraint<ExpectedType>(expected);
+      return EqualsContainerConstraint<ExpectedType, bool (*)(const typename ExpectedType::value_type&, const typename ExpectedType::value_type&)>(expected, constraint_internal::default_comparer);
     }
 
-  template< typename ExpectedType >
-    struct Stringizer< EqualsContainerConstraint<ExpectedType> >
+  template< typename ExpectedType, typename BinaryPredicate >
+    inline EqualsContainerConstraint<ExpectedType, BinaryPredicate> EqualsContainer(const ExpectedType& expected, const BinaryPredicate predicate)
     {
-      static std::string ToString(const EqualsContainerConstraint<ExpectedType>& constraint)
+      return EqualsContainerConstraint<ExpectedType, BinaryPredicate>(expected, predicate);
+    }
+
+  template< typename ExpectedType, typename BinaryPredicate >
+    struct Stringizer< EqualsContainerConstraint<ExpectedType, BinaryPredicate> >
+    {
+      static std::string ToString(const EqualsContainerConstraint<ExpectedType, BinaryPredicate>& constraint)
       {
         std::ostringstream builder;
         builder << igloo::Stringize(constraint.expected_);

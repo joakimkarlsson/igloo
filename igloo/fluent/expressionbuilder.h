@@ -187,17 +187,29 @@ namespace igloo {
     }          
 
     template <typename ExpectedType>
-    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsContainerConstraint<ExpectedType> >, Nil> >::t> 
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsContainerConstraint<ExpectedType, bool (*)(const typename ExpectedType::value_type&, const typename ExpectedType::value_type&)> >, Nil> >::t> 
       EqualToContainer(const ExpectedType& expected)
     {
-      typedef ConstraintAdapter<EqualsContainerConstraint<ExpectedType> > ConstraintAdapterType;
+      typedef bool (*DefaultBinaryPredivateType)(const typename ExpectedType::value_type&, const typename ExpectedType::value_type&);
+      typedef ConstraintAdapter<EqualsContainerConstraint<ExpectedType, DefaultBinaryPredivateType> > ConstraintAdapterType;
       
       typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > BuilderType;
-      ConstraintAdapterType constraint(expected);
+      ConstraintAdapterType constraint(EqualsContainerConstraint<ExpectedType, DefaultBinaryPredivateType>(expected, constraint_internal::default_comparer<typename ExpectedType::value_type>));
       ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
       return BuilderType(Concatenate(m_constraint_list, node));
     } 
 
+    template <typename ExpectedType, typename BinaryPredicate>
+    ExpressionBuilder<typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapter<EqualsContainerConstraint<ExpectedType, BinaryPredicate> >, Nil> >::t> 
+      EqualToContainer(const ExpectedType& expected, const BinaryPredicate predicate)
+    {
+      typedef ConstraintAdapter<EqualsContainerConstraint<ExpectedType, BinaryPredicate> > ConstraintAdapterType;
+      
+      typedef ExpressionBuilder< typename type_concat<ConstraintListType, ConstraintList<ConstraintAdapterType, Nil> >::t > BuilderType;
+      ConstraintAdapterType constraint(EqualsContainerConstraint<ExpectedType, BinaryPredicate>(expected, predicate));
+      ConstraintList<ConstraintAdapterType, Nil> node(constraint, Nil());
+      return BuilderType(Concatenate(m_constraint_list, node));
+    } 
 
     typedef ConstraintList<AndOperator, Nil> AndOperatorNode;
     typedef ConstraintList<OrOperator, Nil> OrOperatorNode;
