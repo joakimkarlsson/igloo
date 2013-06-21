@@ -31,3 +31,10 @@ tags
 .cproject
 .project
 .settings/
+
+#cmake artifacts
+CMakeCache.txt
+CMakeFiles/
+Makefile
+cmake_install.cmake
+bin/
