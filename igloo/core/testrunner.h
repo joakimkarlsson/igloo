@@ -10,6 +10,7 @@
 #include <igloo/core/testresult.h>
 #include <igloo/core/testresults.h>
 #include <igloo/core/testlisteners/minimalprogresstestlistener.h>
+#include <igloo/external/choices/choices.h>
 
 namespace igloo {
 
@@ -18,8 +19,16 @@ namespace igloo {
     public:
       typedef std::list<BaseContextRunner*> ContextRunners;
 
-      static int RunAllTests()
+      static int RunAllTests(int argc = 0, const char *argv[] = 0)
       {
+        choices::options opt = choices::parse_cmd(argc, argv);
+
+        if(choices::has_option("version", opt))
+        {
+          std::cout << IGLOO_VERSION << std::endl;
+          return 0;
+        }
+
         DefaultTestResultsOutput output;
         TestRunner runner(output);
 

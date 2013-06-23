@@ -58,7 +58,7 @@ class ProgressWritingTestListener : public TestListener
 //  runner.Run();
 //}
 
-int main()
+int main(int argc, const char *argv[])
 {
-  return TestRunner::RunAllTests();
+  return TestRunner::RunAllTests(argc, argv);
 }
