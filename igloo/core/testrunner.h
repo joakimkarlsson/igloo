@@ -14,6 +14,8 @@
 
 namespace igloo {
 
+  namespace c = choices;
+
   class TestRunner 
   {
     public:
@@ -23,14 +25,58 @@ namespace igloo {
       {
         choices::options opt = choices::parse_cmd(argc, argv);
 
-        if(choices::has_option("version", opt))
+        if(c::has_option("version", opt))
         {
           std::cout << IGLOO_VERSION << std::endl;
           return 0;
         }
 
-        DefaultTestResultsOutput output;
-        TestRunner runner(output);
+        if(c::has_option("help", opt))
+        {
+          std::cout << "Usage: <igloo-executable> [--version] [--output=color|vs|xunit]" << std::endl;
+          std::cout << "Options:" << std::endl;
+          std::cout << "  --version:\tPrint version of igloo and exit." << std::endl;
+          std::cout << "  --output:\tFormat output of test results." << std::endl;
+          std::cout << "\t\t--output=color:\tColored output" << std::endl;
+          std::cout << "\t\t--output=vs:\tVisual studio friendly output." << std::endl;
+          std::cout << "\t\t--output=xunit:\tXUnit formatted output." << std::endl;
+          std::cout << "\t\t--output=default:\tDefault output format." << std::endl;
+          return 0;
+        }
+
+        std::auto_ptr<TestResultsOutput> output;
+        if(c::has_option("output", opt))
+        {
+          std::string val = c::option_value("output", opt);
+          if(val == "vs")
+          {
+            output = std::auto_ptr<TestResultsOutput>(new VisualStudioResultsOutput());
+          }
+          else if(val == "color")
+          {
+            output = std::auto_ptr<TestResultsOutput>(new ColoredConsoleTestResultsOutput());
+          }
+          else if(val == "xunit")
+          {
+            output = std::auto_ptr<TestResultsOutput>(new XUnitResultsOutput());
+          }
+          else if(val == "default")
+          {
+            output = std::auto_ptr<TestResultsOutput>(new DefaultTestResultsOutput());
+          }
+          else
+          {
+            std::cerr << "Unknown output: " << c::option_value("output", opt) << std::endl;
+            return 1;
+          }
+        }
+        else
+        {
+          output = std::auto_ptr<TestResultsOutput>(new DefaultTestResultsOutput());
+        }
+
+
+        TestRunner runner(*(output.get()));
 
         MinimalProgressTestListener progressOutput;
         runner.AddListener(&progressOutput);
