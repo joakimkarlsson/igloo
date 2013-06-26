@@ -50,10 +50,52 @@ Context(a_container_with_custom_objects)
     Assert::That(my_container_, Is().EqualToContainer(expected, are_my_types_equal));
   }
 
+  Spec(it_should_handle_comparison_with_a_predicate_function_that_fails)
+  {
+    const my_type e[] = {my_type(1), my_type(2)};
+    const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    AssertTestFails(Assert::That(my_container_, EqualsContainer(expected, are_my_types_equal)), 
+      "Expected: [ (my_type: my_val_=1 ), (my_type: my_val_=2 ) ]\nActual: [ (my_type: my_val_=1 ), (my_type: my_val_=3 ) ]");
+    AssertTestFails(Assert::That(my_container_, Is().EqualToContainer(expected, are_my_types_equal)),
+      "Expected: [ (my_type: my_val_=1 ), (my_type: my_val_=2 ) ]\nActual: [ (my_type: my_val_=1 ), (my_type: my_val_=3 ) ]");
+  }
+
   static bool are_my_types_equal(const my_type& lhs, const my_type& rhs)
   {
     return lhs.my_val_ == rhs.my_val_;
   }
+
+  Spec(it_should_handle_comparison_with_a_predicate_class)
+  {
+    const my_type e[] = {my_type(2), my_type(2)};
+    const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    Assert::That(my_container_, EqualsContainer(expected, within_delta(1)));
+    Assert::That(my_container_, Is().EqualToContainer(expected, within_delta(1)));
+  }
+
+  Spec(it_should_handle_comparison_with_a_predicate_class_that_fails)
+  {
+    const my_type e[] = {my_type(2), my_type(0)};
+    const std::list<my_type> expected(e, e + sizeof(e) / sizeof(e[0]));
+
+    AssertTestFails(Assert::That(my_container_, EqualsContainer(expected, within_delta(1))), "Expected: [ (my_type: my_val_=2 ), (my_type: my_val_=0 ) ]\nActual: [ (my_type: my_val_=1 ), (my_type: my_val_=3 ) ]");
+    AssertTestFails(Assert::That(my_container_, Is().EqualToContainer(expected, within_delta(1))),  "Expected: [ (my_type: my_val_=2 ), (my_type: my_val_=0 ) ]\nActual: [ (my_type: my_val_=1 ), (my_type: my_val_=3 ) ]");
+  }
+
+  struct within_delta
+  {
+    within_delta(int delta) : delta_(delta) {}
+
+    bool operator()(const my_type& lhs, const my_type& rhs) const
+    {
+      return abs(lhs.my_val_ - rhs.my_val_) <= delta_;
+    }
+
+    private:
+      int delta_;
+  };
 
   void SetUp()
   {
