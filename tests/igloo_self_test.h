@@ -10,6 +10,7 @@
 #include <igloo/igloo.h>
 
 #define AssertTestFails(assertion, expected_error_text) \
+  { \
   std::string IGLOO_INTERNAL_expected_error = "Test did not fail"; \
   try \
   { \
@@ -19,6 +20,7 @@
   {  \
   IGLOO_INTERNAL_expected_error = exception_from_igloo_assertion.GetMessage();  \
   }  \
-  Assert::That(IGLOO_INTERNAL_expected_error, Is().Containing(expected_error_text));
+  Assert::That(IGLOO_INTERNAL_expected_error, Is().Containing(expected_error_text)); \
+  }
 
 #endif
