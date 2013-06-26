@@ -33,14 +33,14 @@ namespace igloo {
 
         if(c::has_option("help", opt))
         {
-          std::cout << "Usage: <igloo-executable> [--version] [--output=color|vs|xunit]" << std::endl;
+          std::cout << "Usage: <igloo-executable> [--version] [--output=color|vs|xunit|default]" << std::endl;
           std::cout << "Options:" << std::endl;
           std::cout << "  --version:\tPrint version of igloo and exit." << std::endl;
           std::cout << "  --output:\tFormat output of test results." << std::endl;
-          std::cout << "\t\t--output=color:\tColored output" << std::endl;
-          std::cout << "\t\t--output=vs:\tVisual studio friendly output." << std::endl;
-          std::cout << "\t\t--output=xunit:\tXUnit formatted output." << std::endl;
-          std::cout << "\t\t--output=default:\tDefault output format." << std::endl;
+          std::cout << "\t\t--output=color:\t\tColored output" << std::endl;
+          std::cout << "\t\t--output=vs:\t\tVisual studio friendly output." << std::endl;
+          std::cout << "\t\t--output=xunit:\t\tXUnit formatted output." << std::endl;
+          std::cout << "\t\t--output=default:\t\tDefault output format." << std::endl;
           return 0;
         }
 
