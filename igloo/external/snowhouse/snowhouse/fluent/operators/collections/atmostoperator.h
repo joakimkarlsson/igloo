@@ -7,7 +7,7 @@
 #ifndef IGLOO_ATMOSTOPERATOR_H
 #define IGLOO_ATMOSTOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
 
    struct AtMostOperator : public CollectionOperator
    {

@@ -10,7 +10,7 @@
 #include <string>
 #include "../../../assertionexception.h"
 
-namespace igloo
+namespace snowhouse
 {
 
 template<typename ConstraintListType, typename ActualType>

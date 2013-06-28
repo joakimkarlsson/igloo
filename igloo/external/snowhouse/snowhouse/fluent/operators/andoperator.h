@@ -7,7 +7,7 @@
 #ifndef IGLOO_ANDOPERATOR_H
 #define IGLOO_ANDOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
   
   struct AndOperator : public ConstraintOperator
   {

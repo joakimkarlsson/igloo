@@ -7,7 +7,7 @@
 #ifndef IGLOO_COLLECTIONOPERATOR_H
 #define IGLOO_COLLECTIONOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
    struct CollectionOperator : public ConstraintOperator
    {
       void PerformOperation(ResultStack&)

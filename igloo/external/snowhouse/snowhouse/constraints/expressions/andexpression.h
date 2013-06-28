@@ -9,7 +9,7 @@
 
 #include "./expression_fwd.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template< typename LeftExpression, typename RightExpression >
   struct AndExpression : Expression< AndExpression<LeftExpression, RightExpression> >

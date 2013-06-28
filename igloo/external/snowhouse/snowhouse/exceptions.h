@@ -9,7 +9,7 @@
 
 #include "assert.h"
 
-namespace igloo {
+namespace snowhouse {
    
   template <typename ExceptionType>
   class ExceptionStorage

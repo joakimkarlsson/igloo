@@ -7,7 +7,7 @@
 #ifndef IGLOO_EXACTLYOPERATOR_H
 #define IGLOO_EXACTLYOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
 
    struct ExactlyOperator : public CollectionOperator
    {

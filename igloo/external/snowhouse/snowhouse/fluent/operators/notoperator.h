@@ -7,7 +7,7 @@
 #ifndef IGLOO_NOTOPERATOR_H
 #define IGLOO_NOTOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
   
   struct NotOperator : public ConstraintOperator
   {

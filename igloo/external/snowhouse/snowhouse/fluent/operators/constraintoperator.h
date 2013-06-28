@@ -7,7 +7,7 @@
 #ifndef IGLOO_CONTRAINTOPERATOR_H
 #define IGLOO_CONTRAINTOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
   
   struct InvalidExpressionException
   {
@@ -41,7 +41,7 @@ namespace igloo {
 
        if(innerResult.empty())
        {
-         throw InvalidExpressionException("The expression after \"" + igloo::Stringize(list.m_head) + "\" operator does not yield any result");
+         throw InvalidExpressionException("The expression after \"" + snowhouse::Stringize(list.m_head) + "\" operator does not yield any result");
        }
 
        return innerResult.top();

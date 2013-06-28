@@ -9,7 +9,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template <typename ExpectedType>
   struct StartsWithConstraint : Expression< StartsWithConstraint<ExpectedType> >
@@ -42,7 +42,7 @@ namespace igloo {
     static std::string ToString(const StartsWithConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-	  builder << "starts with " << igloo::Stringize(constraint.m_expected);
+	  builder << "starts with " << snowhouse::Stringize(constraint.m_expected);
 
       return builder.str();
     }

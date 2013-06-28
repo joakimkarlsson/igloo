@@ -21,7 +21,7 @@
 #include "operators/notoperator.h"
 #include "expressionbuilder.h"
 
-namespace igloo {
+namespace snowhouse {
 
   inline ExpressionBuilder<Nil> Is()
   {

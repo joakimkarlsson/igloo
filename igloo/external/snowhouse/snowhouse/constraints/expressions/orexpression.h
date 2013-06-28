@@ -9,7 +9,7 @@
 
 #include "./expression_fwd.h"
        
-namespace igloo {
+namespace snowhouse {
 
   template< typename LeftExpression, typename RightExpression >
   struct OrExpression : Expression< OrExpression<LeftExpression, RightExpression> >
@@ -36,7 +36,7 @@ namespace igloo {
     static std::string ToString(const OrExpression<LeftExpression, RightExpression>& expression)
     {
       std::ostringstream builder;
-	  builder << igloo::Stringize(expression.m_left) << " or " << igloo::Stringize(expression.m_right);
+	  builder << snowhouse::Stringize(expression.m_left) << " or " << snowhouse::Stringize(expression.m_right);
 
       return builder.str();
     }

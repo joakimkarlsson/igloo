@@ -9,7 +9,7 @@
 
 #include "collectionoperator.h"
 
-namespace igloo {
+namespace snowhouse {
 
    struct AtLeastOperator : public CollectionOperator
    {

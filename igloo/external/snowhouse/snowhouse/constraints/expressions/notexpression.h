@@ -9,7 +9,7 @@
   
 #include "./expression_fwd.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template< typename ExpressionType >
   struct NotExpression : Expression< NotExpression<ExpressionType> >
@@ -34,7 +34,7 @@ namespace igloo {
     static std::string ToString(const NotExpression<ExpressionType>& expression)
     {
       std::ostringstream builder;
-	  builder << "not " << igloo::Stringize(expression.m_expression);
+	  builder << "not " << snowhouse::Stringize(expression.m_expression);
 
       return builder.str();
     }

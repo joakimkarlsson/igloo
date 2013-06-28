@@ -50,14 +50,14 @@ namespace
   };
 }
 
-namespace igloo {
+namespace snowhouse {
 
   template<>
   struct Stringizer< WithoutStreamOperatorButWithStringizer >
   {
     static std::string ToString(const WithoutStreamOperatorButWithStringizer& value)
     {
-      return igloo::Stringize(value.m_id);
+      return snowhouse::Stringize(value.m_id);
     }
   };
 }

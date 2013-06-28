@@ -7,7 +7,7 @@
 #ifndef IGLOO_EXPRESSIONBUILDER_H
 #define IGLOO_EXPRESSIONBUILDER_H
 
-namespace igloo {
+namespace snowhouse {
   
   // ---- Evaluation of list of constraints
   
@@ -299,7 +299,7 @@ namespace igloo {
     if (stm.tellp() > 0)
 	  stm << " ";
 
-    stm << igloo::Stringize(list.m_head);
+    stm << snowhouse::Stringize(list.m_head);
     StringizeConstraintList(list.m_tail, stm);
   }
   

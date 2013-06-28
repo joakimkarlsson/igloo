@@ -9,7 +9,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template< typename ExpectedType >
   struct EqualsConstraint : Expression< EqualsConstraint<ExpectedType> >
@@ -64,7 +64,7 @@ namespace igloo {
     static std::string ToString(const EqualsConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-	  builder << "equal to " << igloo::Stringize(constraint.m_expected);
+	  builder << "equal to " << snowhouse::Stringize(constraint.m_expected);
 
       return builder.str();
     }

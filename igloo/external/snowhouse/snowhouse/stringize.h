@@ -7,7 +7,7 @@
 #ifndef IGLOO_STRINGIZE_H
 #define IGLOO_STRINGIZE_H
 
-namespace igloo {
+namespace snowhouse {
   namespace detail {
 
     // This type soaks up any implicit conversions and makes the following operator<<
@@ -76,7 +76,7 @@ namespace igloo {
     return Stringizer<T>::ToString(value);
   }
 
-  // NOTE: Specialize igloo::Stringizer to customize assertion messages
+  // NOTE: Specialize snowhouse::Stringizer to customize assertion messages
   template<typename T>
   struct Stringizer
   {

@@ -7,7 +7,7 @@
 #ifndef IGLOO_STRINGIZERS_H
 #define IGLOO_STRINGIZERS_H
 
-namespace igloo
+namespace snowhouse
 {
 
   namespace detail
@@ -25,7 +25,7 @@ namespace igloo
           stm << "[ ";
           for (Iterator it = cont.begin(); it != cont.end();)
           {
-            stm << igloo::Stringize(*it);
+            stm << snowhouse::Stringize(*it);
 
             if (++it != cont.end())
             {

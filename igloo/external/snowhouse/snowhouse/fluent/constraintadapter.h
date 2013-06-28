@@ -7,7 +7,7 @@
 #ifndef IGLOO_CONSTRAINTADAPTER_H
 #define IGLOO_CONSTRAINTADAPTER_H
 
-namespace igloo {
+namespace snowhouse {
  
   template <typename ConstraintType>
   struct ConstraintAdapter
@@ -31,7 +31,7 @@ namespace igloo {
   {
     static std::string ToString(const ConstraintAdapter<ConstraintType>& constraintAdapter)
     {
-      return igloo::Stringize(constraintAdapter.m_constraint);
+      return snowhouse::Stringize(constraintAdapter.m_constraint);
     }
   };  
 }

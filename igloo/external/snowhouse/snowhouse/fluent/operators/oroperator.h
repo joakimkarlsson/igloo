@@ -7,7 +7,7 @@
 #ifndef IGLOO_OROPERATOR_H
 #define IGLOO_OROPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
   
   struct OrOperator : public ConstraintOperator
   {

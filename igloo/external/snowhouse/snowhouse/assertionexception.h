@@ -7,7 +7,7 @@
 #ifndef IGLOO_ASSERTIONEXCEPTION_H
 #define IGLOO_ASSERTIONEXCEPTION_H
 
-namespace igloo {
+namespace snowhouse {
   class AssertionException : public std::exception
   {
     public:  

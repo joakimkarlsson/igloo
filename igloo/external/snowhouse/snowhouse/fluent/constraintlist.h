@@ -7,7 +7,7 @@
 #ifndef IGLOO_CONSTRAINT_H
 #define IGLOO_CONSTRAINT_H
 
-namespace igloo {
+namespace snowhouse {
   
   struct ConstraintOperator;
   typedef std::stack<bool> ResultStack;

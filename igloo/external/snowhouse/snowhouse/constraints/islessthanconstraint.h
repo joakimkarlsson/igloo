@@ -9,7 +9,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template< typename ExpectedType >
   struct IsLessThanConstraint : Expression< IsLessThanConstraint<ExpectedType> >
@@ -45,7 +45,7 @@ namespace igloo {
     static std::string ToString(const IsLessThanConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-	  builder << "less than " << igloo::Stringize(constraint.m_expected);
+	  builder << "less than " << snowhouse::Stringize(constraint.m_expected);
 
       return builder.str();
     }

@@ -11,7 +11,7 @@
 #include "./andexpression.h"
 #include "./orexpression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template<typename T>
   struct Expression

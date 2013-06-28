@@ -7,7 +7,7 @@
 #ifndef IGLOO_EQUALSCONTAINERCONSTRAINT_H
 #define IGLOO_EQUALSCONTAINERCONSTRAINT_H
 
-namespace igloo {
+namespace snowhouse {
 
   namespace constraint_internal {
     template<typename T>
@@ -63,7 +63,7 @@ namespace igloo {
       static std::string ToString(const EqualsContainerConstraint<ExpectedType, BinaryPredicate>& constraint)
       {
         std::ostringstream builder;
-        builder << igloo::Stringize(constraint.expected_);
+        builder << snowhouse::Stringize(constraint.expected_);
         return builder.str();
       }
     };

@@ -11,7 +11,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
   
   template <typename ContainerType>
   struct find_in_container_traits
@@ -70,7 +70,7 @@ namespace igloo {
     static std::string ToString(const ContainsConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-	  builder << "contains " << igloo::Stringize(constraint.m_expected);
+	  builder << "contains " << snowhouse::Stringize(constraint.m_expected);
 
       return builder.str();
     }

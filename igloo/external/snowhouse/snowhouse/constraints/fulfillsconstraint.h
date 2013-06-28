@@ -9,7 +9,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template< typename MatcherType >
   struct FulfillsConstraint : Expression< FulfillsConstraint<MatcherType> >
@@ -40,7 +40,7 @@ namespace igloo {
     static std::string ToString(const FulfillsConstraint<MatcherType>& constraint)
     {
       std::ostringstream builder;
-      builder << igloo::Stringize(constraint.m_matcher);
+      builder << snowhouse::Stringize(constraint.m_matcher);
 
       return builder.str();
     }

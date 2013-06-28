@@ -7,7 +7,7 @@
 #ifndef IGLOO_NONEOPERATOR_H
 #define IGLOO_NONEOPERATOR_H
 
-namespace igloo {
+namespace snowhouse {
 
    struct NoneOperator : public CollectionOperator
    {

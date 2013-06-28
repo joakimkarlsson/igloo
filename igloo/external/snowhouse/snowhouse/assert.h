@@ -10,7 +10,7 @@
 #include "stringize.h"
 #include "stringizers.h"
 
-namespace igloo {
+namespace snowhouse {
 
    class Assert
    {
@@ -53,7 +53,7 @@ namespace igloo {
          }
          catch (const InvalidExpressionException& e) 
          {
-            throw AssertionException("Malformed expression: \"" + igloo::Stringize(expression) + "\"\n" + e.Message());
+            throw AssertionException("Malformed expression: \"" + snowhouse::Stringize(expression) + "\"\n" + e.Message());
          }
       }
 
@@ -105,8 +105,8 @@ namespace igloo {
       {
          std::ostringstream str;
 
-         str << "Expected: " << igloo::Stringize(expected) << std::endl;
-         str << "Actual: " << igloo::Stringize(actual) << std::endl;
+         str << "Expected: " << snowhouse::Stringize(expected) << std::endl;
+         str << "Actual: " << snowhouse::Stringize(actual) << std::endl;
 
          return str.str();
       }

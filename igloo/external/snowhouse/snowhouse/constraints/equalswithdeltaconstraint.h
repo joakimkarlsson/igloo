@@ -9,7 +9,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template< typename ExpectedType, typename DeltaType >
   struct EqualsWithDeltaConstraint : Expression< EqualsWithDeltaConstraint<ExpectedType, DeltaType> >
@@ -41,7 +41,7 @@ namespace igloo {
     static std::string ToString(const EqualsWithDeltaConstraint<ExpectedType, DeltaType>& constraint)
     {
       std::ostringstream builder;
-	  builder << "equal to " << igloo::Stringize(constraint.m_expected) << " (+/- " << igloo::Stringize(constraint.m_delta) << ")";
+	  builder << "equal to " << snowhouse::Stringize(constraint.m_expected) << " (+/- " << snowhouse::Stringize(constraint.m_delta) << ")";
 
       return builder.str();
     }

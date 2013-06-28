@@ -7,7 +7,7 @@
 #ifndef IGLOO_EXPRESSION_FWD_H
 #define IGLOO_EXPRESSION_FWD_H
 
-namespace igloo {
+namespace snowhouse {
 	template<typename T>
 	struct Expression;
 }

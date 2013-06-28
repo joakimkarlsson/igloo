@@ -9,7 +9,7 @@
 
 #include "./expressions/expression.h"
 
-namespace igloo {
+namespace snowhouse {
 
   template <typename ExpectedType>
   struct EndsWithConstraint : Expression< EndsWithConstraint<ExpectedType> >
@@ -43,7 +43,7 @@ namespace igloo {
     static std::string ToString(const EndsWithConstraint<ExpectedType>& constraint)
     {
       std::ostringstream builder;
-	  builder << "ends with " << igloo::Stringize(constraint.m_expected);
+	  builder << "ends with " << snowhouse::Stringize(constraint.m_expected);
 
       return builder.str();
     }
