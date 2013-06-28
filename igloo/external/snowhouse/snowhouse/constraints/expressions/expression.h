@@ -7,9 +7,9 @@
 #ifndef IGLOO_EXPRESSION_H
 #define IGLOO_EXPRESSION_H
 
-#include <igloo/constraints/expressions/notexpression.h>
-#include <igloo/constraints/expressions/andexpression.h>
-#include <igloo/constraints/expressions/orexpression.h>
+#include "./notexpression.h"
+#include "./andexpression.h"
+#include "./orexpression.h"
 
 namespace igloo {
 

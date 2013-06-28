@@ -5,7 +5,6 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <tests/igloo_self_test.h>
-#include <igloo/core/stringizers.h>
 
 using namespace igloo;
 

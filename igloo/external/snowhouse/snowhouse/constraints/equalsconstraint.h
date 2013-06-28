@@ -7,7 +7,7 @@
 #ifndef IGLOO_EQUALSCONSTRAINT_H
 #define IGLOO_EQUALSCONSTRAINT_H
 
-#include <igloo/constraints/expressions/expression.h>
+#include "./expressions/expression.h"
 
 namespace igloo {
 

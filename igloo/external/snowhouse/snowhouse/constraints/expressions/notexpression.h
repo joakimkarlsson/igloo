@@ -7,7 +7,7 @@
 #ifndef IGLOO_NOTEXPRESSION_H
 #define IGLOO_NOTEXPRESSION_H
   
-#include <igloo/constraints/expressions/expression_fwd.h>
+#include "./expression_fwd.h"
 
 namespace igloo {
 

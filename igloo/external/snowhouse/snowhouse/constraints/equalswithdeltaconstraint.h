@@ -7,7 +7,7 @@
 #ifndef IGLOO_EQUALSWITHDELTACONSTRAINT_H
 #define IGLOO_EQUALSWITHDELTACONSTRAINT_H
 
-#include <igloo/constraints/expressions/expression.h>
+#include "./expressions/expression.h"
 
 namespace igloo {
 

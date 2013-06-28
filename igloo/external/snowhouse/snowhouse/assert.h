@@ -7,8 +7,8 @@
 #ifndef IGLOO_ASSERT_H
 #define IGLOO_ASSERT_H
 
-#include <igloo/core/stringize.h>
-#include <igloo/core/stringizers.h>
+#include "stringize.h"
+#include "stringizers.h"
 
 namespace igloo {
 

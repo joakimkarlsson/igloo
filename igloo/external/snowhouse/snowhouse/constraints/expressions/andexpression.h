@@ -4,17 +4,17 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
-#ifndef IGLOO_OREXPRESSION_H
-#define IGLOO_OREXPRESSION_H
+#ifndef IGLOO_ANDEXPRESSION_H
+#define IGLOO_ANDEXPRESSION_H
 
-#include <igloo/constraints/expressions/expression_fwd.h>
-       
+#include "./expression_fwd.h"
+
 namespace igloo {
 
   template< typename LeftExpression, typename RightExpression >
-  struct OrExpression : Expression< OrExpression<LeftExpression, RightExpression> >
+  struct AndExpression : Expression< AndExpression<LeftExpression, RightExpression> >
   {
-    OrExpression(const LeftExpression& left, const RightExpression& right)
+    AndExpression(const LeftExpression& left, const RightExpression& right)
       : m_left(left)
       , m_right(right)
     {
@@ -23,7 +23,7 @@ namespace igloo {
     template< typename ActualType >
     bool operator()(const ActualType& actual) const
     {
-      return (m_left(actual) || m_right(actual));
+      return (m_left(actual) && m_right(actual));
     }
 
     LeftExpression m_left;
@@ -31,12 +31,12 @@ namespace igloo {
   };
 
   template< typename LeftExpression, typename RightExpression >
-  struct Stringizer< OrExpression<LeftExpression, RightExpression> >
+  struct Stringizer< AndExpression<LeftExpression, RightExpression> >
   {
-    static std::string ToString(const OrExpression<LeftExpression, RightExpression>& expression)
+    static std::string ToString(const AndExpression<LeftExpression, RightExpression>& expression)
     {
       std::ostringstream builder;
-	  builder << igloo::Stringize(expression.m_left) << " or " << igloo::Stringize(expression.m_right);
+      builder << Stringize(expression.m_left) << " and " << Stringize(expression.m_right);
 
       return builder.str();
     }

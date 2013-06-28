@@ -7,7 +7,7 @@
 #ifndef IGLOO_ASSERTMACRO_H
 #define IGLOO_ASSERTMACRO_H
 
-#include <igloo/core/assert.h>
+#include "assert.h"
 
 #define AssertThat(p1,p2)\
   Assert::That((p1), (p2), __FILE__, __LINE__);\

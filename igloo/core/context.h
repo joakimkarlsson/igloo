@@ -7,8 +7,6 @@
 #ifndef IGLOO_CONTEXT_H
 #define IGLOO_CONTEXT_H
 
-#include <igloo/core/assertionexception.h>
-#include <igloo/core/assert.h>
 #include <igloo/core/testresult.h>
 #include <igloo/core/context.h>
 

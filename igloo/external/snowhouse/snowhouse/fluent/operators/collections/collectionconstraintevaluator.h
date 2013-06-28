@@ -8,7 +8,7 @@
 #define IGLOO_COLLECTIONCONSTRAINTEVALUATOR_H
 
 #include <string>
-#include <igloo/core/assertionexception.h>
+#include "../../../assertionexception.h"
 
 namespace igloo
 {

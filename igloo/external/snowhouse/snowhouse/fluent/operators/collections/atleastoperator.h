@@ -7,7 +7,7 @@
 #ifndef IGLOO_ATLEASTOPERATOR_H
 #define IGLOO_ATLEASTOPERATOR_H
 
-#include <igloo/fluent/operators/collections/collectionoperator.h>
+#include "collectionoperator.h"
 
 namespace igloo {
 

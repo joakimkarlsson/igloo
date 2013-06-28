@@ -7,7 +7,7 @@
 #ifndef IGLOO_EXCEPTIONS_H
 #define IGLOO_EXCEPTIONS_H
 
-#include <igloo/core/assert.h>
+#include "assert.h"
 
 namespace igloo {
    

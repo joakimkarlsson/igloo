@@ -7,7 +7,7 @@
 #ifndef FULFILLSCONSTRAINT_H
 #define FULFILLSCONSTRAINT_H
 
-#include <igloo/constraints/expressions/expression.h>
+#include "./expressions/expression.h"
 
 namespace igloo {
 
