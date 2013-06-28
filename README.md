@@ -60,5 +60,3 @@ int main(int argc, const char *argv[])
 }
 ```
 
-Keywords:
-C++ BDD Behaviour Driven Development Fluent
