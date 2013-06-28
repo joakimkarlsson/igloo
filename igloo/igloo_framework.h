@@ -18,9 +18,12 @@
 #include <memory>
 #include <algorithm>
 
-#include <igloo/core/stringize.h>
-#include <igloo/constraints/constraints.h>
-#include <igloo/fluent/fluent.h>
+#include <igloo/external/snowhouse/snowhouse/snowhouse.h>
+
+namespace igloo {
+  using namespace snowhouse;
+}
+
 #include <igloo/core/core.h>
 
 typedef igloo::ContextWithAttribute<void> IGLOO_CURRENT_CONTEXT;

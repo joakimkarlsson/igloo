@@ -16,7 +16,7 @@ namespace igloo {
         : m_contextName(contextName), m_specName(specName)
       {}
 
-      FailedTestResult CreateFromException(const AssertionException& exception) const
+      FailedTestResult CreateFromException(const snowhouse::AssertionException& exception) const
       {
         return FailedTestResult(m_contextName, m_specName, exception.GetMessage(), exception.GetFilename(), exception.GetLineNumber());
       }

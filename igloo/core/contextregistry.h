@@ -77,7 +77,7 @@ namespace igloo {
         context.IglooFrameworkSetUp();
         (context.*spec)();
        }
-      catch (const AssertionException& e)
+      catch (const snowhouse::AssertionException& e)
       {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateFromException(e));
         result = false;
@@ -92,7 +92,7 @@ namespace igloo {
       {
         context.IglooFrameworkTearDown();
       }
-      catch (const AssertionException& e) 
+      catch (const snowhouse::AssertionException& e) 
       {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateFromException(e));
         result = false;
