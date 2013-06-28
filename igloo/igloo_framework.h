@@ -18,13 +18,7 @@
 #include <memory>
 #include <algorithm>
 
-#include <igloo/external/snowhouse/snowhouse/stringize.h>
-#include <igloo/external/snowhouse/snowhouse/constraints/constraints.h>
-#include <igloo/external/snowhouse/snowhouse/fluent/fluent.h>
-#include <igloo/external/snowhouse/snowhouse/assertionexception.h>
-#include <igloo/external/snowhouse/snowhouse/assert.h>
-#include <igloo/external/snowhouse/snowhouse/assertmacro.h>
-#include <igloo/external/snowhouse/snowhouse/exceptions.h>
+#include <igloo/external/snowhouse/snowhouse/snowhouse.h>
 #include <igloo/core/core.h>
 
 typedef igloo::ContextWithAttribute<void> IGLOO_CURRENT_CONTEXT;
