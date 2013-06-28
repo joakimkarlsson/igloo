@@ -38,3 +38,6 @@ CMakeFiles/
 Makefile
 cmake_install.cmake
 bin/
+
+#mac crap
+.DS_Store
