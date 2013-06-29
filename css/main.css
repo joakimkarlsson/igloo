@@ -37,6 +37,7 @@ body {
 
 .highlight {
   margin: 5px 25px 5px 25px;
+  border-radius: 8px;
 }
 
 .highlight>pre {
