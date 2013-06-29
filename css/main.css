@@ -40,9 +40,10 @@ body {
   border-radius: 8px;
 }
 
-.highlight>pre {
+pre {
   background-color: #222;
   line-height: 17px;
+  color: #c0c3c1;
 }
 
 code {
