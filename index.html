@@ -1,120 +1,13 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>Igloo by joakimkarlsson</title>
-  </head>
+---
+layout: default
+title: Your New Jekyll Site
+---
 
-  <body>
-    <div id="container">
-      <div class="inner">
-
-        <header>
-          <h1>Igloo</h1>
-          <h2>A framework for unit testing in C++</h2>
-        </header>
-
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/joakimkarlsson/igloo/zipball/master" id="download-zip" class="button"><span>Download .zip</span></a>
-          <a href="https://github.com/joakimkarlsson/igloo/tarball/master" id="download-tar-gz" class="button"><span>Download .tar.gz</span></a>
-          <a href="https://github.com/joakimkarlsson/igloo" id="view-on-github" class="button"><span>View on GitHub</span></a>
-        </section>
-
-        <hr>
-
-        <section id="main_content">
-          <p>Igloo is a unit testing framework for C++ that aims to:</p>
-
-<ul>
-<li>stay out of your way and let you focus on what you want to test</li>
-<li>help you create readable tests</li>
-<li>have a syntax that doesn't make you repeat yourself</li>
-</ul><h1>
-<a name="license" class="anchor" href="#license"><span class="octicon octicon-link"></span></a>License</h1>
-
-<p>Igloo is distributed under the Boost Software License, Version 1.0, which encourages both commercial and non-commercial use.</p>
-
-<h1>
-<a name="example" class="anchor" href="#example"><span class="octicon octicon-link"></span></a>Example</h1>
-
-<p>The following listing shows a complete test application written in Igloo:</p>
-
-<div class="highlight"><pre><span class="cp">#include &lt;igloo/igloo.h&gt;</span>
-<span class="k">using</span> <span class="k">namespace</span> <span class="n">igloo</span><span class="p">;</span>
-
-<span class="n">Context</span><span class="p">(</span><span class="n">a_guitar_with_a_fuzzbox</span><span class="p">)</span>
-<span class="p">{</span>
-  <span class="kt">void</span> <span class="n">SetUp</span><span class="p">()</span>
-  <span class="p">{</span>
-    <span class="n">guitar</span><span class="p">.</span><span class="n">AddEffect</span><span class="p">(</span><span class="n">fuzzbox</span><span class="p">);</span>
-  <span class="p">}</span>
-
-  <span class="n">Spec</span><span class="p">(</span><span class="n">fuzzbox_starts_in_clean_mode</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="n">Assert</span><span class="o">::</span><span class="n">That</span><span class="p">(</span><span class="n">guitar</span><span class="p">.</span><span class="n">Sound</span><span class="p">(),</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Clean</span><span class="p">));</span>
-  <span class="p">}</span>
-
-  <span class="n">Context</span><span class="p">(</span><span class="n">a_fuzzbox_in_distorted_mode</span><span class="p">)</span>
-  <span class="p">{</span>
-    <span class="kt">void</span> <span class="n">SetUp</span><span class="p">()</span>
-    <span class="p">{</span>
-      <span class="n">Parent</span><span class="p">().</span><span class="n">fuzzbox</span><span class="p">.</span><span class="n">Switch</span><span class="p">();</span>
-    <span class="p">}</span>
-
-    <span class="n">Spec</span><span class="p">(</span><span class="n">when_I_fret_the_strings_the_sound_is_distorted</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="n">Assert</span><span class="o">::</span><span class="n">That</span><span class="p">(</span><span class="n">Parent</span><span class="p">().</span><span class="n">guitar</span><span class="p">.</span><span class="n">Sound</span><span class="p">(),</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Distorted</span><span class="p">));</span>
-    <span class="p">}</span>
-
-    <span class="n">Spec</span><span class="p">(</span><span class="n">when_I_switch_the_fuzzbox_the_sound_is_clean</span><span class="p">)</span>
-    <span class="p">{</span>
-      <span class="n">Parent</span><span class="p">().</span><span class="n">fuzzbox</span><span class="p">.</span><span class="n">Switch</span><span class="p">();</span>
-      <span class="n">Assert</span><span class="o">::</span><span class="n">That</span><span class="p">(</span><span class="n">Parent</span><span class="p">().</span><span class="n">guitar</span><span class="p">.</span><span class="n">Sound</span><span class="p">(),</span> <span class="n">Equals</span><span class="p">(</span><span class="n">Clean</span><span class="p">));</span>
-    <span class="p">}</span>
-  <span class="p">};</span>
-
-  <span class="n">Fuzzbox</span> <span class="n">fuzzbox</span><span class="p">;</span>
-  <span class="n">Guitar</span> <span class="n">guitar</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-  <span class="k">return</span> <span class="n">TestRunner</span><span class="o">::</span><span class="n">RunAllTests</span><span class="p">();</span>
-<span class="p">}</span>
-</pre></div>
-
-<h1>
-<a name="screencast" class="anchor" href="#screencast"><span class="octicon octicon-link"></span></a>Screencast</h1>
-
-<p>The following video shows Igloo being used as the testing framework to create one possible solution to the String Calculator TDD Kata.</p>
-
-<p>In this example we use the alternative Describe/It syntax instead of the original Context/Spec syntax. If you want to use the alternative syntax you should #include  instead of #include . The alternative syntax is available from version 0.6.</p>
-
-<p><img src="https://secure-b.vimeocdn.com/ts/165/843/165843506_295.jpg" alt="Screencast using Igloo"></p>
-
-<p><a href="https://vimeo.com/25207680">String Calculator Kata in C++</a></p>
-
-<h1>
-<a name="installing-igloo" class="anchor" href="#installing-igloo"><span class="octicon octicon-link"></span></a>Installing Igloo</h1>
-
-<p>Igloo is implemented as a set of header files. Therefore there is no need for you to go through any additional steps to build it. After you've downloaded Igloo, just tell your build system to look for additional header files in the directory where you put Igloo, and you're ready to go.</p>
-        </section>
-
-        <footer>
-          Igloo is maintained by <a href="https://github.com/joakimkarlsson">joakimkarlsson</a><br>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="http://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-
-        
-      </div>
-    </div>
-  </body>
-</html>
+<div id="home">
+  <h1>Blog Posts</h1>
+  <ul class="posts">
+    {% for post in site.posts %}
+      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+    {% endfor %}
+  </ul>
+</div>
