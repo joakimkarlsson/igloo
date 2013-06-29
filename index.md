@@ -65,9 +65,11 @@ int main(int argv, const *char[] argv)
 
 The following video shows Igloo being used as the testing framework to create one possible solution to the Conway’s Game of Life TDD Kata.
 
+<div class='embed-vimeo' style='text-align:center;'>
+  <iframe src='http://player.vimeo.com/video/18350401' width='400' height='225' frameborder='0'> </iframe>
+</div>
+<p><a href="http://vimeo.com/18350401">C++ TDD Kata: Conway&#8217;s Game of Life</a> from <a href="http://vimeo.com/user5608696">Joakim Karlsson</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
-
-C++ TDD Kata: Conway’s Game of Life from Joakim Karlsson on Vimeo.
 
 ## Installing Igloo
 Igloo is implemented as a set of header files. Therefore there is no need for you to go through any additional steps to build it. After you’ve downloaded Igloo, just tell your build system to look for additional header files in the directory where you put Igloo, and you’re ready to go.
