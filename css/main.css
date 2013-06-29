@@ -24,6 +24,10 @@ body {
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#9400d3',GradientType=1 ); /* IE6-9 */
 }
 
+.title-highlight {
+  color: #5a004a;
+}
+
 .article {
   //color: #cd853f;
   color: #c5c8c6;

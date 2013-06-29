@@ -8,11 +8,11 @@ Igloo is a unit testing framework for C++ that aims to:
 - help you create readable tests
 - have a syntax that doesn’t make you repeat yourself
 
-#License
+###License
 
 Igloo is distributed under the [Boost Software License, Version 1.0](http://www.boost.org/users/license.html), which encourages both commercial and non-commercial use.
 
-#Example
+###Example
 
 The following listing shows a complete test application written in Igloo:
 
@@ -61,7 +61,7 @@ int main(int argv, const *char[] argv)
 }
 {% endhighlight %}
 
-## Screencast
+### Screencast
 
 The following video shows Igloo being used as the testing framework to create one possible solution to the Conway’s Game of Life TDD Kata.
 
@@ -71,5 +71,5 @@ The following video shows Igloo being used as the testing framework to create on
 <p><a href="http://vimeo.com/18350401">C++ TDD Kata: Conway&#8217;s Game of Life</a> from <a href="http://vimeo.com/user5608696">Joakim Karlsson</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
 
-## Installing Igloo
+### Installing Igloo
 Igloo is implemented as a set of header files. Therefore there is no need for you to go through any additional steps to build it. After you’ve downloaded Igloo, just tell your build system to look for additional header files in the directory where you put Igloo, and you’re ready to go.
