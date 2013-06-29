@@ -1,6 +1,6 @@
 body {
   padding-top: 40px;
-  background: #090909;
+  background: #222;
 }
 
 .navbar-fixed-top {
@@ -30,7 +30,7 @@ body {
 
 .article {
   color: #b5b8b6;
-  background-color: #111;
+  background-color: #333;
   padding: 6px 6px 6px 9px;
 }
 
