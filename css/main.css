@@ -1,8 +1,16 @@
 body {
   padding-top: 40px;
+  background: #222;
 }
 
 .jumbotron {
   padding: 30px;
+  background-color: #ddd;
+  margin-bottom: 15px;
+  border-bottom: 2px solid #BBB;
+}
+
+.article {
+  color: #CCB;
 }
 
