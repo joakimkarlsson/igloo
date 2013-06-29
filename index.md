@@ -8,7 +8,7 @@ Igloo is a unit testing framework for C++ that aims to:
 - help you create readable tests
 - have a syntax that doesn’t make you repeat yourself
 
-# License
+#License
 
 Igloo is distributed under the [Boost Software License, Version 1.0](http://www.boost.org/users/license.html), which encourages both commercial and non-commercial use.
 
