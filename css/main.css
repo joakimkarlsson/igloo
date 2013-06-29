@@ -3,11 +3,25 @@ body {
   background: #222;
 }
 
+.navbar-fixed-top {
+  border-bottom: 2px solid #000;
+  background-color: #111;
+}
+
 .jumbotron {
   padding: 30px;
   background-color: #ddd;
   margin-bottom: 15px;
-  border-bottom: 2px solid #BBB;
+  border-bottom: 2px solid #000;
+
+  background: #000000; /* Old browsers */
+  background: -moz-linear-gradient(left, #000000 50%, #9400d3 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, right top, color-stop(50%,#000000), color-stop(100%,#9400d3)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(left, #000000 50%,#9400d3 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(left, #000000 50%,#9400d3 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(left, #000000 50%,#9400d3 100%); /* IE10+ */
+  background: linear-gradient(to right, #000000 50%,#9400d3 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#000000', endColorstr='#9400d3',GradientType=1 ); /* IE6-9 */
 }
 
 .article {
