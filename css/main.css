@@ -1,6 +1,6 @@
 body {
   padding-top: 40px;
-  background: #222;
+  background: #090909;
 }
 
 .navbar-fixed-top {
@@ -25,8 +25,21 @@ body {
 }
 
 .article {
-  color: #CCB;
+  //color: #cd853f;
+  color: #c5c8c6;
   background-color: #111;
   padding: 6px 6px 6px 9px;
 }
 
+.highlight {
+  margin: 5px 25px 5px 25px;
+}
+
+.highlight>pre {
+  background-color: #222;
+  line-height: 17px;
+}
+
+code {
+  font-size: 14px;
+}
