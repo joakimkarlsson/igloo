@@ -66,9 +66,11 @@ int main(int argv, const *char[] argv)
 The following video shows Igloo being used as the testing framework to create one possible solution to the Conway’s Game of Life TDD Kata.
 
 <div class='embed-vimeo' style='text-align:center;'>
-  <iframe src='http://player.vimeo.com/video/18350401' width='400' height='225' frameborder='0'> </iframe>
+  <a href="http://vimeo.com/18350401">
+    <img src="http://b.vimeocdn.com/ts/115/323/115323752_295.jpg"></img>
+  </a>
+  <p><a href="http://vimeo.com/18350401">C++ TDD Kata: Conway&#8217;s Game of Life</a> from <a href="http://vimeo.com/user5608696">Joakim Karlsson</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 </div>
-<p><a href="http://vimeo.com/18350401">C++ TDD Kata: Conway&#8217;s Game of Life</a> from <a href="http://vimeo.com/user5608696">Joakim Karlsson</a> on <a href="http://vimeo.com">Vimeo</a>.</p>
 
 
 ### Installing Igloo
