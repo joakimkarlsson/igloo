@@ -41,8 +41,9 @@ body {
 
 pre {
   background-color: #222;
-  line-height: 12px;
+  line-height: 14px;
   color: #c0c3c1;
+  font-size: 12px;
 }
 
 code {
