@@ -2,7 +2,7 @@
 layout: index
 ---
 
-### Latest Version
+### Edge Version
 
 [http://github.com/joakimkarlsson/igloo](http://github.com/joakimkarlsson/igloo)
 
