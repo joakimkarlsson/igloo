@@ -8,11 +8,31 @@
 #define IGLOO_CONTEXTPROVIDER_H_
 
 namespace igloo {
-  template <typename InnerContext, typename OuterContext>
+  
+  namespace detail {
+    template <typename T>
+      inline bool IsOnlyTemplate()
+      {
+        return T::IsOnly_Static();
+      }
+
+    template <>
+      inline bool IsOnlyTemplate<ContextWithAttribute<void> >()
+      {
+        return false;
+      }
+  }
+
+  template <typename InnerContext, typename OuterContext, bool ISONLY>
     struct ContextProvider : public igloo::ContextWithAttribute<InnerContext>
   {
     typedef InnerContext IGLOO_CURRENT_CONTEXT;
     typedef InnerContext IGLOO_OUTER_CONTEXT;
+
+    static bool IsOnly_Static()
+    {
+      return ISONLY || detail::IsOnlyTemplate<OuterContext>();
+    }
 
     virtual OuterContext& Parent()
     {

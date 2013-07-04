@@ -13,6 +13,9 @@
 #define Context(contextName) \
 IGLOO_CONTEXT_REGISTRATION(contextName)
 
+#define Context_Only(contextName) \
+IGLOO_CONTEXT_REGISTRATION_ONLY(contextName)
+
 #define ParentContext(contextName) \
   IGLOO_PARENT_CONTEXT_REGISTRATION(contextName)
 
@@ -28,6 +31,9 @@ IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)
 // "Classic" aliases
 #define TestFixture(fixtureName) \
 IGLOO_CONTEXT_REGISTRATION(fixtureName)
+
+#define TestFixture_Only(contextName) \
+IGLOO_CONTEXT_REGISTRATION_ONLY(contextName)
 
 #define DerivedFixture(fixtureName, baseFixtureName) \
 IGLOO_SUBCONTEXT_REGISTRATION(fixtureName, baseFixtureName)

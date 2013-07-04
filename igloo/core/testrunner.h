@@ -89,16 +89,25 @@ namespace igloo {
         : output_(output)
       {}
 
+      static bool is_only(const BaseContextRunner* runner)
+      {
+        return runner->IsOnly();
+      }
+
       int Run(const ContextRunners& runners)
       {
         TestResults results;
 
         listenerAggregator_.TestRunStarting();
 
+        bool only_has_been_found = std::find_if(runners.begin(), runners.end(), is_only) != runners.end();
+
         for (ContextRunners::const_iterator it = runners.begin(); it != runners.end(); it++)
         {
           BaseContextRunner* contextRunner = *it;
-          contextRunner->Run(results, listenerAggregator_);
+          if(!only_has_been_found || contextRunner->IsOnly()) {
+            contextRunner->Run(results, listenerAggregator_);
+          }
         }
 
         listenerAggregator_.TestRunEnded(results);

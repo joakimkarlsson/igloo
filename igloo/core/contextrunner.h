@@ -19,6 +19,11 @@ namespace igloo {
       RunContext(results, testListener);
     }
 
+    virtual bool IsOnly() const
+    {
+      return false;
+    }
+
     const std::string& ContextName() const
     {
       return contextName_;
@@ -57,6 +62,11 @@ namespace igloo {
     void InstantiateContext() const
     {
       CTC ctc;
+    }
+
+    virtual bool IsOnly() const
+    {
+      return ContextType::IsOnly_Static();
     }
     
     void RunContext(TestResults& results, TestListener& testListener) const

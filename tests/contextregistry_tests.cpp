@@ -10,7 +10,7 @@ using namespace igloo;
 
 Context(a_context_runner)
 {
-  struct ContextWithContextSetUpAndTearDown : public ContextProvider<ContextWithContextSetUpAndTearDown, ContextWithAttribute<void> >
+  struct ContextWithContextSetUpAndTearDown : public ContextProvider<ContextWithContextSetUpAndTearDown, ContextWithAttribute<void>, false >
   {
     static void SetUpContext()
     {

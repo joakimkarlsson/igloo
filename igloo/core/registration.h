@@ -19,10 +19,14 @@
 
 #define IGLOO_CONTEXT_REGISTRATION(contextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void) \
-  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT>
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, false>
+
+#define IGLOO_CONTEXT_REGISTRATION_ONLY(contextName) \
+  IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void) \
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, true>
 
 #define IGLOO_PARENT_CONTEXT_REGISTRATION(contextName) \
-  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT>
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, false>
 
 #define IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName) \

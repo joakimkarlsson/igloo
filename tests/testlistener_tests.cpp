@@ -5,16 +5,10 @@
 //          http://www.boost.org/LICENSE_1_0.txt)
 
 #include <tests/igloo_self_test.h>
+#include "fakes/fake_context_runner.h"
+#include "fakes/null_test_results_output.h"
 
 using namespace igloo;
-
-class NullTestResultsOutput : public TestResultsOutput
-{
-    public:
-      void PrintResult(const TestResults&) const 
-      {
-      }
-};
 
 class FakeTestListener : public TestListener
 {
@@ -71,24 +65,16 @@ class FakeTestListener : public TestListener
     std::string callLog;
 };
 
-class FakeContextRunner : public BaseContextRunner
-{
-  public:
-    FakeContextRunner() : BaseContextRunner("ContextName") {}
-    virtual void RunContext(TestResults& results, TestListener&) const
-    {
-      TestResultFactory factory(ContextName(), "SpecName");
-      results.AddResult(factory.CreateSuccessful());
-    }
-};
 
 Context(registering_a_test_listener)
 {
-  NullTestResultsOutput nullOutput;
+  fakes::NullTestResultsOutput nullOutput;
   std::auto_ptr<TestRunner> runner;
   TestRunner::ContextRunners contextRunners;
   FakeTestListener listener;
-  FakeContextRunner contextRunner;
+  fakes::FakeContextRunner contextRunner;
+  
+  registering_a_test_listener() : contextRunner("contextName") {}
 
   void SetUp()
   {
@@ -115,7 +101,7 @@ Context(registering_a_test_listener)
 
 Context(a_registered_context)
 {
-  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void> >
+  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void>, false >
   {
     ContextAttribute("attribute name", "attribute value")
 

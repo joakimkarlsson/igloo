@@ -70,7 +70,7 @@ Context(AContextWithSetupAndTearDown)
     Assert::That(innerContext.Parent().log, Equals("SetUp called Inner SetUp called Inner TearDown called TearDown called "));    
   } 
   
-  struct ContextToTest : public ContextProvider<ContextToTest, ContextWithAttribute<void> >
+  struct ContextToTest : public ContextProvider<ContextToTest, ContextWithAttribute<void>, false >
   {
     void SetUp()
     {
@@ -91,7 +91,7 @@ Context(AContextWithSetupAndTearDown)
       Assert::Failure("This should fail");
     }
     
-    struct InnerContext : public ContextProvider<InnerContext, ContextToTest>
+    struct InnerContext : public ContextProvider<InnerContext, ContextToTest, false>
     {
       void SetUp()
       {
