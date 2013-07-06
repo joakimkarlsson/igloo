@@ -18,7 +18,7 @@ namespace igloo { namespace fakes {
         results.AddResult(factory.CreateSuccessful());
       }
 
-      virtual bool IsOnly() const
+      virtual bool IsMarkedAsOnly() const
       {
         return is_only_;
       }

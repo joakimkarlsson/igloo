@@ -14,16 +14,16 @@ namespace igloo {
     // Check is the context is marked as "only"
     //
     template <typename T>
-      inline bool IsOnlyTemplate()
+      inline bool IsMarkedAsOnly()
       {
-        return T::IsOnly_Static();
+        return T::IsMarkedAsOnly();
       }
 
     //
     // Specialization for root context. Is never marked "only".
     //
     template <>
-    inline bool IsOnlyTemplate<ContextWithAttribute<void> >()
+    inline bool IsMarkedAsOnly<ContextWithAttribute<void> >()
     {
       return false;
     }
@@ -47,9 +47,9 @@ namespace igloo {
     typedef InnerContext IGLOO_CURRENT_CONTEXT;
     typedef InnerContext IGLOO_OUTER_CONTEXT;
 
-    static bool IsOnly_Static()
+    static bool IsMarkedAsOnly()
     {
-      return ISONLY || detail::IsOnlyTemplate<OuterContext>();
+      return ISONLY || detail::IsMarkedAsOnly<OuterContext>();
     }
 
     static bool IsMarkedAsSkip()

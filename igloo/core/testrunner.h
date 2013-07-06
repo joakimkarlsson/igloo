@@ -91,7 +91,7 @@ namespace igloo {
 
       static bool is_only(const BaseContextRunner* runner)
       {
-        return runner->IsOnly();
+        return runner->IsMarkedAsOnly();
       }
 
       int Run(const ContextRunners& runners)
@@ -105,7 +105,7 @@ namespace igloo {
         for (ContextRunners::const_iterator it = runners.begin(); it != runners.end(); it++)
         {
           BaseContextRunner* contextRunner = *it;
-          if(!only_has_been_found || contextRunner->IsOnly()) {
+          if(!only_has_been_found || contextRunner->IsMarkedAsOnly()) {
             if(!contextRunner->IsMarkedAsSkip()) {
               contextRunner->Run(results, listenerAggregator_);
             }

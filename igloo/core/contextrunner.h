@@ -19,10 +19,7 @@ namespace igloo {
       RunContext(results, testListener);
     }
 
-    virtual bool IsOnly() const
-    {
-      return false;
-    }
+    virtual bool IsMarkedAsOnly() const = 0;
 
     virtual bool IsMarkedAsSkip() const = 0;
 
@@ -66,9 +63,9 @@ namespace igloo {
       CTC ctc;
     }
 
-    virtual bool IsOnly() const
+    virtual bool IsMarkedAsOnly() const
     {
-      return ContextType::IsOnly_Static();
+      return ContextType::IsMarkedAsOnly();
     }
     
     virtual bool IsMarkedAsSkip() const
