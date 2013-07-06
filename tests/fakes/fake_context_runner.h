@@ -6,12 +6,12 @@ namespace igloo { namespace fakes {
   class FakeContextRunner : public BaseContextRunner
   {
     public:
-      FakeContextRunner(const std::string& contextName) : BaseContextRunner(contextName), is_only_(false) {}
+      FakeContextRunner(const std::string& contextName) : BaseContextRunner(contextName), is_only_(false), is_skip_(false) {}
 
       virtual void RunContext(TestResults& results, TestListener&) const
       {
         std::stringstream stm;
-        stm << "RunContext for '" << ContextName() << "' called" << std::endl;
+        stm << "RunContext called" << std::endl;
         callLog += stm.str();
 
         TestResultFactory factory(ContextName(), "SpecName");
@@ -23,12 +23,23 @@ namespace igloo { namespace fakes {
         return is_only_;
       }
 
+      virtual bool IsMarkedAsSkip() const
+      {
+        return is_skip_;
+      }
+
       void MarkAsOnly()
       {
         is_only_ = true;
       }
 
+      void MarkAsSkip()
+      {
+        is_skip_ = true;
+      }
+
       bool is_only_;
+      bool is_skip_;
       mutable std::string callLog;
   };
 

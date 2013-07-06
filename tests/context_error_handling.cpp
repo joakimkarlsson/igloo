@@ -30,7 +30,7 @@ Context(AContextWithAFailingSpec)
     Assert::That(FailingContext::callLog(), Is().StartingWith("SetUp called.").And().EndingWith("TearDown called."));
   }
   
-  struct FailingContext : public ContextProvider<FailingContext, ContextWithAttribute<void>, false >
+  struct FailingContext : public ContextProvider<FailingContext, ContextWithAttribute<void>, false, false>
   {
     void SetUp()
     {
@@ -78,7 +78,7 @@ Context(AContextWithAFailingTearDown)
     Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("FailingContext", "TrivialSpec", "This should fail")));    
   }
   
-  struct FailingContext : public ContextProvider<FailingContext, ContextWithAttribute<void>, false >
+  struct FailingContext : public ContextProvider<FailingContext, ContextWithAttribute<void>, false, false>
   {
     void TearDown()
     {
@@ -96,7 +96,7 @@ Context(AContextWithAFailingTearDown)
 
 Context(a_context_that_throws_an_unknown_exception_during_set_up)
 {
-  struct ContextThatFailsDuringSetUp : public ContextProvider<ContextThatFailsDuringSetUp, ContextWithAttribute<void>, false >
+  struct ContextThatFailsDuringSetUp : public ContextProvider<ContextThatFailsDuringSetUp, ContextWithAttribute<void>, false, false>
   {
     void SetUp()
     {
@@ -124,7 +124,7 @@ Context(a_context_that_throws_an_unknown_exception_during_set_up)
 
 Context(a_context_that_throws_an_unknown_exception_during_test_run)
 {
-  struct ContextThatFailsDuringTestRun : public ContextProvider<ContextThatFailsDuringTestRun, ContextWithAttribute<void>, false >
+  struct ContextThatFailsDuringTestRun : public ContextProvider<ContextThatFailsDuringTestRun, ContextWithAttribute<void>, false, false >
   {
     Spec(a_spec)
     {
@@ -148,7 +148,7 @@ Context(a_context_that_throws_an_unknown_exception_during_test_run)
 
 Context(a_context_that_throws_an_unknown_exception_during_tear_down)
 {
-  struct ContextThatFailsDuringTeardown : public ContextProvider<ContextThatFailsDuringTeardown, ContextWithAttribute<void>, false >
+  struct ContextThatFailsDuringTeardown : public ContextProvider<ContextThatFailsDuringTeardown, ContextWithAttribute<void>, false, false >
   {
     void TearDown()
     {

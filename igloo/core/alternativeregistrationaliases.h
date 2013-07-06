@@ -16,6 +16,9 @@ IGLOO_CONTEXT_REGISTRATION(contextName)
 #define Describe_Only(contextName) \
 IGLOO_CONTEXT_REGISTRATION_ONLY(contextName)
 
+#define Describe_Skip(contextName) \
+IGLOO_CONTEXT_REGISTRATION_SKIP(contextName)
+
 #define It(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
 
@@ -28,6 +31,9 @@ IGLOO_CONTEXT_REGISTRATION(contextName)
 
 #define When_Only(contextName) \
 IGLOO_CONTEXT_REGISTRATION_ONLY(contextName)
+
+#define When_Skip(contextName) \
+IGLOO_CONTEXT_REGISTRATION_SKIP(contextName)
 
 #define Then(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  

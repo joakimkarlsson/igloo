@@ -16,6 +16,9 @@ IGLOO_CONTEXT_REGISTRATION(contextName)
 #define Context_Only(contextName) \
 IGLOO_CONTEXT_REGISTRATION_ONLY(contextName)
 
+#define Context_Skip(contextName) \
+IGLOO_CONTEXT_REGISTRATION_SKIP(contextName)
+
 #define ParentContext(contextName) \
   IGLOO_PARENT_CONTEXT_REGISTRATION(contextName)
 
@@ -34,6 +37,9 @@ IGLOO_CONTEXT_REGISTRATION(fixtureName)
 
 #define TestFixture_Only(contextName) \
 IGLOO_CONTEXT_REGISTRATION_ONLY(contextName)
+
+#define TestFixture_Skip(contextName) \
+IGLOO_CONTEXT_REGISTRATION_SKIP(contextName)
 
 #define DerivedFixture(fixtureName, baseFixtureName) \
 IGLOO_SUBCONTEXT_REGISTRATION(fixtureName, baseFixtureName)

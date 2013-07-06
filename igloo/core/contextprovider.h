@@ -10,20 +10,38 @@
 namespace igloo {
   
   namespace detail {
+    //
+    // Check is the context is marked as "only"
+    //
     template <typename T>
       inline bool IsOnlyTemplate()
       {
         return T::IsOnly_Static();
       }
 
+    //
+    // Specialization for root context. Is never marked "only".
+    //
     template <>
-      inline bool IsOnlyTemplate<ContextWithAttribute<void> >()
-      {
-        return false;
-      }
+    inline bool IsOnlyTemplate<ContextWithAttribute<void> >()
+    {
+      return false;
+    }
+
+    template <typename T>
+    inline bool IsContextMarkedAsSkip()
+    {
+      return T::IsMarkedAsSkip();
+    }
+
+    template <>
+    inline bool IsContextMarkedAsSkip<ContextWithAttribute<void> >()
+    {
+      return false;
+    }
   }
 
-  template <typename InnerContext, typename OuterContext, bool ISONLY>
+  template <typename InnerContext, typename OuterContext, bool ISONLY, bool ISSKIP>
     struct ContextProvider : public igloo::ContextWithAttribute<InnerContext>
   {
     typedef InnerContext IGLOO_CURRENT_CONTEXT;
@@ -32,6 +50,11 @@ namespace igloo {
     static bool IsOnly_Static()
     {
       return ISONLY || detail::IsOnlyTemplate<OuterContext>();
+    }
+
+    static bool IsMarkedAsSkip()
+    {
+      return ISSKIP || detail::IsContextMarkedAsSkip<OuterContext>();
     }
 
     virtual OuterContext& Parent()

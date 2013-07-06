@@ -24,6 +24,8 @@ namespace igloo {
       return false;
     }
 
+    virtual bool IsMarkedAsSkip() const = 0;
+
     const std::string& ContextName() const
     {
       return contextName_;
@@ -69,6 +71,11 @@ namespace igloo {
       return ContextType::IsOnly_Static();
     }
     
+    virtual bool IsMarkedAsSkip() const
+    {
+      return ContextType::IsMarkedAsSkip();
+    }
+
     void RunContext(TestResults& results, TestListener& testListener) const
     {
       typedef ContextRegistry<CTE> CR;

@@ -106,7 +106,9 @@ namespace igloo {
         {
           BaseContextRunner* contextRunner = *it;
           if(!only_has_been_found || contextRunner->IsOnly()) {
-            contextRunner->Run(results, listenerAggregator_);
+            if(!contextRunner->IsMarkedAsSkip()) {
+              contextRunner->Run(results, listenerAggregator_);
+            }
           }
         }
 

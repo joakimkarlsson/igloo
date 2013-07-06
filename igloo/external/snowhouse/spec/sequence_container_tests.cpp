@@ -11,7 +11,7 @@ using namespace igloo;
 const char* ExpectedActual = "\nActual: [ 1, 2, 3, 5, 8 ]";
 
 template <typename T>
-struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTestsBase<T>, IGLOO_CURRENT_CONTEXT, false>
+struct SequenceContainerTestsBase : public ContextProvider<SequenceContainerTestsBase<T>, IGLOO_CURRENT_CONTEXT, false, false>
 {
   typedef SequenceContainerTestsBase<T> IGLOO_CURRENT_CONTEXT;
 

@@ -10,7 +10,7 @@ using namespace igloo;
 
 Context(A_context_with_attribute)
 {
-  struct ContextHavingAttribute : public ContextProvider<ContextHavingAttribute, ContextWithAttribute<void>, false >
+  struct ContextHavingAttribute : public ContextProvider<ContextHavingAttribute, ContextWithAttribute<void>, false, false >
   {
     ContextAttribute("name of attribute", "value of attribute")
 
