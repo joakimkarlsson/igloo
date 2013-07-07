@@ -10,11 +10,23 @@
 namespace igloo {
 
   template <typename ContextToCall>
-  struct ContextRegistry  
+  class ContextRegistry  
   {
-    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)())
+    typedef void (ContextToCall::*SpecPtr)();
+    struct SpecInfo
     {
-      GetSpecs().insert(std::make_pair(name, spec));
+      SpecPtr spec_ptr;
+      bool skip;
+    };
+    typedef std::map<std::string, SpecInfo> Specs;
+
+    public:
+    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)(), bool skip = false)
+    {
+      SpecInfo spec_info;
+      spec_info.spec_ptr = spec;
+      spec_info.skip = skip;
+      GetSpecs().insert(std::make_pair(name, spec_info));
     }
 
     static void ClearRegisteredSpecs()
@@ -23,60 +35,61 @@ namespace igloo {
     }
 
     template <typename ContextToCreate>
-    static void Run(const std::string& contextName, TestResults& results, TestListener& testListener)
-    {    
-      const Specs& specs = GetSpecs();
-      CallSpecs<ContextToCreate>(specs, contextName, results, testListener);
-    }
-
-    typedef void (ContextToCall::*SpecPtr)();
-    typedef std::map<std::string, SpecPtr> Specs;
-    
-    template <typename ContextToCreate>
-    static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener)
-    {
-      ContextToCreate::SetUpContext();
-
-      ContextToCreate c;
-      c.SetName(contextName);
-
-      testListener.ContextRunStarting(c);
-
-      typename Specs::const_iterator it;
-      for (it = specs.begin(); it != specs.end(); it++)
-      {
-        const std::string& specName = (*it).first;
-        SpecPtr spec = (*it).second;
-
-        ContextToCreate context;
-        context.SetName(contextName);
-
-        testListener.SpecRunStarting(context, specName);
-        
-        if(CallSpec(context, specName, spec, results))
-        {
-          testListener.SpecSucceeded(context, specName); 
-        }
-        else
-        {
-          testListener.SpecFailed(context, specName);
-        }
+      static void Run(const std::string& contextName, TestResults& results, TestListener& testListener)
+      {    
+        const Specs& specs = GetSpecs();
+        CallSpecs<ContextToCreate>(specs, contextName, results, testListener);
       }
 
-      ContextToCreate::TearDownContext();
 
-      testListener.ContextRunEnded(c);
-    }
+    template <typename ContextToCreate>
+      static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener)
+      {
+        ContextToCreate::SetUpContext();
+
+        ContextToCreate c;
+        c.SetName(contextName);
+
+        testListener.ContextRunStarting(c);
+
+        typename Specs::const_iterator it;
+        for (it = specs.begin(); it != specs.end(); it++)
+        {
+          const std::string& specName = (*it).first;
+          SpecInfo spec_info = (*it).second;
+
+          ContextToCreate context;
+          context.SetName(contextName);
+
+          testListener.SpecRunStarting(context, specName);
+
+          if(!spec_info.skip)
+          {
+            if(CallSpec(context, specName, spec_info.spec_ptr, results))
+            {
+              testListener.SpecSucceeded(context, specName); 
+            }
+            else
+            {
+              testListener.SpecFailed(context, specName);
+            }
+          }
+        }
+
+        ContextToCreate::TearDownContext();
+
+        testListener.ContextRunEnded(c);
+      }
 
     static bool CallSpec(ContextToCall& context, const std::string& specName, SpecPtr spec, TestResults& results)
     {
       bool result = true;
-      
+
       try
       {
         context.IglooFrameworkSetUp();
         (context.*spec)();
-       }
+      }
       catch (const snowhouse::AssertionException& e)
       {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateFromException(e));
@@ -87,7 +100,7 @@ namespace igloo {
         results.AddResult(FailedTestResult(context.Name(), specName, "Caught unknown exception"));
         result = false;
       }
-      
+
       try 
       {
         context.IglooFrameworkTearDown();
@@ -102,12 +115,12 @@ namespace igloo {
         results.AddResult(FailedTestResult(context.Name(), specName, "Caught unknown exception"));
         result = false;
       }
-      
+
       if(result)
       {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateSuccessful());
       }
-      
+
       return result;
     }
 
@@ -116,6 +129,7 @@ namespace igloo {
       static Specs specs;
       return specs;
     }
+
   };  
 }
 #endif

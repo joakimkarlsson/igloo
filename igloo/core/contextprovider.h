@@ -78,7 +78,6 @@ namespace igloo {
       Parent().IglooFrameworkTearDown();
     }
 
-
     private:
     template <typename ContextType>
       ContextType* CreateIglooContext()

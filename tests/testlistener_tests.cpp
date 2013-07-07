@@ -7,71 +7,16 @@
 #include <tests/igloo_self_test.h>
 #include "fakes/fake_context_runner.h"
 #include "fakes/null_test_results_output.h"
+#include "fakes/fake_test_listener.h"
 
 using namespace igloo;
-
-class FakeTestListener : public TestListener
-{
-  public:
-    void TestRunStarting()
-    {
-      callLog += "TestRunStarting\n";
-    }
-
-    void TestRunEnded(const TestResults& results)
-    {
-      std::stringstream stm;
-      stm << "TestRunEnded called with " << results.NumberOfTestsRun() << " tests run" << std::endl;
-      callLog += stm.str();
-    }
-
-    void ContextRunStarting(const ContextBase& context)
-    {
-      std::stringstream stm;
-      stm << "ContextRunStarting called for context '" << context.Name() << "'" << std::endl;
-      stm << "ContextRunStarting called with attribute '" << context.GetAttribute("attribute name") << "'" << std::endl;
-      callLog += stm.str();
-    }
-
-    void ContextRunEnded(const ContextBase& context)
-    {
-      std::stringstream stm;
-      stm << "ContextRunEnded called for context '" << context.Name() << "'" << std::endl;
-      stm << "ContextRunEnded called with attribute '" << context.GetAttribute("attribute name") << "'" << std::endl;
-      callLog += stm.str();
-    }
-
-    void SpecRunStarting(const ContextBase& context, const std::string& name)
-    {
-      std::stringstream stm;
-      stm << "SpecRunStarting called for context '" << context.Name() << "' and spec '" << name << "'" << std::endl;
-      callLog += stm.str();
-    }
-
-    void SpecSucceeded(const ContextBase& context, const std::string& name)
-    {
-      std::stringstream stm;
-      stm << "SpecSucceeded called for context '" << context.Name() << "' and spec '" << name << "'" << std::endl;
-      callLog += stm.str();
-    }
-
-    void SpecFailed(const ContextBase& context, const std::string& name)
-    {
-      std::stringstream stm;
-      stm << "SpecFailed called for context '" << context.Name() << "' and spec '" << name << "'" << std::endl;
-      callLog += stm.str();
-    }
-
-    std::string callLog;
-};
-
 
 Context(registering_a_test_listener)
 {
   fakes::NullTestResultsOutput nullOutput;
   std::auto_ptr<TestRunner> runner;
   TestRunner::ContextRunners contextRunners;
-  FakeTestListener listener;
+  fakes::FakeTestListener listener;
   fakes::FakeContextRunner contextRunner;
   
   registering_a_test_listener() : contextRunner("contextName") {}
@@ -163,6 +108,6 @@ Context(a_registered_context)
     AssertThat(testListener.callLog, Has().Exactly(1).EqualTo("SpecFailed called for context 'ContextToRun' and spec 'FailingSpec'"));
   }
 
-  FakeTestListener testListener;
+  fakes::FakeTestListener testListener;
   TestResults testResults;
 };

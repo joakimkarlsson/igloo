@@ -28,6 +28,9 @@ IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName)
 #define Spec(specName) \
 IGLOO_SPEC_REGISTRATION(specName)  
 
+#define Spec_Skip(specName) \
+IGLOO_SPEC_REGISTRATION_SKIP(specName)  
+
 #define ContextAttribute(attributeName, attributeValue) \
 IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)
 
@@ -46,6 +49,9 @@ IGLOO_SUBCONTEXT_REGISTRATION(fixtureName, baseFixtureName)
 
 #define TestMethod(methodName) \
 IGLOO_SPEC_REGISTRATION(methodName)
+
+#define TestMethod_Skip(methodName) \
+IGLOO_SPEC_REGISTRATION_SKIP(specName)  
 
 #define TestAttribute(attributeName, attributeValue) \
 IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)
