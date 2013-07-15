@@ -27,6 +27,7 @@ namespace igloo {
 #include <igloo/core/core.h>
 
 typedef igloo::ContextWithAttribute<void> IGLOO_CURRENT_CONTEXT;
+typedef void IGLOO_ROOT_CONTEXT;
 
 
 #endif

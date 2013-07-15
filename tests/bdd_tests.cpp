@@ -21,14 +21,25 @@ namespace igloo_example {
   
   struct Player
   {
+    Player(const char* name) : name_(name) {}
+
+    const std::string name_;
   };
   
-  inline bool operator==(const Player&, const Player&)
+  inline bool operator==(const Player& lhs, const Player& rhs)
   {
-    return true;
+    return lhs.name_ == rhs.name_;
+  }
+
+  inline std::ostream& operator<<(std::ostream& stm, const Player& player)
+  {
+    stm << "{ name_: " << player.name_ << " }" << std::endl;
+    return stm;
   }
   
-  Player PlayerOne;  
+  Player PlayerOne("One");  
+  Player PlayerTwo("Two");
+
   struct Game
   {
     typedef std::vector<Position> PositionCollection;
@@ -38,16 +49,18 @@ namespace igloo_example {
       return positions_;
     }
     
-    void Select(const Player&)
+    void Select(const Player* player)
     {
+      player_ = player;
     }
     
     const Player& NextPlayer()
     {
-      return PlayerOne;
+      return *player_;
     }
     
     PositionCollection positions_;
+    const Player* player_;
   };
   
   Position EmptyPosition;
@@ -64,13 +77,26 @@ Context(ANewlyStartedGame)
   {
     void SetUp()
     {
-      Parent().game.Select(PlayerOne);
+      Root().game.Select(&PlayerOne);
     }
     
     Spec(ItShouldBePlayerOnesTurn)
     {
       Assert::That(Parent().game.NextPlayer(), Equals(PlayerOne));
     }
+
+    Context(PlayerTwoIsSelectedToStart)
+    {
+      void SetUp()
+      {
+        Root().game.Select(&PlayerTwo);
+      }
+
+      Spec(ItShouldBePlayerTwosTurn)
+      {
+        Assert::That(Root().game.NextPlayer(), Equals(PlayerTwo));
+      }
+    };
   };  
   
   Game game;

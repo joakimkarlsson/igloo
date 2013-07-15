@@ -19,18 +19,18 @@
 
 #define IGLOO_CONTEXT_REGISTRATION(contextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void) \
-  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, false, false>
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, IGLOO_ROOT_CONTEXT, false, false>
 
 #define IGLOO_CONTEXT_REGISTRATION_ONLY(contextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void) \
-  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, true, false>
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, IGLOO_ROOT_CONTEXT, true, false>
 
 #define IGLOO_CONTEXT_REGISTRATION_SKIP(contextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, void) \
-  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, false, true>
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, IGLOO_ROOT_CONTEXT, false, true>
 
 #define IGLOO_PARENT_CONTEXT_REGISTRATION(contextName) \
-  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, false, false>
+  struct contextName : public ContextProvider<contextName, IGLOO_CURRENT_CONTEXT, IGLOO_ROOT_CONTEXT, false, false>
 
 #define IGLOO_SUBCONTEXT_REGISTRATION(contextName, baseContextName) \
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName) \

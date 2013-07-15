@@ -46,7 +46,7 @@ Context(registering_a_test_listener)
 
 Context(a_registered_context)
 {
-  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void>, false, false >
+  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void>, void, false, false >
   {
     ContextAttribute("attribute name", "attribute value")
 

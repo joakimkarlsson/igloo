@@ -11,7 +11,7 @@ namespace igloo {
   
   namespace detail {
     //
-    // Check is the context is marked as "only"
+    // Check if the context is marked as "only"
     //
     template <typename T>
       inline bool IsMarkedAsOnly()
@@ -28,12 +28,18 @@ namespace igloo {
       return false;
     }
 
+    //
+    // Check if the context is marked as "skip"
+    //
     template <typename T>
     inline bool IsContextMarkedAsSkip()
     {
       return T::IsMarkedAsSkip();
     }
 
+    //
+    // Specialization for root context. Is never marked as "skip".
+    //
     template <>
     inline bool IsContextMarkedAsSkip<ContextWithAttribute<void> >()
     {
@@ -41,11 +47,29 @@ namespace igloo {
     }
   }
 
+  //
+  // This class provides functionality for nested contexts.
+  //
+  // Template arguments:
+  //   InnerContext - this is the type of the current context.
+  //   OuterContext - the type of the outer (parent) context. 
+  //                  For root contexts, this is 'void'.
+  //   ISONLY       - Marks this context as 'only', which means 
+  //                  this context and it's children are the only
+  //                  contexts to be executed.
+  //   ISSKIP       - Marks this context as 'skip', which means
+  //                  this context and it's children should not
+  //                  be executed.
+  //
   template <typename InnerContext, typename OuterContext, bool ISONLY, bool ISSKIP>
-    struct ContextProvider : public igloo::ContextWithAttribute<InnerContext>
+    struct NestedContextProvider: public igloo::ContextWithAttribute<InnerContext>
   {
+    //
+    // By storing the current context in 'IGLOO_CURRENT_CONTEXT', the macros for
+    // registering contexts nested to this will be created with this context as
+    // outer context.
+    //
     typedef InnerContext IGLOO_CURRENT_CONTEXT;
-    typedef InnerContext IGLOO_OUTER_CONTEXT;
 
     static bool IsMarkedAsOnly()
     {
@@ -87,5 +111,46 @@ namespace igloo {
 
     std::auto_ptr<OuterContext> m_outerContext;
   };
+
+  //
+  // This class makes it possible for contexts to retrieve the root context.
+  //
+  template <typename InnerContext, typename OuterContext, typename RootContext, bool ISONLY, bool ISSKIP>
+    struct ContextProvider : public NestedContextProvider<InnerContext, OuterContext, ISONLY, ISSKIP>
+    {
+      //
+      // For non root contexts, we ask our parent to return the root context.
+      // This will work recursively up to the root context.
+      //
+      RootContext& Root()
+      {
+        return NestedContextProvider<InnerContext, OuterContext, ISONLY, ISSKIP>::Parent().Root();
+      }
+    };
+
+  //
+  // Specialization for the root contexts.
+  //
+  template <typename InnerContext, bool ISONLY, bool ISSKIP>
+    struct ContextProvider<InnerContext, ContextWithAttribute<void>, void, ISONLY, ISSKIP> : public NestedContextProvider<InnerContext, ContextWithAttribute<void>, ISONLY, ISSKIP>
+  {
+      //
+      // By setting this, nested contexts will have access to the type
+      // of the root context so that their 'Root()' method can return 
+      // the correct type.
+      //
+      typedef InnerContext IGLOO_ROOT_CONTEXT;
+
+      //
+      // For the root context, we return a reference to this
+      // context.
+      //
+      InnerContext& Root()
+      {
+        return *(static_cast<InnerContext*>(this));
+      }
+  };
+
+
 }
 #endif

@@ -13,7 +13,7 @@ using namespace igloo;
 
 Context(context_with_ignored_specs)
 {
-  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void>, false, false >
+  struct ContextToRun : public ContextProvider<ContextToRun, ContextWithAttribute<void>, void, false, false >
   {
     Spec(SpecToRun)
     {

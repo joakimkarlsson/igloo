@@ -29,6 +29,19 @@ Describe(An_entity)
     {
       Assert::That(Parent().its_true, IsFalse());
     }
+
+    Describe(even_more_nesting_with_direct_access_to_root)
+    {
+      void SetUp()
+      {
+        Root().its_true = true;
+      }
+
+      It(should_have_direct_access_to_the_root_context)
+      {
+        Assert::That(Root().its_true, IsTrue());
+      }
+    };
   };
 };
 
