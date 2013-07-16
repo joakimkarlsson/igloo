@@ -64,6 +64,7 @@ Context(a_registered_context)
   void SetUp()
   {
     ContextRegistry<ContextToRun>::RegisterSpec("SucceedingSpec", &ContextToRun::SucceedingSpec);
+    ContextRegistry<ContextToRun>::RegisterSpec("FailingSpec", &ContextToRun::FailingSpec);
     ContextRegistry<ContextToRun>::Run<ContextToRun>("ContextToRun", testResults, testListener);
   }
 

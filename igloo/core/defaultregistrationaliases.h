@@ -31,6 +31,9 @@ IGLOO_SPEC_REGISTRATION(specName)
 #define Spec_Skip(specName) \
 IGLOO_SPEC_REGISTRATION_SKIP(specName)  
 
+#define Spec_Only(specName) \
+IGLOO_SPEC_REGISTRATION_ONLY(specName)  
+
 #define ContextAttribute(attributeName, attributeValue) \
 IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)
 

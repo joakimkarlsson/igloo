@@ -55,10 +55,10 @@ namespace igloo {
   //   OuterContext - the type of the outer (parent) context. 
   //                  For root contexts, this is 'void'.
   //   ISONLY       - Marks this context as 'only', which means 
-  //                  this context and it's children are the only
+  //                  this context and its children are the only
   //                  contexts to be executed.
   //   ISSKIP       - Marks this context as 'skip', which means
-  //                  this context and it's children should not
+  //                  this context and its children should not
   //                  be executed.
   //
   template <typename InnerContext, typename OuterContext, bool ISONLY, bool ISSKIP>
@@ -73,7 +73,7 @@ namespace igloo {
 
     static bool IsContextMarkedAsOnly()
     {
-      return ISONLY || detail::IsContextMarkedAsOnly<OuterContext>();
+      return ISONLY || ContextRegistry<InnerContext>::HasSpecsMarkedAsOnly() || detail::IsContextMarkedAsOnly<OuterContext>();
     }
 
     static bool IsMarkedAsSkip()

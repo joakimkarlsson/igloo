@@ -8,7 +8,7 @@
 
 using namespace igloo;
 
-Context(a_context_runner)
+Context(static_setup_and_teardown)
 {
   struct ContextWithContextSetUpAndTearDown : public ContextProvider<ContextWithContextSetUpAndTearDown, ContextWithAttribute<void>, void, false, false >
   {

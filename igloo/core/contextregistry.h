@@ -17,15 +17,18 @@ namespace igloo {
     {
       SpecPtr spec_ptr;
       bool skip;
+      bool only;
     };
+    typedef std::pair<std::string, SpecInfo> NamedSpec;
     typedef std::map<std::string, SpecInfo> Specs;
 
     public:
-    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)(), bool skip = false)
+    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)(), bool skip = false, bool only = false)
     {
       SpecInfo spec_info;
       spec_info.spec_ptr = spec;
       spec_info.skip = skip;
+      spec_info.only = only;
       GetSpecs().insert(std::make_pair(name, spec_info));
     }
 
@@ -37,7 +40,8 @@ namespace igloo {
     template <typename ContextToCreate>
       static void Run(const std::string& contextName, TestResults& results, TestListener& testListener)
       {    
-        const Specs& specs = GetSpecs();
+        Specs specs;
+        GetSpecsToRun(specs);
         CallSpecs<ContextToCreate>(specs, contextName, results, testListener);
       }
 
@@ -130,6 +134,37 @@ namespace igloo {
       return specs;
     }
 
+    static bool is_spec_not_marked_as_only(const NamedSpec& spec)
+    {
+      return !is_spec_marked_as_only(spec);
+    }
+
+    static bool is_spec_marked_as_only(const NamedSpec& spec)
+    {
+      return spec.second.only;
+    }
+
+    static void GetSpecsMarkedAsOnly(Specs& specs)
+    {
+      std::remove_copy_if(GetSpecs().begin(), GetSpecs().end(), std::inserter(specs, specs.end()), is_spec_not_marked_as_only);
+    }
+
+    static bool HasSpecsMarkedAsOnly()
+    {
+      return std::find_if(GetSpecs().begin(), GetSpecs().end(), is_spec_marked_as_only) != GetSpecs().end();
+    }
+
+    static void GetSpecsToRun(Specs& specs)
+    {
+      if(HasSpecsMarkedAsOnly())
+      {
+        GetSpecsMarkedAsOnly(specs);
+      }
+      else
+      {
+        std::copy(GetSpecs().begin(), GetSpecs().end(), std::inserter(specs, specs.end()));
+      }
+    }
   };  
 }
 #endif

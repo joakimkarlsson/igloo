@@ -82,3 +82,4 @@ Context(TestRunner_)
   fakes::NullTestResultsOutput nullOutput;
   TestRunner::ContextRunners contextRunners;
 };
+

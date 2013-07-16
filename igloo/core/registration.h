@@ -36,21 +36,24 @@
   IGLOO_PRIVATE_GENERATE_CONTEXTREGISTRAR(contextName, baseContextName) \
   struct contextName : public baseContextName
 
-#define IGLOO_PRIVATE_SPEC_REGISTRATION(specName, skip) \
+#define IGLOO_PRIVATE_SPEC_REGISTRATION(specName, skip, only) \
   struct SpecRegistrar_##specName \
   { \
     SpecRegistrar_##specName() \
     { \
-	  ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#specName, &IGLOO_CURRENT_CONTEXT::specName, skip); \
+	  ContextRegistry<IGLOO_CURRENT_CONTEXT>::RegisterSpec(#specName, &IGLOO_CURRENT_CONTEXT::specName, skip, only); \
     } \
   } SpecRegistrar_##specName; \
   virtual void specName()
                        
 #define IGLOO_SPEC_REGISTRATION(specName) \
-  IGLOO_PRIVATE_SPEC_REGISTRATION(specName, false)
+  IGLOO_PRIVATE_SPEC_REGISTRATION(specName, false, false)
 
 #define IGLOO_SPEC_REGISTRATION_SKIP(specName) \
-  IGLOO_PRIVATE_SPEC_REGISTRATION(specName, true)
+  IGLOO_PRIVATE_SPEC_REGISTRATION(specName, true, false)
+
+#define IGLOO_SPEC_REGISTRATION_ONLY(specName) \
+  IGLOO_PRIVATE_SPEC_REGISTRATION(specName, false, true)
 
 #define IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(name, value) \
     struct AttributeRegistrar_##IGLOO_CURRENT_CONTEXT \

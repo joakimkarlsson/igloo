@@ -8,7 +8,7 @@ set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
 
 set(CMAKE_CXX_FLAGS "-Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels -Wshadow -pedantic-errors")
 
-FILE(GLOB IglooTestSourceFiles tests/*.cpp)
+FILE(GLOB IglooTestSourceFiles tests/*.cpp tests/**/*.cpp)
 add_executable(igloo-tests ${IglooTestSourceFiles})
 
 FILE(GLOB SnowhouseSpecSourceFiles igloo/external/snowhouse/spec/*.cpp)
