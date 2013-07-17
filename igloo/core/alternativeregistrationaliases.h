@@ -25,6 +25,9 @@ IGLOO_SPEC_REGISTRATION(specName)
 #define It_Skip(specName) \
 IGLOO_SPEC_REGISTRATION_SKIP(specName)  
 
+#define It_Only(specName) \
+IGLOO_SPEC_REGISTRATION_ONLY(specName)  
+
 #define DescriptionAttribute(attributeName, attributeValue) \
 IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)
 
@@ -43,6 +46,9 @@ IGLOO_SPEC_REGISTRATION(specName)
 
 #define Then_Skip(specName) \
 IGLOO_SPEC_REGISTRATION_SKIP(specName)  
+
+#define Then_Only(specName) \
+IGLOO_SPEC_REGISTRATION_ONLY(specName)  
 
 #define ScenarioAttribute(attributeName, attributeValue) \
 IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)

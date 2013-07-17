@@ -56,6 +56,9 @@ IGLOO_SPEC_REGISTRATION(methodName)
 #define TestMethod_Skip(methodName) \
 IGLOO_SPEC_REGISTRATION_SKIP(specName)  
 
+#define TestMethod_Only(methodName) \
+IGLOO_SPEC_REGISTRATION_ONLY(specName)  
+
 #define TestAttribute(attributeName, attributeValue) \
 IGLOO_CONTEXT_ATTRIBUTE_REGISTRATION(attributeName, attributeValue)
 
