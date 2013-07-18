@@ -26,7 +26,19 @@ namespace igloo {
 
 #include <igloo/core/core.h>
 
+//
+// These typedefs are used when registering contexts. For root
+// contexts, these are the types available. When a context is
+// registered it will redefine these so that any nested contexts
+// defined within will know about its outer context. We can also
+// use template specialization for contexts with the types here
+// to get different behaviors for root and nested contexts.
+//
 typedef igloo::ContextWithAttribute<void> IGLOO_CURRENT_CONTEXT;
+
+//
+// This is the current root context (void to begin with).
+//
 typedef void IGLOO_ROOT_CONTEXT;
 
 

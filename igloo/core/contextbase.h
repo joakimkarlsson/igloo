@@ -9,6 +9,9 @@
 
 namespace igloo {
 
+  //
+  // This is the base class for all contexts.
+  // 
   struct ContextBase
   {
     virtual ~ContextBase() {}

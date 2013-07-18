@@ -73,7 +73,9 @@ namespace igloo {
 
     static bool IsContextMarkedAsOnly()
     {
-      return ISONLY || ContextRegistry<InnerContext>::HasSpecsMarkedAsOnly() || detail::IsContextMarkedAsOnly<OuterContext>();
+      return ISONLY || 
+             ContextRegistry<InnerContext>::HasSpecsMarkedAsOnly() || 
+             detail::IsContextMarkedAsOnly<OuterContext>();
     }
 
     static bool IsMarkedAsSkip()
@@ -150,7 +152,6 @@ namespace igloo {
         return *(static_cast<InnerContext*>(this));
       }
   };
-
 
 }
 #endif

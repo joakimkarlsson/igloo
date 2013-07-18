@@ -12,6 +12,14 @@
 
 namespace igloo {
 
+  //
+  // This class enables us to store attributes with contexts.
+  // Attributes are named string values that can be used for
+  // filtering and reporting etc.
+  //
+  // A testlistener can retrieve the attributes for a context
+  // during a test run.
+  // 
   template <typename ContextType>
     struct ContextAttributeStorage
     {
@@ -35,6 +43,10 @@ namespace igloo {
     };
 
 
+  //
+  // This class is a base class to ContextProvider and adds
+  // the possibility to add attributes to a context.
+  //
   template <typename ContextType>
     struct ContextWithAttribute : ContextBase 
   {

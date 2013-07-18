@@ -9,21 +9,48 @@
 
 namespace igloo {
 
+  //
+  // This class stores information about all specs
+  // registered for a context type.
+  //
+  // There are two template types in play here, one at 
+  // the class level, and one for the "Run()" method.
+  //
+  // We separate between 'ContextToCall' and 'ContextToCreate'.
+  // This is used for creating abstract test cases where we
+  // have an abstract base class with test methods (ContextToCall), and
+  // multiple concrete test classes that set up specific versions of 
+  // test environments ('ContextToCreate').
+  //
   template <typename ContextToCall>
   class ContextRegistry  
   {
     typedef void (ContextToCall::*SpecPtr)();
+
+
+    //
+    // Information about a spec.
+    // Contains a pointer to the spec method, plus
+    // information about whether the spec is marked
+    // as "only" or "skip".
+    //
     struct SpecInfo
     {
       SpecPtr spec_ptr;
       bool skip;
       bool only;
     };
+
     typedef std::pair<std::string, SpecInfo> NamedSpec;
     typedef std::map<std::string, SpecInfo> Specs;
 
     public:
-    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)(), bool skip = false, bool only = false)
+    //
+    // Register a new spec (this is called by the registration
+    // macros during a live run).
+    //
+    static void RegisterSpec(const std::string& name, void (ContextToCall::*spec)(), 
+        bool skip = false, bool only = false)
     {
       SpecInfo spec_info;
       spec_info.spec_ptr = spec;
@@ -38,7 +65,8 @@ namespace igloo {
     }
 
     template <typename ContextToCreate>
-      static void Run(const std::string& contextName, TestResults& results, TestListener& testListener)
+      static void Run(const std::string& contextName, TestResults& results,
+          TestListener& testListener)
       {    
         Specs specs;
         GetSpecsToRun(specs);
@@ -47,7 +75,8 @@ namespace igloo {
 
 
     template <typename ContextToCreate>
-      static void CallSpecs(const Specs& specs, const std::string& contextName, TestResults& results, TestListener& testListener)
+      static void CallSpecs(const Specs& specs, const std::string& contextName,
+          TestResults& results, TestListener& testListener)
       {
         ContextToCreate::SetUpContext();
 
@@ -85,7 +114,8 @@ namespace igloo {
         testListener.ContextRunEnded(c);
       }
 
-    static bool CallSpec(ContextToCall& context, const std::string& specName, SpecPtr spec, TestResults& results)
+    static bool CallSpec(ContextToCall& context, const std::string& specName,
+        SpecPtr spec, TestResults& results)
     {
       bool result = true;
 
