@@ -7,7 +7,7 @@
 #ifndef IGLOO_IGLOO_FRAMEWORK_H
 #define IGLOO_IGLOO_FRAMEWORK_H
 
-#define IGLOO_VERSION "1.0.0"
+#define IGLOO_VERSION "1.1.0"
 
 #include <iostream>
 #include <map>
