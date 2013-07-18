@@ -12,7 +12,13 @@ layout: index
 
 ### Release Notes
 
-####Version 1.0.0 (2013-06-26)
+####[Version 1.1.0 (2013-07-18)](https://github.com/joakimkarlsson/igloo/releases/tag/igloo.1.1.0)
+
+- Support for running a subset of contexts and specs.
+- Support for skipping contexts and specs.
+- Direct access to root context from nested contexts via Root().
+
+####[Version 1.0.0 (2013-06-26)](https://github.com/joakimkarlsson/igloo/releases/tag/igloo.1.0.0)
 
 - Support for command line switches for selecting output format. 
 - Added EqualsContainer for comparing sequence containers. 

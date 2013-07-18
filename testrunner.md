@@ -101,19 +101,28 @@ Describe(a_newly_started_game)
   {
     void SetUp()
     {
-      Parent().game.Select(PlayerOne);
+      Root().game.Select(PlayerOne);
     }
 
     It(is_player_ones_turn)
     {
-      Assert::That(Parent().game.NextPlayer(), Equals(PlayerOne));
+      Assert::That(Root().game.NextPlayer(), Equals(PlayerOne));
     }
   };  
 
   Game game;
 };
 {% endhighlight %}
-The Parent() operation is used to access the context directly outside the current context.
+
+#### Accessing Parent Contexts
+
+A nested context can access members of its parent contexts by using the following methods:
+
+Parent() accesses the direct parent context of the current context.
+
+Root() accesses the root (outermost) context. Most of the time all of the members needed
+by a set of nested contexts are declared in the root context. No matter how deep your nesting
+goes, you can access those members by using this method.
 
 ### Set Up and Tear Down
 
@@ -145,6 +154,59 @@ Context(name_of_context)
   // ...
 
   static MyEnvironment common_stuff;
+};
+{% endhighlight %}
+
+### Running a Subset of the Tests
+
+#### Specifying which tests to run
+
+By appending "_Only" to a context or a spec, igloo will only run those contexts and specs that has the "_Only" suffix. If a context is marked as "_Only" it will also run all its nested contexts.
+
+{% highlight cpp linenos %}
+Context_Only(name_of_context)
+{
+  // This context will be run
+
+  Context(name_of_nested_context)
+  {
+    // This context will be run as well
+  };
+};
+
+Context(another_context)
+{
+  Spec_Only(my_spec)
+  {
+    // This spec will be run
+  }
+
+  Spec(my_other_spec)
+  {
+    // This will not be run.
+  }
+};
+
+Context(yet_another_context)
+{
+  // This context will not be run
+};
+{% endhighlight %}
+
+#### Specifying which tests to skip
+
+You can append "_Skip" to contexts and specs to exclude them from the test runs.
+
+{% highlight cpp linenos %}
+Context_Skip(skip_this_context)
+{
+};
+
+Context(a_context)
+{
+  Spec_Skip(skip_this_spec)
+  {
+  }
 };
 {% endhighlight %}
 
