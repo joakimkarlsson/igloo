@@ -17,6 +17,7 @@
 #include <list>
 #include <memory>
 #include <algorithm>
+#include <iterator>
 
 #include <igloo/external/snowhouse/snowhouse/snowhouse.h>
 
