@@ -12,6 +12,11 @@ layout: index
 
 ### Release Notes
 
+####[Version 1.1.1 (2013-08-06)](https://github.com/joakimkarlsson/igloo/releases/tag/igloo.1.1.1)
+
+- There was a problem building on some systems due to a missing `#include <iterator>`.
+- Context names were not locally scoped. This prevented us from having contexts with the same name but with different parent contexts. [Issue #10](https://github.com/joakimkarlsson/igloo/issues/10)
+
 ####[Version 1.1.0 (2013-07-18)](https://github.com/joakimkarlsson/igloo/releases/tag/igloo.1.1.0)
 
 - Support for running a subset of contexts and specs.
