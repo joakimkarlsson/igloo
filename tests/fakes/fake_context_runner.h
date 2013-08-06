@@ -6,7 +6,8 @@ namespace igloo { namespace fakes {
   class FakeContextRunner : public BaseContextRunner
   {
     public:
-      FakeContextRunner(const std::string& contextName) : BaseContextRunner(contextName), is_only_(false), is_skip_(false) {}
+      FakeContextRunner(const std::string& contextName, const char* fileName, int lineNumber) 
+        : BaseContextRunner(contextName, fileName, lineNumber), is_only_(false), is_skip_(false) {}
 
       virtual void RunContext(TestResults& results, TestListener&) const
       {

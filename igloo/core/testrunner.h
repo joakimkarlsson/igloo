@@ -127,16 +127,16 @@ namespace igloo {
 
 
       template <typename ContextRunnerType>
-        static void RegisterContext(const std::string& name)
+        static void RegisterContext(const std::string& name, const char* fileName, int lineNumber)
         {
-          if(!ContextIsRegistered(name))
+          if(!ContextIsRegistered(name, fileName, lineNumber))
           {
             ContextRunnerType* contextRunner = 0;
 
             try
             {
               // Must add runner first...
-              contextRunner = new ContextRunnerType(name);
+              contextRunner = new ContextRunnerType(name, fileName, lineNumber);
               TestRunner::RegisteredRunners().push_back(contextRunner);
 
               // ... and then instantiate context, because context ctor calls this method again,
@@ -166,11 +166,13 @@ namespace igloo {
         }
       }
 
-      static bool ContextIsRegistered(const std::string& name)
+      static bool ContextIsRegistered(const std::string& name, const char* fileName, int lineNumber)
       {
         for (ContextRunners::const_iterator it = RegisteredRunners().begin(); it != RegisteredRunners().end(); ++it)
         {
-          if((*it)->ContextName() == name)
+          if((*it)->ContextName() == name &&
+             (*it)->FileName() == fileName &&
+             (*it)->LineNumber() == lineNumber)
           {
             return true;
           }

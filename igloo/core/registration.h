@@ -13,7 +13,7 @@
   { \
     ContextRegistrar_##contextName() \
     { \
-      igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContextName, contextName> >(#contextName); \
+      igloo::TestRunner::RegisterContext<igloo::ContextRunner<baseContextName, contextName> >(#contextName, __FILE__, __LINE__); \
     } \
   } contextName##_IglooRegistrar;
 

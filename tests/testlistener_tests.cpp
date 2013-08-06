@@ -19,7 +19,7 @@ Context(registering_a_test_listener)
   fakes::FakeTestListener listener;
   fakes::FakeContextRunner contextRunner;
   
-  registering_a_test_listener() : contextRunner("contextName") {}
+  registering_a_test_listener() : contextRunner("contextName", "file1", 44) {}
 
   void SetUp()
   {

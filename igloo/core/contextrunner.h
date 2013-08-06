@@ -12,7 +12,8 @@ namespace igloo {
   
   struct BaseContextRunner 
   {
-    BaseContextRunner(const std::string& contextName) : contextName_(contextName) {}
+    BaseContextRunner(const std::string& contextName, const char* fileName, int lineNumber) 
+      : contextName_(contextName), fileName_(fileName), lineNumber_(lineNumber) {}
     virtual ~BaseContextRunner() {}
     void Run(TestResults& results, TestListener& testListener) const
     {
@@ -28,11 +29,23 @@ namespace igloo {
       return contextName_;
     }
 
+    const std::string& FileName() const
+    {
+      return fileName_;
+    }
+
+    int LineNumber() const
+    {
+      return lineNumber_;
+    }
+
     protected:
     virtual void RunContext(TestResults& results, TestListener& testListener) const = 0;
 
     private:
       std::string contextName_;
+      std::string fileName_;
+      int lineNumber_;
   };
   
   template <typename ContextRegistryType, typename ContextType>
@@ -56,7 +69,8 @@ namespace igloo {
     typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToExecute CTE;
     typedef typename ContextSelector<ContextRegistryType, ContextType>::ContextToCreate CTC;
 
-    ContextRunner(const std::string& contextName) : BaseContextRunner(contextName) {}
+    ContextRunner(const std::string& contextName, const char* fileName, int lineNumber) 
+      : BaseContextRunner(contextName, fileName, lineNumber) {}
 
     void InstantiateContext() const
     {

@@ -13,9 +13,9 @@ using namespace igloo;
 Context(TestRunner_)
 {
   TestRunner_() :
-    contextRunner("without_only"),
-    contextRunner_Only("with_only"),
-    contextRunner_Skip("with_skip")
+    contextRunner("without_only", "file1", 12),
+    contextRunner_Only("with_only", "file2", 13),
+    contextRunner_Skip("with_skip", "file3", 14)
   {}
 
   void SetUp()
