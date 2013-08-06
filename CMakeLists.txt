@@ -6,7 +6,13 @@ include_directories("${PROJECT_SOURCE_DIR}")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
 
-set(CMAKE_CXX_FLAGS "-Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels -Wshadow -pedantic-errors")
+if (MSVC)
+  add_definitions(-wd4800)  # Suppress ''type' : forcing value to bool 'true' or 'false' (performance warning)'
+else()
+  # Assume GCC-style arguments
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels -Wshadow -pedantic-errors")
+endif()
+
 
 FILE(GLOB IglooTestSourceFiles tests/*.cpp tests/**/*.cpp)
 add_executable(igloo-tests ${IglooTestSourceFiles})
