@@ -3,6 +3,15 @@
 
 #define SNOWHOUSE_VERSION "1.0.1"
 
+#include <iostream>
+#include <map>
+#include <vector>
+#include <sstream>
+#include <stack>
+#include <list>
+#include <memory>
+#include <algorithm>
+
 #include "stringize.h"
 #include "constraints/constraints.h"
 #include "fluent/fluent.h"
@@ -12,4 +21,3 @@
 #include "exceptions.h"
 
 #endif
-
