@@ -1,5 +1,6 @@
 igloo
 =====
+[![Build Status](https://travis-ci.org/joakimkarlsson/igloo.png)](https://travis-ci.org/joakimkarlsson/igloo)
 
 A framework for unit testing in C++
 
