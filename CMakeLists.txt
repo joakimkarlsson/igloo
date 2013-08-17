@@ -2,12 +2,15 @@ cmake_minimum_required(VERSION 2.8)
 
 project(igloo)
 
+set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake")
+include(cotire)
+
 include_directories("${PROJECT_SOURCE_DIR}")
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ./bin)
 
 if (MSVC)
-  add_definitions(-wd4800)  # Suppress ''type' : forcing value to bool 'true' or 'false' (performance warning)'
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /W4 /MP ")
 else()
   # Assume GCC-style arguments
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wfatal-errors -Wall -W -Werror -Wfloat-equal -Wundef -Wendif-labels -Wshadow -pedantic-errors")
@@ -16,9 +19,15 @@ endif()
 
 FILE(GLOB IglooTestSourceFiles tests/*.cpp tests/**/*.cpp)
 add_executable(igloo-tests ${IglooTestSourceFiles})
+set_target_properties(igloo-tests PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "tests/igloo_self_test.h")
+set_target_properties(igloo-tests PROPERTIES COTIRE_ADD_UNIT_BUILD FALSE)
+cotire(igloo-tests)
 
 FILE(GLOB SnowhouseSpecSourceFiles igloo/external/snowhouse/spec/*.cpp)
 add_executable(snowhouse-tests ${SnowhouseSpecSourceFiles})
+set_target_properties(snowhouse-tests PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "tests/igloo_self_test.h")
+set_target_properties(snowhouse-tests PROPERTIES COTIRE_ADD_UNIT_BUILD FALSE)
+cotire(snowhouse-tests)
 
 add_custom_command(TARGET igloo-tests
                    POST_BUILD
