@@ -24,6 +24,9 @@ namespace igloo_example {
     Player(const char* name) : name_(name) {}
 
     const std::string name_;
+
+  private:
+	  Player& operator=(const Player&) { return *this; }
   };
   
   inline bool operator==(const Player& lhs, const Player& rhs)

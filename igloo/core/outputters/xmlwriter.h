@@ -60,6 +60,8 @@ namespace igloo {
       }
 
       friend class XmlElement;
+
+	  XmlWriter& operator=(const XmlWriter&) { return *this; }
   };
 
   //
@@ -175,6 +177,8 @@ namespace igloo {
               wr.elements.top()->tagopen = false;
           }
       }
+
+	  XmlElement& operator=(const XmlElement&) { return *this; }
   };
 }
 
