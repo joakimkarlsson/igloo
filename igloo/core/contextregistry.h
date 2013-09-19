@@ -129,6 +129,11 @@ namespace igloo {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateFromException(e));
         result = false;
       }
+      catch (const std::exception & e)
+      {
+        results.AddResult(FailedTestResult(context.Name(), specName, std::string("Caught std::exception, what(): ") + e.what()));
+        result = false;
+      }
       catch (...)
       {
         results.AddResult(FailedTestResult(context.Name(), specName, "Caught unknown exception"));
@@ -142,6 +147,11 @@ namespace igloo {
       catch (const snowhouse::AssertionException& e) 
       {
         results.AddResult(TestResultFactory(context.Name(), specName).CreateFromException(e));
+        result = false;
+      }
+      catch (const std::exception & e)
+      {
+        results.AddResult(FailedTestResult(context.Name(), specName, std::string("Caught std::exception, what(): ") + e.what()));
         result = false;
       }
       catch (...)

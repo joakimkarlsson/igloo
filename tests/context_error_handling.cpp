@@ -4,6 +4,7 @@
 //    (See accompanying file LICENSE_1_0.txt or copy at
 //          http://www.boost.org/LICENSE_1_0.txt)
 
+#include <stdexcept>
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
@@ -169,6 +170,86 @@ Context(a_context_that_throws_an_unknown_exception_during_tear_down)
   {
     ContextRegistry<ContextThatFailsDuringTeardown>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringTeardown::a_spec, results);
     Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringTeardown", "a_spec", "Caught unknown exception")));
+  }
+
+  TestResults results;
+};
+
+Context(a_context_that_throws_an_std_exception_during_set_up)
+{
+  struct ContextThatFailsDuringSetUp : public ContextProvider<ContextThatFailsDuringSetUp, ContextWithAttribute<void>, void, false, false>
+  {
+    void SetUp()
+    {
+      throw std::runtime_error("An error during SetUp!");
+    }
+
+    Spec(a_spec)
+    {
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringSetUp");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringSetUp>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringSetUp::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringSetUp", "a_spec", "Caught std::exception, what(): An error during SetUp!")));
+  }
+
+  TestResults results;
+};
+
+Context(a_context_that_throws_an_std_exception_during_test_run)
+{
+  struct ContextThatFailsDuringTestRun : public ContextProvider<ContextThatFailsDuringTestRun, ContextWithAttribute<void>, void, false, false >
+  {
+    Spec(a_spec)
+    {
+      throw std::runtime_error("An error during test run!");
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringTestRun");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringTestRun>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringTestRun::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringTestRun", "a_spec", "Caught std::exception, what(): An error during test run!")));
+  }
+
+  TestResults results;
+};
+
+Context(a_context_that_throws_an_std_exception_during_tear_down)
+{
+  struct ContextThatFailsDuringTeardown : public ContextProvider<ContextThatFailsDuringTeardown, ContextWithAttribute<void>, void, false, false >
+  {
+    void TearDown()
+    {
+      throw std::runtime_error("An error during TearDown!");
+    }
+
+    Spec(a_spec)
+    {
+    }
+  } failing_context;
+
+  void SetUp()
+  {
+    failing_context.SetName("ContextThatFailsDuringTeardown");
+  }
+
+  Spec(exception_should_be_stored_in_test_result)
+  {
+    ContextRegistry<ContextThatFailsDuringTeardown>::CallSpec(failing_context, "a_spec", &ContextThatFailsDuringTeardown::a_spec, results);
+    Assert::That(results.FailedTests(), Has().Exactly(1).EqualTo(FailedTestResult("ContextThatFailsDuringTeardown", "a_spec", "Caught std::exception, what(): An error during TearDown!")));
   }
 
   TestResults results;
