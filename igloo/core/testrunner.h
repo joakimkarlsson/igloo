@@ -21,7 +21,7 @@ namespace igloo {
     public:
       typedef std::list<BaseContextRunner*> ContextRunners;
 
-      static int RunAllTests(int argc = 0, const char *argv[] = 0)
+      static int RunAllTests(int argc = 0, char *argv[] = 0)
       {
         choices::options opt = choices::parse_cmd(argc, argv);
 

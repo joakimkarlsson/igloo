@@ -44,7 +44,7 @@ namespace choices {
 
   namespace details {
 
-    inline void as_vect(int argc, const char *argv[], std::vector<std::string>& res)
+    inline void as_vect(int argc, char *argv[], std::vector<std::string>& res)
     {
       res.assign(argv, argv + argc);
     }
@@ -95,7 +95,7 @@ namespace choices {
 
   namespace d = details;
 
-  inline options parse_cmd(int argc, const char *argv[])
+  inline options parse_cmd(int argc, char *argv[])
   {
     options o;
     if(argc == 0 || argv == 0)

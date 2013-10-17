@@ -7,7 +7,7 @@
 #include <tests/igloo_self_test.h>
 using namespace igloo;
 
-int main(int argc, const char *argv[])
+int main(int argc, char *argv[])
 {
   return TestRunner::RunAllTests(argc, argv);
 }
