@@ -39,6 +39,8 @@ Makefile
 cmake_install.cmake
 bin/
 builds/
+cmake/
+*.cmake
 
 #mac crap
 .DS_Store
