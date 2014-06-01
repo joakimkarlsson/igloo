@@ -23,11 +23,8 @@ set_target_properties(igloo-tests PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "test
 set_target_properties(igloo-tests PROPERTIES COTIRE_ADD_UNIT_BUILD FALSE)
 # cotire(igloo-tests)
 
-FILE(GLOB SnowhouseSpecSourceFiles igloo/external/snowhouse/spec/*.cpp)
-add_executable(snowhouse-tests ${SnowhouseSpecSourceFiles})
-set_target_properties(snowhouse-tests PROPERTIES COTIRE_CXX_PREFIX_HEADER_INIT "tests/igloo_self_test.h")
-set_target_properties(snowhouse-tests PROPERTIES COTIRE_ADD_UNIT_BUILD FALSE)
-# cotire(snowhouse-tests)
+set(cfg "C++" CACHE STRING "Configuration for snowhouse")
+add_subdirectory(igloo/external/snowhouse)
 
 add_custom_command(TARGET igloo-tests
                    POST_BUILD
