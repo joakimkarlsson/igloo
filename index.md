@@ -55,7 +55,7 @@ Describe(a_guitar_with_a_fuzzbox)
   Guitar guitar;
 };
 
-int main(int argv, const *char[] argv)
+int main(int argc, const *char[] argv)
 {
   return TestRunner::RunAllTests(argc, argv);
 }
