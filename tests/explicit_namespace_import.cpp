@@ -11,13 +11,12 @@
 // namespace.
 //
 
-using snowhouse::Assert;
 using snowhouse::Equals;
 
 Describe(can_be_used_without_importing_whole_namespace)
 {
     It(does_a_silly_assert)
     {
-        Assert::That(5, Equals(5));
+        AssertThat(5, Equals(5));
     }
 };
