@@ -10,8 +10,6 @@ Igloo is a unit testing framework for C++ that aims to:
 * help you create readable tests
 * have a syntax that doesn’t make you repeat yourself
 
-For more info visit http://igloo-testing.org/
-
 ## Example
 
 The following is a complete test application written in Igloo
