@@ -187,10 +187,8 @@ namespace igloo {
         return contextRunners;
       }
 
-	private:
-		TestRunner& operator=(const TestRunner&) { return *this; }
+      TestRunner& operator=(const TestRunner&);
 
-    private:
       const TestResultsOutput& output_;
       TestListenerAggregator listenerAggregator_;
   };

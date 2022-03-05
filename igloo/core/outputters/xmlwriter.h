@@ -61,7 +61,7 @@ namespace igloo {
 
       friend class XmlElement;
 
-	  XmlWriter& operator=(const XmlWriter&) { return *this; }
+      XmlWriter& operator=(const XmlWriter&);
   };
 
   //
@@ -178,7 +178,7 @@ namespace igloo {
           }
       }
 
-	  XmlElement& operator=(const XmlElement&) { return *this; }
+      XmlElement& operator=(const XmlElement&);
   };
 }
 
