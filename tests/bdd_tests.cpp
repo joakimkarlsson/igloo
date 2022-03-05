@@ -22,6 +22,7 @@ namespace igloo_example {
   struct Player
   {
     Player(const char* name) : name_(name) {}
+    Player(const Player& rhs) : name_(rhs.name_) {}
 
     const std::string name_;
 
