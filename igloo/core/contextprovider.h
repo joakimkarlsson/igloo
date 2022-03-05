@@ -71,6 +71,16 @@ namespace igloo {
     //
     typedef InnerContext IGLOO_CURRENT_CONTEXT;
 
+    NestedContextProvider()
+      : m_outerContext(0)
+    {
+    }
+
+    ~NestedContextProvider()
+    {
+      delete m_outerContext;
+    }
+
     static bool IsContextMarkedAsOnly()
     {
       return ISONLY || 
@@ -85,11 +95,11 @@ namespace igloo {
 
     virtual OuterContext& Parent()
     {
-      if(m_outerContext.get() == 0)
+      if(m_outerContext == 0)
       {
-        m_outerContext = std::auto_ptr<OuterContext>(CreateIglooContext<OuterContext>());
+        m_outerContext = CreateIglooContext<OuterContext>();
       }
-      return *(m_outerContext.get());
+      return *m_outerContext;
     }
 
     virtual void IglooFrameworkSetUp()
@@ -111,7 +121,7 @@ namespace igloo {
         return new ContextType();
       }
 
-    std::auto_ptr<OuterContext> m_outerContext;
+    OuterContext* m_outerContext;
   };
 
   //

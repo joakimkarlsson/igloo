@@ -14,7 +14,7 @@ using namespace igloo;
 Context(registering_a_test_listener)
 {
   fakes::NullTestResultsOutput nullOutput;
-  std::auto_ptr<TestRunner> runner;
+  TestRunner* runner;
   TestRunner::ContextRunners contextRunners;
   fakes::FakeTestListener listener;
   fakes::FakeContextRunner contextRunner;
@@ -23,10 +23,15 @@ Context(registering_a_test_listener)
 
   void SetUp()
   {
-    runner = std::auto_ptr<TestRunner>(new TestRunner(nullOutput));
+    runner = new TestRunner(nullOutput);
     runner->AddListener(&listener);
 
     contextRunners.push_back(&contextRunner);
+  }
+
+  void TearDown()
+  {
+    delete runner;
   }
 
   Spec(a_callback_is_made_when_the_test_run_starts)
