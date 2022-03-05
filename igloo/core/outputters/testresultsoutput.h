@@ -15,6 +15,7 @@ namespace igloo {
       std::ostream& output;
     public:
       TestResultsOutput(std::ostream& outstream = std::cout) : output(outstream) {}
+      virtual ~TestResultsOutput() {}
       virtual void PrintResult(const TestResults& results) const = 0;
 
     private:
