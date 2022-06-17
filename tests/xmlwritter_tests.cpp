@@ -19,6 +19,11 @@ Context(EmptyXMWriter)
     ws = new XmlWriter(ss);
   }
 
+  void TearDown()
+  {
+    delete ws;
+  }
+
   Spec(Should_generate_XML_header_when_empty)
   {
     Assert::That(ss.str(), Is().StartingWith("<?xml version=\"1.0\" encoding=\"utf-8\"?>"));

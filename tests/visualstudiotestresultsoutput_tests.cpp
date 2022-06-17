@@ -11,13 +11,18 @@ using namespace igloo;
 
 Context(VisualStudioResultsOutput_EmptyTestRun)
 {
-  std::auto_ptr<VisualStudioResultsOutput> output;
+  VisualStudioResultsOutput* output;
   std::stringstream resulting_stream;
   TestResults results;
   
   void SetUp()
   {
-    output = std::auto_ptr<VisualStudioResultsOutput>(new VisualStudioResultsOutput(resulting_stream));
+    output = new VisualStudioResultsOutput(resulting_stream);
+  }
+
+  void TearDown()
+  {
+    delete output;
   }
 
   Spec(it_should_display_a_summary_line_with_no_tests_run)

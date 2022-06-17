@@ -22,7 +22,12 @@ Context(TestRunner_)
   {
     contextRunner_Only.MarkAsOnly();
     contextRunner_Skip.MarkAsSkip();
-    runner = std::auto_ptr<TestRunner>(new TestRunner(nullOutput));
+    runner = new TestRunner(nullOutput);
+  }
+
+  void TearDown()
+  {
+    delete runner;
   }
 
   Context(no_only_specified)
@@ -78,7 +83,7 @@ Context(TestRunner_)
   fakes::FakeContextRunner contextRunner;
   fakes::FakeContextRunner contextRunner_Only;
   fakes::FakeContextRunner contextRunner_Skip;
-  std::auto_ptr<TestRunner> runner;
+  TestRunner* runner;
   fakes::NullTestResultsOutput nullOutput;
   TestRunner::ContextRunners contextRunners;
 };

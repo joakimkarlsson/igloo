@@ -22,11 +22,12 @@ namespace igloo_example {
   struct Player
   {
     Player(const char* name) : name_(name) {}
+    Player(const Player& rhs) : name_(rhs.name_) {}
 
     const std::string name_;
 
   private:
-	  Player& operator=(const Player&) { return *this; }
+    Player& operator=(const Player&);
   };
   
   inline bool operator==(const Player& lhs, const Player& rhs)
